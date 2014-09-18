@@ -80,15 +80,13 @@ Transcript ID : **693185**   Access Code : **vinceMCP**
 ### vNext
 Consultant Senior et Architecte
 
-Mars. 2013
-**leKiosk** – **leKiosk Windows 8**
+#### leKiosk – leKiosk Windows 8
+<span class="post-date">Mars. 2013</span>
 
 Développement de l’application leKiosk sur Windows 8.
 La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
 L’application permet d’acheter les magazines puis de les lire offline.
-
 `Win RT – MVVM - MonoGame`
-
 
 
 #### Isagri – Isalait Mobo’Pilot 2013
@@ -98,7 +96,6 @@ Réalisation d'une application Tablette pour la nouvelle génération des applic
 
 Le logiciel est une application téléchargée gratuitement depuis le « store » de la plateforme (adroid ou iOS), qui utilise ses données depuis une base locale sur la tablette qui est synchronisée avec l’application PC principale du client.
 Cette synchronisation est dite « directe » et ne nécessite pas une connexion via le Web, mais seulement une connexion LAN local (via le wifi local).
-
 `jQuery – JavaScript - Angularjs  - bootstrap - jaydata - Bonjour - Cordova`
 
 
@@ -110,10 +107,8 @@ Réalisation d'une suite d’applications HTML5 permettant la création et la ge
 Développement du front pour iPad / iPhone et IE8 basé sur jQuery Mobile et HTML5. La gestion des fichiers manifest permet la mise hors ligne et un fonctionnement autonome de l’ensemble du front. 
 Les modèles de formulaires sont stockés au format json et un moteur de rendu permet de les transformer en fonction de la plateforme cliente.
 
-Développement d’un backoffice de gestion des données du système et des droits d’accès.
-
-Développement d’un designer de formulaire en web de type WYSIWYG utilisant le modèle MVC d’Angularjs.
-
+* Développement d’un backoffice de gestion des données du système et des droits d’accès.
+* Développement d’un designer de formulaire en web de type WYSIWYG utilisant le modèle MVC d’Angularjs.
 `ASP.NET MVC – jQuery Mobile – JavaScript - Knockout js  -Angularjs  - bootstrap - SQL SERVER – Entity Framework – AppFabric – Azure Web Role - Cordova`
 
 
