@@ -92,7 +92,7 @@ L’application permet d’acheter les magazines puis de les lire offline.
 
 
 #### Isagri – Isalait Mobo’Pilot 2013
-> déc. 2013 - avril. 2013
+<span class="post-date">déc. 2013 - avril. 2013</span>
 
 Réalisation d'une application Tablette pour la nouvelle génération des applications mobiles Isagri à destination de périphériques mobiles.
 
