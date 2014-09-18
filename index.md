@@ -102,9 +102,9 @@ Cette synchronisation est dite « directe » et ne nécessite pas une connexion 
 `jQuery – JavaScript - Angularjs  - bootstrap - jaydata - Bonjour - Cordova`
 
 
+#### Aéroports de Paris – Formulaires Mobile (FIRST)
+<span class="post-date">juin. 2013 - déc. 2013</span>
 
-juin. 2013 - déc. 2013
-**Aéroports de Paris** – **Formulaires Mobile (FIRST)**
 Réalisation d'une suite d’applications HTML5 permettant la création et la gestion de formulaires à destination d'iPad et IE8.
 
 Développement du front pour iPad / iPhone et IE8 basé sur jQuery Mobile et HTML5. La gestion des fichiers manifest permet la mise hors ligne et un fonctionnement autonome de l’ensemble du front. 
