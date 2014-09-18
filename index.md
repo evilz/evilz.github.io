@@ -19,9 +19,9 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 ## Formation
 
 
-* [2005] Diplomé Bac+5 de SUPINFO
-* 2004-2005 Directeur et formateur au laboratoire .net à SUPINFO.
-* 2003-2004 Membre fondateur du laboratoire .net de Supinfo (www.labo-dotnet.com) et formateur au laboratoire des.net à SUPINFO.
+* [2005]() Diplomé Bac+5 de SUPINFO
+* **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO.
+* **2003-2004** Membre fondateur du laboratoire .net de Supinfo (www.labo-dotnet.com) et formateur au laboratoire des.net à SUPINFO.
 * 2000 Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
 * 2000 Bac Sciences et Technologies Industrielles - Mention bien
 
