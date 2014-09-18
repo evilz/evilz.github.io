@@ -3,6 +3,16 @@ layout: home
 published: true
 ---
 
+``` xml
+
+6bis rue de la Haute Boulaye
+27490 Autheuil-Authouillet
+06 45 78 08 81
+evilznet@gmail.com
+www.evilznet.com
+
+``` 
+
 > J’ai plongé assez jeune dans le monde informatique et j’ai rapidement commencé à développer sur le web dans les années 1995-1996. 
 Je suis maintenant Consultant Senior sur la plateforme Microsoft .net avec une bonne expérience du monde web.
 Je souhaite mettre  mes compétences au service de la création de produits innovants.
