@@ -109,7 +109,7 @@ Les modèles de formulaires sont stockés au format json et un moteur de rendu p
 
 * Développement d’un backoffice de gestion des données du système et des droits d’accès.
 * Développement d’un designer de formulaire en web de type WYSIWYG utilisant le modèle MVC d’Angularjs.
-`ASP.NET MVC – jQuery Mobile – JavaScript - Knockout js  -Angularjs  - bootstrap - SQL SERVER – Entity Framework – AppFabric – Azure Web Role - Cordova`
+ `ASP.NET MVC – jQuery Mobile – JavaScript - Knockout js  -Angularjs  - bootstrap - SQL SERVER – Entity Framework – AppFabric – Azure Web Role - Cordova`
 
 
 sept. 2011
