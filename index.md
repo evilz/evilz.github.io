@@ -3,7 +3,9 @@ layout: home
 published: true
 ---
 
-sdfsdf sd dsf sqd sdqf sqdfqs dsq dsq
+> J’ai plongé assez jeune dans le monde informatique et j’ai rapidement commencé à développer sur le web dans les années 1995-1996. 
+Je suis maintenant Consultant Senior sur la plateforme Microsoft .net avec une bonne expérience du monde web.
+Je souhaite mettre  mes compétences au service de la création de produits innovants.
 
 ## Title 2
 
