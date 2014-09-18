@@ -28,28 +28,16 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 
 #### Microsoft Certified Professional Developer (MCPD) 
 ```
-Web Developer
-```
+Microsoft Certified Professional Developer Web Developer
 
-#### Microsoft® Certified Technology Specialist ﴾MCTS﴿ 
-```
-.NET Framework 4, Web Applications
-.NET Framework 2, Web Applications
-``` 
+Microsoft® Certified Technology Specialist .NET Framework 4, Web Applications
+Microsoft® Certified Technology Specialist.NET Framework 2, Web Applications
 
-#### Microsoft Certified Systems Engineer
-```
-Microsoft Windows 2000
-```
+Microsoft Certified Systems Engineer Windows 2000
 
-#### Microsoft Certified Application Developer
-```
-For Microsoft .NET
-```
+Microsoft Certified Application Developer .NET
 
-#### Microsoft Certified Systems Administrator
-```
-Microsoft Windows 2000
+Microsoft Certified Systems Administrator Windows 2000
 ```
 
 #### Cisco
@@ -63,7 +51,7 @@ SQL & PL/SQL
 ```
 
 > Microsoft Certification transcript : (https://mcp.microsoft.com/authenticate/validatemcp.aspx)
-Transcript ID : 693185  /   Access Code : vinceMCP
+Transcript ID : **693185**   Access Code : **vinceMCP**
 
 ## Compétences Techniques
 
