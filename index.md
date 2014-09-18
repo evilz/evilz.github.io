@@ -4,7 +4,6 @@ published: true
 ---
 
 ``` xml
-
 6bis rue de la Haute Boulaye
 27490 Autheuil-Authouillet
 06 45 78 08 81
@@ -19,11 +18,64 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 ## Formation
 
 
-* [2005]() Diplomé Bac+5 de SUPINFO
-* **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO.
-* **2003-2004** Membre fondateur du laboratoire .net de Supinfo (www.labo-dotnet.com) et formateur au laboratoire des.net à SUPINFO.
-* 2000 Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
-* 2000 Bac Sciences et Technologies Industrielles - Mention bien
+* **2005** Diplomé Bac+5 de SUPINFO
+* **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO. (www.labo-dotnet.com)
+* **2003-2004** Membre fondateur du laboratoire .net de Supinfo et formateur au laboratoire des.net à SUPINFO.
+* **2000** Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
+* **2000** Bac Sciences et Technologies Industrielles - **Mention bien**
+
+## Certifications
+
+
+
+#### Microsoft Certified Professional Developer (MCPD) 
+**25/11/2008** - Web Developer
+
+
+
+11/25/2008
+
+#### Microsoft® Certified Technology Specialist ﴾MCTS﴿ 
+               - .NET Framework 4, Web Applications
+               - .Net Framework 2.0, Web Applications
+
+
+20/01/2005
+
+Microsoft Certified Systems Engineer
+               - Microsoft Windows 2000
+
+
+18/05/2004
+
+Microsoft Certified Application Developer
+               - For Microsoft .NET
+
+
+05/12/2003
+
+Microsoft Certified Systems Administrator
+               - Microsoft Windows 2000
+
+
+28/02/2001
+
+Microsoft Certified Professional
+               - MCP 2.0 -- Certified Professional
+
+2002
+
+Cisco Certified Network Associate
+
+
+2002
+
+Oracle Certified Professional
+               - SQL & PL/SQL
+* Microsoft Certification transcript : https://mcp.microsoft.com/authenticate/validatemcp.aspx
+Transcript ID : 693185  /   Access Code : vinceMCP
+
+
 
 
 #### Title 3
