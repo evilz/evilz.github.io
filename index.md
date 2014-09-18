@@ -36,8 +36,11 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 11/25/2008
 
 #### Microsoft® Certified Technology Specialist ﴾MCTS﴿ 
-               - .NET Framework 4, Web Applications
-               - .Net Framework 2.0, Web Applications
+``` xml
+<03/23/2011 .NET Framework 4, Web Applications />
+<11/25/2008 .NET Framework 2, Web Applications />
+``` 
+
 
 
 20/01/2005
