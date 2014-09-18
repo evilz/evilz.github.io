@@ -3,7 +3,7 @@ layout: home
 published: true
 ---
 
-``` xml
+```
 6bis rue de la Haute Boulaye
 27490 Autheuil-Authouillet
 06 45 78 08 81
@@ -26,128 +26,61 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 
 ## Certifications
 
-
-
 #### Microsoft Certified Professional Developer (MCPD) 
-**25/11/2008** - Web Developer
-
-
-
-11/25/2008
+```
+Web Developer
+```
 
 #### Microsoft® Certified Technology Specialist ﴾MCTS﴿ 
 ```
-03/23/2011 .NET Framework 4, Web Applications
-11/25/2008 .NET Framework 2, Web Applications
+.NET Framework 4, Web Applications
+.NET Framework 2, Web Applications
 ``` 
 
+#### Microsoft Certified Systems Engineer
+```
+Microsoft Windows 2000
+```
 
+#### Microsoft Certified Application Developer
+```
+For Microsoft .NET
+```
 
-20/01/2005
+#### Microsoft Certified Systems Administrator
+```
+Microsoft Windows 2000
+```
 
-Microsoft Certified Systems Engineer
-               - Microsoft Windows 2000
-
-
-18/05/2004
-
-Microsoft Certified Application Developer
-               - For Microsoft .NET
-
-
-05/12/2003
-
-Microsoft Certified Systems Administrator
-               - Microsoft Windows 2000
-
-
-28/02/2001
-
-Microsoft Certified Professional
-               - MCP 2.0 -- Certified Professional
-
-2002
-
+#### Cisco
+```
 Cisco Certified Network Associate
+```
 
+#### Oracle Certified Professional
+```
+SQL & PL/SQL
+```
 
-2002
-
-Oracle Certified Professional
-               - SQL & PL/SQL
-* Microsoft Certification transcript : https://mcp.microsoft.com/authenticate/validatemcp.aspx
+> Microsoft Certification transcript : (https://mcp.microsoft.com/authenticate/validatemcp.aspx)
 Transcript ID : 693185  /   Access Code : vinceMCP
 
+## Compétences Techniques
 
 
-
-#### Title 3
-
-``` xml
-<ListBox x:Name="Products" />
-``` 
-
-``` csharp
-public BindableCollection<ProductViewModel> Products
-{
-    get; private set; 
-}
-
-public ProductViewModel SelectedProduct
-{
-    get { return _selectedProduct; }
-    set
-    {
-        _selectedProduct = value;
-        NotifyOfPropertyChange(() => SelectedProduct);
-    }
-}
-```
-
-even at design time!
-
-#### Title 4
-
-``` xml
-<StackPanel>
-    <TextBox x:Name="Username" />
-    <PasswordBox x:Name="Password" />
-    <Button x:Name="Login" Content="Log in" />
-</StackPanel>
-```
-
-``` csharp
-public bool CanLogin(string username, string password)
-{
-    return !String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password);
-}
-
-public string Login(string username, string password)
-{
-    ...
-}
-```
-
-## Who's Behind It
-The core contributors to Caliburn.Micro are:
-
- - [Vincent Bourdon][evilz] - Project coordinator .
+#### Connaissances Avancées
+* Système : Windows
+* Développement : .net 1.1 to 4.5 (WinForms, ASP.net, SL, WPF)
+* Développement Web : javascript, Css, HTML
+* Développement Mobile : Windows Phone, Cordova
+* Base de données : SQL server
+* Gestion de projet : Agile, TFS
 
 
-As is with any open source project there are many other contributors, you can see a full list on the [GitHub][contributors]. Apologies if your name was lost during the move between version control systems.
+#### Connaissances de bases
+* Système : Linux, Mac OS
+* Développement : PHP, Java, C++
+* Développement Mobile : Android, iOS
+* Base de données : Oracle, MySQL, MongoDB
 
 
-[![Marker Metro](/public/images/marker-metro.png)][mm]
-
-
-[nuget]: http://www.nuget.org/packages/Caliburn.Micro
-[docs]: /documentation
-[support]: /support
-[getting-started]: /documentation/getting-started
-[rob]: http://robeisenberg.com
-[bs]: http://www.bluespire.com
-[nigel]: http://compiledexperience.com
-[mm]: http://markermetro.com
-[thomas]: https://twitter.com/thomasibel
-[contributors]: https://github.com/Caliburn-Micro/Caliburn.Micro/graphs/contributors
-[durandal]: http://durandaljs.com/
