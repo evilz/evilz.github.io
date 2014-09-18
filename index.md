@@ -86,7 +86,7 @@ Consultant Senior et Architecte
 Développement de l’application leKiosk sur Windows 8.
 La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
 L’application permet d’acheter les magazines puis de les lire offline.
-`Win RT – MVVM - MonoGame`
+ `Win RT – MVVM - MonoGame`
 
 
 #### Isagri – Isalait Mobo’Pilot 2013
@@ -96,7 +96,7 @@ Réalisation d'une application Tablette pour la nouvelle génération des applic
 
 Le logiciel est une application téléchargée gratuitement depuis le « store » de la plateforme (adroid ou iOS), qui utilise ses données depuis une base locale sur la tablette qui est synchronisée avec l’application PC principale du client.
 Cette synchronisation est dite « directe » et ne nécessite pas une connexion via le Web, mais seulement une connexion LAN local (via le wifi local).
-`jQuery – JavaScript - Angularjs  - bootstrap - jaydata - Bonjour - Cordova`
+ `jQuery – JavaScript - Angularjs  - bootstrap - jaydata - Bonjour - Cordova`
 
 
 #### Aéroports de Paris – Formulaires Mobile (FIRST)
