@@ -10,14 +10,13 @@ pygments: false
 permalink: '/announcements/:title'
 
 # Setup
-title: Caliburn.Micro
-tagline: 'Xaml made easy'
-description: 'An opinionated MVVM framework for all Xaml platforms.'
-url: http://caliburnmicro.com
+title: Vincent Bourdon
+tagline: 'curriculum vitae'
+description: 'mon cv'
+url: http://www.evilznet.com
 
 author:
-  name: 'Nigel Sampson'
-  url: https://twitter.com/nigelsampson
+  name: 'Vincent Bourdon'
 
 paginate: 5
 paginate_path: '/announcements/:num'
@@ -26,4 +25,4 @@ paginate_path: '/announcements/:num'
 version: 2.0.1
 
 github:
-  repo: https://github.com/caliburn-micro/caliburn.micro
+  repo: https://github.com/evilz/evilz.github.io
