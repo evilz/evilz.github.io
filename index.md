@@ -84,3 +84,18 @@ Transcript ID : 693185  /   Access Code : vinceMCP
 * Base de données : Oracle, MySQL, MongoDB
 
 
+
+
+## Expériences Professionnelles
+
+
+### vNext
+Consultant Senior et Architecte
+
+**Mars. 2013 - leKiosk – leKiosk Windows 8**
+Développement de l’application leKiosk sur Windows 8.
+La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
+L’application permet d’acheter les magazines puis de les lire offline.
+```
+Win RT – MVVM - MonoGame
+```
