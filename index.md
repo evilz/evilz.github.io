@@ -98,7 +98,7 @@ Le logiciel est une application téléchargée gratuitement depuis le « store �
 Cette synchronisation est dite « directe » et ne nécessite pas une connexion via le Web, mais seulement une connexion LAN local (via le wifi local).
  `jQuery – JavaScript - Angularjs  - bootstrap - jaydata - Bonjour - Cordova`
 
-
+ 
 #### Aéroports de Paris – Formulaires Mobile (FIRST)
 <span class="post-date">juin. 2013 - déc. 2013</span>
 
