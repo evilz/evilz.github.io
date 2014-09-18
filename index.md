@@ -11,13 +11,20 @@ published: true
 evilznet@gmail.com
 www.evilznet.com
 
-``` 
 
 > J’ai plongé assez jeune dans le monde informatique et j’ai rapidement commencé à développer sur le web dans les années 1995-1996. 
 Je suis maintenant Consultant Senior sur la plateforme Microsoft .net avec une bonne expérience du monde web.
 Je souhaite mettre  mes compétences au service de la création de produits innovants.
 
-## Title 2
+## Formation
+
+
+* [2005] Diplomé Bac+5 de SUPINFO
+* 2004-2005 Directeur et formateur au laboratoire .net à SUPINFO.
+* 2003-2004 Membre fondateur du laboratoire .net de Supinfo (www.labo-dotnet.com) et formateur au laboratoire des.net à SUPINFO.
+* 2000 Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
+* 2000 Bac Sciences et Technologies Industrielles - Mention bien
+
 
 #### Title 3
 
