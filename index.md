@@ -203,14 +203,15 @@ domicile, des centres d'appels et des clients (Employés de grands comptes)
 Chef de Projet Web
 
 <span class="post-date">mars 2006 - dec. 2007</span>
-- Refonte du site web de Go Voyages et des services à disposition des
+
+* Refonte du site web de Go Voyages et des services à disposition des
 partenaires, étude et analyse des besoins, développement et phases de
 test
-- Mise en place d’une nouvelle architecture distribuée par MSMQ
-- Nouveau format XML pour les partenaires (XSD)
-- Encapsulation du nouveau format dans des Services Web (SOAP)
-- Création d’outils de développement et de tests
-- Création d’un nouveau site web basé sur le nouveau format XML
+* Mise en place d’une nouvelle architecture distribuée par MSMQ
+* Nouveau format XML pour les partenaires (XSD)
+* Encapsulation du nouveau format dans des Services Web (SOAP)
+* Création d’outils de développement et de tests
+* Création d’un nouveau site web basé sur le nouveau format XML
 
 `ASP .NET 2 - SQL SERVER – MSMQ – AS400 – Lotus Notes`
 
@@ -218,14 +219,105 @@ test
 ### Business Interactif
 Développeur
 
-####Shopoon
+#### Shopoon
 <span class="post-date">sept. 2005 - fev. 2006</span>
 Création d’un nouveau site web de type comparateur de produits du groupe Pinault Printemps Redoute. www.shopoon.fr
 `ASP .NET 2 - SQL SERVER – ENDECA`
 
 
-#### EADS Defense and Security Networks
+### EADS Defense and Security Networks
 <span class="post-date">juil. 2005 - oct. 2001</span>
 Stage de 3 mois à la Direction Informatique
 Etude de la migration des serveurs Windows NT4 vers Windows 2000
 `WINDOWS NT4 - WINDOWS 2000 server`
+
+## Conférences et concours
+
+
+#### 2012
+Présentation de HTML5 pour mobile au *Techdays 2012*
+Slides : http://fr.slideshare.net/Microsoft_France/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands
+Vidéos : http://video.fr.msn.com/watch/video/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands/zqufiw0n
+
+
+#### 2010
+Présentation Visual Studio 2010 dans l’est de la France pour les MSDays
+Présentation des nouvelles fonctionnalités de VS 2010 :
+outils de modélisation (diagrammes de classes, de séquences, "use case", d'activités et de composants …)
+IntelliTrace
+Test Manager 2010 (Testing center + Lab Center)
+
+
+#### 14 au 16 Octobre 2011.
+WeekEnd BeMyApp dédié à la plateforme bada de Samsung
+Développement d’une application permettant de mettre en vente ses billets de train non utilisés et non remboursables et d’en acheter directement depuis un téléphone Samsung Bada. 
+Développement en C++.
+
+
+#### Juil. 2011
+Membre du jury imagine Cup catégorie Windows Phone 7
+Avec la sortie du nouveau Windows Phone 7, une nouvelle catégorie au concours imagine cup a été créée.
+
+
+#### 2004
+3ème place au concours Unlimited Coding
+Développement d’une application Dispatch Service permettant de créer via une interface web ou un call center des tâches à répartir. 
+Le système a été testé sur une centrale de taxi.
+`ASP.NET 1.1 – SQL SERVER – SharePoint 2003 - Speech Server – Compact Framework`
+
+
+#### 2003
+1ère place au concours Unlimited Coding
+Développement sur 2 jours et 2 nuits d’un jeu en temps réel multi-joueurs.
+Les joueurs doivent créer des intelligences artificielles de robot et les uploader par le biais d’une interface web sur un serveur où elles affronteront d’autre IA.
+Vidéo : http://www.dailymotion.com/video/xcjtfm_unlimited-coding-2003_tech#.UKe4k4eZR8E
+
+
+## Projets & Sites Web
+
+#### Cecil.Studio / Cecil.Decompiler
+Développement du ‘writer VB.net’ pour Cecil.Decompiler et d’un Formater pour avoir la coloration syntaxique dans la console.
+Article : http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer
+
+
+#### fOrganiz
+Un petit outil dont j’avais besoin depuis longtemps pour organiser mes photos dans des sous répertoires automatiquement. Il utilise un pattern pour nommer et créer vos sous répertoires à partir des date de prise des photos
+Repository : http://forganiz.codeplex.com
+
+#### Clan IBT
+Site du clan IBT, un clan de joueurs Starcraft 2 que j’ai créé.
+Le site tourne sur un WordPress et PhpBB le tout sous IIS 7.5
+Site : http://www.ibt-sc2.fr
+
+#### Elevage de P’Aime
+Ce site est réalisé en ASP.net 2.0 et HTML5.
+Il met aussi en oeuvres quelques plugins jQuery.
+Site : http://www.elevagedepaime.com
+
+#### Pauline et Vincent
+Site de présentation de mon mariage pour iPad développé en Sencha Touch.
+Site : http://paulineetvincent.fr/
+
+#### evaSearch 
+Serveur d’indexation de document open source pour les entreprises.
+Les fichiers peuvent être en local sur le serveur ou sur des partages réseaux. Une interface web ou console permettent de faire des recherches et d’accéder aux documents.
+Repository :http://evasearch.codeplex.com/
+
+
+#### nPress
+Début de portage du CMS Wordpress en ASP.NET MVC. 
+Les composants suivant ont été utilisés :
+- ASP.NET MVC 2
+- NHibernate et NHibernate.Linq
+- AutoFac
+- NUnit
+Sources : http://npress.codeplex.com/
+Articles : http://www.evilznet.com/?s=npress
+
+## Centres d’intérêt
+
+* Cinéma
+* Moto
+* Paintball
+* Tennis de table
+* StarCraft 2
