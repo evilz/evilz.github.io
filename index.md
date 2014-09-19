@@ -15,10 +15,6 @@ www.evilznet.com
 Je suis maintenant Consultant Senior sur la plateforme Microsoft .net avec une bonne expérience du monde web.
 Je souhaite mettre  mes compétences au service de la création de produits innovants.
 
-| dsf  | dsf  | sd   | dsf  | dsf  |
-|---|---|---|---|---|
-| dsfsdf  | dsf  | sdfdsf  | sdfsdf  | dsfsdf  |
-| dfs  |  dsf | sdf  | sdf  | fsdf  |
 
 ## Formation
 
@@ -31,17 +27,13 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 
 ## Certifications
 
-#### Microsoft Certified Professional Developer (MCPD) 
+#### Microsoft
 ```
 Microsoft Certified Professional Developer Web Developer
-
 Microsoft® Certified Technology Specialist .NET Framework 4, Web Applications
 Microsoft® Certified Technology Specialist.NET Framework 2, Web Applications
-
 Microsoft Certified Systems Engineer Windows 2000
-
 Microsoft Certified Application Developer .NET
-
 Microsoft Certified Systems Administrator Windows 2000
 ```
 
@@ -86,7 +78,7 @@ Transcript ID : **693185**   Access Code : **vinceMCP**
 Consultant Senior et Architecte
 
 #### leKiosk – leKiosk Windows 8
-<span class="post-date">Mars. 2013</span>
+<span class="post-date">mars - avril 2013</span>
 
 Développement de l’application leKiosk sur Windows 8.
 La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
@@ -95,7 +87,7 @@ L’application permet d’acheter les magazines puis de les lire offline.
 
 
 #### Isagri – Isalait Mobo’Pilot 2013
-<span class="post-date">déc. 2013 - avril. 2013</span>
+<span class="post-date">dec. - avril 2013</span>
 
 Réalisation d'une application Tablette pour la nouvelle génération des applications mobiles Isagri à destination de périphériques mobiles.
 
@@ -105,7 +97,7 @@ Cette synchronisation est dite « directe » et ne nécessite pas une connexion 
 
  
 #### Aéroports de Paris – Formulaires Mobile (FIRST)
-<span class="post-date">juin. 2013 - déc. 2013</span>
+<span class="post-date">janv. - déc. 2012</span>
 
 Réalisation d'une suite d’applications HTML5 permettant la création et la gestion de formulaires à destination d'iPad et IE8.
 
@@ -114,69 +106,67 @@ Les modèles de formulaires sont stockés au format json et un moteur de rendu p
 
 * Développement d’un backoffice de gestion des données du système et des droits d’accès.
 * Développement d’un designer de formulaire en web de type WYSIWYG utilisant le modèle MVC d’Angularjs.
- `ASP.NET MVC – jQuery Mobile – JavaScript - Knockout js  -Angularjs  - bootstrap - SQL SERVER – Entity Framework – AppFabric – Azure Web Role - Cordova`
+
+`ASP.NET MVC – jQuery Mobile – JavaScript - Knockout js  -Angularjs  - bootstrap - SQL SERVER – Entity Framework – AppFabric – Azure Web Role - Cordova`
 
 
-sept. 2011
-Nov. 2011
-Mc Donald’s France  InfoSite4U Mobile
+#### Mc Donald’s France - InfoSite4U Mobile
+<span class="post-date">sept. - nov. 2011</span>
+
 Afin d’améliorer la facilité de consultation et la mise à jour des données ainsi que l’accessibilité d’infosite4U, notamment pour les collaborateurs nomades, Mc Donald’s France souhaite mettre en place une version web mobile de cette application. L’objectif est de permettre un affichage et une navigation intuitifs et ergonomiques des informations hébergées par cette application depuis les périphériques mobiles de type Smartphone.
 
-ASP.NET MVC – jQuery Mobile – JavaScript - SQL SERVER – Entity Framework – Azure Service Bus – Azure Web Role
+`ASP.NET MVC – jQuery Mobile – JavaScript - SQL SERVER – Entity Framework – Azure Service Bus – Azure Web Role`
 
 
-Aout. 2011
-(2semaines)
-Mc Donald’s France  InfoSite4U
+#### Mc Donald’s France - InfoSite4U
+<span class="post-date">aout 2012 (2semaines)</span>
+
 Evolution d’un site Asp.net 1.1 (InfoSite4U) permettant la gestion des informations de l’ensemble des restaurants du groupe.
 
- ASP.NET 1.1 – SQL SERVER
+ `ASP.NET 1.1 – SQL SERVER`
 
 
-Juil. 2011
-(2semaines)
-Formation Développement Web Mobile
+#### Formation Développement Web Mobile
+<span class="post-date">juil. 2011 (2semaines)</span>
 Rédaction de supports de formation sur les technos HTML5, CSS 3, JavaScript, jQuery, jQuery mobile, pour former les équipes juniors de vNext.
 
 
-Juin. 2011
-Aout. 2011
-Réseau ferré de France
+#### Réseau ferré de France
+<span class="post-date">juin. - aout. 2011</span>
+
 Au sein de la démarche SOA demandé par Réseau ferré de France, mise en place et développement d’extensions d’une brique de type Entreprise Service Bus basé sur WCF Routing services. 
-Validation des données par schéma XSD
-Mise en place d’un cache AppFabric
+* Validation des données par schéma XSD
+* Mise en place d’un cache AppFabric
+* POC Web Service WSDL first
 
-XSD/XML – WCF routing Services – AppFabric – IIS – SOA – SQL SERVER
+ `XSD/XML – WCF routing Services – AppFabric – IIS – SOA – SQL SERVER `
 
+#### Isagri
+<span class="post-date">avril - mai. 2011</span>
 
-Avr. 2011
-Mai. 2011
-Isagri
 Développement d’une solution Web Mobile permettant aux éleveurs de consulter les données de leurs élevages de bovin, ovin ou caprin. Cette application est proposée en tant qu’option pour les éleveurs possédant déjà un téléphone sous iOS ou Android. 
-ASP.NET MVC – jQuery Mobile – SQL SERVER - TFS
+`ASP.NET MVC – jQuery Mobile – SQL SERVER - TFS`
 
+#### Leetchi.com
+<span class="post-date">mars 2011 (2 semaine)</span>
 
-Mars. 2011
-(1 semaine)
-Leetchi.com
 Migration de l’ensemble des applications Web et Services Windows sur le Cloud Microsoft Azure.
 Vérification de la conformité de l’application web pour le passage à Azure
 Création d’un planificateur de tâche dans un worker rôle Azure
 Test en pré production de l’ensemble.
 
-ASP.NET 3 – AZURE – SQL SERVER – GIT - Quartz.NET
+`ASP.NET 3 – AZURE – SQL SERVER – GIT - Quartz.NET`
 
+#### Troc des Trains
+<span class="post-date">fev - mars 2011</span>
 
-Fév. 2011
-Mars. 2011
-Troc des Trains
 Conception de l’application mobile Windows Phone 7 du site www.trocdestrains.com (site spécialisé sur la revente de billet de train).
 Nominée au concours Wouap Doo Apps dans le cadre du salon Online Mobile qui s’est déroulé Porte de Versailles le 19 mai 2011. Troc des Trains a également eu la chance de se retrouver plusieurs fois en Application favorites  sur la Market Place.
 
-Windows Phone 7 – MVVM
+`Windows Phone 7 – MVVM`
 
 
-Evaluant
+## Evaluant
 Consultant Senior
 
 
