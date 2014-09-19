@@ -79,9 +79,9 @@ Consultant Senior et Architecte
 
 #### leKiosk – leKiosk Windows 8
 <span class="post-date">mars - avril 2013</span>
-    Développement de l’application leKiosk sur Windows 8.
-    La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
-    L’application permet d’acheter les magazines puis de les lire offline.
+Développement de l’application leKiosk sur Windows 8.
+La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
+L’application permet d’acheter les magazines puis de les lire offline.
  `Win RT – MVVM - MonoGame`
 
 
@@ -199,15 +199,10 @@ domicile, des centres d'appels et des clients (Employés de grands comptes)
 `ASP .NET 3 – SQL SERVER – ORM`
 
 
-###Go Voyages
-Chef de Projet
+### Go Voyages
+Chef de Projet Web
 
-
-
-
-Mars 2006
-Déc. 2007
-Chef de projet des projets .net Web
+<span class="post-date">mars 2006 - dec. 2007</span>
 - Refonte du site web de Go Voyages et des services à disposition des
 partenaires, étude et analyse des besoins, développement et phases de
 test
@@ -217,31 +212,20 @@ test
 - Création d’outils de développement et de tests
 - Création d’un nouveau site web basé sur le nouveau format XML
 
-ASP .NET 2 - SQL SERVER – MSMQ – AS400 – Lotus Notes
+`ASP .NET 2 - SQL SERVER – MSMQ – AS400 – Lotus Notes`
 
 
-Business Interactif
+### Business Interactif
 Développeur
 
-
-
-
-
-Sept 2005
-Fév. 2006
-Mission pour RedCast Shopoon
+####Shopoon
+<span class="post-date">sept. 2005 - fev. 2006</span>
 Création d’un nouveau site web de type comparateur de produits du groupe Pinault Printemps Redoute. www.shopoon.fr
-
-ASP .NET 2 - SQL SERVER – ENDECA
-
-
-EADS Defense and Security Networks
-Stagiaire
+`ASP .NET 2 - SQL SERVER – ENDECA`
 
 
-
-
-Juil. - Oct. 2001
+#### EADS Defense and Security Networks
+<span class="post-date">juil. 2005 - oct. 2001</span>
 Stage de 3 mois à la Direction Informatique
 Etude de la migration des serveurs Windows NT4 vers Windows 2000
-
+`WINDOWS NT4 - WINDOWS 2000 server`
