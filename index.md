@@ -79,9 +79,9 @@ Consultant Senior et Architecte
 
 #### leKiosk – leKiosk Windows 8
 <span class="post-date">mars - avril 2013</span>
-Développement de l’application leKiosk sur Windows 8.
-La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
-L’application permet d’acheter les magazines puis de les lire offline.
+    Développement de l’application leKiosk sur Windows 8.
+    La navigation au travers des différentes catégories de magasines se fait par le biais d’un kiosque modélisé en 3D dont chacune des faces représentent une catégorie.
+    L’application permet d’acheter les magazines puis de les lire offline.
  `Win RT – MVVM - MonoGame`
 
 
@@ -122,6 +122,7 @@ Rédaction de supports de formation sur les technos HTML5, CSS 3, JavaScript, jQ
 #### Réseau ferré de France
 <span class="post-date">juin. - aout. 2011</span>
 Au sein de la démarche SOA demandé par Réseau ferré de France, mise en place et développement d’extensions d’une brique de type Entreprise Service Bus basé sur WCF Routing services. 
+
 * Validation des données par schéma XSD
 * Mise en place d’un cache AppFabric
 * POC Web Service WSDL first
