@@ -3,14 +3,6 @@ layout: home
 published: true
 ---
 
-```
-6bis rue de la Haute Boulaye
-27490 Autheuil-Authouillet
-06 45 78 08 81
-evilznet@gmail.com
-www.evilznet.com
-``` 
-
 > J’ai plongé assez jeune dans le monde informatique et j’ai rapidement commencé à développer sur le web dans les années 1995-1996. 
 Je suis maintenant Consultant Senior sur la plateforme Microsoft .net avec une bonne expérience du monde web.
 Je souhaite mettre  mes compétences au service de la création de produits innovants.
@@ -307,11 +299,8 @@ Repository :http://evasearch.codeplex.com/
 #### nPress
 Début de portage du CMS Wordpress en ASP.NET MVC. 
 Les composants suivant ont été utilisés :
-- ASP.NET MVC 2
-- NHibernate et NHibernate.Linq
-- AutoFac
-- NUnit
-Sources : http://npress.codeplex.com/
+`ASP.NET MVC 2 - NHibernate et NHibernate.Linq - AutoFac - NUnit`
+Sources : [http://npress.codeplex.com/(http://npress.codeplex.com/)]
 Articles : http://www.evilznet.com/?s=npress
 
 ## Centres d’intérêt
