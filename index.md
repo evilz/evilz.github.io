@@ -14,7 +14,7 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 * **2005** Diplomé Bac+5 de SUPINFO
 * **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO. [www.labo-dotnet.com](http://www.labo-dotnet.com)
 * **2003-2004** Membre fondateur du laboratoire .net de Supinfo et formateur au laboratoire des.net à SUPINFO.
-* **2000** Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
+* **2000** Membre du laboratoire Microsoft de Supinfo [www.labo-microsoft.org](www.labo-microsoft.org)
 * **2000** Bac Sciences et Technologies Industrielles - **Mention bien**
 
 ## Certifications
@@ -22,8 +22,8 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 #### Microsoft
 ```
 Microsoft Certified Professional Developer Web Developer
-Microsoft® Certified Technology Specialist .NET Framework 4, Web Applications
-Microsoft® Certified Technology Specialist.NET Framework 2, Web Applications
+Microsoft Certified Technology Specialist .NET Framework 4, Web Applications
+Microsoft Certified Technology Specialist.NET Framework 2, Web Applications
 Microsoft Certified Systems Engineer Windows 2000
 Microsoft Certified Application Developer .NET
 Microsoft Certified Systems Administrator Windows 2000
@@ -39,7 +39,7 @@ Cisco Certified Network Associate
 SQL & PL/SQL
 ```
 
-> Microsoft Certification transcript : (https://mcp.microsoft.com/authenticate/validatemcp.aspx)
+> Microsoft Certification transcript : [https://mcp.microsoft.com/authenticate/validatemcp.aspx](https://mcp.microsoft.com/authenticate/validatemcp.aspx)
 Transcript ID : **693185**   Access Code : **vinceMCP**
 
 ## Compétences Techniques
