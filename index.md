@@ -12,7 +12,7 @@ Je souhaite mettre  mes compétences au service de la création de produits inno
 
 
 * **2005** Diplomé Bac+5 de SUPINFO
-* **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO. (www.labo-dotnet.com)
+* **2004-2005** Directeur et formateur au laboratoire .net à SUPINFO. [www.labo-dotnet.com](http://www.labo-dotnet.com)
 * **2003-2004** Membre fondateur du laboratoire .net de Supinfo et formateur au laboratoire des.net à SUPINFO.
 * **2000** Membre du laboratoire Microsoft de Supinfo (www.labo-microsoft.org)
 * **2000** Bac Sciences et Technologies Industrielles - **Mention bien**
@@ -300,8 +300,8 @@ Repository :http://evasearch.codeplex.com/
 Début de portage du CMS Wordpress en ASP.NET MVC. 
 Les composants suivant ont été utilisés :
 `ASP.NET MVC 2 - NHibernate et NHibernate.Linq - AutoFac - NUnit`
-Sources : [http://npress.codeplex.com/(http://npress.codeplex.com/)]
-Articles : http://www.evilznet.com/?s=npress
+Sources : [http://npress.codeplex.com/](http://npress.codeplex.com/)
+Articles : [http://www.evilznet.com/?s=npress](http://www.evilznet.com/?s=npress)
 
 ## Centres d’intérêt
 
