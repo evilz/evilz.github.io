@@ -228,6 +228,7 @@ Etude de la migration des serveurs Windows NT4 vers Windows 2000
 
 #### 2012
 Présentation de HTML5 pour mobile au *Techdays 2012*
+
 * [Slide](http://fr.slideshare.net/Microsoft_France/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands)
 * [Vidéo](http://video.fr.msn.com/watch/video/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands/zqufiw0n)
 
@@ -242,12 +243,12 @@ Test Manager 2010 (Testing center + Lab Center)
 
 #### 14 au 16 Octobre 2011.
 WeekEnd BeMyApp dédié à la plateforme bada de Samsung
-Développement d’une application permettant de mettre en vente ses billets de train non utilisés et non remboursables et d’en acheter directement depuis un téléphone Samsung Bada. 
+Développement d’une application permettant de mettre en vente ses billets de train non utilisés et non remboursables et d’en acheter directement depuis un téléphone `Samsung Bada`. 
 Développement en C++.
 
 
 #### Juil. 2011
-Membre du jury imagine Cup catégorie Windows Phone 7
+Membre du jury imagine Cup catégorie `Windows Phone 7`
 Avec la sortie du nouveau Windows Phone 7, une nouvelle catégorie au concours imagine cup a été créée.
 
 
@@ -262,6 +263,7 @@ Le système a été testé sur une centrale de taxi.
 1ère place au concours Unlimited Coding
 Développement sur 2 jours et 2 nuits d’un jeu en temps réel multi-joueurs.
 Les joueurs doivent créer des intelligences artificielles de robot et les uploader par le biais d’une interface web sur un serveur où elles affronteront d’autre IA.
+
 * [Vidéo](http://www.dailymotion.com/video/xcjtfm_unlimited-coding-2003_tech#.UKe4k4eZR8E)
 
 
@@ -269,31 +271,31 @@ Les joueurs doivent créer des intelligences artificielles de robot et les uploa
 
 #### Cecil.Studio / Cecil.Decompiler
 Développement du ‘writer VB.net’ pour Cecil.Decompiler et d’un Formater pour avoir la coloration syntaxique dans la console.
-Article : http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer
+Article : [http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer](http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer)
 
 
 #### fOrganiz
 Un petit outil dont j’avais besoin depuis longtemps pour organiser mes photos dans des sous répertoires automatiquement. Il utilise un pattern pour nommer et créer vos sous répertoires à partir des date de prise des photos
-Repository : http://forganiz.codeplex.com
+Repository : [http://forganiz.codeplex.com](http://forganiz.codeplex.com)
 
 #### Clan IBT
 Site du clan IBT, un clan de joueurs Starcraft 2 que j’ai créé.
-Le site tourne sur un WordPress et PhpBB le tout sous IIS 7.5
-Site : http://www.ibt-sc2.fr
+Le site tourne sur un `WordPress` et `PhpBB` le tout sous `IIS 7.5`
+Site : [http://www.ibt-sc2.fr](http://www.ibt-sc2.fr)
 
 #### Elevage de P’Aime
-Ce site est réalisé en ASP.net 2.0 et HTML5.
+Ce site est réalisé en `Wordpress` et `HTML5`.
 Il met aussi en oeuvres quelques plugins jQuery.
-Site : http://www.elevagedepaime.com
+Site : [http://www.elevagedepaime.com](http://www.elevagedepaime.com)
 
 #### Pauline et Vincent
-Site de présentation de mon mariage pour iPad développé en Sencha Touch.
-Site : http://paulineetvincent.fr/
+Site de présentation de mon mariage pour iPad développé en `Sencha Touch`.
+Site : [http://paulineetvincent.fr/](http://paulineetvincent.fr/)
 
 #### evaSearch 
 Serveur d’indexation de document open source pour les entreprises.
 Les fichiers peuvent être en local sur le serveur ou sur des partages réseaux. Une interface web ou console permettent de faire des recherches et d’accéder aux documents.
-Repository :http://evasearch.codeplex.com/
+Repository :[http://evasearch.codeplex.com/](http://evasearch.codeplex.com/)
 
 
 #### nPress
