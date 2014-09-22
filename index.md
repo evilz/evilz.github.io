@@ -109,7 +109,7 @@ Evolution d’un site Asp.net 1.1 (InfoSite4U) permettant la gestion des informa
 
 #### Formation Développement Web Mobile
 <span class="post-date">juil. 2011 (2semaines)</span>
-Rédaction de supports de formation sur les technos HTML5, CSS 3, JavaScript, jQuery, jQuery mobile, pour former les équipes juniors de vNext.
+Rédaction de supports de formation sur les technos  `HTML5, CSS 3, JavaScript, jQuery, jQuery mobile `, pour former les équipes juniors de vNext.
 
 #### Réseau ferré de France
 <span class="post-date">juin. - aout. 2011</span>
@@ -213,7 +213,7 @@ Développeur
 
 #### Shopoon
 <span class="post-date">sept. 2005 - fev. 2006</span>
-Création d’un nouveau site web de type comparateur de produits du groupe Pinault Printemps Redoute. www.shopoon.fr
+Création d’un nouveau site web de type comparateur de produits du groupe Pinault Printemps Redoute. [www.shopoon.fr](http://www.shopoon.fr)
 `ASP .NET 2 - SQL SERVER – ENDECA`
 
 
@@ -228,8 +228,8 @@ Etude de la migration des serveurs Windows NT4 vers Windows 2000
 
 #### 2012
 Présentation de HTML5 pour mobile au *Techdays 2012*
-Slides : http://fr.slideshare.net/Microsoft_France/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands
-Vidéos : http://video.fr.msn.com/watch/video/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands/zqufiw0n
+* [Slide](http://fr.slideshare.net/Microsoft_France/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands)
+* [Vidéo](http://video.fr.msn.com/watch/video/html5-sur-mobile-le-bon-la-brute-et-un-gros-paquet-de-truands/zqufiw0n)
 
 
 #### 2010
@@ -262,7 +262,7 @@ Le système a été testé sur une centrale de taxi.
 1ère place au concours Unlimited Coding
 Développement sur 2 jours et 2 nuits d’un jeu en temps réel multi-joueurs.
 Les joueurs doivent créer des intelligences artificielles de robot et les uploader par le biais d’une interface web sur un serveur où elles affronteront d’autre IA.
-Vidéo : http://www.dailymotion.com/video/xcjtfm_unlimited-coding-2003_tech#.UKe4k4eZR8E
+* [Vidéo](http://www.dailymotion.com/video/xcjtfm_unlimited-coding-2003_tech#.UKe4k4eZR8E)
 
 
 ## Projets & Sites Web
