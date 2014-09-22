@@ -65,9 +65,35 @@ Transcript ID : **693185**   Access Code : **vinceMCP**
 
 ## Expériences Professionnelles
 
+### SO@T
+Consultant Senior
+
+#### Société Générale – Département Research Analytics
+<span class="post-date">depuis juin 2014</span>
+Création d'outil Web (Silverlight et HTML5) d'analise des marchés financiers a destination des clients de la Société Général d'investisement. 
+`C# - Portable Class Library - Silverlight - Html5/css3/js - Durandal - jenkins`.
+
+#### Crédit agricole – Application Windows Phone / Windows 8 de gestion des comptes
+<span class="post-date">fév - avril 2014</span>
+Refonte de l'application de gestions des comptes grand public de Crédit Agricole sur WP et Windows store.
+`C# - Portable Class Library - SQLite - Telerik - MVVMLight`.
+
+#### Canal+ – Formation AngularJS
+<span class="post-date">fév 2014 (2j)</span>
+Formations des développeurs de chez Canal+ sur `AngularJS`.
 
 ### vNext
 Consultant Senior et Architecte
+
+#### Vinci Construction – DPGF
+<span class="post-date">juin - decembre 2013</span>
+Développement de d'une application WPF de devis et gestion de chantier.
+L'application est découpée en deux module :
+
+* DP : Du Prix, qui est la partie création de devis.
+* GF : Gestion Financiere, qui représente la partie gestion de chantier
+
+ `WPF – PRISM – MVVM - SQL CE`
 
 #### leKiosk – leKiosk Windows 8
 <span class="post-date">mars - avril 2013</span>
