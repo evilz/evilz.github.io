@@ -116,13 +116,28 @@ h2 {
   letter-spacing: 0;
 }
 
+.masthead pre{
+  float:right;
+  margin-top: 0rem;
+  width: 100%;
+}
+
 @media (max-width: 48rem) {
   .masthead-title {
     text-align: center;
+    
   }
   .masthead-title small {
     display: none;
   }
+}
+
+@media (max-width: 38rem) {
+.masthead pre{
+  float:right;
+  margin-top: -1rem;
+  width: auto;
+}
 }
 
 
