@@ -1,28 +1,53 @@
-# Dependencies
+markdown: redcarpet2
+
+redcarpet2:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript","tables", "with_toc_data"]
+
 markdown: kramdown
 
-kramdown:
-  input: GFM
+kramdown: 
+  input: GFM 
+  use_coderay: true
+  coderay:
+    coderay_wrap:              div
+    coderay_line_numbers:      inline
+    coderay_line_number_start: 1
+    coderay_tab_width:         4
+    coderay_bold_every:        10
+    coderay_css:               style
 
-pygments: false
+highlighter: pygments # default python pygments have been replaced by pygments.rb
+
+paginate: 10          # Posts per page on the blog index
+paginate_path: "posts/:num"  # Directory base for pagination URLs eg. /posts/2/
+recent_posts: 5       # Posts in the sidebar Recent Posts section
+#excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
+#excerpt_separator: "<!--more-->"
+
+
+# Dependencies
+#markdown:            kramdown #redcarpet
+
+
 
 # Permalinks
-permalink: '/announcements/:title'
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+relative_permalinks: true
 
 # Setup
-title: Vincent Bourdon
-tagline: 'curriculum vitae'
-description: 'mon cv'
-url: http://www.evilznet.com
+title:               Lanyon
+tagline:             'A Jekyll theme'
+description:         'A reserved <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
+url:                 http://lanyon.getpoole.com
+baseurl:             /
 
+# About/contact
 author:
-  name: 'Vincent Bourdon'
-
-paginate: 5
-paginate_path: '/announcements/:num'
+  name:              Mark Otto
+  url:               https://twitter.com/mdo
+  email:             markdotto@gmail.com
 
 # Custom vars
-version: 2.0.1
-
-github:
-  repo: https://github.com/evilz/evilz.github.io
+version:             1.0.0

@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en-us">
 
   {% include head.html %}
 
-  <body class="theme-base-0d">
+  <body>
+
+    {% include sidebar.html %}
 
     <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
          content to avoid any CSS collisions with our real content. -->
     <div class="wrap">
       <div class="masthead">
         <div class="container">
-          <h1 class="masthead-title">
-            <a href="https://github.com/evilz/evilz.github.io/blob/master/public/Vincent-Bourdon-curriculum-vitae.pdf?raw=true" title="Home">{{ site.title }}</a>
-            
-          </h1>
-          <pre><code>06 45 78 08 81
-evilznet@gmail.com
-www.evilznet.com</code></pre>
+          <h3 class="masthead-title">
+            <a href="/" title="Home">{{ site.title }}</a>
+            <small>{{ site.tagline }}</small>
+          </h3>
         </div>
       </div>
 
@@ -25,5 +24,24 @@ www.evilznet.com</code></pre>
       </div>
     </div>
 
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
   </body>
 </html>
