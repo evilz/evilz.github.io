@@ -3,9 +3,18 @@
 #redcarpet2:
 #  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript","tables", "with_toc_data"]
 
+pygments: true
+lsi: false
+permalink: /:year/:month/:day/:title.html
+# paginate: 50
+markdown: rdiscount
+# enables SmartyPants (nice curly quotation marks, em/en dashes, elipses, etc):
+rdiscount:
+  extensions: [smart]
+
 # Dependencies
-markdown:            kramdown
-highlighter:         pygment
+#markdown:            kramdown
+#highlighter:         pygment
 
 kramdown:
   input:            GFM
@@ -27,7 +36,7 @@ kramdown:
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
+#permalink:           pretty
 relative_permalinks: true
 
 # Setup
