@@ -7,7 +7,7 @@ pygments: true
 lsi: false
 permalink: /:year/:month/:day/:title.html
 # paginate: 50
-markdown: rdiscount
+markdown: redcarpet
 # enables SmartyPants (nice curly quotation marks, em/en dashes, elipses, etc):
 rdiscount:
   extensions: [smart]
