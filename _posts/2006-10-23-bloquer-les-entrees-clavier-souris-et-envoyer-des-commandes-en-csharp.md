@@ -1,14 +1,15 @@
 ---
 layout: post
-title: bloquer les entrées clavier souris, et envoyer des commandes en csharp
+title: Bloquer les entrées clavier souris, et envoyer des commandes en csharp
 date: 2006-10-23 06:00
 author: evilz
 comments: true
-categories: [csharp, Informatique, interop]
+tags: [csharp, Informatique, interop]
 ---
 Si comme moi vous vous demandiez si il est possible de bloquer le clavier et la souris d'un utilisateur en .net, la réponse est oui !
-Pour cela il faut utiliser une API de windows et donc faire un petit DllImport
-```
+Pour cela il faut utiliser une API de windows et donc faire un petit `DllImport`
+
+```csharp
 [DllImport(&quot;user32.dll&quot;>)]
 public static extern bool BlockInput(bool fBlockIt);
 Attention cela ne bloque pas le Ctrl + Alt + Suppr heureusement...
@@ -29,3 +30,4 @@ SendKeys.SendWait("20*20{enter}");
 //débloc les entrées
 BlockInput(false);
 ```
+

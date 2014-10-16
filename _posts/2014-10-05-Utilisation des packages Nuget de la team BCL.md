@@ -188,16 +188,27 @@ Pour cette exemple nous allons creer un simple client de l'API Allocine permetta
 - nouveau projet => blank solution : AllocineSecureApiClient
 - ajout d un projet portable : AllocineSecureApiClient => .net 4 win8 sl5 xamarin
 - ajout d un projet de test unitaire, class library 4.5.1 : AllocineSecureApiClient.Tests
+
+### Ajout des packages Nuget
 - ajout des packages BCL sur la PCL : 
 	- Http
 	- async
 - ajout de Json et nunit sur les tests
-	
-
-
-### Ajout des packages Nuget
 
 ### Methode d'authentification
+- creation d'un fichier de test unitaire 
+#### test Logon_Should_Return_True_When_AuthentificationSuccessed
+
+`code`
+
+explication
+genererer la classe minimum pour que le code compile
+test fail
+
+`code`
+
+
+- test Logon_Should_Return_False_When_AuthentificationFailed
 
 ### Methode GetSpeedRatingFeed 
 

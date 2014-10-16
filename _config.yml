@@ -1,53 +1,77 @@
+title:            EvilzNet
+description:      Code for human.
+disqus_shortname: 
+reading_time:     true
+words_per_minute: 200
+#Your site's domain goes here. Leave localhost server or blank when working locally.
+url:              http://localhost:4000
 
-permalink: /:year/:month/:day/:title.html
+# Owner/author information
+owner:
+  name:           Vincent Bourdon
+  avatar:         avatar.jpg
+  bio:            "Je suis developper .net/Web depuis 2001"
+  email:          evilznet@gmail.com
+  # Social networking links used in footer. Update and remove as you like.
+  twitter:        
+  facebook:       
+  github:         
+  stackexchange:  
+  linkedin:       
+  instagram:      
+  flickr:         
+  tumblr:         
+  # For Google Authorship https://plus.google.com/authorship
+  # google plus id, include the '+', eg +mmistakes
+  google_plus:    +evilznet
 
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-#permalink:           pretty
-relative_permalinks: true
+# Background image to be tiled on all pages
+background: 
 
-# Setup
-title:               Lanyon
-tagline:             'A Jekyll theme'
-description:         'A reserved <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:                 http://lanyon.getpoole.com
-baseurl:             /
-paginate:            5
+# Analytics and webmaster tools stuff goes here
+google_analytics:   
+google_verify:      
+# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+bing_verify:         
 
-# About/contact
-author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+# Links to include in top navigation
+# For external links add external: true
+links:
+  #- title: Theme Setup
+  #  url: /theme-setup
+  #- title: External Link
+  #  url: http://mademistakes.com
+  #  external: true
 
-# Custom vars
-version:             1.0.0
-
-
-markdown: kramdown
+# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone:    America/New_York
+future:      true
 highlighter: pygments
+markdown:    kramdown
+excerpt_separator: "<!--more-->"
+
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+#permalink:   /:categories/:title/
+permalink:   /:year/:month/:day/:title/
+
+
+# Amount of post to show on home page
+paginate: 5
 
 kramdown:
-  input:            GFM
-  
+  input: GFM
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: true
 
-# The release of Jekyll Now that you're using
-version: v1.0.0
+  coderay:
+    coderay_line_numbers: nil
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: class
 
-# Set the Sass partials directory, as we're using @imports
-sass:
-  sass_dir: _scss
-  style: :expanded # You might prefer to minify using :compressed
-
-# Use the following plug-ins
-gems:
-  - jemoji # Emoji please!
-  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
-
-# Exclude these files from your production _site
-exclude:
-    - Gemfile
-    - Gemfile.lock
-    - LICENSE
-    - README.md
+include: [".htaccess"]
+exclude: ["*.ignore.md", "theme-setup.md", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
