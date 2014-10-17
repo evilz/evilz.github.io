@@ -11,7 +11,8 @@ image:
 <article class="hentry">
   <header>
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%d %B %Y" }}</a></time></span><span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span>{% if site.disqus_shortname and post.comments %}&nbsp; &bull; &nbsp;<span class="entry-comments"><a href="{{ site.url }}{{ post.url }}#disqus_thread">Comment</a></span>{% endif %}
+      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%d/%m/%Y" }}</a></time></span>
+      <!-- <span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span> -->{% if site.disqus_shortname and post.comments %}&nbsp; &bull; &nbsp;<span class="entry-comments"><a href="{{ site.url }}{{ post.url }}#disqus_thread">Commenter</a></span>{% endif %}
       {% if site.reading_time %}
       <span class="entry-reading-time pull-right">
         <i class="fa fa-clock-o"></i>
@@ -35,12 +36,12 @@ image:
 <div class="pagination">
   {% if paginator.previous_page %}
     {% if paginator.previous_page == 1 %}
-      <a href="{{ site.url }}" class="btn">Previous</a>
+      <a href="{{ site.url }}" class="btn">Précédent</a>
     {% else %}
-      <a href="{{ site.url }}/page{{ paginator.previous_page }}" class="btn">précédent</a>
+      <a href="{{ site.url }}/page{{ paginator.previous_page }}" class="btn">Précédent</a>
     {% endif %}
   {% else %}
-    précédent
+    Précédent
   {% endif %}
   <ul class="inline-list">
     <li>
