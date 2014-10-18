@@ -4,24 +4,28 @@ title: IBT - Starcraft2
 date: 2010-11-16 14:42
 author: evilz
 comments: true
-categories: [phpbb, Réalisation, Thème, WordPress]
+tags: [phpbb, Réalisation, Thème, WordPress]
 ---
-Site du clan IBT ! visible ici =&gt; <a title="IBT-SC2" href="http://www.ibt-sc2.fr" target="_blank">http://www.ibt-sc2.fr</a>
+Site du clan IBT ! visible ici => [IBT-SC2](http://www.ibt-sc2.fr)
 
 Un clan de joueurs Starcraft 2 que j'ai créé.
-
 Nouvelle Version du site avec un jolie skin plus dans le thème Starcraft.
-
 Le site tourne sur un Wordpress et PhpBB le tout sous IIS 7.5 :)
 
-&nbsp;
 
-[caption id="" align="aligncenter" width="370" caption="Version 2"]<img src="http://farm7.staticflickr.com/6055/6229643389_b39f4edb29_z.jpg" alt="" width="370" height="640" />[/caption]
+### Version 1 (avant)
 
-[caption id="" align="aligncenter" width="381" caption="Version 1"]<img src="http://farm7.staticflickr.com/6092/6229639705_29396c809d_z.jpg" alt="" width="381" height="640" />[/caption]
+<figure class="half">
+<a href="https://c3.staticflickr.com/7/6092/6229639705_29396c809d_b.jpg"> <img  src="https://c3.staticflickr.com/7/6092/6229639705_29396c809d_b.jpg"  /></a>
+<a href="https://c3.staticflickr.com/7/6113/6230156838_472fbf967e_b.jpg"><img  src="https://c3.staticflickr.com/7/6113/6230156838_472fbf967e_b.jpg"  /></a>
 
-&nbsp;
+</figure>
 
-[caption id="attachment_717" align="aligncenter" width="300" caption="Version 0.5"]<img class="size-medium wp-image-717" title="IBT" src="http://www.evilznet.com/wp-content/uploads/2010/11/IBT-300x196.png" alt="" width="300" height="200" />[/caption]
+### Version 2 (après)
+<figure class="half">
+<a href="https://c3.staticflickr.com/7/6055/6229643389_b39f4edb29_b.jpg"> <img  src="https://c3.staticflickr.com/7/6055/6229643389_b39f4edb29_b.jpg"  /></a>
+<a href="https://c3.staticflickr.com/7/6157/6230161942_7ae54074a9_z.jpg"><img  src="https://c3.staticflickr.com/7/6157/6230161942_7ae54074a9_z.jpg"  /></a>
 
-&nbsp;
+</figure>
+
+

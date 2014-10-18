@@ -4,14 +4,17 @@ title: L'autocompletion sur Windows Phone 7
 date: 2011-12-19 15:54
 author: evilz
 comments: true
-categories: [autocompletion, Informatique, windows phone, WP7]
+tags: [autocompletion, Informatique, windows phone, WP7]
 ---
 Nous allons voir dans cet article les différentes façon de créer un système d'auto-complétion (ou l'équivalent) sur un Windows Phone 7.<!--more-->
-<h3>Méthode 1 : InputScope</h3>
+
+### Méthode 1 : InputScope
+
 Comme pour d'autres OS mobile, WP7 permet de rechercher un mot entré par un utilisateur dans un dictionnaire.
 De plus via la propriété InputScope nous allons pouvoir spécifier un contexte.
 
-Actuellement les scopes disponible sont listés dans l'énumération <strong>InputScopeNameValue</strong>
+Actuellement les scopes disponible sont listés dans l'énumération **InputScopeNameValue**
+
 <table id="memberList" style="border: 1px solid white;" frame="lhs" cellpadding="2"><colgroup> <col width="10%" /> </colgroup>
 <tbody>
 <tr>
@@ -282,18 +285,27 @@ Actuellement les scopes disponible sont listés dans l'énumération <strong>Inp
 </tbody>
 </table>
 Voici le XAML néccésaire pour activer cette fonctionnalité sur une textbox :
-<pre class="brush: xml; gutter: true; first-line: 1; highlight: []; html-script: false">&lt;TextBox InputScope="Text" /&gt;</pre>
+
+```markup
+<TextBox InputScope="Text" />
+```
+
 et le résultat
-<img class="aligncenter" alt="" src="http://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png" width="300" height="551" />
+
+![](http://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png)
 
 Cette méthode est très simple et rapide à mettre en place, cependant les mots retournés, même si le contexte est précisé, ne correspondent pas forcément au besoin actuel, d'ou la seconde méthode.
-<h3>Méthode 2 : AutoCompleteBox</h3>
+
+### Méthode 2 : AutoCompleteBox
+
 Le contrôle SilverLight AutoCompleteBox permet de créer un champs de saisi qui sera autocompleté en utilisant une liste que l'on va pouvoir définir, la bonne nouvelle c'est que ce controle peut être utilisé sur WP7., la mauvaise c'est qu'il est un peu buggé.
 
-Avant de pouvoir utiliser ce controle il faut rajouter la référence vers l'assembly <span style="font-family: Consolas, Monaco, 'Courier New', Courier, monospace; font-size: 12px; line-height: 18px; white-space: pre;"><strong>System.Windows.Controls.Input</strong></span>
+Avant de pouvoir utiliser ce controle il faut rajouter la référence vers l'assembly `System.Windows.Controls.Input`
 
 Il ne reste plus qu'à l'inserer dans votre XAML
-<pre class="brush: xml; gutter: true">&lt;toolkit:AutoCompleteBox x:Name="acbArrival" Grid.Row="1" Grid.Column="1" Text="{Binding ArrivalTown, Mode=TwoWay}"
+
+```markup
+<toolkit:AutoCompleteBox x:Name="acbArrival" Grid.Row="1" Grid.Column="1" Text="{Binding ArrivalTown, Mode=TwoWay}"
 MinimumPopulateDelay="200"
 MinimumPrefixLength="3"
 FilterMode="StartsWith"
@@ -301,10 +313,11 @@ ValueMemberBinding="{Binding Name}"
 ItemsSource="{ Binding TownsList}" Height="71" VerticalAlignment="Top"
 SelectionChanged="acbArrival_SelectionChanged"
 IsEnabledChanged="acbArrival_IsEnabledChanged"
-&gt;
-&lt;toolkit:AutoCompleteBox.ItemTemplate&gt;
-&lt;DataTemplate&gt;
-&lt;TextBlock Text="{Binding Name}"/&gt;
-&lt;/DataTemplate&gt;
-&lt;/toolkit:AutoCompleteBox.ItemTemplate&gt;
-&lt;/toolkit:AutoCompleteBox&gt;</pre>
+>
+<toolkit:AutoCompleteBox.ItemTemplate>
+<DataTemplate>
+<TextBlock Text="{Binding Name}"/>
+</DataTemplate>
+</toolkit:AutoCompleteBox.ItemTemplate>
+</toolkit:AutoCompleteBox>
+```

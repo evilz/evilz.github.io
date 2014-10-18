@@ -7,10 +7,11 @@ comments: true
 tags: [csharp, Informatique, interop]
 ---
 Si comme moi vous vous demandiez si il est possible de bloquer le clavier et la souris d'un utilisateur en .net, la réponse est oui !
+
 Pour cela il faut utiliser une API de windows et donc faire un petit `DllImport`
 
 ```csharp
-[DllImport(&quot;user32.dll&quot;>)]
+[DllImport("user32.dll")]
 public static extern bool BlockInput(bool fBlockIt);
 Attention cela ne bloque pas le Ctrl + Alt + Suppr heureusement...
 Maintenant si vous voulez envoyer des commandes à une application pas de problème il faut utiliser la classe SendKeys qui se trouve System.Windows.Forms.

@@ -4,10 +4,11 @@ title: Projet codeplex, LINQ to Active Directory par Bart De Smet
 date: 2010-12-29 15:30
 author: evilz
 comments: true
-categories: [c#, Cecil, Codeplex, csharp, Informatique, interop, linq, Microsoft, programmation]
+tags: [c#, Cecil, Codeplex, csharp, Informatique, interop, linq, Microsoft, programmation]
 ---
 Depuis l'été dernier je travaille sur un projet Web de provisioning du système d'information d'un gros groupe.
-Il s'agit d'une application web ASP.net permettant de gérer l'Active Directory, Exchange et MOCS.<!--more-->
+Il s'agit d'une application web ASP.net permettant de gérer l'Active Directory, Exchange et MOCS.
+<!--more-->
 
 A mon arrivée le projet était dans un sale état, par exemple :
 
@@ -23,7 +24,7 @@ catch (Exception /*ex*/)
         Commun_App.RedirectionErreur(Session,
             Response,
             ex,
-            &quot;btnAfficherToutesLesAdresses_Click&quot;);
+            "btnAfficherToutesLesAdresses_Click");
     }
     catch { }
 }
@@ -43,10 +44,10 @@ Un petit exemple (cf: Codeplex) :
 var users = new DirectorySource&lt;User&gt;(ROOT, SearchScope.Subtree);
 users.Log = Console.Out;
 var res = from usr in users
-          where usr.FirstName.StartsWith(&quot;B&quot;) &amp;&amp; usr.Office == &quot;2525&quot;
+          where usr.FirstName.StartsWith("B") && usr.Office == "2525"
           select new
           {
-              Name = usr.FirstName + &quot; &quot; + usr.LastName,
+              Name = usr.FirstName + " " + usr.LastName,
               usr.Office,
               usr.LogonCount
           };
@@ -54,7 +55,7 @@ var res = from usr in users
 foreach (var u in res)
 {
     Console.WriteLine(u);
-    u.Office = &quot;5252&quot;;
+    u.Office = "5252";
     u.SetPassword(pwd);
 }
 
@@ -64,27 +65,27 @@ users.Update();
 Je pense que vous avez tous compris cet exemple, en quelques lignes il montre toute la puissance de l'API.
 On commence par rechercher les utilisateurs de l'AD dont le prénom commence par un 'B' et le bureau est le '2525'. Facile non ?
 
-- Mais là classe User elle vient d'où ?
-- j'y viens.
+> Mais là classe User elle vient d'où ?
+> j'y viens.
 
 La classe user est une classe que vous allez coder avec vos petites mimines. Dans cette classe on va créer le mapping entre les attributs de l'AD et les propriétés de la classe elle-même. Pour créer ces mappings, mister Bart De Smet met à notre disposition des attributs csharp.
 
 exemple :
 
 ```csharp
-[DirectorySchema(&quot;user&quot;, typeof(IADsUser))]
+[DirectorySchema("user", typeof(IADsUser))]
 class User
 {
-    [DirectoryAttribute(&quot;objectGUID&quot;)]
+    [DirectoryAttribute("objectGUID")]
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public int LogonCount { get; set; }
-    [DirectoryAttribute(&quot;PasswordLastChanged&quot;, DirectoryAttributeType.ActiveDs)]
+    [DirectoryAttribute("PasswordLastChanged", DirectoryAttributeType.ActiveDs)]
     public DateTime PasswordLastSet { get; set; }
-    [DirectoryAttribute(&quot;distinguishedName&quot;)]
+    [DirectoryAttribute("distinguishedName")]
     public string Dn { get; set; }
-    [DirectoryAttribute(&quot;memberOf&quot;)]
+    [DirectoryAttribute("memberOf")]
     public string[] Groups { get; set; }
 }
 ```
@@ -103,7 +104,7 @@ La méthode SetPAssword est quant à elle une méthode disponible dans les Direc
 ```csharp
 public bool SetPassword(string password)
 {
-    return this.DirectoryEntry.Invoke(&quot;SetPassword&quot;, new object[] { password }) == null;
+    return this.DirectoryEntry.Invoke("SetPassword", new object[] { password }) == null;
 }
 ```
 
@@ -119,4 +120,4 @@ En deux, trois minutes il me dit que cette implémentation est foireuse et me co
 
 Et voilou tout fonctionne à merveille ! Elle n'est pas belle la vie
 
-**[Mes fichiers](https://docs.google.com/leaf?id=0BwLbwB1nKt9NZTZjMGU4MzUtYzY1Yy00NWY2LWFkYzUtMzllODk0MzFiYWE5&amp;sort=name&amp;layout=list&amp;num=50)**
+[Sources sur github](https://gist.github.com/evilz/efd870e095cc21cd92ae)

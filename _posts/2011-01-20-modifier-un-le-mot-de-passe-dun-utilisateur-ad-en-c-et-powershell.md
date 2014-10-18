@@ -4,28 +4,28 @@ title: Modifier un le mot de passe d'un utilisateur AD en C# et PowerShell
 date: 2011-01-20 10:53
 author: evilz
 comments: true
-categories: [active directory, c#, Informatique, powershell]
+tags: [active directory, c#, Informatique, powershell]
 ---
 Voici un bout de code permettant de récupérer un compte utilisateur dans l'Active Directory et de faire un reset de son mot de passe.
 
-
+### CSharp
 ```csharp
 public static void SetPassword(string distinguishedName, string password)
         {
-            DirectoryEntry oUser = new DirectoryEntry(&quot;LDAP://&quot;+distinguishedName);
-            oUser.Invoke(&quot;SetPassword&quot;,password);
+            DirectoryEntry oUser = new DirectoryEntry("LDAP://"+distinguishedName);
+            oUser.Invoke("SetPassword",password);
             oUser.CommitChanges();
             oUser.Dispose();
         }
 ```
 
-
-```ps
+### PowerShell
+```bash
 Function SetPassword($distinguishedName, $password)
 {
-           $ldap = &quot;LDAP://$distinguishedName&quot;
+           $ldap = "LDAP://$distinguishedName"
            $oUser = $ldap;
-           $ouser.psbase.invoke(&quot;SetPassword&quot;,$password)
+           $ouser.psbase.invoke("SetPassword",$password)
            $ouser.psbase.CommitChanges()
 }
 ```

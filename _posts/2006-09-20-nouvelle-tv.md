@@ -6,8 +6,6 @@ author: evilz
 comments: true
 tags: [Divers, Samsung, TV]
 ---
-[![](/images/blog/nouvelle_tv.png)](/images/blog/nouvelle_tv.png)
-
 Depuis longtemps je voulais changer de télévision. J'avais une grosse TV et un écran 17 pouces de Sony.
 C'est super bien mais ça prend beaucoup de place et je voulais un seul écran qui fasse tout. J'ai craqué pour un SAMSUNG LE-26R73BD.
 Grosse surprise en déballant décodeur TNT intégrée ! Je ne connaissais pas trop le système, j'avais lu des trucs comme quoi il faut bien capté sinon c'est pourri.
@@ -15,7 +13,9 @@ Ba moi je peux vous dire que c'est impec ! En plus les séries et les films 
 
 ## Téléviseur LCD 16/9 LE26R73BD HD Ready et TNT intégrée
 
-**Caractéristiques du produit **
+[![](https://c4.staticflickr.com/4/3954/15530765816_df8257eb05.jpg)](https://c4.staticflickr.com/4/3954/15530765816_df8257eb05.jpg)
+
+**Caractéristiques du produit**
 
 *   Résolution 1366x768 (HD Ready)
 *   Luminosité 500cd/m2

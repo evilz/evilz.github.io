@@ -78,12 +78,12 @@ C'est finalement assez simple, un objet de type Observer implémentant IObserver
 Regardons ces deux interfaces
 
 ```csharp
-public interface IObservable&lt;out T&gt;
+public interface IObservable<out T>
 {
-        IDisposable Subscribe(IObserver&lt;T&gt; observer);
+        IDisposable Subscribe(IObserver<T> observer);
 }
 
-public interface IObserver&lt;in T&gt;
+public interface IObserver<in T>
 {
         void OnCompleted();
         void OnError(Exception error);
@@ -100,19 +100,19 @@ class Program
         {
             var ts = new TimeSource();
             ts.Subscribe(
-                        dt =&gt; Console.WriteLine(dt.ToString()), // onNext
-                        ex =&gt; Console.WriteLine(ex.Message), // onError
-                        () =&gt; Console.WriteLine(&quot;C'est fini&quot;) // onCompleted
+                        dt => Console.WriteLine(dt.ToString()), // onNext
+                        ex => Console.WriteLine(ex.Message), // onError
+                        () => Console.WriteLine("C'est fini") // onCompleted
                 );
             Console.ReadLine();
         }
     }
 
     // notre classe observable
-    public class TimeSource : IObservable&lt;DateTime&gt; , IDisposable
+    public class TimeSource : IObservable<DateTime> , IDisposable
     {
         // liste des observers ayant souscrit
-        List&lt;IObserver&lt;DateTime&gt;&gt; observers = new List&lt;IObserver&lt;DateTime&gt;&gt;();
+        List<IObserver<DateTime>> observers = new List<IObserver<DateTime>>();
         int count = 0;
 
         public TimeSource()
@@ -133,7 +133,7 @@ class Program
                     obs.OnNext(DateTime.Now);
 
                     // si le timer à Tické 10 déclenche le onCompleted
-                    if (count &gt;= 10)
+                    if (count >= 10)
                         obs.OnCompleted();
                 }
             }
@@ -145,7 +145,7 @@ class Program
             }
         }
 
-        public IDisposable Subscribe(IObserver&lt;DateTime&gt; observer)
+        public IDisposable Subscribe(IObserver<DateTime> observer)
         {
             // si il n'existe pas on ajout l'observer dans la collection
             if(!observers.Contains(observer))
@@ -163,7 +163,7 @@ class Program
 
 voici le résultat
 
-```shell
+```bash
 10/02/2011 12:33:32
 10/02/2011 12:33:33
 10/02/2011 12:33:34
@@ -188,23 +188,23 @@ Essayons de reproduire ce concept dans une application console via le Rx.
  static void Main(string[] args)
         {
             // Création d'objet observable qui apelle une action de façon asynchrone
-            var obsAsync = Observable.Start(() =&gt; {
-                                 return findRandomFlickrImages(&quot;techdays&quot;);
+            var obsAsync = Observable.Start(() => {
+                                 return findRandomFlickrImages("techdays");
                                  });
 
             // On souscrit à notre objet observable
-            obsAsync.Subscribe(urls =&gt;
+            obsAsync.Subscribe(urls =>
             {
                 Console.WriteLine();
                 // chaque url est ecrit à la ligne dans la console
                 urls.ToList()
-                    .ForEach(s =&gt; Console.WriteLine(s));
+                    .ForEach(s => Console.WriteLine(s));
             });
 
             // une petite boucle histoire de montrer le thread principal
-            for (int i = 0; i &lt; 10000; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                Console.Write(i + &quot; &quot;);
+                Console.Write(i + " ");
                 // sleep pour attendre 1sec entre chaque write
                 // (c'est pas beau mais éfficace :p)
                 Thread.Sleep(1000);
@@ -216,15 +216,15 @@ Essayons de reproduire ce concept dans une application console via le Rx.
 static string[] findRandomFlickrImages(string SearchTerm)
 {
             var doc = XDocument.Load(String.Format(CultureInfo.InvariantCulture,
-                &quot;http://api.flickr.com/services/feeds/photos_public.gne?tags={0}&amp;amp;format=rss_200&quot;,
+                "http://api.flickr.com/services/feeds/photos_public.gne?tags={0}&amp;amp;format=rss_200",
                 HttpUtility.UrlEncode(SearchTerm)));
 
             if (doc.Root == null)
                 return null;
 
-            var node_name = &quot;{http://search.yahoo.com/mrss/}thumbnail&quot;;
+            var node_name = "{http://search.yahoo.com/mrss/}thumbnail";
             return doc.Root.Descendants(node_name)
-                .Select(x =&gt; x.Attributes(&quot;url&quot;).First().Value)
+                .Select(x => x.Attributes("url").First().Value)
                 .ToArray();
 }
 ```
@@ -237,7 +237,7 @@ La boucle for juste en dessous n'est là que pour montrer l'exécution asynchron
 
 Le résultat est le suivant :
 
-```shell
+```bash
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
 http://farm6.static.flickr.com/5216/5430163165_934253a6fd_s.jpg
 http://farm6.static.flickr.com/5291/5430698546_ca476e7c13_s.jpg
@@ -273,23 +273,23 @@ private void UserControl_Loaded(object sender, RoutedEventArgs e)
 {
 
 // Créer un IObservable à partir de l'évènement MouseLeftButtonDown
-Func&lt;FrameworkElement, IObservable&lt;IEvent&lt;MouseButtonEventArgs&gt;&gt;&gt; mouseDown = element =&gt; Observable.FromEvent&lt;MouseButtonEventArgs&gt;(element, &quot;MouseLeftButtonDown&quot;);
+Func<FrameworkElement, IObservable<IEvent<MouseButtonEventArgs>>> mouseDown = element => Observable.FromEvent<MouseButtonEventArgs>(element, "MouseLeftButtonDown");
 // Créer un IObservable à partir de l'évènement MouseLeftButtonUp
-Func&lt;FrameworkElement, IObservable&lt;IEvent&lt;MouseButtonEventArgs&gt;&gt;&gt; mouseUp = element =&gt; Observable.FromEvent&lt;MouseButtonEventArgs&gt;(element, &quot;MouseLeftButtonUp&quot;);
+Func<FrameworkElement, IObservable<IEvent<MouseButtonEventArgs>>> mouseUp = element => Observable.FromEvent<MouseButtonEventArgs>(element, "MouseLeftButtonUp");
 // Créer un IObservable à partir de l'évènement MouseMove
-Func&lt;FrameworkElement, IObservable&lt;IEvent&lt;MouseEventArgs&gt;&gt;&gt; mouseMove = element =&gt; Observable.FromEvent&lt;MouseEventArgs&gt;(element, &quot;MouseMove&quot;);
+Func<FrameworkElement, IObservable<IEvent<MouseEventArgs>>> mouseMove = element => Observable.FromEvent<MouseEventArgs>(element, "MouseMove");
 
 // Création d'une requête linq sur l'IObservable
 var draggingEventsImage = from pos in mouseMove(rectangle)
                                 .SkipUntil(mouseDown(rectangle)
-                                            .Do(mb =&gt; rectangle.CaptureMouse())
-                                            .Do(mb =&gt; DropShadowStory1.Begin())
+                                            .Do(mb => rectangle.CaptureMouse())
+                                            .Do(mb => DropShadowStory1.Begin())
                                             )
                                 .TakeUntil(mouseUp(rectangle)
-                                            .Do(mb =&gt; DropShadowStoryReverse1.Begin())
-                                                .Do(mb =&gt; rectangle.ReleaseMouseCapture())
+                                            .Do(mb => DropShadowStoryReverse1.Begin())
+                                                .Do(mb => rectangle.ReleaseMouseCapture())
                                             )
-            .Let(mm =&gt; mm.Zip(mm.Skip(1), (prev, cur) =&gt;
+            .Let(mm => mm.Zip(mm.Skip(1), (prev, cur) =>
                 new
                 {
                     X = cur.EventArgs.GetPosition(this).X -
@@ -301,7 +301,7 @@ var draggingEventsImage = from pos in mouseMove(rectangle)
 
 // Enfin on souscrit pour déplacer l'élément
 draggingEventsImage.Subscribe(
-p =&gt;
+p =>
 {
 Canvas.SetLeft(rectangle, Canvas.GetLeft(rectangle) + p.X);
 Canvas.SetTop(rectangle, Canvas.GetTop(rectangle) + p.Y);
@@ -313,29 +313,43 @@ Canvas.SetTop(rectangle, Canvas.GetTop(rectangle) + p.Y);
 Whoua !
 Expliquons quand même la requête qui semble tiré par les cheveux.
 
-`from pos in mouseMove(rectangle)`
+```csharp
+from pos in mouseMove(rectangle)
+```
 Récupère un IObservable à partir de MouseMove sur le rectangle
 
-`.SkipUntil(mouseDown(rectangle)`
+```csharp
+.SkipUntil(mouseDown(rectangle)
+```
 Ignore les valeur tant que le MouseLeftButtonDown n'a pas renvoyé d'info
 
-`.Do(mb => rectangle.CaptureMouse())`
+```csharp
+.Do(mb => rectangle.CaptureMouse())
+```
 Capture la souris pour permettre de faire fonctionner correctement le drag ..
 
-`.Do(mb => DropShadowStory1.Begin())`
+```csharp
+.Do(mb => DropShadowStory1.Begin())
+```
 Lance le storyboard sur le rectangle
 Les deux .Do() sont executés lors du MouseLeftButtonDown
 
-`.TakeUntil(mouseUp(rectangle)`
+```csharp
+.TakeUntil(mouseUp(rectangle)
+```
 Utiliser les valeurs tant que MouseLeftButtonUp n'a pas renvoyé d'infos
 
-`.Do(mb => DropShadowStoryReverse1.Begin())`
+```csharp
+.Do(mb => DropShadowStoryReverse1.Begin())
+```
 Lance le storyboard inverse sur le rectangle
 
-`.Do(mb => rectangle.ReleaseMouseCapture())`
+```csharp
+.Do(mb => rectangle.ReleaseMouseCapture())
+```
 Relache la souris, Les deux .Do() sont executés lors du MouseLeftButtonUp
 
-```
+```csharp
 .Let(mm => mm.Zip(mm.Skip(1), (prev, cur) =>
                 new
                 {
@@ -346,6 +360,7 @@ Relache la souris, Les deux .Do() sont executés lors du MouseLeftButtonUp
                 })).Repeat()
                             select pos;
 ```
+
 Tout ce bloc permet de sélectionner le déplacement entre deux points.
 La méthode Zip prend deux séquences pour les assembler en une seule, il faut donc sauter la première séquence puisque la valeur précédente n'existe pas.
 Ensuite un simple calcule est effectué.
@@ -358,4 +373,8 @@ Voici le résultat.
 Le rectangle vert correspond au code avec Rx.
 Le rectangle rouge correspond au Behavior.
 
-[silverlight: TechDays2011.Rx.SilverlightApplication.xap]
+<object width="300" height="300"
+    data="data:application/x-silverlight-2," 
+    type="application/x-silverlight-2" >
+    <param name="source" value="{{ site.url }}/assets/content/TechDays2011.Rx.SilverlightApplication.xap"/>
+</object>

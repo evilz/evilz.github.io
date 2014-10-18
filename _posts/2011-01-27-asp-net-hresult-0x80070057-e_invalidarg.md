@@ -4,7 +4,8 @@ title: ASP.net (HRESULT 0x80070057 (E_INVALIDARG))
 date: 2011-01-27 10:41
 author: evilz
 comments: true
-categories: [asp.net, erreur, Informatique]
+tags: [asp.net, erreur, Informatique]
+share: true
 ---
 Voilà l'histoire fantastique d'un développeur qui code et debug sa petit appli web tranquillement. Quand soudain, alors que notre dév Asp.net après avoir appuyé sur F5 s'attend à voir le site s'afficher, une erreur inf'me apparait à l'écran <!--more-->
 <span style="color: #ff0000;">... (HRESULT: 0x80070057 (E_INVALIDARG))..</span>
