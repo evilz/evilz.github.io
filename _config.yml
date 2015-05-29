@@ -76,3 +76,31 @@ kramdown:
 
 include: [".htaccess"]
 exclude: ["*.ignore.md", "theme-setup.md", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+
+
+# The Reveal theme
+reveal_theme: night.css
+
+# The Reveal transition
+reveal_transition: slide
+
+# Path to the used theme (defaults to the Reveal.js standard theme path)
+reveal_theme_path: /reveal.js/css/theme/ 
+
+# Embed Server-side speaker notes?
+reveal_notes_server: false
+
+# Additional reveal.js options
+reveal_options: 
+
+# Additional reveal.js dependencies
+reveal_dependencies: 
+
+# Reveal.js subdirectory
+reveal_path: /reveal.js/
+
+# Don't change anything below
+#markdown: redcarpet
+#pygments: true
+#markdown_ext: ignoreme
+

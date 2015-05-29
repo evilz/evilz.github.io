@@ -4,7 +4,7 @@ title: Code for Human
 description: "tous les articles"
 tags: [blog, csharp, .net, soat]
 image:
-  feature: vs1.jpg
+  feature: bgvsCode.png
 ---
 
 {% for post in paginator.posts %}
@@ -28,7 +28,15 @@ image:
     {% endif %}
   </header>
   <div class="entry-content">
-    {{ post.content }}
+     {% if post.layout == "slides" %}
+        <iframe  class="slide" marginheight="0" marginwidth="0" src="{{ site.url }}{{ post.url }}">
+          Fallback text here for unsupporting browsers, of which there are scant few.
+        </iframe>
+     {% else %}
+        {{ post.excerpt }}
+     {% endif %}
+     
+    
   </div><!-- /.entry-content -->
 </article><!-- /.hentry -->
 {% endfor %}
