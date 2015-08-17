@@ -30,6 +30,11 @@
 .reveal .slides > section.left{text-align: left;}
 
 .reveal .slides > section.right{text-align: right;}
+
+.reveal .ok:before{color:#17ff2e; content:"✓ ";}
+.reveal .ko:before{color:#ff2c2d; content:"✗ ";}
+.reveal p.left{text-align: left;  display: block; position: relative; width: 90%; margin: 20px auto;}
+.reveal p.right{text-align: right; display: block; position: relative; width: 90%; margin: 20px auto;}
     </style>
 
     <!--[if lt IE 9]>
@@ -41,8 +46,10 @@
     <div class="reveal">
       <div class="slides">
         <section data-markdown   
-        data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-element-attributes="{_\s*?([^}]+?)}"
-         data-separator-notes="^Note:"  >
+            data-separator="^\n---\n$" 
+            data-separator-vertical="^\n--\n$" 
+            data-element-attributes="{_\s*?([^}]+?)}"
+            data-separator-notes="^Note:"  >
 <script type="text/template">     
 {{ page.content }}
 </script>
@@ -54,10 +61,11 @@
 
     <script>
 
+
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        controls: false,
+        controls: true,
         progress: true,
         history: true,
         center: true,
@@ -71,24 +79,18 @@
 
                 {% endif %}
 
-        // Optional libraries used to extend on reveal.js
+      
+        // Optional reveal.js plugins
         dependencies: [
           { src: '{{ site.reveal_path }}lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: '{{ site.reveal_path }}plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: '{{ site.reveal_path }}plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: '{{ site.reveal_path }}plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: '{{ site.reveal_path }}plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    {% if site.reveal_notes_server %}
-                    { src: '{{ site.reveal_path }}socket.io/socket.io.js', async: true },
-                    { src: '{{ site.reveal_path }}plugin/notes-server/client.js', async: true }
-                    {% else %}
-          { src: '{{ site.reveal_path }}plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-                    {% endif %}
-                    {% if site.reveal_dependencies %}
-                    , {{ site.reveal_dependencies }}
-                    {% endif %}
+          { src: '{{ site.reveal_path }}plugin/highlight/highlight.js', async: true,  callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '{{ site.reveal_path }}plugin/zoom-js/zoom.js', async: true },
+          { src: '{{ site.reveal_path }}plugin/notes/notes.js', async: true }
         ]
       });
+
 
     </script>
 
