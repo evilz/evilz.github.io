@@ -1,106 +1,72 @@
-title:            EvilzNet
-description:      Code for human.
-disqus_shortname: evilznet
-reading_time:     true
-words_per_minute: 200
-#Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              http://www.evilznet.com
+# Site
+title:              EvilzNet
+bio:                'CODE FOR HUMAN ...'
+description:        "Evilz blog, computer stuff and geek"
+reading_time:       true
+words_per_minute:   200
+logo:               'images/logo.png'
+background:         'assets/img/placeholder-big.jpg'
+locale:             fr_FR
+#url:                http://www.evilznet.com
+url:                http://localhost:4000
 
-# Owner/author information
-owner:
-  name:           Vincent Bourdon
-  avatar:         avatar.jpg
-  bio:            "Je suis developper .net/Web depuis 2001"
-  email:          evilznet@gmail.com
-  # Social networking links used in footer. Update and remove as you like.
-  twitter:        
-  facebook:       
-  github:         
-  stackexchange:  
-  linkedin:       
-  instagram:      
-  flickr:         
-  tumblr:         
-  # For Google Authorship https://plus.google.com/authorship
-  # google plus id, include the '+', eg +mmistakes
-  google_plus:    +VincentBourdon
-
-share: true
-# Background image to be tiled on all pages
-background: 
-
-# Analytics and webmaster tools stuff goes here
-google_analytics:   
-google_verify:      
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:         
-
-# Links to include in top navigation
-# For external links add external: true
-links:
-  #- title: Theme Setup
-  #  url: /theme-setup
-  #- title: External Link
-  #  url: http://mademistakes.com
-  #  external: true
-
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    Europe/Paris
-future:      true
-highlighter: pygments
-markdown:    kramdown
-excerpt_separator: "<!--more-->"
-
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-#permalink:   /:categories/:title/
-permalink:   /:year/:month/:day/:title/
-
-
-# Amount of post to show on home page
-paginate: 5
-
+# Jekyll
+permalink:          /:year/:month/:day/:title/
+markdown:           kramdown
+highlighter:        rouge
 kramdown:
-  input: GFM
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: true
+  auto_ids:         true
+  footnote_nr:      1
+  entity_output:    as_char
+  toc_levels:       1..6
+  enable_coderay:   false
+mathjax:            true
+sass:
+  sass_dir:         _sass
+  style:            compressed
 
-  coderay:
-    coderay_line_numbers: nil
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+# Comments
+disqus_shortname:   evilznet
 
-include: [".htaccess"]
-exclude: ["*.ignore.md", "theme-setup.md", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+# Social
+# if you don't have any of social below, comment the line.
+#google:
+  #plus:            #username
+  #analytics:
+  #verify:
+  #ad-client:
+  #ad-slot:
+#bing-verify:
+#email:
+twitter:            evilznet
+#facebook:           username
+github:             evilz
+#stackoverflow:      123456/username   from a "http://stackoverflow.com/users/123456/username" link
+#linkedin:           username
+#xing:              username
+#instagram:          username
+#lastfm:             username
+#tumblr:             username
+#pinterest:         username
+#foursquare:        username
+#steam:              username
+#dribbble:          username
+#youtube:            username
+#soundcloud:        username
+#weibo:             username
+#flickr:            username
+#codepen:           username
+#keybase:           username
 
+# Gems
+gems:
+  - jekyll-mentions
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-gist
 
-# The Reveal theme
-reveal_theme: night.css
+jekyll-mentions:
+    base_url: https://github.com
 
-# The Reveal transition
-reveal_transition: slide
-
-# Path to the used theme (defaults to the Reveal.js standard theme path)
-reveal_theme_path: /reveal.js/css/theme/ 
-
-# Embed Server-side speaker notes?
-reveal_notes_server: false
-
-# Additional reveal.js options
-reveal_options: 
-
-# Additional reveal.js dependencies
-reveal_dependencies: 
-
-# Reveal.js subdirectory
-reveal_path: /reveal.js/
-
-# Don't change anything below
-#markdown: redcarpet
-#pygments: true
-#markdown_ext: ignoreme
-
+# Exclude list
+exclude: [Ignore, README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
