@@ -5,10 +5,10 @@ date: 2016-06-17
 author: evilz
 comments: true
 tags: [dotnet, Informatique]
-feature: http://www.privateeye.io/images/logo/logo.png
+feature: https://i.ytimg.com/vi/aHxIb84afAA/maxresdefault.jpg
 ---
 
-<img src="https://i.ytimg.com/vi/aHxIb84afAA/maxresdefault.jpg" style="height:200px;float:left" />J'ai eu la change de participer à un petit atelier sur **Private Eye** avec **Greg Young** durant la conférence NCraft 2016.
+J'ai eu la change de participer à un petit atelier sur **Private Eye** avec **Greg Young** durant la conférence NCraft 2016.
 
  Greg Young est très connu dans la communauté pour avoir évangélisé le terme de CQRS. Mais pour cette occasion il ne s'agit plus de parler de CQRS mais bel et bien d'un outil de profiling développé par Greg lui même.
 
