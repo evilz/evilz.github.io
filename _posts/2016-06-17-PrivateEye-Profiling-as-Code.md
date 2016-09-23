@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PrivateEye : Profiling as Code
+title: PrivateEye, Profiling as Code
 date: 2016-06-17
 author: evilz
 comments: true
