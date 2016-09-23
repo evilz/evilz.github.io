@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Options de démmarage pour Mac
+title: Options de démarrage pour Mac
 date: 2016-05-01
 author: evilz
 comments: true
