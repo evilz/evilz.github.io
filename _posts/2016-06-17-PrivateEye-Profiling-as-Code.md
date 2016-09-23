@@ -6,7 +6,7 @@ author: evilz
 comments: true
 tags: [dotnet, Informatique]
 feature: https://i.ytimg.com/vi/aHxIb84afAA/maxresdefault.jpg
----
+
 
 J'ai eu la change de participer à un petit atelier sur **Private Eye** avec **Greg Young** durant la conférence NCraft 2016.
 
