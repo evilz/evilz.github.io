@@ -5,13 +5,12 @@ date: 2013-08-27 23:03
 author: evilz
 comments: true
 categories: [github, Informatique, math, programmation]
+feature: https://c2.staticflickr.com/6/5607/14937362703_1b19a38bdb_n.jpg
 ---
 En lisant le flux RSS de [Scott Hanselman](http://www.hanselman.com/) sur mon [feedly](cloud.feedly.com) préféré, je suis tombé sur un [billet](http://www.hanselman.com/blog/AmIReallyADeveloperOrJustAGoodGoogler.aspx) intéressant où Scott répond à un dev se demandant si il est vraiment développeur ou juste Googleur.
 
 <!--more-->
-<p class="pull-right">
-<img src="https://c2.staticflickr.com/6/5607/14937362703_1b19a38bdb_n.jpg"/>
-</p>
+
 Bref, l'info qui concerne ce billet, c'est un lien que Scott a donné  [http://projecteuler.net/](http://projecteuler.net/) qui présente plein de petit problèmes mathématique plus ou moins simple qu'il faut résoudre en créant de petits programmes.
 
 Je me suis donc lancé à tester ça, et j'ai tout de suite accroché !
