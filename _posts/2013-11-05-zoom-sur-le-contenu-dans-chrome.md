@@ -5,6 +5,7 @@ date: 2013-11-05 16:13
 author: evilz
 comments: true
 tags: [chrome, extention, Informatique]
+feature: https://farm5.staticflickr.com/4600/38462319335_d1dd38aa1b_z.jpg
 ---
 On est tous habitué à utiliser le zoom sur nos navigateurs mobile en double tapant lorsque le contenu d'un site web n'est pas adapté l'écran.
 Cette habitude je l'ai aussi sur les PC et Apple a ajoutée la fonctionnalité sur Safari, mais qu'en est-il pour Chrome mon bien aimé ? Pour l'instant rien de natif.
