@@ -111,16 +111,16 @@ private void Application_Activated(object sender, ActivatedEventArgs e)
 {
   if (e.IsApplicationInstancePreserved)
   {
-    ApplicationDataStatus = &quot;application instance preserved.&quot;;
+    ApplicationDataStatus = "application instance preserved.";
     return;
   }
 
   // Check to see if the key for the application state data is in the State dictionary.
-  if (PhoneApplicationService.Current.State.ContainsKey(&quot;ApplicationDataObject&quot;))
+  if (PhoneApplicationService.Current.State.ContainsKey("ApplicationDataObject"))
   {
     // If it exists, assign the data to the application member variable.
-    ApplicationDataStatus = &quot;data from preserved state.&quot;;
-    ApplicationDataObject = PhoneApplicationService.Current.State[&quot;ApplicationDataObject&quot;] as string;
+    ApplicationDataStatus = "data from preserved state.";
+    ApplicationDataObject = PhoneApplicationService.Current.State["ApplicationDataObject"] as string;
   }
 }
 ```
@@ -169,10 +169,10 @@ Voici un exemple de code.
 ```csharp
 BackgroundTransferRequest btr = new BackgroundTransferRequest (new Uri (serviceUploadLocationURL + localDBName,UriKind.Absolute));
  btr.TransferPreferences = TransferPreferences.AllowBattery;
-btr.Method = &quot;POST&quot;;
-btr.UploadLocation = new Uri(&quot;/&quot; + TransfersFiles + &quot;/&quot; + localDBName, UriKind.Relative);
-btr.TransferStatusChanged += new EventHandler&lt;BackgroundTransferEventArgs&gt;(btr_UploadTransferStatusChanged);
-btr.TransferProgressChanged +=  new EventHandler&lt;BackgroundTransferEventArgs&gt;(
+btr.Method = "POST";
+btr.UploadLocation = new Uri("/" + TransfersFiles + "/" + localDBName, UriKind.Relative);
+btr.TransferStatusChanged += new EventHandler<BackgroundTransferEventArgs>(btr_UploadTransferStatusChanged);
+btr.TransferProgressChanged +=  new EventHandler<BackgroundTransferEventArgs>(
 btr_TransferProgressChanged);
 Microsoft.Phone.BackgroundTransfer.BackgroundTransferService.Add(btr);
 ```
@@ -209,8 +209,8 @@ Voici un exemple de code :
 **Microsoft.Phone.Scheduler.PeriodicTask**
 
 ```csharp
-PeriodicTask periodicTask = new PeriodicTask(&quot;TaskUniqueNameInApp&quot;);
-periodicTask.Description = &quot;My Periodic Task Description&quot;;
+PeriodicTask periodicTask = new PeriodicTask("TaskUniqueNameInApp");
+periodicTask.Description = "My Periodic Task Description";
 periodicTask.ExpirationTime = DateTime.Now.AddDays(10);
 ScheduledActionService.Add(periodicTask);
 ```
@@ -218,8 +218,8 @@ ScheduledActionService.Add(periodicTask);
 **Microsoft.Phone.Scheduler.ResourceIntensiveTask**
 
 ```csharp
-ResourceIntensiveTask intensiveTask  new ResourceIntensiveTask(&quot;TaskUniqueNameInApp &quot;);
-intensiveTask.Description = &quot;My Intensive Task Description&quot;;
+ResourceIntensiveTask intensiveTask  new ResourceIntensiveTask("TaskUniqueNameInApp ");
+intensiveTask.Description = "My Intensive Task Description";
 intensiveTask.ExpirationTime = DateTime.Now.AddDays(10);
 ScheduledActionService.Add(intensiveTask)
 ```
@@ -243,9 +243,9 @@ NotifyComplete();
 Dans le WMAppManifest.xml on retrouve l'entrée suivante :
 
 ```markup
-&lt;ExtendedTask Name=&quot;BackgroundTask&quot;&gt;
-&lt;BackgroundServiceAgent Specifier=&quot;ScheduledTaskAgent&quot; Name=&quot;SampleAgent&quot;Source=&quot;#AssemblyName#&quot; Type=&quot;#AssemblyName#.TaskScheduler&quot; /&gt;
-&lt;/ExtendedTask&gt;
+<ExtendedTask Name="BackgroundTask">
+<BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="SampleAgent"Source="#AssemblyName#" Type="#AssemblyName#.TaskScheduler" />
+</ExtendedTask>
 ```
 
 Alarm &amp; Reminder
@@ -258,9 +258,9 @@ Deux nouveautés les alarmes et rappel que vous pouvez intégrer dans vos applic
 using Microsoft.Phone.Scheduler;
 private void AddAlarm(object sender, RoutedEventArgs e)
 {
-   Alarm alarm = new Alarm('Ding dong!!!&quot;);
+   Alarm alarm = new Alarm("Ding dong!!!");
    alarm.BeginTime = DateTime.Now.AddSeconds(15);
-   alarm.Content = 'Debout la dedans!.&quot;;
+   alarm.Content = "Debout la dedans!.";
    ScheduledActionService.Add(alarm);
 }
 ```
@@ -271,11 +271,11 @@ private void AddAlarm(object sender, RoutedEventArgs e)
 using Microsoft.Phone.Scheduler;
 private void AddReminder(object sender, RoutedEventArgs e)
 {
-   Reminder reminder = new Reminder(&quot;SoundMachineReminder&quot;)
+   Reminder reminder = new Reminder("SoundMachineReminder")
 	{
 	BeginTime = DateTime.Now.AddSeconds(30),
-	Content = &quot;N'oubliez pas que vous pouvez télécharger les musiques en local&quot;,
-	Title = &quot;Sound Machine Reminder System&quot;,     	RecurrenceType = RecurrenceInterval.Yearly,     	NavigationUri = new Uri(&quot;/MainPage.xaml&quot;, UriKind.Relative)
+	Content = "N'oubliez pas que vous pouvez télécharger les musiques en local",
+	Title = "Sound Machine Reminder System",     	RecurrenceType = RecurrenceInterval.Yearly,     	NavigationUri = new Uri("/MainPage.xaml", UriKind.Relative)
 	};
    ScheduledActionService.Add(reminder);
 }
@@ -285,7 +285,7 @@ Tile &amp; push notification
 
 Plusieurs nouveautés concernant les tuiles :
 
-*   On peut les modifier localement depuis une application via la classe StandardTileData qui permet de modifier les informations de devant : title,BackgroundImage,Count mais aussi de derrriere : BackContent, BackTitle, BackBackgroundImage. Si les informations '« back '» sont fourni la tuile va pivoter a intervalle régulier.
+*   On peut les modifier localement depuis une application via la classe `StandardTileData` qui permet de modifier les informations de devant : `title`,`BackgroundImage`,Count mais aussi de derrriere : `BackContent`, `BackTitle`, `BackBackgroundImag`e. Si les informations '« back '» sont fourni la tuile va pivoter a intervalle régulier.
 *   On peut plusieurs tuiles pour la même application qui vont permettre de créer des raccourcie vers des pages de votre application, ces tuiles sont bien sur elle aussi personnalisable.
 
 <amp-img src="http://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg"
