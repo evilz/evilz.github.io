@@ -1,72 +1,36 @@
-# Site
-title:              EvilzNet
-bio:                'CODE FOR HUMAN ...'
-description:        "Evilz blog, computer stuff and geek"
-reading_time:       true
-words_per_minute:   200
-logo:               'images/logo.png'
-background:         'assets/img/placeholder-big.jpg'
-locale:             fr_FR
-url:                http://www.evilznet.com
-#url:                http://localhost:4000
+# Welcome to Amplified for Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
 
-# Jekyll
+# Site settings
+title: Evilz blog
+email: evilz@evilznet.com
+description: >
+  Code for Human
+logo: "/assets/images/logo.jpg"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://evilznet.com" # the base hostname & protocol for your site
+paginate:	10 # The number of posts to show per page on your homepage
+
+name: 'Vincent Bourdon'
+bio: >
+  .Net Dev since 2001
+author_image: "/assets/images/logo.jpg"
+twitter_username: Evilznet
+github_username:  evilz
+
+# Google Analytics
+analytics_id: "UA-2063306-2"
+
+# Build settings
+markdown: kramdown
 permalink:          /:year/:month/:day/:title/
-markdown:           kramdown
-highlighter:        rouge
+
 kramdown:
-  auto_ids:         true
-  footnote_nr:      1
-  entity_output:    as_char
-  toc_levels:       1..6
-  enable_coderay:   false
-mathjax:            true
-sass:
-  sass_dir:         _sass
-  style:            compressed
+  parse_block_html: true
 
-# Comments
-disqus_shortname:   evilznet
-
-# Social
-# if you don't have any of social below, comment the line.
-#google:
-  #plus:            #username
-  #analytics:
-  #verify:
-  #ad-client:
-  #ad-slot:
-#bing-verify:
-#email:
-twitter:            evilznet
-#facebook:           username
-github:             evilz
-#stackoverflow:      123456/username   from a "http://stackoverflow.com/users/123456/username" link
-#linkedin:           username
-#xing:              username
-#instagram:          username
-#lastfm:             username
-#tumblr:             username
-#pinterest:         username
-#foursquare:        username
-#steam:              username
-#dribbble:          username
-#youtube:            username
-#soundcloud:        username
-#weibo:             username
-#flickr:            username
-#codepen:           username
-#keybase:           username
-
-# Gems
 gems:
-  - jekyll-mentions
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-gist
-
-jekyll-mentions:
-    base_url: https://github.com
-
-# Exclude list
-exclude: [Ignore, README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile]
+  - jekyll-paginate
