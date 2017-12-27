@@ -35,7 +35,11 @@ Ce terme signifie **Read–eval–print loop**.
 Il s'agit simplement d'une boucle en qui lit le code entré, l'évalue et affiche le résultat. Globalement c'est ce que l'on retrouve dans tous les langages de scripting ou de shell.
 On peut aussi parler de session interactive. Sous Visual Studio 2015 il existe une fenêtre interactive pour F# et pour C#.
 
-![](https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/29/92/3187.2015-10-07%20VS2015Update1CTP-1-interactive.png)
+<amp-img src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/29/92/3187.2015-10-07%20VS2015Update1CTP-1-interactive.png"
+  width="691"
+  height="290"
+  layout="responsive"
+  alt="AMP"></amp-img>
 
 Pour en savoir plus il existe une introduction à la REPL C# sur channel 9  [ici](https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/103)
 
@@ -50,7 +54,8 @@ Les étapes sont finalement simples :
 
 Ce système existe de base avec la CLR. Il suffit de définir les valeurs des variables d'environnement suivantes: 
 
-```
+
+```powershell
 set COR_ENABLE_PROFILING=1
 set COR_PROFILER={D51126CE-1443-42ED-8FD6-B4D32C466292}
 set COR_PROFILER_PATH=%~dp0x64\PrivateEye.Profiler.dll
@@ -59,28 +64,27 @@ set PRIVATEEYE_PROFILER_MODE=0
 set PRIVATEEYE_PROFILER_PORT=4444
 ```
 
+
 ## Démmarer une session interactive en écoute
 
 - On lance une session interactive F# :  `fsi.exe`
 
-- On charge privateeye.fsx
+- 
 
-```
+```fsharp
+// On charge privateeye.fsx
 #load "privateeye.fsx";;
-```
 
-- On import le namespace PrivateEye.Bridge
-```
+// On import le namespace PrivateEye.Bridge
 open PrivateEye.Bridge;;
-```
 
-- on ajoute des fonctions d'affichage prédéfinies. Ce mécanisme est présent de base, il permet d'enregistrer un fonction d'affichage pour un type donné. Dans notre cas on enregistre six fonctions.
-```
+
+// on ajoute des fonctions d'affichage prédéfinies. 
+// Ce mécanisme est présent de base, il permet d'enregistrer un fonction d'affichage pour un type donné. 
+// Dans notre cas on enregistre six fonctions.
 addFsiPrinters();;
-```
 
-- Enfin, on se met on écoute d'une connexion
-```
+// Enfin, on se met on écoute d'une connexion
 Profiler.StartListening();; 
 ```
 
@@ -94,7 +98,7 @@ On peut maintenant regarder ce que le profiler a récupéré comme informations.
 
 Dans la session interactive F# exécutez la fonction suivante :
 
-```
+```fsharp
 mostCalledMethods();;
 ```
 
@@ -107,7 +111,11 @@ mostCalledMethods() |> Seq.take 10;;
 
 Voici un petit résumé en image
 
-![](http://www.privateeye.io/images/demo.gif)
+<amp-img src="http://www.privateeye.io/images/demo.gif"
+  width="731"
+  height="449"
+  layout="responsive"
+  alt="AMP"></amp-img>
 
 > Pour vous simplifier la vie vous pouvez simplement lancer `runfsi.cmd` qui fera tout pour vous :)
 > Puis ouvrir une fenêtre de commande et exécuter `launchapp_anycpu.cmd PATH_DE_VOTRE_APP_NET`

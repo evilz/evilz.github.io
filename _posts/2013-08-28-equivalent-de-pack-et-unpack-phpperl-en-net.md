@@ -22,14 +22,14 @@ Je vais essaye de vous donner un ensemble d'exemples avec le code php et sont é
 ### Une chaîne complétée avec NULL
 
 
-```php
+``` php?start_inline=1
 // PHP
 $packed = pack("a10","fox" );
 $unpacked = unpack("a10",$packed);
 ```
 
 
-```csharp
+``` csharp
 // C#
 var packed = "fox".PadRight(10, '');
 var unpacked = ASCIIEncoding.ASCII.GetString(pack, 0, 4);
