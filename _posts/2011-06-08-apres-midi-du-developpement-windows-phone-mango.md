@@ -18,15 +18,25 @@ Cette session a été présentée par Luc Vo Van, David CATUHE, Pierre Cauchois
 
 ## Les projets
 
-Après l'installation du nouveau SDK téléchargeable [ici](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=77586864-ab15-40e1-bc38-713a95a56a05&amp;displaylang=en "sdk mango")
+Après l'installation du nouveau SDK téléchargeable [ici](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=77586864-ab15-40e1-bc38-713a95a56a05&amp;displaylang=en "sdk mango")
 
 Quatre nouveau templates de projet seront présent dans Visual Studio 2010 pour développer vos applications Mango.
-![](http://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png)
+
+
+<amp-img src="http://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png"
+  width="287"
+  height="169"
+  alt="AMP"></amp-img>
 
 Chacun de ces Templates étant lié à une nouvelle fonctionnalité de Mango.
 
 Le multi-targeting est aussi présent et nous laisse le choix de la version de Windows Phone.
-![](http://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png)
+
+<amp-img src="http://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png"
+  width="527"
+  height="249"
+  alt="AMP"></amp-img>
+
 
 Il est facilement possible de mettre à jour vos applications existantes vers 7.1 gr'ce à un Wizzard. Attention cependant le retour vers 7.0 peut être plus compliqué, donc faites des tests de migration sur une copie de votre projet ou sur une nouvelle branche.
 
