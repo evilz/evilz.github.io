@@ -11,8 +11,8 @@ Cette habitude je l'ai aussi sur les PC et Apple a ajoutée la fonctionnalité s
 
 <!--more-->
 
-Heureusement un tour rapide sur le Chrome Store et j'ai trouvé ce que je voulais !
+Heureusement un tour rapide sur le **Chrome Store** et j'ai trouvé ce que je voulais !
 
-<iframe width="560" height="315" src="http://www.youtube.com/embed/FbcwF57DifI" frameborder="0"> </iframe>
+<amp-youtube data-videoid="FbcwF57DifI" layout="responsive" width="480" height="270"></amp-youtube>
 
-c'est ici : <a title="Zoom on DoubleClick" href="https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb" target="_blank">https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb</a>
+c'est ici : <a title="Zoom on DoubleClick"  href="https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb" target="_blank">https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb</a>
