@@ -5,6 +5,7 @@ date: 2011-06-08 10:58
 author: evilz
 comments: true
 categories: [Informatique, mango, Microsoft, windows phone]
+feature: https://farm5.staticflickr.com/4729/27563401609_8df12b7d16_m.jpg
 ---
 Mercredi 1<sup>er</sup> juin nous avons passé une demi-journée dans les locaux de Microsoft pour une tour des évolutions du développement sur la nouvelle version de Windows Phone 7.1 alias **Mango**
 
