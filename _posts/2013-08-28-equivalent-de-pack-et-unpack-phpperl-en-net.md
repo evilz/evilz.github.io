@@ -5,6 +5,7 @@ date: 2013-08-28 07:21
 author: evilz
 comments: true
 categories: [dataconvert, Informatique, Mono, perl, php, programmation]
+feature: https://farm5.staticflickr.com/4638/39310213012_aab9c69b7e_b.jpg
 ---
 Je me suis lancer dans la conversion d'un petit projet PHP vers C#, et je suis tombé sur une fonction qui m'était totalement inconnue à savoir `unpack()`.
 Je vais vous partager le résultat de mes recherches sur ce sujet.
