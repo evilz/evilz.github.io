@@ -41,28 +41,49 @@ Le multi-targeting est aussi présent et nous laisse le choix de la version de W
 
 Il est facilement possible de mettre à jour vos applications existantes vers 7.1 gr'ce à un Wizzard. Attention cependant le retour vers 7.0 peut être plus compliqué, donc faites des tests de migration sur une copie de votre projet ou sur une nouvelle branche.
 
-![](http://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png)
-![](http://farm4.static.flickr.com/3066/5811384742_de38893169.jpg)
+<amp-img src="http://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png"
+  width="341"
+  height="186"
+  alt="AMP"></amp-img>
 
-A noté cependant qu'il n'est pas obligatoire de migrer vers 7.1 pour que les applications fonctionnent sur le future système, elles pourront fonctionner sans problème et bénéficierons même de meilleures performances liées aux améliorations du système.
+  <amp-img src="http://farm4.static.flickr.com/3066/5811384742_de38893169.jpg"
+  width="500"
+  height="283"
+  alt="AMP"></amp-img>
+
+A noté cependant qu'il n'est pas obligatoire de migrer vers 7.1 pour que les applications fonctionnent sur le future système, elles pourront fonctionner sans problème et bénéficierons même de meilleures performances liées aux améliorations du système.
 
 ## L'émulateur
 
 L'émulateur permet maintenant de simuler une activité des sensors : Accéléromètre et GPS
 
 Pour l'accéléromètre les positions prédéfinies du téléphone sont sélectionnable dans une liste bien qu'il soit tout aussi possible de modifier la position simplement avec la souris. De plus, nous pouvons jouer des scénarios de données comme le '« shake '».
-![](http://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg)
+
+  <amp-img src="http://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg"
+  width="500"
+  height="500"
+  alt="AMP"></amp-img>
 
 Pour la partie location, bing map est affiché dans la fenêtre (étonnant) et permet de créer soit par simple clique sur la carte soit par recherche un parcours (une liste de coordonnées). Ce parcours est ensuite joué c'est-à-dire un changement de point toutes les x seconde.
-![](http://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg)
+
+  <amp-img src="http://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg"
+  width="500"
+  height="500"
+  alt="AMP"></amp-img>
 
 ## Profiler
 
 Un profiler dédier au projet WP7 a été ajouté, il n'est pas à l'heure actuelle dans sa version définitive, mais il permet déjà de pouvoir ciblé certains problèmes de frame rate et d'utilisation de thread sur la CPU/GPU.
 
-![](http://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg)
+  <amp-img src="http://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg"
+  width="500"
+  height="346"
+  alt="AMP"></amp-img>
 
-![](http://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg)
+  <amp-img src="http://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg"
+  width="500"
+  height="281"
+  alt="AMP"></amp-img>
 
 # RunTime
 
@@ -76,9 +97,12 @@ Côté XNA les instructions SIMD sont maintenant gérées, les opérations sur l
 
 Le cycle de vie se voit ajouté un nouvel état nommé Dormant, quand l'utilisateur sort de l'application l'événement Deactivated est déclenché et le système met l'application dans cet état Dormant, tous les threads de l'application sont arrêtés mais l'état de la mémoire reste intact. Si l'application est réactivée la mémoire est réutilisée directement. Cependant si trop d'application sont démarrées et qu'il ne reste plus assez de mémoire, le système passe alors les applications les moins utilsées en tombstoning pour libérer la mémoire.
 
-![](http://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg)
+  <amp-img src="http://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg"
+  width="393"
+  height="500"
+  alt="AMP"></amp-img>
 
-Lors de la réactivation d'une application on utilise IsApplicationInstancePreserved pour savoir si l'application était dans l'état Dormant ou non.
+Lors de la réactivation d'une application on utilise IsApplicationInstancePreserved pour savoir si l'application était dans l'état Dormant ou non.
 
 ```csharp
 // Code to execute when the application is activated (brought to foreground)
@@ -124,7 +148,7 @@ Toutes les API liée à cette fonctionnalité se trouve dans le namespace `Micro
 *   TransferPreferences
 *   TransferStatus
 
-**A noté quelques limitations : **
+__A noté quelques limitations :__
 
 *   Transferts en simultanée (téléphone): 2
 *   Transferts en attente : 500 max
@@ -263,8 +287,15 @@ Plusieurs nouveautés concernant les tuiles :
 
 *   On peut les modifier localement depuis une application via la classe StandardTileData qui permet de modifier les informations de devant : title,BackgroundImage,Count mais aussi de derrriere : BackContent, BackTitle, BackBackgroundImage. Si les informations '« back '» sont fourni la tuile va pivoter a intervalle régulier.
 *   On peut plusieurs tuiles pour la même application qui vont permettre de créer des raccourcie vers des pages de votre application, ces tuiles sont bien sur elle aussi personnalisable.
-![](http://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg)
-![](http://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg)
+
+<amp-img src="http://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg"
+  width="240"
+  height="102"
+  alt="AMP"></amp-img>
+<amp-img src="http://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg"
+  width="240"
+  height="83"
+  alt="AMP"></amp-img>
 
 # SL4 &amp; XNA
 
@@ -307,45 +338,27 @@ Vous trouverez un exemple complet [ici](http://msdn.microsoft.com/en-us/library/
 Les applications mango ont maintenant la possibilité de s'enregistrer en tant qu'application susceptible de correspondre à une recherche fait directement par Bing. Une fois l'application enregistrée, si elle a un rapport avec le terme recherché, l'application pourra directement être lancée depuis le résultat de la recherche Bing. L'application va alors se lancer en prenant en compte le terme recherché.
 
 Pour ce faire les extensions sont déclarées dans le WMAppManifest ainsi que dans un fichier supplémentaire extras.xml un fichier.
-![](http://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png)
 
-Plus d'informations [ici](http://msdn.microsoft.com/en-us/library/hh202957(v=VS.92).aspx)
+<amp-img src="http://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png"
+  width="250"
+  height="469"
+  alt="AMP"></amp-img>
+
+Plus d'informations [ici](http://msdn.microsoft.com/en-us/library/hh202957(v=VS.92).aspx)
 
 # Network
 
 Windows Phone OS 7.1 inclut de nouvelles API réseau basé sur les sockets. Les protocols TCP et UDP(unicast et multicast) sont supportés. [http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx](http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx)
 
-De plus `DeviceNetworkInformation` a été complété pour faciliter l'utilisation et tester rapidement la connectivité.
+De plus `DeviceNetworkInformation` a été complété pour faciliter l'utilisation et tester rapidement la connectivité.
 
 
-<table border="0" cellspacing="0" cellpadding="0" width="610">
-<tbody>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.cellularmobileoperator(v=vs.92).aspx"><strong>CellularMobileOperator</strong></a><strong></strong></td>
-<td width="391"><strong>Nom de   l'opérateur mobile</strong></td>
-</tr>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.iscellulardataenabled(v=vs.92).aspx"><strong>IsCellularDataEnabled</strong></a><strong></strong></td>
-<td width="391"><strong>Indique si la connexion données est activée</strong></td>
-</tr>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.iscellulardataroamingenabled(v=vs.92).aspx"><strong>IsCellularDataRoamingEnabled</strong></a><strong></strong></td>
-<td width="391"><strong>Indique si la connexion en données en roaming est   activée</strong></td>
-</tr>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.isnetworkavailable(v=vs.92).aspx"><strong>IsNetworkAvailable</strong></a><strong></strong></td>
-<td width="391"><strong>Indique si du réseau est disponible</strong></td>
-</tr>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.iswifienabled(v=vs.92).aspx"><strong>IsWiFiEnabled</strong></a><strong></strong></td>
-<td width="391"><strong>Indique si la connexion WiFi est activée</strong></td>
-</tr>
-<tr>
-<td width="218"><a href="http://msdn.microsoft.com/en-us/library/microsoft.phone.net.networkinformation.devicenetworkinformation.networkavailabilitychanged(v=VS.92).aspx"><strong>NetworkAvailabilityChanged</strong></a><strong></strong></td>
-<td width="391"><strong>Déclenché lorsque la disponibilité du reseau change.</strong></td>
-</tr>
-</tbody>
-</table>
+<amp-gist
+    data-gistid="da53d446718e442a99c342c12e19dfca"
+    data-file="network-wp7-api.csv"
+    layout="fixed-height"
+    height="978">
+</amp-gist>
 
 # Marcketplace
 
