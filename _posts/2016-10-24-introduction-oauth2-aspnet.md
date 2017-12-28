@@ -204,7 +204,11 @@ Ces paramètres doivent rester au maximum confidentiels, pour éviter qu’une a
 Pour éviter tout commit par inadvertance, nous allons utiliser le système des `user secrets`.
 Depuis Visual Studio, faites un clic-droit sur le projet puis allez sur manage User Secrets. Cela va vous créer un fichier `secrets.json` vide.
 
-![](https://farm9.staticflickr.com/8292/28573005474_1a5d7501bd_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8292/28573005474_1a5d7501bd_o_d.png"
+  width="457"
+  height="97"
+  layout="responsive"
+  alt="Création de l’application Aspnet Core"></amp-img>
 
 > 	**Si vous n'utilisez pas Visual Studio, créez un fichier à la main à l'emplacement suivant**
 > Windows: `%APPDATA%\microsoft\UserSecrets\{userSecretsId}\secrets.json`
@@ -288,14 +292,24 @@ Cela concerne uniquement les gens sous Windows et pour l'environnement de dével
 4. Sélectionnez un compte d’ordinateur et cliquez sur Suivant. Sélectionnez l’ordinateur local puis cliquez sur Terminer et Ok.
 5. Sélectionnez le certificat qui se trouve dans Certificats &gt; Personnel &gt; Certificats. Faîtes un clic-droit sur le certificat localhost puis Toutes les tâches &gt; Exporter.
 
-![](https://farm9.staticflickr.com/8236/29088730012_34403e01e2_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8236/29088730012_34403e01e2_o_d.png"
+  width="427"
+  height="174"
+  layout="responsive"
+  alt="folder"></amp-img>
+
 
 6. Choisissez Oui, exportez la clé privée et incluez tous les certificats dans le chemin d’accès de certification
 7. Entrez un mot de passe, je vais utiliser “dev” pour ce projet
 8. Enregistrez les fichiers dans le sous-répertoire suivant de votre projet “compiler\resources\iiCert.pfx”
-![](https://farm9.staticflickr.com/8111/28575032573_c8ff54a06e_o_d.png)
 
-Ce dossier est un dossier spécial, tous les fichiers déposés ici seront compilés en ressources embarquées.
+<amp-img src="https://farm9.staticflickr.com/8111/28575032573_c8ff54a06e_o_d.png"
+  width="611"
+  height="433"
+  layout="responsive"
+  alt="folder"></amp-img>
+
+_Ce dossier est un dossier spécial, tous les fichiers déposés ici seront compilés en ressources embarquées._
 
 #### Point d’entrée
 
@@ -366,7 +380,11 @@ Ajoutez le package
  
 Vous pouvez maintenant exécuter l’application pour vérifier toute la configuration. Vous devriez voir un joli Hello world !
 
-![](https://farm9.staticflickr.com/8875/29195124075_65b8930a33_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8875/29195124075_65b8930a33_o_d.png"
+  width="499"
+  height="332"
+  layout="responsive"
+  alt="dev"></amp-img>
 
 #### Middlewares
 
@@ -449,7 +467,11 @@ app.Map("/login", x =>
 On crée un principal à partir d’un claims de type Name, puis on se connecte sur le middleware de cookie avec ce nouveau principal.
 Si vous lancez l’application et que vous vous rendez sur le path “/login”. Vous devriez voir qu'un cookie nommé .AspNetCore.Cookies a été créé.
 
-![](https://farm9.staticflickr.com/8497/29088734152_3a68d0564d_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8497/29088734152_3a68d0564d_o_d.png"
+  width="445"
+  height="58"
+  layout="responsive"
+  alt="cookie"></amp-img>
 
 Ajoutons tout de suite un page pour se déconnecter
 
@@ -491,8 +513,12 @@ app.Run(async (context) =>
 ```
 
 Et voilà, on peut se connecter en tant que toto !
- 
- ![](https://farm9.staticflickr.com/8204/29161391556_70c7a61a58_o_d.png)
+
+<amp-img src="https://farm9.staticflickr.com/8204/29161391556_70c7a61a58_o_d.png"
+  width="458"
+  height="240"
+  layout="responsive"
+  alt="cookie"></amp-img>
 
 ##### Oauth middleware
 
@@ -552,11 +578,24 @@ app.Map("/login", x =>
 
 Vous pouvez maintenant lancer l’application pour voir le resultat
 
-![](https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png"
+  width="620"
+  height="460"
+  layout="responsive"
+  alt="cookie"></amp-img>
 
-![](https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png"
+  width="846"
+  height="860"
+  layout="responsive"
+  alt="cookie"></amp-img>
 
-![](https://farm9.staticflickr.com/8344/29088712842_4bf831dd29_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8344/29088712842_4bf831dd29_o_d.png"
+  width="636"
+  height="387"
+  layout="responsive"
+  alt="cookie"></amp-img>
+
 
 Nous sommes maintenant authentifiés avec Github.
 Il ne nous reste plus qu’une chose à faire, remplacer notre claim qui est en dur par de vrais claims correspondant à l’utilisateur réel.
@@ -626,7 +665,12 @@ A partir de ces données, il ne reste plus qu’à créer des claims et les ajou
 
 Si vous relancez l’application et que vous vous déconnectez et reconnectez, vous pouvez voir maintenant apparaître les informations de l’utilisateur.
 
-![](https://farm9.staticflickr.com/8496/28573010054_bbe7ff587c_o_d.png)
+<amp-img src="https://farm9.staticflickr.com/8496/28573010054_bbe7ff587c_o_d.png"
+  width="678"
+  height="521"
+  layout="responsive"
+  alt="hello"></amp-img>
+
 
 Dernier point avant de terminer cet article. Nous avons défini l’option SaveToken à true auparavant. Nous allons maintenant interroger l’objet contenant les tokens et les afficher pour vérifier le bon fonctionnement.
 
