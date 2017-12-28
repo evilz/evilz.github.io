@@ -111,7 +111,7 @@ mostCalledMethods() |> Seq.take 10;;
 
 Voici un petit résumé en image
 
-<amp-img src="http://www.privateeye.io/images/demo.gif"
+<amp-img src="/content/privateeye-demo.gif"
   width="731"
   height="449"
   layout="responsive"
