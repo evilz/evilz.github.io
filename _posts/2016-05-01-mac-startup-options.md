@@ -5,7 +5,7 @@ date: 2016-05-01
 author: evilz
 comments: true
 tags: [Mac, Informatique]
-feature: http://img01.deviantart.net/ec1a/i/2012/345/2/4/mac_keyboard_by_dark_aberration-d5i7cra.jpg
+feature: https://farm5.staticflickr.com/4636/39324318452_0a701c928c_n.jpg
 ---
 
 Voici un récapitulatif des options de démarrage qu'il est bon de connaître pour dépanner votre Mac. Dans mon cas mon Macbook Air :)

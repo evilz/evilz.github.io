@@ -5,7 +5,7 @@ date: 2013-07-23 22:24
 author: evilz
 comments: true
 tags: [outil]
-feature: http://a.fsdn.com/con/app/proj/icopy/screenshots/icopy_main.PNG
+feature: https://farm5.staticflickr.com/4725/24489734017_03db685a17_n.jpg
 ---
 On a tous des papiers, factures, bultin de salaire... assez important et a pas perdre en cas de feu.
 
