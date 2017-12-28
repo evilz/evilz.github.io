@@ -81,6 +81,12 @@ $space-4: 4rem;
   height: 180px;
 }
 
+.fixed-header {
+  position: relative;
+  max-width: 700px;
+  max-height: 400px;
+}
+
 amp-img {
   background-color: $bg-color;
 }
