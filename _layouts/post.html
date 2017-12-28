@@ -16,14 +16,20 @@ layout: default
    {% if page.feature %}
    {% capture feature %}{{ page.feature }}{% endcapture %}
    {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
-   <amp-img src="{{ feature }}"
-   width="1080"
-   height="610"
-   layout="responsive"
-   alt="AMP"></amp-img>
+   <div class="flex">
+    <div class="fixed-container m1">
+
+      <amp-img src="{{ feature }}"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
   
    {% endif %}
-   
+
       {{content}}
     </section>
     <footer class="post-footer">

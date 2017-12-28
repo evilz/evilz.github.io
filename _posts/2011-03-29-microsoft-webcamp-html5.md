@@ -68,7 +68,11 @@ Vous l'aurez compris tout n'est pas si beau en HTML5 et l'on est loin du '« wri
 
 (&lt;nav&gt;,&lt;section&gt;,&lt;aside&gt;,&lt;header&gt;,&lt;footer&gt;,&lt;nav&gt;,&lt;dialog&gt;,&lt;figure&gt;)
 
-<a href="http://www.evilznet.com/wp-content/uploads/2011/03/structure-html5.gif"><img class="aligncenter size-medium wp-image-931" title="structure-html5" src="http://www.evilznet.com/wp-content/uploads/2011/03/structure-html5-300x150.gif" alt="" width="300" height="150" /></a>
+
+<amp-img src="https://farm5.staticflickr.com/4593/38633731884_877dbc5e00_n.jpg"
+  width="320"
+  height="160"
+  alt="AMP"></amp-img>
 
 Les CSS3 donnent plus de possibilité de personnalisation du rendu visuel particulièrement via les média queries qui permet une adaptation accrue au support. C'est un peu moins de bidouille pour faire une ombre ou une bordure aux angles arrondis.
 
