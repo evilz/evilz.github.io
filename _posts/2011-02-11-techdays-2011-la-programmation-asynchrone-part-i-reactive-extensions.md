@@ -5,11 +5,13 @@ date: 2011-02-11 08:49
 author: evilz
 comments: true
 categories: [asynchrone, Informatique, reactive extensions, silverlight, TechDays]
+feature: https://farm5.staticflickr.com/4600/24477719617_8376a0abf4_n.jpg
 ---
+
 Premier jour des Techdays 2011, pour ma première session je vais assister à une présentation du Framework Reactive Extensions ou Rx créé par les DevLab Microsoft.
 La session est animée par Charlotte Chavancy, Jérémy Alles développeurs chez Tallès à Grenoble et Mitsu Furuta.
 
-Dans l'ensemble la session a été très intéressante et très bien présentée, pas a pas.
+Dans l'ensemble la session a été très intéressante et très bien présentée, pas a pas.
 
 Je vais donc essayer de rester dans le même esprit pour à mon tout vous démontrer la puissance de ce framework.
 
@@ -230,8 +232,8 @@ static string[] findRandomFlickrImages(string SearchTerm)
 ```
 
 Une petite explication s'impose.
-J'utilise ici la classe statique `Observable` qui fournit toute une collection de méthodes très intéressantes dont une utilisé ici Start<t>(Func<t> function).
-Cette méthode permet d'invoquer très simplement une fonction et de créer un objet Observable<t>.
+J'utilise ici la classe statique `Observable` qui fournit toute une collection de méthodes très intéressantes dont une utilisé ici `Start<T>(Func<T> function)`.
+Cette méthode permet d'invoquer très simplement une fonction et de créer un objet `Observable<T>`.
 Comme dans les exemples précédents il suffit alors de souscrire à cet objet.
 La boucle for juste en dessous n'est là que pour montrer l'exécution asynchrone de l'appel.
 
@@ -265,7 +267,7 @@ http://farm6.static.flickr.com/5048/5342364163_219304361f_s.jpg
 Pas mal non ?
 La programmation est assez simple finalement, on commence par coder de façon synchrone puis lorsque tout fonctionne on fait appel à la classe `Observable` par exemple pour créer un `IObservable` et s'y abonner :)
 
-Mais ce n'est pas fini ! Allons encore un peu plus loin. Rx donne la possibilité de créer des `IObservable` directement à partir d'évènement.
+Mais ce n'est pas fini ! Allons encore un peu plus loin. Rx donne la possibilité de créer des `IObservable` directement à partir d'évènement.
 Voici un petit exemple de ce qu'on peut faire pour créer un système de drag&drop en Silverlight.
 
 ```csharp
@@ -368,13 +370,3 @@ Ensuite un simple calcule est effectué.
 Dans le subscribe il suffit d'appliquer le déplacement et le tour est joué.
 
 Bon je vous l'accorde ça ne sert clairement à rien, ce n'est que pour la démo. On peut arriver exactement au même résultat en ajoutant un simple `MouseDragElementBehavior` sur notre élément.
-
-Voici le résultat.
-Le rectangle vert correspond au code avec Rx.
-Le rectangle rouge correspond au Behavior.
-
-<object width="300" height="300"
-    data="data:application/x-silverlight-2," 
-    type="application/x-silverlight-2" >
-    <param name="source" value="{{ site.url }}/assets/content/TechDays2011.Rx.SilverlightApplication.xap"/>
-</object>
