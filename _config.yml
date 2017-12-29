@@ -12,7 +12,7 @@ description: >
   Code for Human
 logo: "/assets/images/logo.jpg"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://evilznet.com" # the base hostname & protocol for your site
+url: "https://www.evilznet.com" # the base hostname & protocol for your site
 paginate:	10 # The number of posts to show per page on your homepage
 
 name: 'Vincent Bourdon'
