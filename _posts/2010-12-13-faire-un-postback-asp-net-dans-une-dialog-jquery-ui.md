@@ -34,6 +34,4 @@ var dialog = $("#dialog").dialog({
 }
 ```
 
-<figure>
-<a href="http://farm6.static.flickr.com/5128/5257134137_7ba84e944a_o.png" ><img src="http://farm6.static.flickr.com/5128/5257134137_7ba84e944a_o.png" alt="" /></a>
-</figure>
+![](https://farm6.static.flickr.com/5128/5257134137_7ba84e944a_o.png)

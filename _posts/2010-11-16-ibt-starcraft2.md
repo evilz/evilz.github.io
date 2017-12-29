@@ -15,17 +15,11 @@ Le site tourne sur un Wordpress et PhpBB le tout sous IIS 7.5 :)
 
 ### Version 1 (avant)
 
-<figure class="half">
-<a href="https://c3.staticflickr.com/7/6092/6229639705_29396c809d_b.jpg"> <img  src="https://c3.staticflickr.com/7/6092/6229639705_29396c809d_b.jpg"  /></a>
-<a href="https://c3.staticflickr.com/7/6113/6230156838_472fbf967e_b.jpg"><img  src="https://c3.staticflickr.com/7/6113/6230156838_472fbf967e_b.jpg"  /></a>
-
-</figure>
+![](https://c3.staticflickr.com/7/6092/6229639705_29396c809d_b.jpg)
+![](https://c3.staticflickr.com/7/6113/6230156838_472fbf967e_b.jpg)
 
 ### Version 2 (après)
-<figure class="half">
-<a href="https://c3.staticflickr.com/7/6055/6229643389_b39f4edb29_b.jpg"> <img  src="https://c3.staticflickr.com/7/6055/6229643389_b39f4edb29_b.jpg"  /></a>
-<a href="https://c3.staticflickr.com/7/6157/6230161942_7ae54074a9_z.jpg"><img  src="https://c3.staticflickr.com/7/6157/6230161942_7ae54074a9_z.jpg"  /></a>
 
-</figure>
-
+![](https://c3.staticflickr.com/7/6055/6229643389_b39f4edb29_b.jpg)
+![](https://c3.staticflickr.com/7/6157/6230161942_7ae54074a9_z.jpg)
 

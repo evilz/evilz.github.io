@@ -30,7 +30,7 @@ layout: default
   
    {% endif %}
 
-      {{content}}
+   {{ content | markdownify | amp_images }}
     </section>
     <footer class="post-footer">
       <section class="share">
