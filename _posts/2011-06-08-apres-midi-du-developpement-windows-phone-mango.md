@@ -11,7 +11,7 @@ Mercredi 1<sup>er</sup> juin nous avons passé une demi-journée dans les locaux
 
 <!--more-->
 
-Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s'agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone'¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !
+Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s'agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone'¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !
 
 Cette session a été présentée par Luc Vo Van, David CATUHE, Pierre Cauchois
 
@@ -240,7 +240,7 @@ NotifyComplete();
  }
 ```
 
-Dans le WMAppManifest.xml on retrouve l'entrée suivante :
+Dans le WMAppManifest.xml on retrouve l'entrée suivante :
 
 ```markup
 <ExtendedTask Name="BackgroundTask">

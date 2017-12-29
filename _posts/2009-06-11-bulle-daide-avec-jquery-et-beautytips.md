@@ -11,7 +11,7 @@ Une des webparts à développer devait contenir un genre de menu avec un tableau
 
 Une solution envisageable pour cette webpart est de simplement ajouter des contrôles de type Menu (asp.net) et de créer les menuitems nécéssaires. L'inconvénient majeur de cette solution c'est que ce pu*** de contrôle c'est de la m**** et qu'il génère plein de table dans le rendu html. Du coup pour customiser le designe c'est la misère. J'ai donc cherché un moyen de remplacer cela par quelque chose de plus propre, donc un bon petit plugin jQuery.
 
-<a style="float:right" title="beautytipsMOSS2007 de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3616363917/"><img src="http://farm4.static.flickr.com/3610/3616363917_57a2c60c2e_o.png" alt="beautytipsMOSS2007" width="221" height="219" /></a>
+<a style="float:right" title="beautytipsMOSS2007 de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3616363917/"><img src="https://farm4.static.flickr.com/3610/3616363917_57a2c60c2e_o.png" alt="beautytipsMOSS2007" width="221" height="219" /></a>
 
 J'ai finalement utilisé un plugin de <strong>jQuery</strong> nommé <strong>BeautyTips</strong> qui permet d'afficher des bulles d'aide style google map. Ce plugin est pas mal fait, et laisse une bonne liberté au niveau du rendu et des ses options. Je vous invite à aller voir les demos ici : <a href="http://www.lullabot.com/files/bt/bt-latest/DEMO/index.html">http://www.lullabot.com/files/bt/bt-latest/DEMO/index.html</a>
 

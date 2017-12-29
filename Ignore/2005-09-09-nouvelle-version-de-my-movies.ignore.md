@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Informatique, outils]
 ---
-Vous vous rappelez sans doute du fameux programme qui me permettait de faire ma liste de divx et d'afficher ça sous Media Center. Il est de retour dans sa version 1.5 (My Movies 1.5) ! Et avec elle plein de nouveautés dont voici la liste :
+Vous vous rappelez sans doute du fameux programme qui me permettait de faire ma liste de divx et d'afficher ça sous Media Center. Il est de retour dans sa version 1.5 (My Movies 1.5) ! Et avec elle plein de nouveautés dont voici la liste :
 			<ul>
 				<li>Interface improvements to match Media Center 2005 Update Rollup 2 (Emerald) that will be released soon (I hope). Notice that the rollup is not required running "My Movies".</li>
 				<li>Data loading has been pretty much re-done, and is now plug-in based - additional data providers can be added to "My Movies" simply by dropping a dll file. Hopefully developers find this interesting - full source code example on how to create such plug-ins will be available on the website soon.</li>

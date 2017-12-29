@@ -7,7 +7,7 @@ comments: true
 categories: [Flickr, Informatique, outils, Picasa]
 ---
 <p>
-<a style="float: left; border: medium none; padding: 10px" href="http://www.flickr.com/photos/29360828@N06/3148256238/" title="picasa_flickr de evilz, sur Flickr"><img src="http://farm4.static.flickr.com/3195/3148256238_74c627eeb9_t.jpg" alt="picasa_flickr" width="100" height="100" /></a> Je ne pensais pas faire mon deuxi&egrave;me post la dessus, mais la fonctionnalit&eacute; est tellement int&eacute;ressante et bien int&eacute;gr&eacute;e...
+<a style="float: left; border: medium none; padding: 10px" href="http://www.flickr.com/photos/29360828@N06/3148256238/" title="picasa_flickr de evilz, sur Flickr"><img src="https://farm4.static.flickr.com/3195/3148256238_74c627eeb9_t.jpg" alt="picasa_flickr" width="100" height="100" /></a> Je ne pensais pas faire mon deuxi&egrave;me post la dessus, mais la fonctionnalit&eacute; est tellement int&eacute;ressante et bien int&eacute;gr&eacute;e...
 </p>
 <p>
 Voil&agrave;, depuis la r&eacute;ouverture du blog, j&rsquo;ai d&eacute;cid&eacute; d&rsquo;h&eacute;berger tous les images de mes posts sur Flickr. Mais j&rsquo;ai l&rsquo;habitude utiliser Picasa comme gestionnaire de photo et service en ligne car j&#39;utilise tous les outils Google grace &agrave; mon compte Gmail.

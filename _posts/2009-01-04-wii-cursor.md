@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Codeplex, Informatique, outils, Wii]
 ---
-<a style="float: left" href="http://www.codeplex.com/WiiCursor" title="wc256 de evilz, sur Flickr" class="img-shadow"><img src="http://farm4.static.flickr.com/3095/3162203921_873d959437_o.jpg" alt="wc256" width="100" height="100" /></a>
+<a style="float: left" href="http://www.codeplex.com/WiiCursor" title="wc256 de evilz, sur Flickr" class="img-shadow"><img src="https://farm4.static.flickr.com/3095/3162203921_873d959437_o.jpg" alt="wc256" width="100" height="100" /></a>
 <p>
 Un des projets que j&rsquo;attendais depuis pas mal de temps vient de faire son apparition sur Codeplex (le 31/12/2008). <br />
 Il s&rsquo;agit de <strong>Wii Cursor</strong>. Comme son nom l&rsquo;indique l&rsquo;application permet de manipuler la souris avec&nbsp; votre Wiimote. Peut &ecirc;tre aviez vous d&eacute;j&agrave; essay&eacute; d&rsquo;utiliser votre <strong>Wiimote</strong> sur votre PC via les logiciels <strong>BlueSoleil</strong> et <strong>GlovePIE</strong>, dans le cas contraire une petite recherche sur Google vous permettra de les d&eacute;couvrir parmi les centaines de tutoriaux qui sont &agrave; disposition sur le net.
@@ -44,7 +44,7 @@ C&rsquo;est tr&egrave;s bien pens&eacute;, on peut tout configurer, et de fa&cce
 Dans le r&eacute;pertoire de l&rsquo;application (par d&eacute;faut<em><strong> C:Program FilesJERNWiiCursor</strong></em>) vous allez trouver un sous r&eacute;pertoire <strong>WCXML</strong>. <br />
 Pour chaque application que vous souhaitez configurer, il faut cr&eacute;er un fichier xml associ&eacute;. Vous trouverez trois exemples fournis de base, plus le sch&eacute;ma XML correspondant. Toutes les infos sont de toute fa&ccedil;on fournies sur le site <a href="http://www.codeplex.com/WiiCursor" target="_blank" title="Wii Cursor">ici</a>.
 </p>
-<a href="http://allewun.deviantart.com/art/Wii-Cursors-49355744" title="Wii_Cursors_by_allewun de evilz, sur Flickr" class="img-shadow"><img src="http://farm4.static.flickr.com/3087/3162204021_c4811026c4_o.jpg" alt="Wii_Cursors_by_allewun" width="450" height="150" /></a> <br />
+<a href="http://allewun.deviantart.com/art/Wii-Cursors-49355744" title="Wii_Cursors_by_allewun de evilz, sur Flickr" class="img-shadow"><img src="https://farm4.static.flickr.com/3087/3162204021_c4811026c4_o.jpg" alt="Wii_Cursors_by_allewun" width="450" height="150" /></a> <br />
 <p style="clear: both">
 Pour le fun (pour les vrais geeks) voici un <a href="http://allewun.deviantart.com/art/Wii-Cursors-49355744" target="_blank" title="Wii Cursors">lien </a>vers des curseurs&nbsp;windows&nbsp;au style Wii. Merci &agrave; <strong>~allewun</strong><br />
 Pour les installer, d&eacute;compressez l&rsquo;archive dans un r&eacute;pertoire (exemple <strong><em>c:windowscursorsWii</em></strong>)<br />

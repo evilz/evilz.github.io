@@ -33,7 +33,7 @@ Voici le XAML néccésaire pour activer cette fonctionnalité sur une textbox :
 et le résultat
 
 
-<amp-img src="http://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png"
+<amp-img src="https://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png"
   width="300"
   height="551"
   layout="responsive"

@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Informatique, Microsoft]
 ---
-Microsoft vient de mettre en ligne un jeu plutôt intéressant puisqu'il s'agit chaque mois de trouver le bug caché dans le code.
+Microsoft vient de mettre en ligne un jeu plutôt intéressant puisqu'il s'agit chaque mois de trouver le bug caché dans le code.
 
 Ensuite un tirage au sort est réalisé chaque mois parmi les réponses exactes pour attribuer les lots.
 

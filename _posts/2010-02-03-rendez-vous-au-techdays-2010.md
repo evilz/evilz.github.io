@@ -13,4 +13,4 @@ Je serais quelques fois disponible sur le stand <a href="http://www.evaluant.com
 Il y a aussi un afterwork organisé mardi soir (le 9). J'y serais.
 Et enfin voici mon programme sur c'est 3 jours
 
-<a title="techdays2010_agenda de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/4324846601/"><img src="http://farm3.static.flickr.com/2770/4324846601_5905bff90a.jpg" alt="techdays2010_agenda" width="500" height="198" /></a>
+<a title="techdays2010_agenda de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/4324846601/"><img src="https://farm3.static.flickr.com/2770/4324846601_5905bff90a.jpg" alt="techdays2010_agenda" width="500" height="198" /></a>

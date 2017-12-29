@@ -9,7 +9,7 @@ categories: [Divers]
 
 Je pense que vous aurez compris, je me suis offert une Xbox avec le Kinect !!!
 
-J'ai eu l'occasion d'y jouer sur un salon MS  avec quelques collègues juste avant sa sortie. Et c'était tout simplement excellent ! "So Fun"<!--more-->
+J'ai eu l'occasion d'y jouer sur un salon MS  avec quelques collègues juste avant sa sortie. Et c'était tout simplement excellent ! "So Fun"<!--more-->
 
 <p style="text-align: center;"><img class="aligncenter" title="Kinect Xbox 360" src="http://farm5.static.flickr.com/4145/5173142518_9f870bd8b7_z.jpg" alt="" width="640" height="247" /></p>
 

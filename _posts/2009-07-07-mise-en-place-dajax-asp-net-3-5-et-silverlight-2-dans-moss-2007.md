@@ -6,17 +6,17 @@ author: evilz
 comments: true
 categories: [Informatique, Sharepoint 2007, Silverlight 2]
 ---
-<a title="Silverlight_powered de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3697837810/"><img class="alignleft withborder" src="http://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180" /></a>L'objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d'AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. Par défaut MOSS utilise le Framework 3.0, donc l'ajax d'asp.net 3.5 et Silverlight ne pouvait pas déjà être présent.
+<a title="Silverlight_powered de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3697837810/"><img class="alignleft withborder" src="https://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180" /></a>L'objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d'AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. Par défaut MOSS utilise le Framework 3.0, donc l'ajax d'asp.net 3.5 et Silverlight ne pouvait pas déjà être présent.
 <h3>INSTALLER LE FRAMEWORK 3.5</h3>
 Téléchargez est installez le Framework .NET 3.5 SP1 disponible <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=ab99342f-5d1a-413d-8319-81da479ab0d7&amp;displaylang=en" target="_blank">ici</a>.
 <h3>MODIFIER LE FICHIER WEB.CONFIG</h3>
-Après l'installation du Framework ASP.NET 3.5 il est nécessaire de modifier le fichier de configuration des site MOSS 2007 avec les sections spécifiques à Ajax. Pour un site par défaut le fichier ce trouve ici
+Après l'installation du Framework ASP.NET 3.5 il est nécessaire de modifier le fichier de configuration des site MOSS 2007 avec les sections spécifiques à Ajax. Pour un site par défaut le fichier ce trouve ici
 <div><em>c:inetpubwwwrootwssvirtualdirectories80</em></div>
 
 
 <em></em>
 
- <strong>Ajout du &lt;sectionGroup&gt; dans l'élément &lt;configSections&gt;</strong>
+ <strong>Ajout du &lt;sectionGroup&gt; dans l'élément &lt;configSections&gt;</strong>
 <pre class="brush:xml">&lt;sectionGroup name="system.web.extensions"
                type="System.Web.Configuration.SystemWebExtensionsSectionGroup,
                System.Web.Extensions, Version=3.5.0.0, Culture=neutral,
@@ -97,7 +97,7 @@ Ajout du HTTP module dans la section &lt;httpModules&gt;
 &lt;SafeControl Assembly="System.Web.Extensions,
            Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
            Namespace="System.Web.UI" TypeName="*" Safe="True" /&gt;</pre>
-<strong>Ajout des redirections d'assemblies dans la section &lt;runtime&gt;&lt;assemblyBinding&gt;</strong> (optionnel)
+<strong>Ajout des redirections d'assemblies dans la section &lt;runtime&gt;&lt;assemblyBinding&gt;</strong> (optionnel)
 <pre class="brush:xml">&lt;dependentAssembly&gt;
  &lt;assemblyIdentity name="System.Web.Extensions" publicKeyToken="31bf3856ad364e35"/&gt;
  &lt;bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/&gt;
@@ -147,11 +147,11 @@ Ajout du HTTP module dans la section &lt;httpModules&gt;
    &lt;/system.webServer&gt;</pre>
 <h3>CONFIGURATION DU MIME TYPES SILVERLIGHT DANS IIS</h3>
 <ul>
-	<li>Ouvrir l'interface de configuration IIS (%SystemRoot%system32inetsrviis.msc)</li>
+	<li>Ouvrir l'interface de configuration IIS (%SystemRoot%system32inetsrviis.msc)</li>
 	<li>Sélectionnez le site MOSS puis faites clique droite -&gt; propriétés.</li>
-	<li>Dans l'onglet HTTP Header cliquez sur le bouton MIME Types</li>
+	<li>Dans l'onglet HTTP Header cliquez sur le bouton MIME Types</li>
 	<li>Cliquez sur le bouton Nouveau pour ajouter un Type</li>
-	<li>Dans la fenêtre d'ajout entrer :
+	<li>Dans la fenêtre d'ajout entrer :
 - Extension:.xapï¿½
 - MIME Type: application/x-silverlight-app</li>
 	<li>Validez puis redémarrez IIS (iisreset)</li>

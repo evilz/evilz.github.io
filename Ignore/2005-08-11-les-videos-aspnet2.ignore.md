@@ -7,7 +7,7 @@ comments: true
 categories: [.net, Vidéo]
 ---
 
-J'ai enfin pu uploader mes vidéos sur megaupload.com, donc tout les liens sont up ;)
+J'ai enfin pu uploader mes vidéos sur megaupload.com, donc tout les liens sont up ;)
 
 [Data Source Controls ASP.NET 2](#)
 

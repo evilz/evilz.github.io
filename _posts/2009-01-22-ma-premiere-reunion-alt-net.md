@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Alt.net, Informatique]
 ---
-<p><a class="img-shadow" title="altnet de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3233780908/"><img src="http://farm4.static.flickr.com/3534/3233780908_fa6867a7b3_o.gif" alt="altnet" width="200" height="77" /></a></p>
+<p><a class="img-shadow" title="altnet de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3233780908/"><img src="https://farm4.static.flickr.com/3534/3233780908_fa6867a7b3_o.gif" alt="altnet" width="200" height="77" /></a></p>
 <p>Hier soir ce tenais une r&eacute;union du groupe <strong>Alt.net</strong>.</p>
 <p><strong>Alt.net</strong> c&rsquo;est tout simplement un petit groupe de personne qui s&rsquo;int&eacute;resse &agrave; l&rsquo;environnement .net (ou plus g&eacute;n&eacute;ralement &agrave; la programmation), en gros c&rsquo;est une communaut&eacute; D&eacute;vs/Consultants.</p>
 <p>La communaut&eacute; &agrave; un&nbsp;<a title="altdotnetparis" href="http://altdotnetparis.org/" target="_blank">site</a>&nbsp;<span style="text-decoration: line-through;">qui ne sert &agrave; rien</span> o&ugrave; vous trouverez des liens vers des groupes Google, Facebook et LinkedIn.</p>

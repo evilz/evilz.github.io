@@ -6,15 +6,17 @@ author: evilz
 comments: true
 categories: [Informatique, outils, XML]
 ---
-Vous connaissez sans doute XMLSpy de chez Altova. Toute leur gamme d'outils est tr&egrave;s bien faite, et depuis tr&egrave;s longtemps pour tout ce qui tourne autour de fichier xml.
-Seulement leurs produits sont payant (ba ouai, faut bien vivre...), XMLSpy est &agrave; 99&euro; dans &ccedil;a version standard, vous pouvez retrouver tous les prix [ici](https://shop.altova.com/pricelist.asp "Altova shop").
-Pour ceux qui n'ont pas les moyens, ou qui ont besoin que d'une seule petite fonctionnalit&eacute; pendant 5min, voici l'adresse d'un freeware : [XMLPad](http://www.wmhelp.com/xmlpad3.htm "WMHelp XMLPad 3")
-Les fonctionnalit&eacute;s sont tr&egrave;s int&eacute;ressentes au vu de son co&ucirc;t !
-Voici quelques captures d'&eacute;cran :
-[![XmlPad3 TextEdit](http://www.wmhelp.com/img/XmlPad3_TextEdit.JPG "XmlPad3 TextEdit")](http://www.wmhelp.com/img/XmlPad3_TextEdit.JPG)
-[![XmlPad3 grid view](http://www.wmhelp.com/img/XmlPad3_GridView.JPG "XmlPad3 gridview")](http://www.wmhelp.com/img/XmlPad3_GridView.JPG)
-[![XmlPad3 table view](http://www.wmhelp.com/img/XmlPad3_TableView.JPG "XmlPad3 tableview")](http://www.wmhelp.com/img/XmlPad3_TableView.JPG)
-[![XmlPad3 diagram](http://www.wmhelp.com/img/XmlPad3_Diagram.JPG "XmlPad3 diagram")](http://www.wmhelp.com/img/XmlPad3_Diagram.JPG)
-[![XmlPad3 xsd doc](http://www.wmhelp.com/img/XmlPad3_XSDDoc.JPG "XmlPad3 xsddoc")](http://www.wmhelp.com/img/XmlPad3_XSDDoc.JPG)
-[![XmlPad3 debug2](http://www.wmhelp.com/img/XmlPad3_Debug2.JPG "XmlPad3 debug2")](http://www.wmhelp.com/img/XmlPad3_Debug2.JPG)
-[![XmlPad3 xsl preview](http://www.wmhelp.com/img/XmlPad3_Preview.JPG "XmlPad3 xslpreview")](http://www.wmhelp.com/img/XmlPad3_Preview.JPG)
+
+Vous connaissez sans doute XMLSpy de chez Altova. Toute leur gamme d'outils est très bien faite, et depuis très longtemps pour tout ce qui tourne autour de fichiers xml.
+Seulement leurs produits sont payants (ba ouai, faut bien vivre...), XMLSpy est à 99€ dans ça version standard, vous pouvez retrouver tous les prix [ici](https://shop.altova.com/pricelist.asp "Altova shop").
+Pour ceux qui n'ont pas les moyens, ou qui ont besoin que d'une seule petite fonctionnalité pendant 5min, voici l'adresse d'un freeware : [XMLPad](http://www.wmhelp.com/xmlpad3.htm "WMHelp XMLPad 3")
+Les fonctionnalités sont intéressentes au vu de son prix !
+
+
+Voici quelques captures d'écran :
+
+
+![XMLPAD3](https://farm5.staticflickr.com/4689/38493296935_b8eef58ce2_z.jpg)
+![XMLPAD3](https://farm5.staticflickr.com/4589/39370819911_42236cd629_z.jpg)
+![XMLPAD3](https://farm5.staticflickr.com/4738/38493297015_1b55590292_z.jpg)
+![XMLPAD3](https://farm5.staticflickr.com/4693/27593988379_3e3562fe38_z.jpg)

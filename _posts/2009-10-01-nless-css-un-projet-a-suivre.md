@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Codeplex, CSS, Html, Informatique]
 ---
-<img class="alignleft" src="http://farm4.static.flickr.com/3255/3971272825_a12d0165aa_o.png" alt="" width="199" height="81" />
+<img class="alignleft" src="https://farm4.static.flickr.com/3255/3971272825_a12d0165aa_o.png" alt="" width="199" height="81" />
 Je viens de découvrir un nouveau projet sur Codeplex qui n'est en fait qu'un portage d'un projet déjà existant nommé Less CSS.
 
 Le projet d'origine est codé en ruby. Il permet d'améliorer le fonctionnement de base des CSS en comblant les manques comme la définition de variable, l'inclusion et la combinaison de règles CSS ...

@@ -6,10 +6,10 @@ author: evilz
 comments: true
 tags: [Divers, Samsung, TV]
 ---
-Depuis longtemps je voulais changer de télévision. J'avais une grosse TV et un écran 17 pouces de Sony.
-C'est super bien mais ça prend beaucoup de place et je voulais un seul écran qui fasse tout. J'ai craqué pour un SAMSUNG LE-26R73BD.
-Grosse surprise en déballant décodeur TNT intégrée ! Je ne connaissais pas trop le système, j'avais lu des trucs comme quoi il faut bien capté sinon c'est pourri.
-Ba moi je peux vous dire que c'est impec ! En plus les séries et les films sont en 16/9 ! Un bon prison break en full screen ça le fait bien.
+Depuis longtemps je voulais changer de télévision. J'avais une grosse TV et un écran 17 pouces de Sony.
+C'est super bien mais ça prend beaucoup de place et je voulais un seul écran qui fasse tout. J'ai craqué pour un SAMSUNG LE-26R73BD.
+Grosse surprise en déballant décodeur TNT intégrée ! Je ne connaissais pas trop le système, j'avais lu des trucs comme quoi il faut bien capté sinon c'est pourri.
+Ba moi je peux vous dire que c'est impec ! En plus les séries et les films sont en 16/9 ! Un bon prison break en full screen ça le fait bien.
 
 ## Téléviseur LCD 16/9 LE26R73BD HD Ready et TNT intégrée
 
@@ -19,7 +19,7 @@ Ba moi je peux vous dire que c'est impec ! En plus les séries et les films 
 
 *   Résolution 1366x768 (HD Ready)
 *   Luminosité 500cd/m2
-*   Contraste jusqu'à 3000 :1
+*   Contraste jusqu'à 3000 :1
 *   Adaptateur TNT Mpeg 2 intégré
 *   Connectique HDMI, Component et PC
 
@@ -63,7 +63,7 @@ Ba moi je peux vous dire que c'est impec ! En plus les séries et les films 
 **Contenu du coffret**
 
 *   Télécommande+2 piles AAA
-*   C'ble d'alimentation
+*   C'ble d'alimentation
 *   Manuel
 
 **Connectique**

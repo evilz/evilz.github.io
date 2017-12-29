@@ -11,4 +11,4 @@ On l'attendait depuis pas mal de temps notre pack SQL VS 2005 promis au TechEd !
 	  <span style="color:#808080"><em>Dear vincent,</em><br />
 	  <em>Your order for the complimentary copy of Microsoft SQL ServerT 2005 Standard Edition and Microsoft Visual Studio 2005 Standard Edition has been successful! </em><br />
 	  <em>Your package will arrive within 45 days via Arvato</em></span> <br /><br />
-	  Plus qu'à être patient.
+	  Plus qu'à être patient.
