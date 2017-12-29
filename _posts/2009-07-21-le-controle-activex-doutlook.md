@@ -13,7 +13,7 @@ C'est ma petite découverte du jour, un contrôle activeX d'outlook qui permet d
 - votre calendrier
 
 Le rendu est exactement le même que celui d'outlook.
-![http://www.flickr.com/photos/evilznet/3742702358/](http://farm3.static.flickr.com/2620/3742702358_e242abe1e1_o.png)
+![https://www.flickr.com/photos/evilznet/3742702358/](https://farm3.static.flickr.com/2620/3742702358_e242abe1e1_o.png)
 
 Cependant le contrôle n'a pas une foulle de possibilités et peut même entrainer des failles de sécurités.
 Si Outlook est actuellement installé sur votre système, vous pouvez visualiser quelques démos [http://www.outlookcode.com/d/OVCViewDemo.htm](ici)

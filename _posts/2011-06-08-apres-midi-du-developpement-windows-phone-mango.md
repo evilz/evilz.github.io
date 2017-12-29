@@ -24,7 +24,7 @@ Après l'installation du nouveau SDK téléchargeable [ici](http://www.microsoft
 Quatre nouveau templates de projet seront présent dans Visual Studio 2010 pour développer vos applications Mango.
 
 
-<amp-img src="http://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png"
+<amp-img src="https://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png"
   width="287"
   height="169"
   alt="AMP"></amp-img>
@@ -33,7 +33,7 @@ Chacun de ces Templates étant lié à une nouvelle fonctionnalité de Mango.
 
 Le multi-targeting est aussi présent et nous laisse le choix de la version de Windows Phone.
 
-<amp-img src="http://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png"
+<amp-img src="https://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png"
   width="527"
   height="249"
   alt="AMP"></amp-img>
@@ -41,12 +41,12 @@ Le multi-targeting est aussi présent et nous laisse le choix de la version de W
 
 Il est facilement possible de mettre à jour vos applications existantes vers 7.1 gr'ce à un Wizzard. Attention cependant le retour vers 7.0 peut être plus compliqué, donc faites des tests de migration sur une copie de votre projet ou sur une nouvelle branche.
 
-<amp-img src="http://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png"
+<amp-img src="https://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png"
   width="341"
   height="186"
   alt="AMP"></amp-img>
 
-  <amp-img src="http://farm4.static.flickr.com/3066/5811384742_de38893169.jpg"
+  <amp-img src="https://farm4.static.flickr.com/3066/5811384742_de38893169.jpg"
   width="500"
   height="283"
   alt="AMP"></amp-img>
@@ -59,14 +59,14 @@ L'émulateur permet maintenant de simuler une activité des sensors : Accéléro
 
 Pour l'accéléromètre les positions prédéfinies du téléphone sont sélectionnable dans une liste bien qu'il soit tout aussi possible de modifier la position simplement avec la souris. De plus, nous pouvons jouer des scénarios de données comme le '« shake '».
 
-  <amp-img src="http://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg"
+  <amp-img src="https://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg"
   width="500"
   height="500"
   alt="AMP"></amp-img>
 
 Pour la partie location, bing map est affiché dans la fenêtre (étonnant) et permet de créer soit par simple clique sur la carte soit par recherche un parcours (une liste de coordonnées). Ce parcours est ensuite joué c'est-à-dire un changement de point toutes les x seconde.
 
-  <amp-img src="http://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg"
+  <amp-img src="https://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg"
   width="500"
   height="500"
   alt="AMP"></amp-img>
@@ -75,12 +75,12 @@ Pour la partie location, bing map est affiché dans la fenêtre (étonnant) et p
 
 Un profiler dédier au projet WP7 a été ajouté, il n'est pas à l'heure actuelle dans sa version définitive, mais il permet déjà de pouvoir ciblé certains problèmes de frame rate et d'utilisation de thread sur la CPU/GPU.
 
-  <amp-img src="http://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg"
+  <amp-img src="https://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg"
   width="500"
   height="346"
   alt="AMP"></amp-img>
 
-  <amp-img src="http://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg"
+  <amp-img src="https://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg"
   width="500"
   height="281"
   alt="AMP"></amp-img>
@@ -97,7 +97,7 @@ Côté XNA les instructions SIMD sont maintenant gérées, les opérations sur l
 
 Le cycle de vie se voit ajouté un nouvel état nommé Dormant, quand l'utilisateur sort de l'application l'événement Deactivated est déclenché et le système met l'application dans cet état Dormant, tous les threads de l'application sont arrêtés mais l'état de la mémoire reste intact. Si l'application est réactivée la mémoire est réutilisée directement. Cependant si trop d'application sont démarrées et qu'il ne reste plus assez de mémoire, le système passe alors les applications les moins utilsées en tombstoning pour libérer la mémoire.
 
-  <amp-img src="http://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg"
+  <amp-img src="https://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg"
   width="393"
   height="500"
   alt="AMP"></amp-img>
@@ -288,11 +288,11 @@ Plusieurs nouveautés concernant les tuiles :
 *   On peut les modifier localement depuis une application via la classe `StandardTileData` qui permet de modifier les informations de devant : `title`,`BackgroundImage`,Count mais aussi de derrriere : `BackContent`, `BackTitle`, `BackBackgroundImag`e. Si les informations '« back '» sont fourni la tuile va pivoter a intervalle régulier.
 *   On peut plusieurs tuiles pour la même application qui vont permettre de créer des raccourcie vers des pages de votre application, ces tuiles sont bien sur elle aussi personnalisable.
 
-<amp-img src="http://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg"
+<amp-img src="https://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg"
   width="240"
   height="102"
   alt="AMP"></amp-img>
-<amp-img src="http://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg"
+<amp-img src="https://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg"
   width="240"
   height="83"
   alt="AMP"></amp-img>
@@ -339,7 +339,7 @@ Les applications mango ont maintenant la possibilité de s'enregistrer en tant q
 
 Pour ce faire les extensions sont déclarées dans le WMAppManifest ainsi que dans un fichier supplémentaire extras.xml un fichier.
 
-<amp-img src="http://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png"
+<amp-img src="https://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png"
   width="250"
   height="469"
   alt="AMP"></amp-img>

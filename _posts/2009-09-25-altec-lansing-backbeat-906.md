@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Bluetooth, Divers, Son]
 ---
-<a class="zoom" title="Backbeat 906" href="http://farm4.static.flickr.com/3484/3942044884_80e6feb0d8_o.jpg">
+<a class="zoom" title="Backbeat 906" href="https://farm4.static.flickr.com/3484/3942044884_80e6feb0d8_o.jpg">
 <img class="alignleft withborder" src="https://farm4.static.flickr.com/3484/3942044884_6b79a57c38_m.jpg" alt="" /></a>
 
 Après un mois d'utilisation régulière voici mes premières impressions. Le casque est léger et s'adapte bien sur MES oreilles.

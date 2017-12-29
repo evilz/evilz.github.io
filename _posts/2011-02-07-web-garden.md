@@ -13,9 +13,9 @@ Ce mécanisme par défaut couvre la majorité des besoins mais n'est pas forcém
 Pour cela, il convient de modifier la valeur spécifiée dans l'onglet Pool des propriétés d'un pool d'applications. Il n'y a pas de règle précise car ce paramétrage dépend du fonctionnel de l'application Web. Cependant, une bonne règle consiste à définir autant de `Worker Process` dans un `Web Garden` que le système dispose de processeurs physiques.
 
 ## Sur IIS 6
-![](http://farm6.static.flickr.com/5257/5424899393_1e37b88eb9_o.png)
+![](https://farm6.static.flickr.com/5257/5424899393_1e37b88eb9_o.png)
 
 ## Sur IIS 7
-![](http://farm6.static.flickr.com/5131/5425500502_05209b5cd2_o.png)
+![](https://farm6.static.flickr.com/5131/5425500502_05209b5cd2_o.png)
 
 Plus d'infos [ici](http://msdn.microsoft.com/fr-fr/library/bb469822.aspx)

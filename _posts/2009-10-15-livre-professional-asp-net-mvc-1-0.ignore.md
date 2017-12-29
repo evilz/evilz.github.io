@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [asp.net, Informatique, Livre, MVC, Phil Haack, Rob Conery, Scott Guthrie, Scott Hanselman]
 ---
-[![](http://farm3.static.flickr.com/2427/4004407237_00f0dd47c3_m.jpg) Professional ASP.NET MVC 1.0](http://www.wrox.com/WileyCDA/WroxTitle/Professional-ASP-NET-MVC-1-0.productCd-0470384611,descCd-tableOfContents.html)
+[![](https://farm3.static.flickr.com/2427/4004407237_00f0dd47c3_m.jpg) Professional ASP.NET MVC 1.0](http://www.wrox.com/WileyCDA/WroxTitle/Professional-ASP-NET-MVC-1-0.productCd-0470384611,descCd-tableOfContents.html)
 
 J'ai terminé de lire ce bookin y a déjà un mois ... un mois que je dois écrire ce post.
 

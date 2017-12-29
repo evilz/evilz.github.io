@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Alt.net, Informatique]
 ---
-[![AOP en dotnet](http://farm3.static.flickr.com/2478/3675530018_b3d39ce757_m.jpg)](http://www.flickr.com/photos/evilznet/3675530018/ "AOP en dotnet de evilz, sur Flickr")Je reviens un peu tardivement sur notre 14ème réunion Alt.net France (sur Paris) puisque je suis partie en vacances juste après ... Bref...
+[![AOP en dotnet](https://farm3.static.flickr.com/2478/3675530018_b3d39ce757_m.jpg)](https://www.flickr.com/photos/evilznet/3675530018/ "AOP en dotnet de evilz, sur Flickr")Je reviens un peu tardivement sur notre 14ème réunion Alt.net France (sur Paris) puisque je suis partie en vacances juste après ... Bref...
 Nous avons été reçu par [FastConnect](http://www.fastconnect.fr/) dans une salle pas très loin de St Lazare louée pour l'occasion. C'est notre ami [Romain](http://codingly.com/) (Codingly pour les intimes) qui nous a initié à L'AOP (Aspect Oriented Programming).
 Sa présentation comptait pas moins de 90 Slides dont le fond comme la forme étaient tout simplement parfaits ! C'est pour moi un excelent travail de préparation en amont. La présentation à durée environ une heure puis c'est terminé sur des démonstrations codés dans VS, en comparant les différentes solutions existantes en .net.
 

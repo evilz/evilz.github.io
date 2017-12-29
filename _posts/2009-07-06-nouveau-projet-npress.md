@@ -6,7 +6,7 @@ author: evilz
 comments: true
 categories: [Informatique, nPress, programmation, projet]
 ---
-[![NPress](http://farm3.static.flickr.com/2513/3694651771_b4c99012f6_t.jpg)](http://www.flickr.com/photos/evilznet/3694651771/ "NPress de evilz, sur Flickr")Via ce post, je vous annonce que j'ai entrepris de coder une conversion de WordPress en C#.
+[![NPress](https://farm3.static.flickr.com/2513/3694651771_b4c99012f6_t.jpg)](https://www.flickr.com/photos/evilznet/3694651771/ "NPress de evilz, sur Flickr")Via ce post, je vous annonce que j'ai entrepris de coder une conversion de WordPress en C#.
 
 Après un rapide coup d'oeil aux sources de WordPress, j'ai les yeux qui piquent !
 Plus sérieusement il est bien sûr impossible d'écrire un code mot à mot équivalents au code PHP.
