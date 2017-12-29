@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'fastimage'
 
 module Jekyll
   module AmpFilter
@@ -11,18 +12,29 @@ module Jekyll
       doc = Nokogiri::HTML.fragment(input);
       # Add width and height to img elements lacking them
       doc.css('img:not([width])').each do |image|
-        if wi
+        if wi && he
           image['width']  = wi
-        else
-          image['width']  = 700
-        end
-
-        if he
           image['height'] = he
         else
-          image['height'] = 350
+          if image['src'].start_with?('http://', 'https://')
+            src = image['src']
+          else
+            # FastImage doesn't seem to handle local paths when used with Jekyll
+            # so let's just force the path
+            src = File.join(Dir.pwd, '_site', image['src'])
+          end
+          # Jekyll generates static assets after the build process.
+          # This causes problems when trying to determine the dimensions of a locally stored image.
+          # For now, the only solution is to skip the build and generate the AMP files after the site has beem successfully built.
+          # TODO: find a better solution.
+          begin
+            size = FastImage.size(src)
+            image['width']  = size[0]
+            image['height'] = size[1]
+          rescue Exception => e
+            puts 'Unable to get image dimensions for "' + src + '". For local files, build the site with \'--skip-initial-build\' for better results. [Error: ' + e.to_s + ']'
+          end
         end
-        
       end
       # Change 'img' elements to 'amp-img', add responsive attribute when needed
       doc.css('img').each do |image|
