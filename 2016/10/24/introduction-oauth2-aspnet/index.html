@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+  <head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Lora:400,700' rel='stylesheet' type='text/css'>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-gist" src="https://cdn.ampproject.org/v0/amp-gist-0.1.js"></script>
+  <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Introduction à l&#39;authentification OAuth2 avec ASPNET Core et GitHub</title>
+  <meta name="description" content="Dans cette série d’articles, nous allons voir comment mettre en place une authentification OAuth2 au travers d’une application ASP.NET CORE.">
+
+  <link rel="canonical" href="http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/">
+  <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="http://localhost:4000/feed.xml">
+  <link rel="manifest" href="/manifest.json">
+
+  <script type="application/ld+json">
+  
+{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/",
+  "headline": "Introduction à l&#39;authentification OAuth2 avec ASPNET Core et GitHub",
+  "datePublished": "2016-10-24T00:00:00+02:00",
+  "dateModified": "2016-10-24T00:00:00+02:00",
+  "description": "Dans cette série d’articles, nous allons voir comment mettre en place une authentification OAuth2 au travers d’une application ASP.NET CORE.",
+  "author": {
+    "@type": "Person",
+    "name": "Vincent Bourdon"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Evilz blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/assets/images/logo.jpg",
+      "width": "60",
+      "height": "60"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://localhost:4000/assets/images/logo.jpg",
+    "height": "60",
+    "width": "60"
+  }
+}
+
+  </script>
+
+  <style amp-custom>
+  
+  /**
+ * Syntax highlighting styles
+ */
+.highlight {
+  background: #fff;
+  /* Comment */
+  /* Error */
+  /* Keyword */
+  /* Operator */
+  /* Comment.Multiline */
+  /* Comment.Preproc */
+  /* Comment.Single */
+  /* Comment.Special */
+  /* Generic.Deleted */
+  /* Generic.Emph */
+  /* Generic.Error */
+  /* Generic.Heading */
+  /* Generic.Inserted */
+  /* Generic.Output */
+  /* Generic.Prompt */
+  /* Generic.Strong */
+  /* Generic.Subheading */
+  /* Generic.Traceback */
+  /* Keyword.Constant */
+  /* Keyword.Declaration */
+  /* Keyword.Namespace */
+  /* Keyword.Pseudo */
+  /* Keyword.Reserved */
+  /* Keyword.Type */
+  /* Literal.Number */
+  /* Literal.String */
+  /* Name.Attribute */
+  /* Name.Builtin */
+  /* Name.Class */
+  /* Name.Constant */
+  /* Name.Decorator */
+  /* Name.Entity */
+  /* Name.Exception */
+  /* Name.Function */
+  /* Name.Label */
+  /* Name.Namespace */
+  /* Name.Tag */
+  /* Name.Variable */
+  /* Operator.Word */
+  /* Text.Whitespace */
+  /* Literal.Number.Float */
+  /* Literal.Number.Hex */
+  /* Literal.Number.Integer */
+  /* Literal.Number.Oct */
+  /* Literal.String.Backtick */
+  /* Literal.String.Char */
+  /* Literal.String.Doc */
+  /* Literal.String.Double */
+  /* Literal.String.Escape */
+  /* Literal.String.Heredoc */
+  /* Literal.String.Interpol */
+  /* Literal.String.Other */
+  /* Literal.String.Regex */
+  /* Literal.String.Single */
+  /* Literal.String.Symbol */
+  /* Name.Builtin.Pseudo */
+  /* Name.Variable.Class */
+  /* Name.Variable.Global */
+  /* Name.Variable.Instance */
+  /* Literal.Number.Integer.Long */ }
+  .highlighter-rouge .highlight {
+    background: #fcfcfc; }
+  .highlight pre {
+    background-color: #fcfcfc; }
+  .highlight code {
+    background-color: #fcfcfc; }
+  .highlight .hll {
+    background-color: #ffffcc; }
+  .highlight .c {
+    color: #999988;
+    font-style: italic; }
+  .highlight .err {
+    color: #a61717;
+    background-color: #e3d2d2; }
+  .highlight .k {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .o {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .cm {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cp {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .c1 {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cs {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .gd {
+    color: #000000;
+    background-color: #ffdddd; }
+  .highlight .ge {
+    color: #000000;
+    font-style: italic; }
+  .highlight .gr {
+    color: #aa0000; }
+  .highlight .gh {
+    color: #999999; }
+  .highlight .gi {
+    color: #000000;
+    background-color: #ddffdd; }
+  .highlight .go {
+    color: #888888; }
+  .highlight .gp {
+    color: #555555; }
+  .highlight .gs {
+    font-weight: bold; }
+  .highlight .gu {
+    color: #aaaaaa; }
+  .highlight .gt {
+    color: #aa0000; }
+  .highlight .kc {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kd {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kn {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kp {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kr {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kt {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .m {
+    color: #009999; }
+  .highlight .s {
+    color: #d01040; }
+  .highlight .na {
+    color: #008080; }
+  .highlight .nb {
+    color: #0086B3; }
+  .highlight .nc {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .no {
+    color: #008080; }
+  .highlight .nd {
+    color: #3c5d5d;
+    font-weight: bold; }
+  .highlight .ni {
+    color: #800080; }
+  .highlight .ne {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nf {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nl {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nn {
+    color: #555555; }
+  .highlight .nt {
+    color: #000080; }
+  .highlight .nv {
+    color: #008080; }
+  .highlight .ow {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .w {
+    color: #bbbbbb; }
+  .highlight .mf {
+    color: #009999; }
+  .highlight .mh {
+    color: #009999; }
+  .highlight .mi {
+    color: #009999; }
+  .highlight .mo {
+    color: #009999; }
+  .highlight .sb {
+    color: #d01040; }
+  .highlight .sc {
+    color: #d01040; }
+  .highlight .sd {
+    color: #d01040; }
+  .highlight .s2 {
+    color: #d01040; }
+  .highlight .se {
+    color: #d01040; }
+  .highlight .sh {
+    color: #d01040; }
+  .highlight .si {
+    color: #d01040; }
+  .highlight .sx {
+    color: #d01040; }
+  .highlight .sr {
+    color: #009926; }
+  .highlight .s1 {
+    color: #d01040; }
+  .highlight .ss {
+    color: #990073; }
+  .highlight .bp {
+    color: #999999; }
+  .highlight .vc {
+    color: #008080; }
+  .highlight .vg {
+    color: #008080; }
+  .highlight .vi {
+    color: #008080; }
+  .highlight .il {
+    color: #009999; }
+
+/* Basscss Margin */
+.m0 {
+  margin: 0; }
+
+.mt0 {
+  margin-top: 0; }
+
+.mr0 {
+  margin-right: 0; }
+
+.mb0 {
+  margin-bottom: 0; }
+
+.ml0 {
+  margin-left: 0; }
+
+.mx0 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.my0 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.m1 {
+  margin: 0.5rem; }
+
+.mt1 {
+  margin-top: 0.5rem; }
+
+.mr1 {
+  margin-right: 0.5rem; }
+
+.mb1 {
+  margin-bottom: 0.5rem; }
+
+.ml1 {
+  margin-left: 0.5rem; }
+
+.mx1 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
+
+.my1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; }
+
+.m2 {
+  margin: 1rem; }
+
+.mt2 {
+  margin-top: 1rem; }
+
+.mr2 {
+  margin-right: 1rem; }
+
+.mb2 {
+  margin-bottom: 1rem; }
+
+.ml2 {
+  margin-left: 1rem; }
+
+.mx2 {
+  margin-left: 1rem;
+  margin-right: 1rem; }
+
+.my2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
+.m3 {
+  margin: 2rem; }
+
+.mt3 {
+  margin-top: 2rem; }
+
+.mr3 {
+  margin-right: 2rem; }
+
+.mb3 {
+  margin-bottom: 2rem; }
+
+.ml3 {
+  margin-left: 2rem; }
+
+.mx3 {
+  margin-left: 2rem;
+  margin-right: 2rem; }
+
+.my3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem; }
+
+.m4 {
+  margin: 4rem; }
+
+.mt4 {
+  margin-top: 4rem; }
+
+.mr4 {
+  margin-right: 4rem; }
+
+.mb4 {
+  margin-bottom: 4rem; }
+
+.ml4 {
+  margin-left: 4rem; }
+
+.mx4 {
+  margin-left: 4rem;
+  margin-right: 4rem; }
+
+.my4 {
+  margin-top: 4rem;
+  margin-bottom: 4rem; }
+
+.mxn1 {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem; }
+
+.mxn2 {
+  margin-left: -1rem;
+  margin-right: -1rem; }
+
+.mxn3 {
+  margin-left: -2rem;
+  margin-right: -2rem; }
+
+.mxn4 {
+  margin-left: -4rem;
+  margin-right: -4rem; }
+
+.ml-auto {
+  margin-left: auto; }
+
+.mr-auto {
+  margin-right: auto; }
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto; }
+
+.icon > svg {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle; }
+  .icon > svg path {
+    fill: #828282; }
+
+.fixed-container {
+  position: relative;
+  max-width: 700px;
+  height: 180px; }
+
+.fixed-header {
+  position: relative;
+  max-width: 700px;
+  height: 360px; }
+
+amp-img {
+  background-color: #fff; }
+
+amp-img.contain img {
+  object-fit: contain; }
+
+amp-img.cover img {
+  object-fit: cover; }
+
+.cf:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+main {
+  display: block; }
+
+body {
+  background-color: #fff;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -webkit-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig"; }
+
+.site-header {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 16px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .site-header {
+      padding: 0 16px; } }
+  .site-header .page-links {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 30px; }
+    .site-header .page-links a {
+      text-decoration: none;
+      color: #999999; }
+      .site-header .page-links a:hover {
+        color: #333333; }
+
+.blog-header {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .blog-header .blog-title {
+    margin-bottom: 8px;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    outline: 0;
+    line-height: 50px;
+    word-break: break-word;
+    color: #333333; }
+  .blog-header .blog-description {
+    font-size: 28px;
+    margin: 0 0 20px;
+    padding: 0;
+    line-height: 1.2;
+    color: #666666;
+    font-weight: 300; }
+
+.content {
+  width: 100%;
+  max-width: 700px;
+  margin: 25px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .content {
+      padding: 0 16px; } }
+  .content article {
+    padding: 20px 0;
+    border-bottom: 1px solid #f2f2f0; }
+    .content article:last-child {
+      border-bottom: 0px; }
+    .content article .post-title {
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      font-style: normal;
+      display: block;
+      font-size: 36px;
+      line-height: 1.15;
+      margin: 0 0; }
+      .content article .post-title a {
+        text-decoration: none;
+        color: #333332; }
+        .content article .post-title a:hover {
+          text-decoration: none; }
+    .content article .post-excerpt {
+      letter-spacing: -0.02em;
+      font-weight: 300;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1.59;
+      color: #666665; }
+    .content article .post-meta {
+      font-size: 14px;
+      color: #b3b3b1;
+      line-height: 30px; }
+      .content article .post-meta a {
+        color: #b3b3b1;
+        text-decoration: none; }
+        .content article .post-meta a:hover {
+          text-decoration: underline; }
+
+.post-template .content {
+  max-width: 700px; }
+
+.index-headline {
+  border-top: 1px solid #dededc;
+  margin: 0;
+  padding: 16px 0; }
+  .index-headline span {
+    color: #b3b3b1;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+
+.pagination {
+  text-align: center;
+  padding: 16px 0 0;
+  font-size: 12px; }
+  .pagination a {
+    color: #999999;
+    text-decoration: none; }
+    .pagination a:hover {
+      color: #333333; }
+
+.site-footer {
+  margin: 0 auto;
+  padding: 48px 0;
+  width: 100%;
+  max-width: 700px;
+  font-size: 12px;
+  text-align: center;
+  color: #999999;
+  line-height: 17.6px; }
+  .site-footer a {
+    color: #666666;
+    text-decoration: none; }
+    .site-footer a:hover {
+      color: #333333; }
+
+.post .post-meta {
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+.post .post-title {
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 50px;
+  line-height: 1.1;
+  color: #333332;
+  margin-bottom: 50px; }
+.post .author-image {
+  background-image: url(/assets/images/logo.jpg);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 8px;
+  margin-bottom: -10px;
+  float: left;
+  background-size: cover;
+  border-radius: 100%;
+  text-indent: -9999px; }
+.post .post-meta-text {
+  color: #b3b3b1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  overflow: hidden;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+.post .post-content {
+  width: 100%;
+  font-family: Georgia, Cambria, "Times New Roman", Times, "Lora", serif;
+  color: #333333; }
+  .post .post-content h1, .post .post-content h2, .post .post-content h3 {
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3, .post .post-content h4, .post .post-content h5, .post .post-content h6 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.3;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3 {
+    font-size: 36px; }
+  .post .post-content h2, .post .post-content h1 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 42px;
+    line-height: 1.2;
+    margin-top: 50px;
+    margin-bottom: 0px; }
+  .post .post-content table {
+    border-collapse: collapse; }
+  .post .post-content table, .post .post-content th, .post .post-content td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left; }
+  .post .post-content p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.59;
+    letter-spacing: -.002em;
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: #333333;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto; }
+  .post .post-content a {
+    color: #333333;
+    text-decoration: underline; }
+  .post .post-content amp-img, .post .post-content amp-youtube {
+    margin-top: 30px; }
+  .post .post-content figure {
+    margin: 0;
+    padding: 0 0 30px; }
+  .post .post-content figcaption {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #666665;
+    outline: 0;
+    z-index: 300;
+    text-align: center; }
+  .post .post-content hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 30px auto;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .post-content blockquote {
+    margin: 0 0 30px;
+    margin-left: -26px;
+    border-left: 3px solid #57ad68;
+    padding-left: 20px; }
+    .post .post-content blockquote p {
+      letter-spacing: 0.01rem;
+      font-weight: 400;
+      mborder-left: 3px solid #57ad68;
+      mpadding-left: 20px;
+      mmargin-left: -26px;
+      padding-bottom: 3px; }
+  .post .post-content ul, .post .post-content ol {
+    padding: 0 0 30px;
+    margin: 0; }
+  .post .post-content li {
+    padding: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 23px;
+    line-height: 30px;
+    margin-left: 30px;
+    margin-bottom: 12px;
+    padding-top: 2px; }
+    .post .post-content li p {
+      padding: 0 0 1.618rem; }
+  .post .post-content ol li {
+    list-style-type: decimal; }
+.post .bottom-teaser {
+  padding: 50px 0 0 0;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .bottom-teaser hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 16px 0 16px 100px;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .bottom-teaser .isLeft {
+    float: left;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isLeft {
+        width: 100%;
+        padding-bottom: 32px; } }
+    .post .bottom-teaser .isLeft .bio {
+      margin-top: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .username {
+      margin-left: 4px;
+      margin-right: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isLeft a {
+      color: black;
+      text-decoration: none; }
+      .post .bottom-teaser .isLeft a:hover {
+        color: #333333;
+        text-decoration: underline; }
+    .post .bottom-teaser .isLeft .author-image {
+      display: block;
+      width: 80px;
+      height: 80px;
+      float: left;
+      background-size: cover;
+      border-radius: 100%;
+      text-indent: -9999px; }
+    .post .bottom-teaser .isLeft h4 {
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+    .post .bottom-teaser .isLeft p {
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+      .post .bottom-teaser .isLeft p.published {
+        color: #999999; }
+  .post .bottom-teaser .isRight {
+    float: right;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isRight {
+        width: 100%; } }
+    .post .bottom-teaser .isRight .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isRight .site-footer {
+      margin: 0;
+      padding: 0;
+      color: #333333;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.3;
+      color: #999999; }
+      .post .bottom-teaser .isRight .site-footer a {
+        color: #333333;
+        text-decoration: none; }
+        .post .bottom-teaser .isRight .site-footer a:hover {
+          text-decoration: underline; }
+      .post .bottom-teaser .isRight .site-footer .poweredby {
+        display: block;
+        padding-bottom: 18px;
+        font-weight: 700;
+        color: #333333; }
+
+.share {
+  text-align: right;
+  padding: 20px 0 0; }
+  .share a {
+    text-decoration: none;
+    color: #bbbbbb;
+    padding-left: 12px; }
+    .share a .hidden {
+      display: none; }
+    .share a:hover {
+      color: #333333; }
+
+pre,
+code {
+  font-size: 15px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  background-color: #fcfcfc;
+  color: #000000; }
+
+code {
+  padding: 1px 5px; }
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto; }
+  pre > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0; }
+
+.pagination .disabled {
+  opacity: 0; }
+
+  </style>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+
+  <body>
+    <header class="site-header">
+  <a href="/" class="logo"><span class="logo"><amp-img src="/assets/images/logo.jpg" width="48" height="48" alt="evilz logo" /></span></a>
+
+  <div class="page-links">
+    <a class="page-link" href="/">Home</a>
+    
+      
+      • <a class="page-link" href="/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</header>
+
+
+    <div class="feature"></div>
+<main class="content" role="main">
+  <article class="post">
+    <div class="post-meta">
+      <h1 class="post-title">Introduction à l'authentification OAuth2 avec ASPNET Core et GitHub</h1>
+    </div>
+
+ 
+    <section class="post-content">
+      <a name="topofpage"></a>
+
+        <!-- Post Feature Image -->
+   
+   
+   
+   <div class="flex">
+    <div class="fixed-header m1">
+
+      <amp-img src="https://farm5.staticflickr.com/4597/27565105059_9daa9856aa_n.jpg"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
+  
+   
+
+   <p>Dans cette série d’articles, nous allons voir comment mettre en place une authentification OAuth2 au travers d’une application <strong>ASP.NET CORE</strong>.</p>
+
+<p>Après quelques rappels sur le protocole, nous aborderons la mise en place de notre application de gestion des Gists en trois étapes :</p>
+
+<ul>
+  <li>Une utilisation directe du middleware OAuth2 fourni par MS</li>
+  <li>Une utilisation d’un middleware spécifique à Github en utilisant le Aspnet Identity</li>
+  <li>Une petite application permettant de gérer vos gists</li>
+</ul>
+
+<h2 id="oauth2">OAuth2</h2>
+
+<p>Le protocole OAuth 2.0 est maintenant un standard pour l’authentification. Il permet à un utilisateur de donner l’accès à ses propres ressources détenues par un fournisseur comme Google, GitHub, Facebook…  à une application tierce.
+Le plus souvent, il est utilisé pour se connecter à des applications en tant que simple fournisseur d’identité (SSO). Cela permet de se connecter sans créer un nouveau compte et sans exposer son mot de passe sur le site ou l’application.</p>
+
+<h5 id="pour-résumer-oauth2-permet">Pour résumer OAuth2 permet</h5>
+<ul>
+  <li>De ne pas diffuser ses mots de passe à des sites sans confiance</li>
+  <li>De contrôler ce que l’application tierce pourra faire et quelles données elle pourra utiliser</li>
+  <li>De révoquer les autorisations quand bon vous semble</li>
+  <li>Mettre à jour votre profil et surtout votre mot de passe à un seul endroit</li>
+</ul>
+
+<h5 id="lorsque-lon-parle-de-oauth2-on-distingue-4-rôles-">Lorsque l’on parle de OAuth2, on distingue 4 rôles :</h5>
+<ul>
+  <li>L’utilisateur : propriétaire de la ressource</li>
+  <li>Le serveur de ressources : qui héberge la/les ressources et expose des APIs</li>
+  <li>Le client :  l’application qui invoque les APIs et est utilisée par l’utilisateur qui a besoin d’un token OAuth</li>
+  <li>Le serveur d’autorisation : qui émet le jeton utilisé par le client</li>
+</ul>
+
+<p>Le flux des échanges OAuth2 se présente comme suit :</p>
+
+<amp-img src="https://farm9.staticflickr.com/8365/29088727302_3a39833a82_o_d.png" width="470" height="650" layout="responsive" alt="AMP"><noscript><img src="https://farm9.staticflickr.com/8365/29088727302_3a39833a82_o_d.png" width="470" height="650" alt="AMP"></noscript></amp-img>
+
+<ol>
+  <li>Le client fait une demande d’autorisation au fournisseur de services</li>
+  <li>Le fournisseur de services authentifie l’utilisateur et demande à l’utilisateur son autorisation d’accès aux données</li>
+  <li>Si l’utilisateur autorise le client, le fournisseur de services initialise une redirection vers le site client avec un code d’accès temporaire.</li>
+  <li>Le client demande alors un jeton en utilisant le code d’accès temporaire</li>
+  <li>Le serveur d’autorisation accorde un jeton d’accès qui peut être utilisé pour authentifier les demandes ultérieures de ressources protégées</li>
+</ol>
+
+<h2 id="prérequis">Prérequis</h2>
+
+<p>Avant de continuer, vérifiez que vous avez correctement installé .net Core et Visual Studio 2015 Update 3 si besoin.
+Si cela n’est pas le cas, merci de suivre les <a href="https://www.microsoft.com/net/core#windows">étapes d’installation fournies par Microsoft</a>.</p>
+
+<p>Dans cette série d’articles, je vais utiliser Visual Studio 2015, mais il est tout à fait possible d’utiliser un autre éditeur (VS Code, Sublime, Atom…).</p>
+
+<h2 id="mise-en-place-du-middleware-oauth2">Mise en place du middleware OAuth2</h2>
+
+<p>Dans ce premier article, nous allons créer une application permettant de se connecter avec compte GitHub, afficher les informations des Claims et des Tokens puis de se déconnecter.
+Voici le scénario final :</p>
+
+<p><strong>Home page sans être authentifié</strong></p>
+<amp-img src="https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png" width="620" height="460" layout="responsive" alt="Home page sans être authentifié"><noscript><img src="https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png" width="620" height="460" alt="Home page sans être authentifié"></noscript></amp-img>
+
+<p><strong>Login via Github</strong></p>
+<amp-img src="https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png" width="620" height="460" layout="responsive" alt="Login via Github"><noscript><img src="https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png" width="620" height="460" alt="Login via Github"></noscript></amp-img>
+
+<p><strong>Home page en étant authentifié avec GitHub</strong></p>
+<amp-img src="https://farm9.staticflickr.com/8541/29161391346_47d44b4312_o_d.png" width="620" height="460" layout="responsive" alt="Home page en étant authentifié avec GitHub"><noscript><img src="https://farm9.staticflickr.com/8541/29161391346_47d44b4312_o_d.png" width="620" height="460" alt="Home page en étant authentifié avec GitHub"></noscript></amp-img>
+
+<h3 id="création-de-lapplication-dans-github">Création de l’application dans GitHub</h3>
+
+<p>Avant de nous lancer dans l’écriture de code C#, commençons par créer une application sur GitHub.
+Connectez-vous sur Github, éditez votre profil puis rendez-vous sur la page OAuth applications.
+L’onglet affiché par défaut liste toutes les applications autorisées à accéder à vos données Github : c’est ici que l’on peut révoquer une autorisation pour une application.
+Cependant, c’est le second onglet “Développer applications” qui nous intéresse.
+Cliquez sur <em>Register a new application</em> et remplissez le formulaire comme suit :</p>
+
+<amp-img src="https://farm9.staticflickr.com/8100/29161391106_8337809ac1_o_d.png" width="620" height="460" layout="responsive" alt="Création de l’application dans GitHub"><noscript><img src="https://farm9.staticflickr.com/8100/29161391106_8337809ac1_o_d.png" width="620" height="460" alt="Création de l’application dans GitHub"></noscript></amp-img>
+
+<p>Vous pourrez, en cas de besoin, modifier les informations ultérieurement.</p>
+
+<p>Quelques remarques concernant les URLs :</p>
+<ul>
+  <li>Je vais utiliser un site en HTTPS</li>
+  <li>L’URL concerne évidemment un site en cours de développement “localhost”</li>
+  <li>J’utilise un port libre !</li>
+  <li>Le path <code class="highlighter-rouge">/signin-github</code> sera la partie de notre application qui exécute notre middleware Oauth</li>
+</ul>
+
+<p>Une fois l’application créée, Github va vous fournir deux clés : le <strong>clientId</strong> et le <strong>ClientSecret</strong> qui sont nécessaires à la configuration du middleware.</p>
+
+<p>Certains peuvent se demander pourquoi utiliser un site ou une page en HTTPS.
+La réponse simple est que l’on veut éviter de faire circuler des informations en clair sur le réseau et encore plus lorsque qu’il s’agit d’informations d’authentification.
+On pourrait alors me répondre que Github s’occupe de la partie authentification et est déjà en HTTPS. 
+C’est vrai, mais Github va aussi renvoyer des tokens à la suite de cette authentification. Même si ces tokens ne sont valides que pour une durée limitée, il est préférable de les protéger d’un bon vieux “man in the middle”. De plus, à l’heure où j’écris, les certificats SSL sont devenus très accessibles et certains sont gratuits !</p>
+
+<amp-img src="https://farm9.staticflickr.com/8734/29161392566_c623d6519d_o_d.png" width="620" height="460" layout="responsive" alt="secret"><noscript><img src="https://farm9.staticflickr.com/8734/29161392566_c623d6519d_o_d.png" width="620" height="460" alt="secret"></noscript></amp-img>
+
+<h3 id="création-de-lapplication-aspnet-core">Création de l’application Aspnet Core</h3>
+
+<p>Depuis Visual Studio 2015, faites :
+<code class="highlighter-rouge">File</code> =&gt; <code class="highlighter-rouge">New</code> =&gt; <code class="highlighter-rouge">Project</code>
+Sélectionnez <code class="highlighter-rouge">ASP.NET Core Web Application</code></p>
+
+<amp-img src="https://farm9.staticflickr.com/8255/29088734792_91574f465a_o_d.png" width="620" height="460" layout="responsive" alt="Création de l’application Aspnet Core"><noscript><img src="https://farm9.staticflickr.com/8255/29088734792_91574f465a_o_d.png" width="620" height="460" alt="Création de l’application Aspnet Core"></noscript></amp-img>
+
+<p>Entrez les noms pour le projet et la solution :
+<strong>Projet</strong> : AllInOne
+<strong>Solution</strong> Aspnet-OAuth2</p>
+
+<p>Créez un projet web vide</p>
+<amp-img src="https://farm9.staticflickr.com/8317/28573011224_842b3780f5_o_d.png" width="620" height="460" layout="responsive" alt="Création de l’application Aspnet Core"><noscript><img src="https://farm9.staticflickr.com/8317/28573011224_842b3780f5_o_d.png" width="620" height="460" alt="Création de l’application Aspnet Core"></noscript></amp-img>
+
+<p>SI vous n’utilisez pas VS2015, créez vous-mêmes la structure des dossiers et utilisez la commande suivante pour créer le projet :</p>
+
+<div class="language-shell highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code>dotnet new
+</code></pre>
+  </div>
+</div>
+
+<h3 id="configuration">Configuration</h3>
+
+<h4 id="globaljson">Global.json</h4>
+
+<p>Le fichier <code class="highlighter-rouge">global.json</code> définit les paramètres globaux à votre solution.
+Dans mon cas (par défaut), les chemins vers les projets et la version du SDK utilisé sont :</p>
+
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"projects"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"src"</span><span class="p">,</span> <span class="s2">"test"</span> <span class="p">],</span>
+  <span class="s2">"sdk"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.0-preview2-003121"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<h4 id="références-et-packages-nuget">Références et Packages nuget</h4>
+
+<p>Si vous démarrez avec .net Core et que vous n’avez pas encore l’habitude des packages nuget (oui ça arrive encore …), sachez que pour réaliser le framework de façon vraiment modulaire, l’équipe de Microsoft a découpé chaque petite fonctionnalité en packages. Et nous allons devoir les référencer via le fichier <code class="highlighter-rouge">project.json</code>, dans l’objet <code class="highlighter-rouge">dependencies</code>
+Nous allons ajouter les packages qui permettent l’authentification et l’OAuth ainsi que la configuration.
+Modifiez l’objet comme cela :</p>
+
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="s2">"dependencies"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Microsoft.NETCore.App"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+      <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"platform"</span>
+    <span class="p">},</span>
+    <span class="s2">"Microsoft.AspNetCore.Diagnostics"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+   
+    <span class="s2">"Microsoft.AspNetCore.Server.IISIntegration"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.AspNetCore.Server.Kestrel"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.Extensions.Logging.Console"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.AspNetCore.Authentication.Cookies"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.AspNetCore.Authentication.OAuth"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.AspNetCore.DataProtection"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.Extensions.Configuration.UserSecrets"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.Extensions.FileProviders.Embedded"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">,</span>
+    <span class="s2">"Microsoft.Extensions.Configuration.EnvironmentVariables"</span><span class="p">:</span> <span class="s2">"1.0.0"</span>
+  <span class="p">},</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Sauvegardez le fichier ou exécutez la commande suivante, ce qui aura pour effet de lancer une restauration des packages dans VS2015 :</p>
+
+<div class="language-shell highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code>dotnet restore
+</code></pre>
+  </div>
+</div>
+
+<h4 id="user-secret">User Secret</h4>
+
+<p>Nous allons maintenant configurer les paramètres OAuth récupérés précédemment sur Github.
+Ces paramètres doivent rester au maximum confidentiels, pour éviter qu’une application lambda se fasse passer pour la vôtre. Il ne faut donc pas commiter ces informations sur un VCS.
+Pour éviter tout commit par inadvertance, nous allons utiliser le système des <code class="highlighter-rouge">user secrets</code>.
+Depuis Visual Studio, faites un clic-droit sur le projet puis allez sur manage User Secrets. Cela va vous créer un fichier <code class="highlighter-rouge">secrets.json</code> vide.</p>
+
+<amp-img src="https://farm9.staticflickr.com/8292/28573005474_1a5d7501bd_o_d.png" width="457" height="97" layout="responsive" alt="Création de l’application Aspnet Core"><noscript><img src="https://farm9.staticflickr.com/8292/28573005474_1a5d7501bd_o_d.png" width="457" height="97" alt="Création de l’application Aspnet Core"></noscript></amp-img>
+
+<blockquote>
+  <div class="highlighter-rouge">
+    <div class="highlight">
+      <pre class="highlight"><code>**Si vous n'utilisez pas Visual Studio, créez un fichier à la main à l'emplacement suivant** Windows: `%APPDATA%\microsoft\UserSecrets\{userSecretsId}\secrets.json` Linux: `~/.microsoft/usersecrets/{userSecretsId}/secrets.json` Mac: `~/.microsoft/usersecrets/{userSecretsId}/secrets.json` Le paramètre userSecretsId se trouve dans le fichier projects.json. Si vous utilisez Visual Studio il est rajouter pour vous, sinon ajoutez le à la main. Pour moi la valeur est la suivante :  "userSecretsId": "aspnet-AllInOne-20160819103237"
+</code></pre>
+    </div>
+  </div>
+</blockquote>
+
+<p>Ajoutez les 2 valeurs récupérées sur Github</p>
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"github:clientid"</span><span class="p">:</span> <span class="s2">"1234567890123456789"</span><span class="p">,</span>
+  <span class="s2">"github:clientsecret"</span><span class="p">:</span> <span class="s2">"12345678901234567891234567890123456789"</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Nous allons voir par la suite comment facilement récupérer les valeurs de ces paramètres dans notre code.</p>
+
+<blockquote>
+  <p><strong>Remarque :</strong>
+Lors de la mise en production, on va généralement utiliser des variables d’environnement qui sont faciles à ajouter et cross-platform y compris Docker ! Cependant, ces valeurs seront toujours en clair. Pour des informations devant être cryptées, il est recommandé d’utiliser un système comme Vault de HashiCorp (https://www.vaultproject.io/) ou un équivalent. Ensuite, un simple fournisseur de configuration vous permettra de récupérer les paramètres.</p>
+</blockquote>
+
+<h4 id="launchsettings">launchSettings</h4>
+
+<p>Allez, courage, encore un peu de config !</p>
+
+<p>Nous allons éditer le fichier <code class="highlighter-rouge">launchSettings.json</code> qui se trouve dans le répertoire <code class="highlighter-rouge">Properties</code> de votre projet.
+Ce fichier définit les configurations de lancement de l’application. Il y a deux profils par défaut : un pour le lancement via IIS express et l’autre pour le lancement en ligne de commande lorsque que l’on fait un <em>dotnet run</em>.</p>
+
+<p>Nous allons modifier les ports utilisés pour matcher ceux définis lors de l’enregistrement de l’application dans Github, et mettre le protocole HTTPS en place.</p>
+
+<p>Après modification, j’obtiens le fichier suivant :</p>
+
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"iisSettings"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"windowsAuthentication"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"anonymousAuthentication"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"iisExpress"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"applicationUrl"</span><span class="p">:</span> <span class="s2">"https://localhost:44367/"</span><span class="p">,</span>
+      <span class="s2">"sslPort"</span><span class="p">:</span> <span class="mi">44367</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"profiles"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"IIS Express"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"commandName"</span><span class="p">:</span> <span class="s2">"IISExpress"</span><span class="p">,</span>
+      <span class="s2">"launchBrowser"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"launchUrl"</span><span class="p">:</span> <span class="s2">"https://localhost:44367/"</span><span class="p">,</span>
+      <span class="s2">"environmentVariables"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"ASPNETCORE_ENVIRONMENT"</span><span class="p">:</span> <span class="s2">"Development"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"AllInOne"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"commandName"</span><span class="p">:</span> <span class="s2">"Project"</span><span class="p">,</span>
+      <span class="s2">"launchBrowser"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"launchUrl"</span><span class="p">:</span> <span class="s2">"https://localhost:44367/"</span><span class="p">,</span>
+      <span class="s2">"environmentVariables"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"ASPNETCORE_URLS"</span><span class="p">:</span> <span class="s2">"https://*:44367"</span><span class="p">,</span>
+        <span class="s2">"ASPNETCORE_ENVIRONMENT"</span><span class="p">:</span> <span class="s2">"Development"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Notez que le paramètre <code class="highlighter-rouge">launchUrl</code> n’est pas l’URL de votre serveur mais celle utilisée par le navigateur à son lancement.
+J’ai rajouté une variable d’environnement magique (ou presque) ASPNETCORE_URLS qui définit les URLs utilisées par Kestrel.
+Aspnet core utilise plusieurs variables d’environnement prédéfinies permettant de facilement configurer vos environnements.</p>
+
+<h4 id="ssl">SSL</h4>
+
+<p>SSL c’est bien, mais encore faudrait-il un certificat ! 
+Si tout va bien, au premier lancement avec IIS express, une popup va vous proposer de créer un certificat local pour IIS express. Sinon, c’est sûrement que vous l’avez déjà.
+Nous allons utiliser ce même certificat pour le mode sans IIS express.</p>
+
+<p>Cela concerne uniquement les gens sous Windows et pour l’environnement de développement :</p>
+<ol>
+  <li>Via le menu démarrer, lancez un mmc.</li>
+  <li>Cliquez sur  Fichier &gt; Ajouter/Supprimer un composant.</li>
+  <li>Cliquez sur Certificates &gt; Ajouter.</li>
+  <li>Sélectionnez un compte d’ordinateur et cliquez sur Suivant. Sélectionnez l’ordinateur local puis cliquez sur Terminer et Ok.</li>
+  <li>Sélectionnez le certificat qui se trouve dans Certificats &gt; Personnel &gt; Certificats. Faîtes un clic-droit sur le certificat localhost puis Toutes les tâches &gt; Exporter.</li>
+</ol>
+
+<amp-img src="https://farm9.staticflickr.com/8236/29088730012_34403e01e2_o_d.png" width="427" height="174" layout="responsive" alt="folder"><noscript><img src="https://farm9.staticflickr.com/8236/29088730012_34403e01e2_o_d.png" width="427" height="174" alt="folder"></noscript></amp-img>
+
+<ol>
+  <li>Choisissez Oui, exportez la clé privée et incluez tous les certificats dans le chemin d’accès de certification</li>
+  <li>Entrez un mot de passe, je vais utiliser “dev” pour ce projet</li>
+  <li>Enregistrez les fichiers dans le sous-répertoire suivant de votre projet “compiler\resources\iiCert.pfx”</li>
+</ol>
+
+<amp-img src="https://farm9.staticflickr.com/8111/28575032573_c8ff54a06e_o_d.png" width="611" height="433" layout="responsive" alt="folder"><noscript><img src="https://farm9.staticflickr.com/8111/28575032573_c8ff54a06e_o_d.png" width="611" height="433" alt="folder"></noscript></amp-img>
+
+<p><em>Ce dossier est un dossier spécial, tous les fichiers déposés ici seront compilés en ressources embarquées.</em></p>
+
+<h4 id="point-dentrée">Point d’entrée</h4>
+
+<p>Dans les applications .core, le point d’entrée d’une application est la méthode statique main. Rien d’étonnant, sauf que pour Aspnet Core c’est pareil, donc fini les global.asax : tout le monde à la même enseigne.</p>
+
+<p>Nous allons faire quelques modifications simples dans le fichier Program.cs pour prendre en compte notre certificat pour notre serveur Kestrel.</p>
+
+<h4 id="kestrel">Kestrel</h4>
+
+<p>Un petit mot sur Kestrel pour ceux qui ne connaîtraient pas encore. Il s’agit d’un nouveau serveur web cross-platform basé sur Libuv, une librairie cross-platforme d’asynchronisme, comme le serveur NodeJS.
+Cependant, Kestrel n’est pas prévu pour être le serveur web exposé, il est préconisé d’utiliser un mécanisme de proxy en utilisant IIS ou Nginx.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Security.Cryptography.X509Certificates</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Hosting</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.Extensions.FileProviders</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nn">AllInOne</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">host</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">WebHostBuilder</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">UseKestrel</span><span class="p">(</span>
+                <span class="n">options</span> <span class="p">=&gt;</span>
+                <span class="p">{</span>
+                    <span class="c1">//Configure SSL</span>
+                    <span class="kt">var</span> <span class="n">serverCertificate</span> <span class="p">=</span> <span class="nf">LoadCertificate</span><span class="p">();</span>
+                    <span class="n">options</span><span class="p">.</span><span class="nf">UseHttps</span><span class="p">(</span><span class="n">serverCertificate</span><span class="p">);</span>
+                <span class="p">})</span>
+                <span class="p">.</span><span class="nf">UseContentRoot</span><span class="p">(</span><span class="n">Directory</span><span class="p">.</span><span class="nf">GetCurrentDirectory</span><span class="p">())</span>
+                <span class="p">.</span><span class="nf">UseIISIntegration</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">UseStartup</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+            <span class="n">host</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="n">X509Certificate2</span> <span class="nf">LoadCertificate</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">assembly</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Startup</span><span class="p">).</span><span class="nf">GetTypeInfo</span><span class="p">().</span><span class="n">Assembly</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">embeddedFileProvider</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">EmbeddedFileProvider</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="s">"AllInOne"</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">certificateFileInfo</span> <span class="p">=</span> <span class="n">embeddedFileProvider</span><span class="p">.</span><span class="nf">GetFileInfo</span><span class="p">(</span><span class="s">"compiler/resources/iisCert.pfx"</span><span class="p">);</span>
+            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">certificateStream</span> <span class="p">=</span> <span class="n">certificateFileInfo</span><span class="p">.</span><span class="nf">CreateReadStream</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="kt">byte</span><span class="p">[]</span> <span class="n">certificatePayload</span><span class="p">;</span>
+                <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">memoryStream</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MemoryStream</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="n">certificateStream</span><span class="p">.</span><span class="nf">CopyTo</span><span class="p">(</span><span class="n">memoryStream</span><span class="p">);</span>
+                    <span class="n">certificatePayload</span> <span class="p">=</span> <span class="n">memoryStream</span><span class="p">.</span><span class="nf">ToArray</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">X509Certificate2</span><span class="p">(</span><span class="n">certificatePayload</span><span class="p">,</span> <span class="s">"dev"</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>La modification est très simple : on ajoute des options pour le lancement du serveur Kestrel qui charge le certificat.
+La méthode LoadCertificate va chercher le certificat qui est en ressource embarquée, lit le contenu brut et retourne un certificat X509 en utilisant le mot de passe spécifié lors de l’export.</p>
+
+<p>Il ne reste plus qu’à appeler l’extension UseHttps en passant le certificat.
+Pour pouvoir utiliser cette extension, il nous faut ajouter un package supplémentaire dans notre ficher <code class="highlighter-rouge">project.json</code></p>
+
+<p>Ajoutez le package
+“Microsoft.AspNetCore.Server.Kestrel.Https”: “1.0.0”,</p>
+
+<p>Vous pouvez maintenant exécuter l’application pour vérifier toute la configuration. Vous devriez voir un joli Hello world !</p>
+
+<amp-img src="https://farm9.staticflickr.com/8875/29195124075_65b8930a33_o_d.png" width="499" height="332" layout="responsive" alt="dev"><noscript><img src="https://farm9.staticflickr.com/8875/29195124075_65b8930a33_o_d.png" width="499" height="332" alt="dev"></noscript></amp-img>
+
+<h4 id="middlewares">Middlewares</h4>
+
+<p>Nous allons enfin passer au code source. Nous allons, dans le fichier startup.cs, mettre en place les middleware nécessaires pour le bon fonctionnement de notre authentification.</p>
+
+<h5 id="chargement-de-la-configuration">Chargement de la configuration</h5>
+
+<p>Avant d’oublier, nous allons ajouter un constructeur à notre startup, qui va s’occuper de construire un objet de configuration à partir des différents éléments qui la compose et stocker le résultat dans une propriété.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="nf">Startup</span><span class="p">(</span><span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ConfigurationBuilder</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">SetBasePath</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">ContentRootPath</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="nf">IsDevelopment</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">builder</span><span class="p">.</span><span class="nf">AddUserSecrets</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="n">Configuration</span> <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">public</span> <span class="n">IConfiguration</span> <span class="n">Configuration</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<h4 id="cookies-middleware">Cookies Middleware</h4>
+
+<p>Nous allons, dans un premier temps, mettre en place le middleware responsable des cookies.
+Ce middleware permet de sérialiser le principal de l’utilisateur dans un cookie encrypté.
+Pour chaque requête ultérieure, le cookie sera validé et désérialisé pour recréer le principal de l’utilisateur qui est assigné au HttpContext.
+Modifiez le code de la méthode ConfigureServices pour activer l’authentification par cookie.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Authentication.Cookies</span><span class="p">;</span>
+<span class="err">…</span><span class="p">.</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">services</span><span class="p">.</span><span class="nf">AddAuthentication</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">SignInScheme</span> <span class="p">=</span> <span class="n">CookieAuthenticationDefaults</span><span class="p">.</span><span class="n">AuthenticationScheme</span><span class="p">);</span>
+        <span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Ce code permet de définir le middleware qui sera responsable de la persistance de l’identité de l’utilisateur suite à une authentification réussie.</p>
+
+<h5 id="authentification-scheme">Authentification Scheme</h5>
+
+<p>Nous avons ici utilisé une constante <code class="highlighter-rouge">CookieAuthenticationDefaults.AuthenticationScheme</code> qui permet d’identifier le middleware de Cookie. Chaque middleware d’authentification aura donc son propre scheme, un identifiant unique permettant d’y accéder par la suite si plusieurs middlewares sont mis en place.
+Il est même possible de limiter les autorisations à un ou plusieurs middlewares précis lorsque l’on utilise MVC
+<code class="highlighter-rouge">[Authorize(ActiveAuthenticationSchemes = "Cookie,Github")]</code></p>
+
+<p>Il nous faut maintenant dire d’utiliser le middleware de cookie.
+Ajoutez ce code juste apres le  if (env.IsDevelopment())</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">UseCookieAuthentication</span><span class="p">(</span><span class="k">new</span> <span class="n">CookieAuthenticationOptions</span>
+            <span class="p">{</span>
+                <span class="n">AutomaticAuthenticate</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+                <span class="n">LoginPath</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PathString</span><span class="p">(</span><span class="s">"/login"</span><span class="p">)</span>
+            <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>On active le middleware avec deux options :</p>
+<ul>
+  <li>AutomaticAuthenticate : ce flag indique que le middleware doit s’exécuter à chaque requête et tenter de valider et de reconstruire tout principal sérialisé dans un cookie</li>
+  <li>LoginPath : le chemin relatif où seront redirigés les requêtes lorsqu’un utilisateur tente d’accéder à une ressource, mais n’a pas été authentifié.</li>
+</ul>
+
+<p>Puisque que l’on a précisé que le chemin relatif pour se connecter est <code class="highlighter-rouge">/login</code>, il faut définir une action à exécuter pour cet appel. Nul besoin de MVC pour ça ! Il suffit simplement d’enregistrer une action à exécuter pour le chemin en question.
+Pour notre exemple, nous allons simplement simuler une authentification réussie.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">Map</span><span class="p">(</span><span class="s">"/login"</span><span class="p">,</span> <span class="n">x</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">x</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="k">async</span> <span class="n">context</span> <span class="p">=&gt;</span>
+                <span class="p">{</span>
+                    <span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span><span class="n">ClaimTypes</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="s">"toto"</span><span class="p">);</span>
+                    <span class="kt">var</span> <span class="n">identity</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ClaimsIdentity</span><span class="p">(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="n">name</span> <span class="p">},</span> <span class="n">CookieAuthenticationDefaults</span><span class="p">.</span><span class="n">AuthenticationScheme</span><span class="p">);</span>
+                    <span class="kt">var</span> <span class="n">principal</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ClaimsPrincipal</span><span class="p">(</span><span class="n">identity</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">SignInAsync</span><span class="p">(</span><span class="n">CookieAuthenticationDefaults</span><span class="p">.</span><span class="n">AuthenticationScheme</span><span class="p">,</span> <span class="n">principal</span><span class="p">);</span>
+                    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">Redirect</span><span class="p">(</span><span class="s">"/"</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>On crée un principal à partir d’un claims de type Name, puis on se connecte sur le middleware de cookie avec ce nouveau principal.
+Si vous lancez l’application et que vous vous rendez sur le path “/login”. Vous devriez voir qu’un cookie nommé .AspNetCore.Cookies a été créé.</p>
+
+<amp-img src="https://farm9.staticflickr.com/8497/29088734152_3a68d0564d_o_d.png" width="445" height="58" layout="responsive" alt="cookie"><noscript><img src="https://farm9.staticflickr.com/8497/29088734152_3a68d0564d_o_d.png" width="445" height="58" alt="cookie"></noscript></amp-img>
+
+<p>Ajoutons tout de suite un page pour se déconnecter</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code> <span class="n">app</span><span class="p">.</span><span class="nf">Map</span><span class="p">(</span><span class="s">"/logout"</span><span class="p">,</span> <span class="n">x</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">x</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="k">async</span> <span class="n">context</span> <span class="p">=&gt;</span>
+                <span class="p">{</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">SignOutAsync</span><span class="p">(</span><span class="n">CookieAuthenticationDefaults</span><span class="p">.</span><span class="n">AuthenticationScheme</span><span class="p">);</span>
+                    <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">Redirect</span><span class="p">(</span><span class="s">"/"</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Et pour nous éviter d’aller regarder les cookies à la main, modifions aussi l’action principale pour afficher un peu plus qu’un hello world.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">User</span><span class="p">;</span>
+                <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">"text/html"</span><span class="p">;</span>
+                <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">user</span> <span class="p">==</span> <span class="k">null</span> <span class="p">||</span> <span class="p">!</span><span class="n">user</span><span class="p">.</span><span class="n">Identities</span><span class="p">.</span><span class="nf">Any</span><span class="p">(</span><span class="n">identity</span> <span class="p">=&gt;</span> <span class="n">identity</span><span class="p">.</span><span class="n">IsAuthenticated</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"&lt;h1&gt;Hello anonymous&lt;/h1&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"&lt;a href="</span><span class="p">/</span><span class="n">login</span><span class="s">"&gt; Login&lt;/a&gt;"</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">$"&lt;h1&gt;Hello </span><span class="p">{</span><span class="n">context</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="s">&lt;/h1&gt;"</span><span class="p">);</span>
+                    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">claim</span> <span class="k">in</span> <span class="n">context</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">Claims</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">$"</span><span class="p">{</span><span class="n">claim</span><span class="p">.</span><span class="n">Type</span><span class="p">}</span><span class="s">: </span><span class="p">{</span><span class="n">claim</span><span class="p">.</span><span class="n">Value</span><span class="p">}</span><span class="s">&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"&lt;a href="</span><span class="p">/</span><span class="n">logout</span><span class="s">"&gt;Logout&lt;/a&gt;&lt;br&gt;"</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+            <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Et voilà, on peut se connecter en tant que toto !</p>
+
+<amp-img src="https://farm9.staticflickr.com/8204/29161391556_70c7a61a58_o_d.png" width="458" height="240" layout="responsive" alt="cookie"><noscript><img src="https://farm9.staticflickr.com/8204/29161391556_70c7a61a58_o_d.png" width="458" height="240" alt="cookie"></noscript></amp-img>
+
+<h5 id="oauth-middleware">Oauth middleware</h5>
+
+<p>Bon c’est bien tout ça mais on est venu pour faire de l’OAuth nous !</p>
+
+<p>Ajoutons notre middleware OAuth qui est fourni par Microsoft dans le package
+<code class="highlighter-rouge">Microsoft.AspNetCore.Authentication.OAuth</code></p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">UseOAuthAuthentication</span><span class="p">(</span><span class="k">new</span> <span class="n">OAuthOptions</span>
+             <span class="p">{</span>
+                 <span class="n">AuthenticationScheme</span> <span class="p">=</span> <span class="s">"GitHub"</span><span class="p">,</span>
+                 <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">"Github"</span><span class="p">,</span>
+                 <span class="n">ClientId</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">"github:clientid"</span><span class="p">],</span>
+                 <span class="n">ClientSecret</span> <span class="p">=</span> <span class="n">Configuration</span><span class="p">[</span><span class="s">"github:clientsecret"</span><span class="p">],</span>
+                 <span class="n">CallbackPath</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PathString</span><span class="p">(</span><span class="s">"/signin-github"</span><span class="p">),</span>
+                 <span class="n">AuthorizationEndpoint</span> <span class="p">=</span> <span class="s">"https://github.com/login/oauth/authorize"</span><span class="p">,</span>
+                 <span class="n">TokenEndpoint</span> <span class="p">=</span> <span class="s">"https://github.com/login/oauth/access_token"</span><span class="p">,</span>
+                 <span class="n">UserInformationEndpoint</span> <span class="p">=</span> <span class="s">"https://api.github.com/user"</span><span class="p">,</span>
+                 <span class="n">ClaimsIssuer</span> <span class="p">=</span> <span class="s">"OAuth2-Github"</span><span class="p">,</span>
+                 <span class="n">SaveTokens</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+                 <span class="n">Events</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OAuthEvents</span>
+                 <span class="p">{</span>
+                     <span class="n">OnCreatingTicket</span> <span class="p">=</span> <span class="n">context</span> <span class="p">=&gt;</span>
+                     <span class="p">{</span>
+                         <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                              <span class="n">ClaimsIdentity</span><span class="p">.</span><span class="n">DefaultNameClaimType</span><span class="p">,</span> <span class="s">"toto from git !"</span><span class="p">,</span>
+                              <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">String</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                         <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="nf">FromResult</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+                     <span class="p">},</span>
+                 <span class="p">}</span>
+             <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Rien de bien compliqué, on définit l’identifiant (le scheme) ainsi que son nom, puis on récupère les deux paramètres depuis la configuration pour le clientId et clientSecret stockés précédemment dans les user secrets.
+Le CallbackPath doit correspondre à celui fourni pendant la création de l’application sur github et les endpoints sont ceux définis par Github.
+Le paramètre SaveTokens permet d’enregistrer les tokens dans un objet spécifique mais nous y reviendrons plus tard.</p>
+
+<p>Enfin, il est possible d’associer des fonctions exécutées pour les événements survenant pendant la discussion OAuth.
+Celui qui nous intéresse particulièrement est OnCreatingTicket, qui survient lorsque le fournisseur a correctement authentifié l’utilisateur et que lui-même a validé les droits d’accès.
+Pour cette fonction, je vais reprendre le code précédent qui va simple créer un claims en dur.
+Comme la fonction attend en retour un Task, on utilisera simplement la méthode Task.FromResult pour en créer une.</p>
+
+<p>Voilà, notre middleware est en place et il ne reste plus qu’à y faire appel. Pour cela, on va demander l’authentification sur le scheme Github.</p>
+
+<p>Modifions la méthode exécute sur le chemin <code class="highlighter-rouge">/login</code></p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">Map</span><span class="p">(</span><span class="s">"/login"</span><span class="p">,</span> <span class="n">x</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">x</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="k">async</span> <span class="n">context</span> <span class="p">=&gt;</span>
+                <span class="p">{</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">ChallengeAsync</span><span class="p">(</span><span class="s">"GitHub"</span><span class="p">,</span> <span class="k">new</span> <span class="nf">AuthenticationProperties</span><span class="p">()</span> <span class="p">{</span> <span class="n">RedirectUri</span> <span class="p">=</span> <span class="s">"/"</span> <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Vous pouvez maintenant lancer l’application pour voir le resultat</p>
+
+<amp-img src="https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png" width="620" height="460" layout="responsive" alt="cookie"><noscript><img src="https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png" width="620" height="460" alt="cookie"></noscript></amp-img>
+
+<amp-img src="https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png" width="846" height="860" layout="responsive" alt="cookie"><noscript><img src="https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png" width="846" height="860" alt="cookie"></noscript></amp-img>
+
+<amp-img src="https://farm9.staticflickr.com/8344/29088712842_4bf831dd29_o_d.png" width="636" height="387" layout="responsive" alt="cookie"><noscript><img src="https://farm9.staticflickr.com/8344/29088712842_4bf831dd29_o_d.png" width="636" height="387" alt="cookie"></noscript></amp-img>
+
+<p>Nous sommes maintenant authentifiés avec Github.
+Il ne nous reste plus qu’une chose à faire, remplacer notre claim qui est en dur par de vrais claims correspondant à l’utilisateur réel.</p>
+
+<p>Pour récupérer les informations qui nous intéressent, on va utiliser l’API Github concernant la ressource User.
+L’utilisation de l’API nécessite un token valide pour être utilisée, et maintenant nous en avons un !</p>
+
+<p>Remplaçons le code de OnCreatingTicket par celui-ci :</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">OnCreatingTicket</span> <span class="p">=</span> <span class="k">async</span> <span class="n">context</span> <span class="p">=&gt;</span>
+                    <span class="p">{</span>
+                        <span class="c1">// Get the GitHub user</span>
+                        <span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">HttpRequestMessage</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Get</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">UserInformationEndpoint</span><span class="p">);</span>
+                        <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Authorization</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">AuthenticationHeaderValue</span><span class="p">(</span><span class="s">"Bearer"</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">AccessToken</span><span class="p">);</span>
+                        <span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Accept</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">MediaTypeWithQualityHeaderValue</span><span class="p">(</span><span class="s">"application/json"</span><span class="p">));</span>
+                        <span class="kt">var</span> <span class="n">response</span> <span class="p">=</span> <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Backchannel</span><span class="p">.</span><span class="nf">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">RequestAborted</span><span class="p">);</span>
+                        <span class="n">response</span><span class="p">.</span><span class="nf">EnsureSuccessStatusCode</span><span class="p">();</span>
+                        <span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">JObject</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="k">await</span> <span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="nf">ReadAsStringAsync</span><span class="p">());</span>
+                        <span class="kt">var</span> <span class="n">identifier</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="s">"id"</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">identifier</span><span class="p">))</span>
+                        <span class="p">{</span>
+                            <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                                <span class="n">ClaimTypes</span><span class="p">.</span><span class="n">NameIdentifier</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span>
+                                <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">String</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                        <span class="p">}</span>
+                        <span class="kt">var</span> <span class="n">userName</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="s">"login"</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">userName</span><span class="p">))</span>
+                        <span class="p">{</span>
+                            <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                                <span class="n">ClaimsIdentity</span><span class="p">.</span><span class="n">DefaultNameClaimType</span><span class="p">,</span> <span class="n">userName</span><span class="p">,</span>
+                                <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">String</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                        <span class="p">}</span>
+                        <span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="s">"name"</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                        <span class="p">{</span>
+                            <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                                <span class="s">"urn:github:name"</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">String</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                        <span class="p">}</span>
+                        <span class="kt">var</span> <span class="n">email</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="s">"email"</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">email</span><span class="p">))</span>
+                        <span class="p">{</span>
+                            <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                                <span class="n">ClaimTypes</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span>
+                                <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">Email</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                        <span class="p">}</span>
+                        <span class="kt">var</span> <span class="n">link</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="s">"url"</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="nf">IsNullOrEmpty</span><span class="p">(</span><span class="n">link</span><span class="p">))</span>
+                        <span class="p">{</span>
+                            <span class="n">context</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="nf">AddClaim</span><span class="p">(</span><span class="k">new</span> <span class="nf">Claim</span><span class="p">(</span>
+                                <span class="s">"urn:github:url"</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span>
+                                <span class="n">ClaimValueTypes</span><span class="p">.</span><span class="n">String</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">ClaimsIssuer</span><span class="p">));</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Première étape, on fait une requête sur cette url https://api.github.com/user en utilisant l’accesstoken qui est dans notre context actuel et donc valide.
+La requête nous renvoie une réponse en json dans laquelle on va piocher les informations intéressantes :</p>
+<ul>
+  <li>id</li>
+  <li>login</li>
+  <li>name</li>
+  <li>email</li>
+  <li>url</li>
+</ul>
+
+<p>A partir de ces données, il ne reste plus qu’à créer des claims et les ajouter à l’identité de l’utilisateur de notre context.</p>
+
+<p>Si vous relancez l’application et que vous vous déconnectez et reconnectez, vous pouvez voir maintenant apparaître les informations de l’utilisateur.</p>
+
+<amp-img src="https://farm9.staticflickr.com/8496/28573010054_bbe7ff587c_o_d.png" width="678" height="521" layout="responsive" alt="hello"><noscript><img src="https://farm9.staticflickr.com/8496/28573010054_bbe7ff587c_o_d.png" width="678" height="521" alt="hello"></noscript></amp-img>
+
+<p>Dernier point avant de terminer cet article. Nous avons défini l’option SaveToken à true auparavant. Nous allons maintenant interroger l’objet contenant les tokens et les afficher pour vérifier le bon fonctionnement.</p>
+
+<p>Ajoutez le code suivant à la suite de l’affichage des claims dans la fonction du middleware principal.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"Tokens:&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"Access Token: "</span> <span class="p">+</span> <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">GetTokenAsync</span><span class="p">(</span><span class="s">"access_token"</span><span class="p">)</span> <span class="p">+</span> <span class="s">"&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"Refresh Token: "</span> <span class="p">+</span> <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">GetTokenAsync</span><span class="p">(</span><span class="s">"refresh_token"</span><span class="p">)</span> <span class="p">+</span> <span class="s">"&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"Token Type: "</span> <span class="p">+</span> <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">GetTokenAsync</span><span class="p">(</span><span class="s">"token_type"</span><span class="p">)</span> <span class="p">+</span> <span class="s">"&lt;br&gt;"</span><span class="p">);</span>
+                    <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="s">"expires_at: "</span> <span class="p">+</span> <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Authentication</span><span class="p">.</span><span class="nf">GetTokenAsync</span><span class="p">(</span><span class="s">"expires_at"</span><span class="p">)</span> <span class="p">+</span> <span class="s">"&lt;br&gt;"</span><span class="p">);</span>
+</code></pre>
+  </div>
+</div>
+
+<p>ALL DONE !</p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>Dans cet article, nous avons pu voir comme il est simple de mettre en place une authentification OAuth en moins de 200 lignes de code. Il est tout de même rare d’utiliser ce code tel quel, notamment car le principe de Responsabilité unique (Single Responsibility Principle) n’est pas respecté. Dans le prochain article, nous utiliserons un middleware spécifique pour la connexion Github.</p>
+
+<p>Retrouvez l’ensemble du code sur <a href="https://github.com/SoatGroup/aspnetcore-oauth2">le GitHub de SOAT</a>.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="share">
+        <a class="icon" href="https://twitter.com/intent/tweet?url=http://localhost:4000/2016/10/24/introduction-oauth2-aspnet&text=Introduction+%C3%A0+l%27authentification+OAuth2+avec+ASPNET+Core+et+GitHub&via=Evilznet" target="_blank">
+          Share on
+          <svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+
+        </a>
+      </section>
+    </footer>
+    <div class="bottom-teaser cf">
+      <div class="isLeft">
+        <h5 class="index-headline featured"><span>Written by</span></h5>
+        <section class="author">
+          <div class="author-image"></div>
+          <h4>Vincent Bourdon</h4>
+          <p class="bio">.Net Dev since 2001
+</p>
+
+          <p>
+            <span>
+              
+                
+<span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><a href="https://github.com/evilz"><span class="username">evilz</span></a>
+
+
+              
+            </span>
+
+            <span>
+              
+                
+<span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><a href="https://twitter.com/Evilznet"><span class="username">Evilznet</span></a>
+
+
+              
+            </span>
+          </p>
+          <hr>
+          <p class="published">Published <time datetime="2016-10-24 00:00">24 Oct 2016</time></p>
+        </section>
+      </div>
+      <div class="isRight">
+        <h5 class="index-headline featured"><span>Supported by</span></h5>
+        <footer class="site-footer">
+          <section class="poweredby">Proudly published with <a href="http://jekyllrb.com"> Jekyll</a> and <a href="https://github.com/ageitgey/amplify">Amplify</a></section>
+          <a class="subscribe" href="/feed.xml"> <span class="tooltip"> <i class="fa fa-rss"></i> You should subscribe to my feed.</span></a>
+          <div class="inner">
+            <section class="copyright">All content copyright <a href="mailto:evilz@evilznet.com">Vincent Bourdon</a> &copy; 2017<br>All rights reserved.</section>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</main>
+
+    
+    <amp-analytics type="googleanalytics" id="amp-analytics">
+<script type="application/json">
+{
+  "vars": {
+    "account": "UA-2063306-2"
+  },
+  "triggers": {
+    "trackPageview": {
+      "on": "visible",
+      "request": "pageview"
+    }
+  }
+}
+</script>
+</amp-analytics>
+
+
+<amp-install-serviceworker
+    src="/serviceworker.js"
+    layout="nodisplay">
+</amp-install-serviceworker>    
+
+<amp-gist
+data-gistid="ccabc534e91280364fcbe9b775a551a9"
+data-file="empty"
+layout="fixed-height"
+height="0">
+</amp-gist>
+
+  </body>
+</html>

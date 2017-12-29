@@ -1,30 +1,1527 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>Evilz blog</title>
+    <description>Code for Human
+</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 29 Dec 2017 15:38:52 +0100</pubDate>
+    <lastBuildDate>Fri, 29 Dec 2017 15:38:52 +0100</lastBuildDate>
+    <generator>Jekyll v3.6.2</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>Introduction à l'authentification OAuth2 avec ASPNET Core et GitHub</title>
+        <description>&lt;p&gt;Dans cette série d’articles, nous allons voir comment mettre en place une authentification OAuth2 au travers d’une application &lt;strong&gt;ASP.NET CORE&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Après quelques rappels sur le protocole, nous aborderons la mise en place de notre application de gestion des Gists en trois étapes :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Une utilisation directe du middleware OAuth2 fourni par MS&lt;/li&gt;
+  &lt;li&gt;Une utilisation d’un middleware spécifique à Github en utilisant le Aspnet Identity&lt;/li&gt;
+  &lt;li&gt;Une petite application permettant de gérer vos gists&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;oauth2&quot;&gt;OAuth2&lt;/h2&gt;
+
+&lt;p&gt;Le protocole OAuth 2.0 est maintenant un standard pour l’authentification. Il permet à un utilisateur de donner l’accès à ses propres ressources détenues par un fournisseur comme Google, GitHub, Facebook…  à une application tierce.
+Le plus souvent, il est utilisé pour se connecter à des applications en tant que simple fournisseur d’identité (SSO). Cela permet de se connecter sans créer un nouveau compte et sans exposer son mot de passe sur le site ou l’application.&lt;/p&gt;
+
+&lt;h5 id=&quot;pour-résumer-oauth2-permet&quot;&gt;Pour résumer OAuth2 permet&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;De ne pas diffuser ses mots de passe à des sites sans confiance&lt;/li&gt;
+  &lt;li&gt;De contrôler ce que l’application tierce pourra faire et quelles données elle pourra utiliser&lt;/li&gt;
+  &lt;li&gt;De révoquer les autorisations quand bon vous semble&lt;/li&gt;
+  &lt;li&gt;Mettre à jour votre profil et surtout votre mot de passe à un seul endroit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;lorsque-lon-parle-de-oauth2-on-distingue-4-rôles-&quot;&gt;Lorsque l’on parle de OAuth2, on distingue 4 rôles :&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;L’utilisateur : propriétaire de la ressource&lt;/li&gt;
+  &lt;li&gt;Le serveur de ressources : qui héberge la/les ressources et expose des APIs&lt;/li&gt;
+  &lt;li&gt;Le client :  l’application qui invoque les APIs et est utilisée par l’utilisateur qui a besoin d’un token OAuth&lt;/li&gt;
+  &lt;li&gt;Le serveur d’autorisation : qui émet le jeton utilisé par le client&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Le flux des échanges OAuth2 se présente comme suit :&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8365/29088727302_3a39833a82_o_d.png&quot; width=&quot;470&quot; height=&quot;650&quot; layout=&quot;responsive&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Le client fait une demande d’autorisation au fournisseur de services&lt;/li&gt;
+  &lt;li&gt;Le fournisseur de services authentifie l’utilisateur et demande à l’utilisateur son autorisation d’accès aux données&lt;/li&gt;
+  &lt;li&gt;Si l’utilisateur autorise le client, le fournisseur de services initialise une redirection vers le site client avec un code d’accès temporaire.&lt;/li&gt;
+  &lt;li&gt;Le client demande alors un jeton en utilisant le code d’accès temporaire&lt;/li&gt;
+  &lt;li&gt;Le serveur d’autorisation accorde un jeton d’accès qui peut être utilisé pour authentifier les demandes ultérieures de ressources protégées&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;prérequis&quot;&gt;Prérequis&lt;/h2&gt;
+
+&lt;p&gt;Avant de continuer, vérifiez que vous avez correctement installé .net Core et Visual Studio 2015 Update 3 si besoin.
+Si cela n’est pas le cas, merci de suivre les &lt;a href=&quot;https://www.microsoft.com/net/core#windows&quot;&gt;étapes d’installation fournies par Microsoft&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dans cette série d’articles, je vais utiliser Visual Studio 2015, mais il est tout à fait possible d’utiliser un autre éditeur (VS Code, Sublime, Atom…).&lt;/p&gt;
+
+&lt;h2 id=&quot;mise-en-place-du-middleware-oauth2&quot;&gt;Mise en place du middleware OAuth2&lt;/h2&gt;
+
+&lt;p&gt;Dans ce premier article, nous allons créer une application permettant de se connecter avec compte GitHub, afficher les informations des Claims et des Tokens puis de se déconnecter.
+Voici le scénario final :&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Home page sans être authentifié&lt;/strong&gt;&lt;/p&gt;
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Home page sans être authentifié&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;&lt;strong&gt;Login via Github&lt;/strong&gt;&lt;/p&gt;
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Login via Github&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;&lt;strong&gt;Home page en étant authentifié avec GitHub&lt;/strong&gt;&lt;/p&gt;
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8541/29161391346_47d44b4312_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Home page en étant authentifié avec GitHub&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h3 id=&quot;création-de-lapplication-dans-github&quot;&gt;Création de l’application dans GitHub&lt;/h3&gt;
+
+&lt;p&gt;Avant de nous lancer dans l’écriture de code C#, commençons par créer une application sur GitHub.
+Connectez-vous sur Github, éditez votre profil puis rendez-vous sur la page OAuth applications.
+L’onglet affiché par défaut liste toutes les applications autorisées à accéder à vos données Github : c’est ici que l’on peut révoquer une autorisation pour une application.
+Cependant, c’est le second onglet “Développer applications” qui nous intéresse.
+Cliquez sur &lt;em&gt;Register a new application&lt;/em&gt; et remplissez le formulaire comme suit :&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8100/29161391106_8337809ac1_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Création de l’application dans GitHub&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Vous pourrez, en cas de besoin, modifier les informations ultérieurement.&lt;/p&gt;
+
+&lt;p&gt;Quelques remarques concernant les URLs :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Je vais utiliser un site en HTTPS&lt;/li&gt;
+  &lt;li&gt;L’URL concerne évidemment un site en cours de développement “localhost”&lt;/li&gt;
+  &lt;li&gt;J’utilise un port libre !&lt;/li&gt;
+  &lt;li&gt;Le path &lt;code class=&quot;highlighter-rouge&quot;&gt;/signin-github&lt;/code&gt; sera la partie de notre application qui exécute notre middleware Oauth&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Une fois l’application créée, Github va vous fournir deux clés : le &lt;strong&gt;clientId&lt;/strong&gt; et le &lt;strong&gt;ClientSecret&lt;/strong&gt; qui sont nécessaires à la configuration du middleware.&lt;/p&gt;
+
+&lt;p&gt;Certains peuvent se demander pourquoi utiliser un site ou une page en HTTPS.
+La réponse simple est que l’on veut éviter de faire circuler des informations en clair sur le réseau et encore plus lorsque qu’il s’agit d’informations d’authentification.
+On pourrait alors me répondre que Github s’occupe de la partie authentification et est déjà en HTTPS. 
+C’est vrai, mais Github va aussi renvoyer des tokens à la suite de cette authentification. Même si ces tokens ne sont valides que pour une durée limitée, il est préférable de les protéger d’un bon vieux “man in the middle”. De plus, à l’heure où j’écris, les certificats SSL sont devenus très accessibles et certains sont gratuits !&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8734/29161392566_c623d6519d_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;secret&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h3 id=&quot;création-de-lapplication-aspnet-core&quot;&gt;Création de l’application Aspnet Core&lt;/h3&gt;
+
+&lt;p&gt;Depuis Visual Studio 2015, faites :
+&lt;code class=&quot;highlighter-rouge&quot;&gt;File&lt;/code&gt; =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;New&lt;/code&gt; =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Project&lt;/code&gt;
+Sélectionnez &lt;code class=&quot;highlighter-rouge&quot;&gt;ASP.NET Core Web Application&lt;/code&gt;&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8255/29088734792_91574f465a_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Création de l’application Aspnet Core&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Entrez les noms pour le projet et la solution :
+&lt;strong&gt;Projet&lt;/strong&gt; : AllInOne
+&lt;strong&gt;Solution&lt;/strong&gt; Aspnet-OAuth2&lt;/p&gt;
+
+&lt;p&gt;Créez un projet web vide&lt;/p&gt;
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8317/28573011224_842b3780f5_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;Création de l’application Aspnet Core&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;SI vous n’utilisez pas VS2015, créez vous-mêmes la structure des dossiers et utilisez la commande suivante pour créer le projet :&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dotnet new
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
+
+&lt;h4 id=&quot;globaljson&quot;&gt;Global.json&lt;/h4&gt;
+
+&lt;p&gt;Le fichier &lt;code class=&quot;highlighter-rouge&quot;&gt;global.json&lt;/code&gt; définit les paramètres globaux à votre solution.
+Dans mon cas (par défaut), les chemins vers les projets et la version du SDK utilisé sont :&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;projects&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;src&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;sdk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0-preview2-003121&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;références-et-packages-nuget&quot;&gt;Références et Packages nuget&lt;/h4&gt;
+
+&lt;p&gt;Si vous démarrez avec .net Core et que vous n’avez pas encore l’habitude des packages nuget (oui ça arrive encore …), sachez que pour réaliser le framework de façon vraiment modulaire, l’équipe de Microsoft a découpé chaque petite fonctionnalité en packages. Et nous allons devoir les référencer via le fichier &lt;code class=&quot;highlighter-rouge&quot;&gt;project.json&lt;/code&gt;, dans l’objet &lt;code class=&quot;highlighter-rouge&quot;&gt;dependencies&lt;/code&gt;
+Nous allons ajouter les packages qui permettent l’authentification et l’OAuth ainsi que la configuration.
+Modifiez l’objet comme cela :&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.NETCore.App&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;platform&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.Diagnostics&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.Server.IISIntegration&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.Server.Kestrel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.Extensions.Logging.Console&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.Authentication.Cookies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.Authentication.OAuth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.AspNetCore.DataProtection&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.Extensions.Configuration.UserSecrets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.Extensions.FileProviders.Embedded&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Microsoft.Extensions.Configuration.EnvironmentVariables&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Sauvegardez le fichier ou exécutez la commande suivante, ce qui aura pour effet de lancer une restauration des packages dans VS2015 :&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dotnet restore
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;user-secret&quot;&gt;User Secret&lt;/h4&gt;
+
+&lt;p&gt;Nous allons maintenant configurer les paramètres OAuth récupérés précédemment sur Github.
+Ces paramètres doivent rester au maximum confidentiels, pour éviter qu’une application lambda se fasse passer pour la vôtre. Il ne faut donc pas commiter ces informations sur un VCS.
+Pour éviter tout commit par inadvertance, nous allons utiliser le système des &lt;code class=&quot;highlighter-rouge&quot;&gt;user secrets&lt;/code&gt;.
+Depuis Visual Studio, faites un clic-droit sur le projet puis allez sur manage User Secrets. Cela va vous créer un fichier &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.json&lt;/code&gt; vide.&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8292/28573005474_1a5d7501bd_o_d.png&quot; width=&quot;457&quot; height=&quot;97&quot; layout=&quot;responsive&quot; alt=&quot;Création de l’application Aspnet Core&quot;&gt;&lt;/amp-img&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;**Si vous n'utilisez pas Visual Studio, créez un fichier à la main à l'emplacement suivant** Windows: `%APPDATA%\microsoft\UserSecrets\{userSecretsId}\secrets.json` Linux: `~/.microsoft/usersecrets/{userSecretsId}/secrets.json` Mac: `~/.microsoft/usersecrets/{userSecretsId}/secrets.json` Le paramètre userSecretsId se trouve dans le fichier projects.json. Si vous utilisez Visual Studio il est rajouter pour vous, sinon ajoutez le à la main. Pour moi la valeur est la suivante :  &quot;userSecretsId&quot;: &quot;aspnet-AllInOne-20160819103237&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Ajoutez les 2 valeurs récupérées sur Github&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;github:clientid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1234567890123456789&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;github:clientsecret&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;12345678901234567891234567890123456789&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous allons voir par la suite comment facilement récupérer les valeurs de ces paramètres dans notre code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Remarque :&lt;/strong&gt;
+Lors de la mise en production, on va généralement utiliser des variables d’environnement qui sont faciles à ajouter et cross-platform y compris Docker ! Cependant, ces valeurs seront toujours en clair. Pour des informations devant être cryptées, il est recommandé d’utiliser un système comme Vault de HashiCorp (https://www.vaultproject.io/) ou un équivalent. Ensuite, un simple fournisseur de configuration vous permettra de récupérer les paramètres.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;launchsettings&quot;&gt;launchSettings&lt;/h4&gt;
+
+&lt;p&gt;Allez, courage, encore un peu de config !&lt;/p&gt;
+
+&lt;p&gt;Nous allons éditer le fichier &lt;code class=&quot;highlighter-rouge&quot;&gt;launchSettings.json&lt;/code&gt; qui se trouve dans le répertoire &lt;code class=&quot;highlighter-rouge&quot;&gt;Properties&lt;/code&gt; de votre projet.
+Ce fichier définit les configurations de lancement de l’application. Il y a deux profils par défaut : un pour le lancement via IIS express et l’autre pour le lancement en ligne de commande lorsque que l’on fait un &lt;em&gt;dotnet run&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nous allons modifier les ports utilisés pour matcher ceux définis lors de l’enregistrement de l’application dans Github, et mettre le protocole HTTPS en place.&lt;/p&gt;
+
+&lt;p&gt;Après modification, j’obtiens le fichier suivant :&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;iisSettings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;windowsAuthentication&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;anonymousAuthentication&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;iisExpress&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;applicationUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://localhost:44367/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;sslPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;44367&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;profiles&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;IIS Express&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;commandName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;IISExpress&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;launchBrowser&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;launchUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://localhost:44367/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;environmentVariables&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;ASPNETCORE_ENVIRONMENT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Development&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;AllInOne&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;commandName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Project&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;launchBrowser&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;launchUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://localhost:44367/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;environmentVariables&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;ASPNETCORE_URLS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://*:44367&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;ASPNETCORE_ENVIRONMENT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Development&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notez que le paramètre &lt;code class=&quot;highlighter-rouge&quot;&gt;launchUrl&lt;/code&gt; n’est pas l’URL de votre serveur mais celle utilisée par le navigateur à son lancement.
+J’ai rajouté une variable d’environnement magique (ou presque) ASPNETCORE_URLS qui définit les URLs utilisées par Kestrel.
+Aspnet core utilise plusieurs variables d’environnement prédéfinies permettant de facilement configurer vos environnements.&lt;/p&gt;
+
+&lt;h4 id=&quot;ssl&quot;&gt;SSL&lt;/h4&gt;
+
+&lt;p&gt;SSL c’est bien, mais encore faudrait-il un certificat ! 
+Si tout va bien, au premier lancement avec IIS express, une popup va vous proposer de créer un certificat local pour IIS express. Sinon, c’est sûrement que vous l’avez déjà.
+Nous allons utiliser ce même certificat pour le mode sans IIS express.&lt;/p&gt;
+
+&lt;p&gt;Cela concerne uniquement les gens sous Windows et pour l’environnement de développement :&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Via le menu démarrer, lancez un mmc.&lt;/li&gt;
+  &lt;li&gt;Cliquez sur  Fichier &amp;gt; Ajouter/Supprimer un composant.&lt;/li&gt;
+  &lt;li&gt;Cliquez sur Certificates &amp;gt; Ajouter.&lt;/li&gt;
+  &lt;li&gt;Sélectionnez un compte d’ordinateur et cliquez sur Suivant. Sélectionnez l’ordinateur local puis cliquez sur Terminer et Ok.&lt;/li&gt;
+  &lt;li&gt;Sélectionnez le certificat qui se trouve dans Certificats &amp;gt; Personnel &amp;gt; Certificats. Faîtes un clic-droit sur le certificat localhost puis Toutes les tâches &amp;gt; Exporter.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8236/29088730012_34403e01e2_o_d.png&quot; width=&quot;427&quot; height=&quot;174&quot; layout=&quot;responsive&quot; alt=&quot;folder&quot;&gt;&lt;/amp-img&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Choisissez Oui, exportez la clé privée et incluez tous les certificats dans le chemin d’accès de certification&lt;/li&gt;
+  &lt;li&gt;Entrez un mot de passe, je vais utiliser “dev” pour ce projet&lt;/li&gt;
+  &lt;li&gt;Enregistrez les fichiers dans le sous-répertoire suivant de votre projet “compiler\resources\iiCert.pfx”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8111/28575032573_c8ff54a06e_o_d.png&quot; width=&quot;611&quot; height=&quot;433&quot; layout=&quot;responsive&quot; alt=&quot;folder&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;&lt;em&gt;Ce dossier est un dossier spécial, tous les fichiers déposés ici seront compilés en ressources embarquées.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;point-dentrée&quot;&gt;Point d’entrée&lt;/h4&gt;
+
+&lt;p&gt;Dans les applications .core, le point d’entrée d’une application est la méthode statique main. Rien d’étonnant, sauf que pour Aspnet Core c’est pareil, donc fini les global.asax : tout le monde à la même enseigne.&lt;/p&gt;
+
+&lt;p&gt;Nous allons faire quelques modifications simples dans le fichier Program.cs pour prendre en compte notre certificat pour notre serveur Kestrel.&lt;/p&gt;
+
+&lt;h4 id=&quot;kestrel&quot;&gt;Kestrel&lt;/h4&gt;
+
+&lt;p&gt;Un petit mot sur Kestrel pour ceux qui ne connaîtraient pas encore. Il s’agit d’un nouveau serveur web cross-platform basé sur Libuv, une librairie cross-platforme d’asynchronisme, comme le serveur NodeJS.
+Cependant, Kestrel n’est pas prévu pour être le serveur web exposé, il est préconisé d’utiliser un mécanisme de proxy en utilisant IIS ou Nginx.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System.IO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System.Reflection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System.Security.Cryptography.X509Certificates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.AspNetCore.Hosting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.Extensions.FileProviders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;AllInOne&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Program&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;WebHostBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseKestrel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;//Configure SSL&lt;/span&gt;
+                    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serverCertificate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LoadCertificate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseHttps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serverCertificate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseContentRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Directory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetCurrentDirectory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseIISIntegration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseStartup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X509Certificate2&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LoadCertificate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assembly&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Startup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetTypeInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Assembly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;embeddedFileProvider&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EmbeddedFileProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;assembly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AllInOne&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;certificateFileInfo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;embeddedFileProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetFileInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;compiler/resources/iisCert.pfx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;certificateStream&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;certificateFileInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateReadStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;certificatePayload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memoryStream&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemoryStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;certificateStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CopyTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memoryStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;certificatePayload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memoryStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;X509Certificate2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;certificatePayload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dev&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;La modification est très simple : on ajoute des options pour le lancement du serveur Kestrel qui charge le certificat.
+La méthode LoadCertificate va chercher le certificat qui est en ressource embarquée, lit le contenu brut et retourne un certificat X509 en utilisant le mot de passe spécifié lors de l’export.&lt;/p&gt;
+
+&lt;p&gt;Il ne reste plus qu’à appeler l’extension UseHttps en passant le certificat.
+Pour pouvoir utiliser cette extension, il nous faut ajouter un package supplémentaire dans notre ficher &lt;code class=&quot;highlighter-rouge&quot;&gt;project.json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Ajoutez le package
+“Microsoft.AspNetCore.Server.Kestrel.Https”: “1.0.0”,&lt;/p&gt;
+
+&lt;p&gt;Vous pouvez maintenant exécuter l’application pour vérifier toute la configuration. Vous devriez voir un joli Hello world !&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8875/29195124075_65b8930a33_o_d.png&quot; width=&quot;499&quot; height=&quot;332&quot; layout=&quot;responsive&quot; alt=&quot;dev&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h4 id=&quot;middlewares&quot;&gt;Middlewares&lt;/h4&gt;
+
+&lt;p&gt;Nous allons enfin passer au code source. Nous allons, dans le fichier startup.cs, mettre en place les middleware nécessaires pour le bon fonctionnement de notre authentification.&lt;/p&gt;
+
+&lt;h5 id=&quot;chargement-de-la-configuration&quot;&gt;Chargement de la configuration&lt;/h5&gt;
+
+&lt;p&gt;Avant d’oublier, nous allons ajouter un constructeur à notre startup, qui va s’occuper de construire un objet de configuration à partir des différents éléments qui la compose et stocker le résultat dans une propriété.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Startup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IHostingEnvironment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ConfigurationBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SetBasePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ContentRootPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsDevelopment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddUserSecrets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IConfiguration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;cookies-middleware&quot;&gt;Cookies Middleware&lt;/h4&gt;
+
+&lt;p&gt;Nous allons, dans un premier temps, mettre en place le middleware responsable des cookies.
+Ce middleware permet de sérialiser le principal de l’utilisateur dans un cookie encrypté.
+Pour chaque requête ultérieure, le cookie sera validé et désérialisé pour recréer le principal de l’utilisateur qui est assigné au HttpContext.
+Modifiez le code de la méthode ConfigureServices pour activer l’authentification par cookie.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.AspNetCore.Authentication.Cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;…&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ConfigureServices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IServiceCollection&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddAuthentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SignInScheme&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CookieAuthenticationDefaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationScheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ce code permet de définir le middleware qui sera responsable de la persistance de l’identité de l’utilisateur suite à une authentification réussie.&lt;/p&gt;
+
+&lt;h5 id=&quot;authentification-scheme&quot;&gt;Authentification Scheme&lt;/h5&gt;
+
+&lt;p&gt;Nous avons ici utilisé une constante &lt;code class=&quot;highlighter-rouge&quot;&gt;CookieAuthenticationDefaults.AuthenticationScheme&lt;/code&gt; qui permet d’identifier le middleware de Cookie. Chaque middleware d’authentification aura donc son propre scheme, un identifiant unique permettant d’y accéder par la suite si plusieurs middlewares sont mis en place.
+Il est même possible de limiter les autorisations à un ou plusieurs middlewares précis lorsque l’on utilise MVC
+&lt;code class=&quot;highlighter-rouge&quot;&gt;[Authorize(ActiveAuthenticationSchemes = &quot;Cookie,Github&quot;)]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Il nous faut maintenant dire d’utiliser le middleware de cookie.
+Ajoutez ce code juste apres le  if (env.IsDevelopment())&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseCookieAuthentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CookieAuthenticationOptions&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;AutomaticAuthenticate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;LoginPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PathString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On active le middleware avec deux options :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;AutomaticAuthenticate : ce flag indique que le middleware doit s’exécuter à chaque requête et tenter de valider et de reconstruire tout principal sérialisé dans un cookie&lt;/li&gt;
+  &lt;li&gt;LoginPath : le chemin relatif où seront redirigés les requêtes lorsqu’un utilisateur tente d’accéder à une ressource, mais n’a pas été authentifié.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Puisque que l’on a précisé que le chemin relatif pour se connecter est &lt;code class=&quot;highlighter-rouge&quot;&gt;/login&lt;/code&gt;, il faut définir une action à exécuter pour cet appel. Nul besoin de MVC pour ça ! Il suffit simplement d’enregistrer une action à exécuter pour le chemin en question.
+Pour notre exemple, nous allons simplement simuler une authentification réussie.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;toto&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identity&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ClaimsIdentity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CookieAuthenticationDefaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationScheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ClaimsPrincipal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SignInAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CookieAuthenticationDefaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationScheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On crée un principal à partir d’un claims de type Name, puis on se connecte sur le middleware de cookie avec ce nouveau principal.
+Si vous lancez l’application et que vous vous rendez sur le path “/login”. Vous devriez voir qu’un cookie nommé .AspNetCore.Cookies a été créé.&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8497/29088734152_3a68d0564d_o_d.png&quot; width=&quot;445&quot; height=&quot;58&quot; layout=&quot;responsive&quot; alt=&quot;cookie&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Ajoutons tout de suite un page pour se déconnecter&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/logout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SignOutAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CookieAuthenticationDefaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationScheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Redirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Et pour nous éviter d’aller regarder les cookies à la main, modifions aussi l’action principale pour afficher un peu plus qu’un hello world.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ContentType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;text/html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;identity&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IsAuthenticated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;h1&amp;gt;Hello anonymous&amp;lt;/h1&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;a href=&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;gt; Login&amp;lt;/a&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;&amp;lt;h1&amp;gt;Hello &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;lt;/h1&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;claim&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Claims&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;a href=&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logout&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;gt;Logout&amp;lt;/a&amp;gt;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Et voilà, on peut se connecter en tant que toto !&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8204/29161391556_70c7a61a58_o_d.png&quot; width=&quot;458&quot; height=&quot;240&quot; layout=&quot;responsive&quot; alt=&quot;cookie&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h5 id=&quot;oauth-middleware&quot;&gt;Oauth middleware&lt;/h5&gt;
+
+&lt;p&gt;Bon c’est bien tout ça mais on est venu pour faire de l’OAuth nous !&lt;/p&gt;
+
+&lt;p&gt;Ajoutons notre middleware OAuth qui est fourni par Microsoft dans le package
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Microsoft.AspNetCore.Authentication.OAuth&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;UseOAuthAuthentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OAuthOptions&lt;/span&gt;
+             &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;AuthenticationScheme&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GitHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;DisplayName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Github&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;ClientId&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;github:clientid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;ClientSecret&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;github:clientsecret&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;CallbackPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PathString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/signin-github&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;AuthorizationEndpoint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://github.com/login/oauth/authorize&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;TokenEndpoint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://github.com/login/oauth/access_token&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;UserInformationEndpoint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://api.github.com/user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;OAuth2-Github&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;SaveTokens&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;Events&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OAuthEvents&lt;/span&gt;
+                 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                     &lt;span class=&quot;n&quot;&gt;OnCreatingTicket&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                         &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                              &lt;span class=&quot;n&quot;&gt;ClaimsIdentity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DefaultNameClaimType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;toto from git !&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                              &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;FromResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+                 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+             &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Rien de bien compliqué, on définit l’identifiant (le scheme) ainsi que son nom, puis on récupère les deux paramètres depuis la configuration pour le clientId et clientSecret stockés précédemment dans les user secrets.
+Le CallbackPath doit correspondre à celui fourni pendant la création de l’application sur github et les endpoints sont ceux définis par Github.
+Le paramètre SaveTokens permet d’enregistrer les tokens dans un objet spécifique mais nous y reviendrons plus tard.&lt;/p&gt;
+
+&lt;p&gt;Enfin, il est possible d’associer des fonctions exécutées pour les événements survenant pendant la discussion OAuth.
+Celui qui nous intéresse particulièrement est OnCreatingTicket, qui survient lorsque le fournisseur a correctement authentifié l’utilisateur et que lui-même a validé les droits d’accès.
+Pour cette fonction, je vais reprendre le code précédent qui va simple créer un claims en dur.
+Comme la fonction attend en retour un Task, on utilisera simplement la méthode Task.FromResult pour en créer une.&lt;/p&gt;
+
+&lt;p&gt;Voilà, notre middleware est en place et il ne reste plus qu’à y faire appel. Pour cela, on va demander l’authentification sur le scheme Github.&lt;/p&gt;
+
+&lt;p&gt;Modifions la méthode exécute sur le chemin &lt;code class=&quot;highlighter-rouge&quot;&gt;/login&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ChallengeAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GitHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AuthenticationProperties&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RedirectUri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous pouvez maintenant lancer l’application pour voir le resultat&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8060/29088734012_da6cd90c25_o_d.png&quot; width=&quot;620&quot; height=&quot;460&quot; layout=&quot;responsive&quot; alt=&quot;cookie&quot;&gt;&lt;/amp-img&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8480/29117135511_2ff54e2bd5_o_d.png&quot; width=&quot;846&quot; height=&quot;860&quot; layout=&quot;responsive&quot; alt=&quot;cookie&quot;&gt;&lt;/amp-img&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8344/29088712842_4bf831dd29_o_d.png&quot; width=&quot;636&quot; height=&quot;387&quot; layout=&quot;responsive&quot; alt=&quot;cookie&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Nous sommes maintenant authentifiés avec Github.
+Il ne nous reste plus qu’une chose à faire, remplacer notre claim qui est en dur par de vrais claims correspondant à l’utilisateur réel.&lt;/p&gt;
+
+&lt;p&gt;Pour récupérer les informations qui nous intéressent, on va utiliser l’API Github concernant la ressource User.
+L’utilisation de l’API nécessite un token valide pour être utilisée, et maintenant nous en avons un !&lt;/p&gt;
+
+&lt;p&gt;Remplaçons le code de OnCreatingTicket par celui-ci :&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;OnCreatingTicket&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;// Get the GitHub user&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HttpRequestMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserInformationEndpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authorization&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AuthenticationHeaderValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bearer&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AccessToken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MediaTypeWithQualityHeaderValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;application/json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Backchannel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestAborted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;EnsureSuccessStatusCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ReadAsStringAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NameIdentifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimsIdentity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DefaultNameClaimType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                                &lt;span class=&quot;s&quot;&gt;&quot;urn:github:name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Identity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddClaim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Claim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                                &lt;span class=&quot;s&quot;&gt;&quot;urn:github:url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;ClaimValueTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClaimsIssuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Première étape, on fait une requête sur cette url https://api.github.com/user en utilisant l’accesstoken qui est dans notre context actuel et donc valide.
+La requête nous renvoie une réponse en json dans laquelle on va piocher les informations intéressantes :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;id&lt;/li&gt;
+  &lt;li&gt;login&lt;/li&gt;
+  &lt;li&gt;name&lt;/li&gt;
+  &lt;li&gt;email&lt;/li&gt;
+  &lt;li&gt;url&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A partir de ces données, il ne reste plus qu’à créer des claims et les ajouter à l’identité de l’utilisateur de notre context.&lt;/p&gt;
+
+&lt;p&gt;Si vous relancez l’application et que vous vous déconnectez et reconnectez, vous pouvez voir maintenant apparaître les informations de l’utilisateur.&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm9.staticflickr.com/8496/28573010054_bbe7ff587c_o_d.png&quot; width=&quot;678&quot; height=&quot;521&quot; layout=&quot;responsive&quot; alt=&quot;hello&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Dernier point avant de terminer cet article. Nous avons défini l’option SaveToken à true auparavant. Nous allons maintenant interroger l’objet contenant les tokens et les afficher pour vérifier le bon fonctionnement.&lt;/p&gt;
+
+&lt;p&gt;Ajoutez le code suivant à la suite de l’affichage des claims dans la fonction du middleware principal.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Tokens:&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access Token: &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetTokenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;access_token&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Refresh Token: &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetTokenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;refresh_token&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Token Type: &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetTokenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;token_type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expires_at: &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetTokenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expires_at&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ALL DONE !&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;Dans cet article, nous avons pu voir comme il est simple de mettre en place une authentification OAuth en moins de 200 lignes de code. Il est tout de même rare d’utiliser ce code tel quel, notamment car le principe de Responsabilité unique (Single Responsibility Principle) n’est pas respecté. Dans le prochain article, nous utiliserons un middleware spécifique pour la connexion Github.&lt;/p&gt;
+
+&lt;p&gt;Retrouvez l’ensemble du code sur &lt;a href=&quot;https://github.com/SoatGroup/aspnetcore-oauth2&quot;&gt;le GitHub de SOAT&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 24 Oct 2016 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</guid>
+        
+        <category>dotnet</category>
+        
+        <category>Informatique</category>
+        
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>PrivateEye, Profiling as Code</title>
+        <description>&lt;p&gt;J’ai eu la change de participer à un petit atelier sur &lt;strong&gt;Private Eye&lt;/strong&gt; avec &lt;strong&gt;Greg Young&lt;/strong&gt; durant la conférence NCraft 2016.&lt;/p&gt;
+
+&lt;p&gt;Greg Young est très connu dans la communauté pour avoir évangélisé le terme de CQRS. Mais pour cette occasion il ne s’agit plus de parler de CQRS mais bel et bien d’un outil de profiling développé par Greg lui même.&lt;/p&gt;
+
+&lt;p&gt;Dans cet atelier, nous avons joué avec PrivateEye et appris à monitorer un processus de la CLR via une REPL F#. Les participants pouvaient aussi bien être sous Windows, OSX ou Linux.&lt;/p&gt;
+
+&lt;h1 id=&quot;profiling&quot;&gt;Profiling&lt;/h1&gt;
+
+&lt;p&gt;Avant de se lancer dans le vif du sujet, il est bon de rappeler ce qu’est le profiling et dans quel cas cela est utilisé.&lt;/p&gt;
+
+&lt;p&gt;On utilise un Profiler principalement lorsque l’on a des problèmes liés à la performance. Un profiler va récolter un grand nombre d’informations sur l’exécution d’une application comme la mémoire allouée, par qui? comment ? à quelle fréquence? etc…
+Le but étant de trouver les goulots d’étranglement, les fuites mémoire, des consommations importantes de CPU et autres problématiques qui peuvent ralentir le bon fonctionnement.&lt;/p&gt;
+
+&lt;p&gt;De nombreux profilers existent sur le marché et Visual Studio en inclue même un par défaut. Cependant, ils sont souvent difficiles à mettre en place sur des environnement de production. Imaginez un environnement avec une architecture de type CQRS E/S qui traite un grand nombre de requêtes. Il peut être compliqué, voir impossible de recréer le scénario qui a engendré les problèmes en production lorsque cela est dû à une charge trop importante. Private Eye à donc été créé dans l’optique de résoudre cette problématique.&lt;/p&gt;
+
+&lt;h1 id=&quot;repl&quot;&gt;Repl&lt;/h1&gt;
+
+&lt;p&gt;Mais là où Private eye sort du lot habituel, c’est qu’il nous offre une API qui permet par code de requêter le moteur de profiling.
+L’api peut être utilisée via tous les langages .net, mais le focus est pour l’instant mis sur l’utilisation à travers la REPL F#.&lt;/p&gt;
+
+&lt;p&gt;**Qu’est ce qu’une REPL ? **&lt;/p&gt;
+
+&lt;p&gt;Ce terme signifie &lt;strong&gt;Read–eval–print loop&lt;/strong&gt;. 
+Il s’agit simplement d’une boucle en qui lit le code entré, l’évalue et affiche le résultat. Globalement c’est ce que l’on retrouve dans tous les langages de scripting ou de shell.
+On peut aussi parler de session interactive. Sous Visual Studio 2015 il existe une fenêtre interactive pour F# et pour C#.&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/29/92/3187.2015-10-07%20VS2015Update1CTP-1-interactive.png&quot; width=&quot;691&quot; height=&quot;290&quot; layout=&quot;responsive&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Pour en savoir plus il existe une introduction à la REPL C# sur channel 9  &lt;a href=&quot;https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/103&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;utilisation&quot;&gt;Utilisation&lt;/h1&gt;
+&lt;p&gt;La version présentée pour l’occasion est la version gratuite, que l’on peut télécharger &lt;a href=&quot;http://www.privateeye.io/free.html&quot;&gt;ici&lt;/a&gt;
+Il vous faudra aussi F# d’installé sur votre machine pour exécuter &lt;strong&gt;fsi.exe&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Les étapes sont finalement simples :&lt;/p&gt;
+
+&lt;h2 id=&quot;configurer-le-profiling-de-la-clr&quot;&gt;Configurer le profiling de la CLR&lt;/h2&gt;
+
+&lt;p&gt;Ce système existe de base avec la CLR. Il suffit de définir les valeurs des variables d’environnement suivantes:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COR_ENABLE_PROFILING&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COR_PROFILER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;D51126CE-1443-42ED-8FD6-B4D32C466292&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;COR_PROFILER_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;%~dp0x64\PrivateEye.Profiler.dll
+
+&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PRIVATEEYE_PROFILER_MODE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PRIVATEEYE_PROFILER_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4444
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;démmarer-une-session-interactive-en-écoute&quot;&gt;Démmarer une session interactive en écoute&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;On lance une session interactive F# :  &lt;code class=&quot;highlighter-rouge&quot;&gt;fsi.exe&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// On charge privateeye.fsx&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;privateeye.fsx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// On import le namespace PrivateEye.Bridge&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;PrivateEye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Bridge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// on ajoute des fonctions d'affichage prédéfinies. &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Ce mécanisme est présent de base, il permet d'enregistrer un fonction d'affichage pour un type donné. &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Dans notre cas on enregistre six fonctions.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;addFsiPrinters&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Enfin, on se met on écoute d'une connexion&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;Profiler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;StartListening&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Le profiler est maintenant prêt à recevoir et traiter les informations.
+Il ne reste plus qu’à lancer votre application .net.
+Une connexion va alors s’ouvrir tant que votre programme .net est en cours d’exécution puis se fermer automatiquement.&lt;/p&gt;
+
+&lt;h2 id=&quot;requêter-le-profiler&quot;&gt;Requêter le profiler&lt;/h2&gt;
+
+&lt;p&gt;On peut maintenant regarder ce que le profiler a récupéré comme informations.&lt;/p&gt;
+
+&lt;p&gt;Dans la session interactive F# exécutez la fonction suivante :&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mostCalledMethods&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Une liste de toute les méthodes appelé par le programme sont alors affichées. 
+Disons que seulement les dix premières nous intéresses, il suffit de d’envoyer le résultat à une séquence et de sélectionner que dix éléments.&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mostCalledMethods&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;take&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Voici un petit résumé en image&lt;/p&gt;
+
+&lt;amp-img src=&quot;/content/privateeye-demo.gif&quot; width=&quot;731&quot; height=&quot;449&quot; layout=&quot;responsive&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Pour vous simplifier la vie vous pouvez simplement lancer &lt;code class=&quot;highlighter-rouge&quot;&gt;runfsi.cmd&lt;/code&gt; qui fera tout pour vous :)
+Puis ouvrir une fenêtre de commande et exécuter &lt;code class=&quot;highlighter-rouge&quot;&gt;launchapp_anycpu.cmd PATH_DE_VOTRE_APP_NET&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;observation-pendant-lexécution&quot;&gt;Observation pendant l’exécution&lt;/h2&gt;
+
+&lt;p&gt;Bien qu’il existe à ce jour tout un tas de méthodes perméttant de requêter les informations récoltées pendant l’execution. (dont la liste est disponible &lt;a href=&quot;https://github.com/PrivateEye/PrivateEye/wiki/FSharp-API&quot;&gt; ici &lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Il est aussi possible de s’abonner sur des évènements pendant l’écoute ! Il ne s’agit pas réellement d’évènement au sens C#, mais plutôt d’observable aux quelles nous allons souscrire.
+Voici un petit exemple, toujours dans la session interactive entrez le code suivant:&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;onAllocation&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printfn&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Alloc %s&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Relancez votre programme .net.
+Vous devriez maintenant voir s’afficher dans la session&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Alloc&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;XXXXX&lt;/span&gt; 
+&lt;span class=&quot;nc&quot;&gt;Alloc&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;XXXXX&lt;/span&gt; 
+&lt;span class=&quot;nc&quot;&gt;Alloc&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;XXXXX&lt;/span&gt; 
+&lt;span class=&quot;nc&quot;&gt;Alloc&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;XXXXX&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Evidement il s’agit ici d’un exemple très simple avec un simple log, mais il ne tiens qu’à vous de définir ce que vous voulez exécuter à chaque callback.
+Couplé à la librairie &lt;code class=&quot;highlighter-rouge&quot;&gt;FSharp.Charting&lt;/code&gt; on peut facilement envisager de sortir de beaux graphiques.&lt;/p&gt;
+
+&lt;p&gt;Il existe aussi d’autres observable mis à notre disposition notamment : &lt;code class=&quot;highlighter-rouge&quot;&gt;onException()&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;onGCCompleted()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;La liste complète est &lt;a href=&quot;https://github.com/PrivateEye/PrivateEye/wiki/FSharp-API#observables&quot;&gt;ici&lt;/a&gt; ainsi qu’un complément d’information sur les types utilisables dans les callbacks &lt;a href=&quot;https://github.com/PrivateEye/PrivateEye/wiki/Using-Observables&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;record-and-replay&quot;&gt;Record and Replay&lt;/h2&gt;
+
+&lt;p&gt;C’est bien tout ça, mais si j’ai oublié de souscrire à l’observable ou que j’ai besoin de modifier quelque chose dans la souscription ? 
+Il faut que je relance mon application et que je rejoue tout mon scénario :’(&lt;/p&gt;
+
+&lt;p&gt;Bonne nouvelle ! ce n’est pas nécessaire ! Il est possible avec PrivateEye d’enregistrer une session et de la rejouer ensuite. 
+La mise en place est extrêmement simple après avoir mis en écoute la session il vous suffit d’appeler la méthode startRecording avec le nom du fichier ou seront stockées les données.&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;startListening&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Starting&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TCP&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listening&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TCP&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4444&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;startRecording&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mysession.foo&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Quelques informations complémentaires :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cette méthode bloque votre session, il existe une autre fonction startRecordingInteractive() pour continuer à utiliser la session si besoin&lt;/li&gt;
+  &lt;li&gt;Le fichier de données va être très gros, prévoyez suffisamment de place (plusieurs Giga)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Une fois l’enregistrement terminé, le fichier est créé. Il vous suffit alors d’exécuter &lt;code class=&quot;highlighter-rouge&quot;&gt;replayRecording()&lt;/code&gt; pour rejouer la session.&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;replayRecording&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mysession.foo&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Starting&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;replay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Received&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identification&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Mono&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PrivateEye&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Process&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Id&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;484&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Commercial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5898240&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nn&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AsyncState&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;CreationOptions&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;Id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;IsCanceled&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;IsCompleted&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;IsFaulted&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                               &lt;span class=&quot;nc&quot;&gt;Status&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Running&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11796480&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17694720&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23592960&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;29491200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;35389440&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;41287680&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;47185920&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;53084160&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;58720256&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Replay&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;completed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;version-payante&quot;&gt;Version payante&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Cette version n’a malheureusement pas pu être présenté   durant la NCraft.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Via la version payant, il vous sera possible de monitorer votre environnement de production. 
+L’ensemble du système présenté fonctionnera alors dans l’autre sens. Vos applications de production seront elles en attentent de connexion et depuis votre session interactive F# vous allez vous connecter à l’application désirée.
+Par défaut, rien ne sera monitorer. Il faudra activer chaque fonctionnalitén petit à petit et ce de façon très précise pour éviter de faire tomber la production.&lt;/p&gt;
+
+&lt;p&gt;Je ne peux malheureusement pas donner plus d’informations pour l’instant car cette version n’est pas encore disponible.&lt;/p&gt;
+
+&lt;h1 id=&quot;questions-en-vrac&quot;&gt;Questions en vrac&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Y aura t’il un support des applications &lt;strong&gt;.net Core&lt;/strong&gt; ?
+    &lt;ul&gt;
+      &lt;li&gt;Non pas pour tout de suite car les API Core à utiliser ne sont pas encore bien définies et ce ne sera pas le cas avant pas mal de temps.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Pour quand est prévu la sortie de la version payant ?
+    &lt;ul&gt;
+      &lt;li&gt;Une sortie vers la fin l’année 2016 est envisagé.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Bien que pas encore mature, PrivateEye est un outil prometteur qui s’adresse évidemment à des connaiseurs et tout bon Hackeur.
+La maitrise de F# n’est pas une nécéssité et il existe meme un package nuget que l’on peut facilement référencer dans un projet .net.
+Bref pour conclure je dirais “Wait and See”&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 17 Jun 2016 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</guid>
+        
+        <category>dotnet</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Options de démarrage pour Mac</title>
+        <description>&lt;p&gt;Voici un récapitulatif des options de démarrage qu’il est bon de connaître pour dépanner votre Mac. Dans mon cas mon Macbook Air :)
+Laissez les touches enfoncées pendant de le boot.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;amp-gist data-gistid=&quot;8e9d099fefbaa161a82929506dd6e20e&quot; data-file=&quot;mac-boot-options.csv&quot; layout=&quot;fixed-height&quot; height=&quot;978&quot;&gt;
+&lt;/amp-gist&gt;
+</description>
+        <pubDate>Sun, 01 May 2016 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/2016/05/01/mac-startup-options/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/01/mac-startup-options/</guid>
+        
+        <category>Mac</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Zoom sur le contenu dans Chrome</title>
+        <description>&lt;p&gt;On est tous habitué à utiliser le zoom sur nos navigateurs mobile en double tapant lorsque le contenu d’un site web n’est pas adapté l’écran.
+Cette habitude je l’ai aussi sur les PC et Apple a ajoutée la fonctionnalité sur Safari, mais qu’en est-il pour Chrome mon bien aimé ? Pour l’instant rien de natif.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Heureusement un tour rapide sur le &lt;strong&gt;Chrome Store&lt;/strong&gt; et j’ai trouvé ce que je voulais !&lt;/p&gt;
+
+&lt;amp-youtube data-videoid=&quot;FbcwF57DifI&quot; layout=&quot;responsive&quot; width=&quot;480&quot; height=&quot;270&quot;&gt;&lt;/amp-youtube&gt;
+
+&lt;p&gt;c’est ici : &lt;a title=&quot;Zoom on DoubleClick&quot; href=&quot;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&quot; target=&quot;_blank&quot;&gt;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Nov 2013 16:13:00 +0100</pubDate>
+        <link>http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</guid>
+        
+        <category>chrome</category>
+        
+        <category>extention</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Équivalent de Pack et Unpack (php,perl) en .net</title>
+        <description>&lt;p&gt;Je me suis lancer dans la conversion d’un petit projet PHP vers C#, et je suis tombé sur une fonction qui m’était totalement inconnue à savoir &lt;code class=&quot;highlighter-rouge&quot;&gt;unpack()&lt;/code&gt;.
+Je vais vous partager le résultat de mes recherches sur ce sujet.&lt;/p&gt;
+
+&lt;p&gt;Il s’agit en fait de deux fonctions &lt;code class=&quot;highlighter-rouge&quot;&gt;pack()&lt;/code&gt; qui compacte les arguments args dans un tableau d’octet binaire et &lt;code class=&quot;highlighter-rouge&quot;&gt;unpack()&lt;/code&gt; qui fait l’inverse.
+Ces deux fonctions proviennent à la base de perl mais sont implémentées partiellement en php, (certain format ne sont pas supportés).&lt;/p&gt;
+
+&lt;p&gt;Vous pouvez chercher sur la MSDN vous ne trouverez aucun équivalent complet de ces deux fonctions.
+J’ai donc demandé à ma bible .net, Mister Jb Evain, si il en avait déjà entendu parlé et en deux minutes m’a sortie une classe existante dans le framework Mono   &lt;a href=&quot;http://www.mono-project.com/Mono_DataConvert&quot;&gt;Mono_DataConvert&lt;/a&gt;. Merci Jb :)
+Même si Miguel de Icaza et son équipe à fait du bon boulot, son implémentation reste cependant elle aussi incomplete.&lt;/p&gt;
+
+&lt;p&gt;Je vais essaye de vous donner un ensemble d’exemples avec le code php et sont équivalent .net.&lt;/p&gt;
+
+&lt;h3 id=&quot;une-chaîne-complétée-avec-null&quot;&gt;Une chaîne complétée avec NULL&lt;/h3&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// PHP
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$packed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;fox&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$unpacked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$packed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// C#&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;packed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;fox&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;PadRight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unpacked&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ASCIIEncoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ASCII&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notez que la distinction entre signé et non signé n’affecte que la fonction unpack , tandis que la fonction pack fournira le même résultat pour les deux formats.
+De plus, notez que PHP enregistre de manière interne et intégrale les valeurs : cette représentation dépend de la machine. Si vous essayez d’enregistrer une valeur trop grande, elle risque d’être convertie et de donner lieu à des effets de bords vicieux.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 Aug 2013 07:21:00 +0200</pubDate>
+        <link>http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</guid>
+        
+        
+        <category>dataconvert</category>
+        
+        <category>Informatique</category>
+        
+        <category>Mono</category>
+        
+        <category>perl</category>
+        
+        <category>php</category>
+        
+        <category>programmation</category>
+        
+      </item>
+    
+      <item>
+        <title>Développez un problème tous les jours</title>
+        <description>&lt;p&gt;En lisant le flux RSS de &lt;a href=&quot;http://www.hanselman.com/&quot;&gt;Scott Hanselman&lt;/a&gt; sur mon &lt;a href=&quot;cloud.feedly.com&quot;&gt;feedly&lt;/a&gt; préféré, je suis tombé sur un &lt;a href=&quot;http://www.hanselman.com/blog/AmIReallyADeveloperOrJustAGoodGoogler.aspx&quot;&gt;billet&lt;/a&gt; intéressant où Scott répond à un dev se demandant si il est vraiment développeur ou juste Googleur.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Bref, l’info qui concerne ce billet, c’est un lien que Scott a donné  &lt;a href=&quot;http://projecteuler.net/&quot;&gt;http://projecteuler.net/&lt;/a&gt; qui présente plein de petit problèmes mathématique plus ou moins simple qu’il faut résoudre en créant de petits programmes.&lt;/p&gt;
+
+&lt;p&gt;Je me suis donc lancé à tester ça, et j’ai tout de suite accroché !
+Je viens de créer un repository sur GitHub pour mettre les algos que j’ai utilisés pour résoudre les 3 premiers problèmes :&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/evilz/projecteuler&quot;&gt;https://github.com/evilz/projecteuler&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Je suis preneur de remarques et même d’aide sur certain problèmes plus complexes que je n’arriverais pas à résoudre ou à comprendre. J’oubliais de dire le site est en anglais évidement.&lt;/p&gt;
+
+&lt;p&gt;Amusez vous bien ;p&lt;/p&gt;
+</description>
+        <pubDate>Tue, 27 Aug 2013 23:03:00 +0200</pubDate>
+        <link>http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</guid>
+        
+        
+        <category>github</category>
+        
+        <category>Informatique</category>
+        
+        <category>math</category>
+        
+        <category>programmation</category>
+        
+      </item>
+    
+      <item>
+        <title>Stockez vos factures et autres papiers</title>
+        <description>&lt;p&gt;On a tous des papiers, factures, bultin de salaire… assez important et a pas perdre en cas de feu.&lt;/p&gt;
+
+&lt;p&gt;Voici un petit outil sympa pour les scanner vite fait et les récupérer en pdf&lt;/p&gt;
+
+&lt;h3 id=&quot;icopy&quot;&gt;icopy&lt;/h3&gt;
+
+&lt;p&gt;Disponible &lt;a href=&quot;http://icopy.sourceforge.net/?page_id=72&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Apres je met le tout sur ma Dropbox ou sur google drive.
+Coté sécurité c’est pas le top, mais c’est juste des papiers qui normalement trainent sur le bureau :p&lt;/p&gt;
+</description>
+        <pubDate>Tue, 23 Jul 2013 22:24:00 +0200</pubDate>
+        <link>http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</guid>
+        
+        <category>outil</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>L'autocompletion sur Windows Phone 7</title>
+        <description>&lt;p&gt;Nous allons voir dans cet article les différentes façon de créer un système d’auto-complétion (ou l’équivalent) sur un Windows Phone 7.&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;méthode-1--inputscope&quot;&gt;Méthode 1 : InputScope&lt;/h3&gt;
+
+&lt;p&gt;Comme pour d’autres OS mobile, WP7 permet de rechercher un mot entré par un utilisateur dans un dictionnaire.
+De plus via la propriété InputScope nous allons pouvoir spécifier un contexte.&lt;/p&gt;
+
+&lt;p&gt;Actuellement les scopes disponible sont listés dans l’énumération &lt;strong&gt;InputScopeNameValue&lt;/strong&gt;&lt;/p&gt;
+
+&lt;amp-gist data-gistid=&quot;9680f8c9d04bfb6b565b548e270e769f&quot; data-file=&quot;InputScopeNameValue.csv&quot; layout=&quot;fixed-height&quot; height=&quot;978&quot;&gt;
+&lt;/amp-gist&gt;
+
+&lt;p&gt;Voici le XAML néccésaire pour activer cette fonctionnalité sur une textbox :&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;TextBox&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;InputScope=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Text&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;et le résultat&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png&quot; width=&quot;300&quot; height=&quot;551&quot; layout=&quot;responsive&quot; alt=&quot;sample&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Cette méthode est très simple et rapide à mettre en place, cependant les mots retournés, même si le contexte est précisé, ne correspondent pas forcément au besoin actuel, d’ou la seconde méthode.&lt;/p&gt;
+
+&lt;h3 id=&quot;méthode-2--autocompletebox&quot;&gt;Méthode 2 : AutoCompleteBox&lt;/h3&gt;
+
+&lt;p&gt;Le contrôle SilverLight AutoCompleteBox permet de créer un champs de saisi qui sera autocompleté en utilisant une liste que l’on va pouvoir définir, la bonne nouvelle c’est que ce controle peut être utilisé sur WP7., la mauvaise c’est qu’il est un peu buggé.&lt;/p&gt;
+
+&lt;p&gt;Avant de pouvoir utiliser ce controle il faut rajouter la référence vers l’assembly &lt;code class=&quot;highlighter-rouge&quot;&gt;System.Windows.Controls.Input&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Il ne reste plus qu’à l’inserer dans votre XAML&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;toolkit:AutoCompleteBox&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;x:Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;acbArrival&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Grid.Row=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Grid.Column=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{Binding ArrivalTown, Mode=TwoWay}&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;MinimumPopulateDelay=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;200&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;MinimumPrefixLength=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;3&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;FilterMode=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;StartsWith&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ValueMemberBinding=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{Binding Name}&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ItemsSource=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{ Binding TownsList}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;71&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;VerticalAlignment=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Top&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;SelectionChanged=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;acbArrival_SelectionChanged&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;IsEnabledChanged=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;acbArrival_IsEnabledChanged&quot;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;toolkit:AutoCompleteBox.ItemTemplate&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;DataTemplate&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;TextBlock&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{Binding Name}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/DataTemplate&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/toolkit:AutoCompleteBox.ItemTemplate&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/toolkit:AutoCompleteBox&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 19 Dec 2011 15:54:00 +0100</pubDate>
+        <link>http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</link>
+        <guid isPermaLink="true">http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</guid>
+        
+        <category>autocompletion</category>
+        
+        <category>Informatique</category>
+        
+        <category>windows phone</category>
+        
+        <category>WP7</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Après-midi du développement - Windows Phone Mango</title>
+        <description>&lt;p&gt;Mercredi 1&lt;sup&gt;er&lt;/sup&gt; juin nous avons passé une demi-journée dans les locaux de Microsoft pour une tour des évolutions du développement sur la nouvelle version de Windows Phone 7.1 alias &lt;strong&gt;Mango&lt;/strong&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s’agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone’¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !&lt;/p&gt;
+
+&lt;p&gt;Cette session a été présentée par Luc Vo Van, David CATUHE, Pierre Cauchois&lt;/p&gt;
+
+&lt;h1 id=&quot;visual-studio&quot;&gt;Visual Studio&lt;/h1&gt;
+
+&lt;h2 id=&quot;les-projets&quot;&gt;Les projets&lt;/h2&gt;
+
+&lt;p&gt;Après l’installation du nouveau SDK téléchargeable &lt;a href=&quot;http://www.microsoft.com/downloads/en/details.aspx?FamilyID=77586864-ab15-40e1-bc38-713a95a56a05&amp;amp;displaylang=en&quot; title=&quot;sdk mango&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Quatre nouveau templates de projet seront présent dans Visual Studio 2010 pour développer vos applications Mango.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png&quot; width=&quot;287&quot; height=&quot;169&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Chacun de ces Templates étant lié à une nouvelle fonctionnalité de Mango.&lt;/p&gt;
+
+&lt;p&gt;Le multi-targeting est aussi présent et nous laisse le choix de la version de Windows Phone.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png&quot; width=&quot;527&quot; height=&quot;249&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Il est facilement possible de mettre à jour vos applications existantes vers 7.1 gr’ce à un Wizzard. Attention cependant le retour vers 7.0 peut être plus compliqué, donc faites des tests de migration sur une copie de votre projet ou sur une nouvelle branche.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png&quot; width=&quot;341&quot; height=&quot;186&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3066/5811384742_de38893169.jpg&quot; width=&quot;500&quot; height=&quot;283&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;A noté cependant qu’il n’est pas obligatoire de migrer vers 7.1 pour que les applications fonctionnent sur le future système, elles pourront fonctionner sans problème et bénéficierons même de meilleures performances liées aux améliorations du système.&lt;/p&gt;
+
+&lt;h2 id=&quot;lémulateur&quot;&gt;L’émulateur&lt;/h2&gt;
+
+&lt;p&gt;L’émulateur permet maintenant de simuler une activité des sensors : Accéléromètre et GPS&lt;/p&gt;
+
+&lt;p&gt;Pour l’accéléromètre les positions prédéfinies du téléphone sont sélectionnable dans une liste bien qu’il soit tout aussi possible de modifier la position simplement avec la souris. De plus, nous pouvons jouer des scénarios de données comme le ‘« shake ‘».&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg&quot; width=&quot;500&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Pour la partie location, bing map est affiché dans la fenêtre (étonnant) et permet de créer soit par simple clique sur la carte soit par recherche un parcours (une liste de coordonnées). Ce parcours est ensuite joué c’est-à-dire un changement de point toutes les x seconde.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg&quot; width=&quot;500&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h2 id=&quot;profiler&quot;&gt;Profiler&lt;/h2&gt;
+
+&lt;p&gt;Un profiler dédier au projet WP7 a été ajouté, il n’est pas à l’heure actuelle dans sa version définitive, mais il permet déjà de pouvoir ciblé certains problèmes de frame rate et d’utilisation de thread sur la CPU/GPU.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg&quot; width=&quot;500&quot; height=&quot;346&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;amp-img src=&quot;http://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg&quot; width=&quot;500&quot; height=&quot;281&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h1 id=&quot;runtime&quot;&gt;RunTime&lt;/h1&gt;
+
+&lt;p&gt;La CRL a été améliorée pour obtenir de meilleures performances, la sérialisation/désérialisation en faisant partie, ce qui permet par exemple de réhydrater une application tombstonée plus rapidement.
+Le WebClient a aussi été revu pour ne plus forcément utiliser le thread UI tandis que le GC intervient moins fréquemment et est plus sélectif.
+Comme le nouveau SDK ce base sur la version 4 de Silverlight, cela ajoute de nouvelles possibilités (Flux de caméra) et de nouveaux contrôles (PathListBox, RichTextBox …) et un thread dédié à l’input a été ajouté. Enfin le décodage des images ce fait maintenant en t’che de fond.&lt;/p&gt;
+
+&lt;p&gt;Côté XNA les instructions SIMD sont maintenant gérées, les opérations sur les vecteurs sont parallélisées et il est même possible de combiné un développement Silverlight avec du XNA !&lt;/p&gt;
+
+&lt;h1 id=&quot;cycle-de-vie&quot;&gt;Cycle de vie&lt;/h1&gt;
+
+&lt;p&gt;Le cycle de vie se voit ajouté un nouvel état nommé Dormant, quand l’utilisateur sort de l’application l’événement Deactivated est déclenché et le système met l’application dans cet état Dormant, tous les threads de l’application sont arrêtés mais l’état de la mémoire reste intact. Si l’application est réactivée la mémoire est réutilisée directement. Cependant si trop d’application sont démarrées et qu’il ne reste plus assez de mémoire, le système passe alors les applications les moins utilsées en tombstoning pour libérer la mémoire.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg&quot; width=&quot;393&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Lors de la réactivation d’une application on utilise IsApplicationInstancePreserved pour savoir si l’application était dans l’état Dormant ou non.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Code to execute when the application is activated (brought to foreground)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// This code will not execute when the application is first launched&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Application_Activated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActivatedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IsApplicationInstancePreserved&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ApplicationDataStatus&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;application instance preserved.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Check to see if the key for the application state data is in the State dictionary.&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PhoneApplicationService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;State&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ContainsKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ApplicationDataObject&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// If it exists, assign the data to the application member variable.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ApplicationDataStatus&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data from preserved state.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ApplicationDataObject&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PhoneApplicationService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;State&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ApplicationDataObject&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;background-audio-agent&quot;&gt;Background Audio Agent&lt;/h1&gt;
+
+&lt;p&gt;Il est enfin possible de d’écouter de la musique en fond ! Youpi.&lt;/p&gt;
+
+&lt;p&gt;Le système va utiliser l’instance de Zune pour cela et on ne pourra bien sûr avoir qu’un seul morceau lut à la fois.
+Pour créer ce type d’application un template de projet a été ajouté : Windows Phone Audio Playback Agent
+On va utiliser le namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;Microsoft.Phone.BackgroundAudio&lt;/code&gt; et plus exactement le singleton &lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundAudioPlayer.Instance&lt;/code&gt; qui correspond à Zune.&lt;/p&gt;
+
+&lt;p&gt;On peut alors fournir un objet &lt;code class=&quot;highlighter-rouge&quot;&gt;AudioTrack&lt;/code&gt; à cette instance puis la contrôler (play, pause, Rewind, SkipNext, SkipPrevious, Stop , FastForward) et s’abonner à son changement d’état &lt;code class=&quot;highlighter-rouge&quot;&gt;PlayStateChanged&lt;/code&gt; pour par exemple savoir quand la piste audio se termine pour exécuter une autre action.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Astuce : Dans l’émulateur appuyez sur F10 pour afficher le lecteur zune.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;background-transfert&quot;&gt;Background Transfert&lt;/h1&gt;
+
+&lt;p&gt;Le second background agent introduit avec Mango est le &lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundTransferService&lt;/code&gt; qui permet comme son nom l’indique de transférer des fichiers par réseau même si l’application n’est pas en cours d’exécution. De plus il est possible de planifier les transferts, de connaitre leur progression et de gérer la file d’attente.&lt;/p&gt;
+
+&lt;p&gt;Toutes les API liée à cette fonctionnalité se trouve dans le namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;Microsoft.Phone.BackgroundTransfer&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BackgroundTransferEventArgs&lt;/li&gt;
+  &lt;li&gt;BackgroundTransferRequest&lt;/li&gt;
+  &lt;li&gt;BackgroundTransferService&lt;/li&gt;
+  &lt;li&gt;TransferPreferences&lt;/li&gt;
+  &lt;li&gt;TransferStatus&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;A noté quelques limitations :&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Transferts en simultanée (téléphone): 2&lt;/li&gt;
+  &lt;li&gt;Transferts en attente : 500 max&lt;/li&gt;
+  &lt;li&gt;Transferts par application : 5 max&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;En Get (Téléchargement)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Ne fonctionne pas en 2G/EDGE/GPRS&lt;/li&gt;
+      &lt;li&gt;Réseau cellulaire : 20Mo max&lt;/li&gt;
+      &lt;li&gt;Wifi sur batterie : 100Mo max&lt;/li&gt;
+      &lt;li&gt;Wifi et téléphone branché au courant : Illimité&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Post (Téléchargement/upload)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Upload : 5Mo max&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Voici un exemple de code.&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BackgroundTransferRequest&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceUploadLocationURL&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localDBName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferPreferences&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TransferPreferences&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AllowBattery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UploadLocation&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TransfersFiles&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localDBName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferStatusChanged&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferEventArgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btr_UploadTransferStatusChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferProgressChanged&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferEventArgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;btr_TransferProgressChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Microsoft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Phone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransfer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;scheduledtask-agent&quot;&gt;ScheduledTask Agent&lt;/h1&gt;
+
+&lt;p&gt;Pour finir avec les t’ches de fond, il est aussi possible d’écrire un bout de code à exécuter en tant que t’che planifiée.&lt;/p&gt;
+
+&lt;p&gt;Il existe deux types de t’ches planifiées et donc une classe héritant de &lt;code class=&quot;highlighter-rouge&quot;&gt;ScheduledTask&lt;/code&gt; pour chacun de ces types : &lt;code class=&quot;highlighter-rouge&quot;&gt;PeriodicTask&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;ResourceIntensiveTask&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;La différence c’est que la t’che périodique s’exécute régulièrement pendant un court instant et ne consomme peu de ressources alors que la t’che intensive elle s’exécute moins souvent mais consomme plus et plus longtemps.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Les limitations sont les suivantes :&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mémoire : 5Mo&lt;/li&gt;
+  &lt;li&gt;Expiration : 2 semaines&lt;/li&gt;
+  &lt;li&gt;Accès aux API restreint&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;L’utilisateur à la possibilité de les déactiver
+&lt;strong&gt;Périodique :&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Il s’exécute toutes les 30 minutes pendant 15 secondes (Attention les 30 minutes sont approximatives si deux background agent doivent se lancer à des horaires proches le téléphone va les lancer en même temps pour optimiser son temps de travail).&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Peut ne pas être appelé ! (s’il y a trop de background agent actifs).
+&lt;strong&gt;Ressource intensive :&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Pendant 10 minutes&lt;/li&gt;
+  &lt;li&gt;Ne s’exécute que si le téléphone est sur secteur&lt;/li&gt;
+  &lt;li&gt;Que si le téléphone est connecté au wifi ou au PC&lt;/li&gt;
+  &lt;li&gt;Que s’il y a au moins 90% de la batterie&lt;/li&gt;
+  &lt;li&gt;Ne se lance que si le téléphone est au repos (aucune application lancée)
+Ce qu’Il faut comprendre ici c’est que Microsoft a comme objectif d’optimiser le temps de vie de la batterie des WP7 et donc de réduire le plus possible l’utilisation intensive et inutile de ressources.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Voici un exemple de code :&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Microsoft.Phone.Scheduler.PeriodicTask&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;PeriodicTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PeriodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TaskUniqueNameInApp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Description&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;My Periodic Task Description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExpirationTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddDays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Microsoft.Phone.Scheduler.ResourceIntensiveTask&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ResourceIntensiveTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ResourceIntensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TaskUniqueNameInApp &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Description&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;My Intensive Task Description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExpirationTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddDays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Il faut ensuite créer une classe qui hérite de &lt;code class=&quot;highlighter-rouge&quot;&gt;ScheduledTaskAgent&lt;/code&gt; et surcharger la méthode &lt;code class=&quot;highlighter-rouge&quot;&gt;OnInvoke&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;OnCancel&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TaskScheduler&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ScheduledTaskAgent&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OnInvoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ScheduledTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PeriodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//is ResourceIntensiveTask&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;NotifyComplete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dans le WMAppManifest.xml on retrouve l’entrée suivante :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-markup&quot;&gt;&amp;lt;ExtendedTask Name=&quot;BackgroundTask&quot;&amp;gt;
+&amp;lt;BackgroundServiceAgent Specifier=&quot;ScheduledTaskAgent&quot; Name=&quot;SampleAgent&quot;Source=&quot;#AssemblyName#&quot; Type=&quot;#AssemblyName#.TaskScheduler&quot; /&amp;gt;
+&amp;lt;/ExtendedTask&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alarm &amp;amp; Reminder&lt;/p&gt;
+
+&lt;p&gt;Deux nouveautés les alarmes et rappel que vous pouvez intégrer dans vos applications, voici un exemple de code :&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Alarm&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.Phone.Scheduler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AddAlarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RoutedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;Alarm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Ding dong!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BeginTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddSeconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Debout la dedans!.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;rappel&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.Phone.Scheduler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AddReminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RoutedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;Reminder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Reminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SoundMachineReminder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;BeginTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddSeconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;N'oubliez pas que vous pouvez télécharger les musiques en local&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Title&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Sound Machine Reminder System&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;     	&lt;span class=&quot;n&quot;&gt;RecurrenceType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecurrenceInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Yearly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;     	&lt;span class=&quot;n&quot;&gt;NavigationUri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/MainPage.xaml&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tile &amp;amp; push notification&lt;/p&gt;
+
+&lt;p&gt;Plusieurs nouveautés concernant les tuiles :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;On peut les modifier localement depuis une application via la classe &lt;code class=&quot;highlighter-rouge&quot;&gt;StandardTileData&lt;/code&gt; qui permet de modifier les informations de devant : &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundImage&lt;/code&gt;,Count mais aussi de derrriere : &lt;code class=&quot;highlighter-rouge&quot;&gt;BackContent&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BackTitle&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BackBackgroundImag&lt;/code&gt;e. Si les informations ‘« back ‘» sont fourni la tuile va pivoter a intervalle régulier.&lt;/li&gt;
+  &lt;li&gt;On peut plusieurs tuiles pour la même application qui vont permettre de créer des raccourcie vers des pages de votre application, ces tuiles sont bien sur elle aussi personnalisable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg&quot; width=&quot;240&quot; height=&quot;102&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg&quot; width=&quot;240&quot; height=&quot;83&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;h1 id=&quot;sl4--xna&quot;&gt;SL4 &amp;amp; XNA&lt;/h1&gt;
+
+&lt;p&gt;Il est maintenant possible d’utiliser les ces deux technologies dans la même application.&lt;/p&gt;
+
+&lt;p&gt;Basé sur une application Silverlight nous pouvons basculer entre les moteurs Silverlight et XNA en utilisant la méthode &lt;code class=&quot;highlighter-rouge&quot;&gt;GraphicsDevice.SetSharingMode()&lt;/code&gt;. Lorsque le mode sharing est activé XNA se charge du rendu et les opérations &lt;code class=&quot;highlighter-rouge&quot;&gt;Update&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;Draw&lt;/code&gt; sont déclenchées par des évènements de &lt;code class=&quot;highlighter-rouge&quot;&gt;GameTimer&lt;/code&gt;. Le contenu Silverlight peut alors être intégré comme une texture en utilisant un &lt;code class=&quot;highlighter-rouge&quot;&gt;UIElementRenderer&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;contacts--calendrier&quot;&gt;Contacts / Calendrier&lt;/h1&gt;
+
+&lt;p&gt;On peut maintenant accéder aux informations de l’utilisateur de façon asynchrone bien entendu et le petit plus, c’est que l’on peut aussi requêter en Linq. Retrouvez les infos complètes sur la msdn &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh220665(v=VS.92).aspx&quot;&gt;Microsoft.Phone.UserData&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Launchers / Choosers
+Quelques nouvelles task ont été rajoutées pour nous simplifier la vie.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BingMapsTask (localisation)&lt;/li&gt;
+  &lt;li&gt;BingMapsDirectionsTask (navigation turn-by-turn)&lt;/li&gt;
+  &lt;li&gt;AddressChooserTask (adresse postale)&lt;/li&gt;
+  &lt;li&gt;GameInviteTask (partage de jeux)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;caméra&quot;&gt;Caméra&lt;/h1&gt;
+
+&lt;p&gt;Il va maintenant être possible de créer des applications de réalité augmentée par l’utilisation de la caméra ! On dispose de deux API, une propre au téléphone PhotoCamera qui permet entre autre de gérer le flash, le focus … et l’API WebCam de SL4 qui est compatible avec celle utilisée sur PC.&lt;/p&gt;
+
+&lt;h1 id=&quot;motion-api&quot;&gt;Motion API&lt;/h1&gt;
+
+&lt;p&gt;L’API Motion est une api combinant à la fois les données de l’accéléromètre, de la boussole et du gyroscope et qui permet après des calculs complexes de géométrique de déterminer ‘« l’attitude ‘» du téléphone. Cette API sera utile notamment pour les fameuses applications de réalité augmentée.&lt;/p&gt;
+
+&lt;p&gt;Voir l’utilisation &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202984(v=vs.92).aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;sql-compact&quot;&gt;Sql Compact&lt;/h1&gt;
+
+&lt;p&gt;Le sdk intègre maintenant une BDD SQL CE (.sdf).&lt;/p&gt;
+
+&lt;p&gt;La base est créée par une approche ‘« Code First ‘», autrement dit on crée un modèle par classes sur lesquelles ont rajoute des attributs comme &lt;code class=&quot;highlighter-rouge&quot;&gt;Table&lt;/code&gt; ou &lt;code class=&quot;highlighter-rouge&quot;&gt;Column&lt;/code&gt;. Ce modèle est ensuite utilisé au travers d’un &lt;code class=&quot;highlighter-rouge&quot;&gt;DataContext&lt;/code&gt; sur lequel on fait des requêtes Linq, des insert/update/delete.&lt;/p&gt;
+
+&lt;p&gt;Vous trouverez un exemple complet &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202876%28v=VS.92%29.aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;search-extensibility&quot;&gt;Search Extensibility&lt;/h1&gt;
+
+&lt;p&gt;Les applications mango ont maintenant la possibilité de s’enregistrer en tant qu’application susceptible de correspondre à une recherche fait directement par Bing. Une fois l’application enregistrée, si elle a un rapport avec le terme recherché, l’application pourra directement être lancée depuis le résultat de la recherche Bing. L’application va alors se lancer en prenant en compte le terme recherché.&lt;/p&gt;
+
+&lt;p&gt;Pour ce faire les extensions sont déclarées dans le WMAppManifest ainsi que dans un fichier supplémentaire extras.xml un fichier.&lt;/p&gt;
+
+&lt;amp-img src=&quot;http://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png&quot; width=&quot;250&quot; height=&quot;469&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Plus d’informations &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202957(v=VS.92).aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;network&quot;&gt;Network&lt;/h1&gt;
+
+&lt;p&gt;Windows Phone OS 7.1 inclut de nouvelles API réseau basé sur les sockets. Les protocols TCP et UDP(unicast et multicast) sont supportés. &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx&quot;&gt;http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;De plus &lt;code class=&quot;highlighter-rouge&quot;&gt;DeviceNetworkInformation&lt;/code&gt; a été complété pour faciliter l’utilisation et tester rapidement la connectivité.&lt;/p&gt;
+
+&lt;amp-gist data-gistid=&quot;da53d446718e442a99c342c12e19dfca&quot; data-file=&quot;network-wp7-api.csv&quot; layout=&quot;fixed-height&quot; height=&quot;978&quot;&gt;
+&lt;/amp-gist&gt;
+
+&lt;h1 id=&quot;marcketplace&quot;&gt;Marcketplace&lt;/h1&gt;
+
+&lt;p&gt;Il sera possible de distribuer une application beta à un ensemble de testeur (100 max) avant certification. Le processus est le suivant : le développeur fourni une liste de testeurs, il reçoit un lien deeplink qu’il transfert, les testeurs ont alors 90 jours pour renvoyer leur feedback.&lt;/p&gt;
+
+&lt;p&gt;Il sera aussi possible d’utiliser un service de diffusion privée toujours sur le même principe un lien sera fourni au développeur de l’application qui ne sera pas visible directement sur le marketplace. Il suffira alors de donner le lien aux différents clients.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 08 Jun 2011 10:58:00 +0200</pubDate>
+        <link>http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
+        <guid isPermaLink="true">http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
+        
+        
+        <category>Informatique</category>
+        
+        <category>mango</category>
+        
+        <category>Microsoft</category>
+        
+        <category>windows phone</category>
+        
+      </item>
+    
+      <item>
+        <title>Microsoft WebCamp HTML5</title>
+        <description>&lt;p&gt;Ce mercredi 16 mars j’ai assisté au WebCamp HTML5 chez Microsoft présenté par David Rousset, Aurélien Verla, Glovanni Clément et Sébastien Doncker.
+Je ne vais pas vous rapporter l’ensemble des infos qui nous ont été présentées, je vais sélectionner ce qui me semble le plus important et en profiter pour y intégrer mon point de vue (complètement personnel).&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;que-faut-il-comprendre-par-html5-&quot;&gt;Que faut-il comprendre par HTML5 ?&lt;/h2&gt;
+&lt;p&gt;Quand on entend parler d’HTML5 il est souvent sous-entendu HTML5 et ses amis. Il s’agit finalement d’un ensemble de techno/produits utilisés pour le Web dans les navigateurs ‘« moderne ‘». On y trouve :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Html5 : le langage de balisage (markup)&lt;/li&gt;
+  &lt;li&gt;CSS3 : Feuille de Style&lt;/li&gt;
+  &lt;li&gt;SVG 1.1 : graphisme vectoriel&lt;/li&gt;
+  &lt;li&gt;WOFF : un format de police de caractère comprimée&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ou-en-est-on-&quot;&gt;Ou en est-on ?&lt;/h2&gt;
+
+&lt;p&gt;Avant de donner l’état d’avancement d’HTML5, un bref rappel sur ce qui s’est passé ces dernières années est nécessaire :&lt;/p&gt;
+
+&lt;p&gt;Le W3C, groupe connu de tous, qui s’occupent de spécifier les standards Web, travaillait depuis bien longtemps sur une version XHTML2 devant succédé à XHTML1.1 ou HTML4.&lt;/p&gt;
+
+&lt;p&gt;Malheureusement la direction choisie pour le développement de ces spécifications ne correspondait pas à la vision de l’ensemble, bien que je pense que cela ne sera jamais possible. Le problème majeur de cette nouvelle version étant la non-rétrocompatibilité avec les versions précédentes, sous-entendu ‘« ton site, tu le supprimes  et tu recommences ‘». Sur le principe je ne trouve pas ça déconnant, beaucoup de site son revu complètement au niveau front de toute façon. 
+Le second problème c’est que le working group chargé y travaille depuis longtemps, bien trop longtemps.  C’est alors qu’un nouveau groupe (de rebelles) nommé le Web HyperText Application Technology Working Group (ou WHATWG) se forme pour travailler sur une nouvelle version de HTML. C’est finalement en avril 2007 que les spécifications de ce nouveau groupe sont adoptées par le W3C comme spécification de départ pour le HTML5 ! Mais l’histoire est loin d’être finie, le 2 juillet 2009 les crédits accordés pour le working group XHTML2 ne sont plus renouvelés, il est donc clair maintenant que l’avenir se tourne vers HTML5. Le compte de fée aurait pu finir ainsi en Happy End, mais c’était sans prend en compte que l’existence de deux groupes est toujours présente. Et c’est ainsi que l’on rentre dans une lutte acharné en le W3C et le WHATWG, dont la façon d’aborder la problématique est légèrement différente.&lt;/p&gt;
+
+&lt;p&gt;Le W3C c’est :
+442 membres, dont pas mal de Microsoft.
+La problématique actuelle de Microsoft c’est de réussir à faire migrer ses clients (PME et grand compte) vers des navigateurs actuels (IE9 pour ne pas le citer). Ils ont d’ailleurs lancé une initiative pour arriver à l’éradication d’IE6 &lt;a href=&quot;http://ie6countdown.com/&quot; target=&quot;_blank&quot;&gt;http://ie6countdown.com/&lt;/a&gt;. On comprend très bien cette problématique ou dans certaine boite des applications entières reposent sur l’utilisation de composant ActiveX ou d’autres bidouilles farfelues n’étant plus supportées dans nos navigateurs actuel. Ok, certes, mais y a un moment où il faut dire stop. On sait bien que IE6 à son lot de bugs, et qu’il n’est plus supporté, alors s’il vous plait messieurs ou mesdames les DSI, faites migrer votre parc, jetez vos applications mal développées qui ne sont pas ouvertes et qui vous contraigne sans arrêt.&lt;/p&gt;
+
+&lt;p&gt;De l’autre côté nous retrouvons le WHATWG, dont l’acteur principal est Ian Hickson qui est maintenant chez Google. Ian est accompagné de plusieurs personnes de chez Apple, Mozilla Foundation, et Opera Software. Le groupe est nettement plus petit. Et toutes les entreprises citées précédemment n’ont aucun complexe à mettre régulièrement leurs navigateurs à jours. Et c’est donc tout naturellement qu’ils ont créé une spécification HTML nommée ‘« living standard ‘», dont le principe est dévoluer constamment, c’est très agile dans le fond :p. (&lt;a href=&quot;http://www.alsacreations.com/actu/lire/1171-ne-mappelez-plus-html-5.html&quot; target=&quot;_blank&quot;&gt;http://www.alsacreations.com/actu/lire/1171-ne-mappelez-plus-html-5.html&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Conclusion on se retrouve avec 2 spécifications à 2 vitesses.&lt;/p&gt;
+
+&lt;h2 id=&quot;mais-alors-html5-concrètement-cest-quoi-&quot;&gt;Mais alors HTML5 concrètement c’est quoi ?&lt;/h2&gt;
+
+&lt;p&gt;Concrètement HTML5 c’est principalement un gros buzz commercial pour vendre du navigateur. Les spécifications W3C sont toujours en Draft et peuvent encore évoluer, en face les spécifications WHATWG ne font que ça ! Au finale chaque navigateur décide d’implémenter les fonctionnalités qu’ils veulent et de la façon qu’ils pensent être correcte.
+Même si certaines dates ont été annoncées, par exemple : version final du draft W3C pour mai 2011 (donc dans 2 mois) la réalité prouve le contraire, et MS pense à voir une version finale vers 2014, d’autres mauvaises langues (dont je fais partie) ont lancé un pavé dans la marre en annonçant une possible version finale en 2022.&lt;/p&gt;
+
+&lt;h2 id=&quot;bon-alors-on-peut-faire-quoi-&quot;&gt;Bon alors on peut faire quoi ?&lt;/h2&gt;
+
+&lt;p&gt;On peut commencer à regarder, et si l’on veut vraiment se lancer et créer un site compatible sur tous les navigateurs il faut faire le tri dans les fonctionnalités en regardant diverses matrices :&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://a.deveria.com/caniuse/&quot; target=&quot;_blank&quot;&gt; http://a.deveria.com/caniuse/&lt;/a&gt;
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)&quot; target=&quot;_blank&quot;&gt; http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)&lt;/a&gt;
+&lt;a href=&quot;http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers&quot; target=&quot;_blank&quot;&gt; http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers&lt;/a&gt;
+&lt;a href=&quot;http://rgaucher.info/pub/whatwg_html5_implementations.html&quot;&gt; http://rgaucher.info/pub/whatwg_html5_implementations.html&lt;/a&gt;
+Pour vous donner une idée de l’état prenons une fonctionnalité en exemple :
+La balise  :
+Cette nouvelle balise permet d’afficher simplement un lecteur de vidéo directement géré par le navigateur. Génial ! Et au niveau des codecs supportés ? Arf la question qui fache. Le W3C ne donne aucune précision sur ce point, du coup on se retrouve avec trois codecs différents qui ne sont pas supportés par tous les navigateurs.
+Au début Apple et les autres sont rapidement parti sur le codec H264, malheureusement ce codec pose le problème des royalties. Et nos amis de Mozilla ne sont pas pour payer le moindre centime, ils décident alors de partir sur Ogg Theora, puis Google nous sort son VP8 appelé maintenant WebM. Au final, pour avoir une vidéo supportée par tous, il faut l’encoder plusieurs fois. On retrouve un le même problème pour le côté audio, mp3 = royalties.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML5_video#cite_note-21&quot; target=&quot;_blank&quot;&gt; http://en.wikipedia.org/wiki/HTML5_video#cite_note-21&lt;/a&gt;
+&lt;a href=&quot;http://www.alsacreations.com/article/lire/1125-introduction-balise-video-html5-mp4-h264-webm-ogg-theora.html&quot; target=&quot;_blank&quot;&gt; http://www.alsacreations.com/article/lire/1125-introduction-balise-video-html5-mp4-h264-webm-ogg-theora.html&lt;/a&gt;
+&lt;a href=&quot;http://diveintohtml5.org/video.html&quot; target=&quot;_blank&quot;&gt; http://diveintohtml5.org/video.html&lt;/a&gt;
+Se pose aussi le problème de la personnalisation du player, tous les navigateurs ne supportent pas exactement le même niveau de personnalisation. Et cela risque de demander un peu de JavaScript.
+&lt;a href=&quot;http://dev.opera.com/articles/view/custom-html5-video-player-with-css3-and-jquery/&quot; target=&quot;_blank&quot;&gt; http://dev.opera.com/articles/view/custom-html5-video-player-with-css3-and-jquery/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Et quid des performances ? Pour une video FullHD une accélération matérielle peut être intéressante, il semble actuellement qu’IE9 soit un peu en avance sur ce sujet.
+La technologie avancées de streaming comme le Smooth Streaming de Microsoft ou encore la gestion des DRMs n’est pas supportée. Il est donc intéressant dans ce cas de faire un fallback de Silverlight ou Flash vers HTML5.
+Vous l’aurez compris tout n’est pas si beau en HTML5 et l’on est loin du ‘« write once work everywere ‘». Mais il faut commencer à y aller pas à pas. Les nouvelles balises offertes par html5 peuvent donner une meilleure accessibilité et une meilleure indexation des moteurs de recherche&lt;/p&gt;
+
+&lt;p&gt;(&amp;lt;nav&amp;gt;,&amp;lt;section&amp;gt;,&amp;lt;aside&amp;gt;,&amp;lt;header&amp;gt;,&amp;lt;footer&amp;gt;,&amp;lt;nav&amp;gt;,&amp;lt;dialog&amp;gt;,&amp;lt;figure&amp;gt;)&lt;/p&gt;
+
+&lt;amp-img src=&quot;https://farm5.staticflickr.com/4593/38633731884_877dbc5e00_n.jpg&quot; width=&quot;320&quot; height=&quot;160&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
+
+&lt;p&gt;Les CSS3 donnent plus de possibilité de personnalisation du rendu visuel particulièrement via les média queries qui permet une adaptation accrue au support. C’est un peu moins de bidouille pour faire une ombre ou une bordure aux angles arrondis.&lt;/p&gt;
+
+&lt;p&gt;WOFF, qui est une enveloppe de polices devrait permettre rapidement de pourvoir utiliser n’importe quelle Font sur l’ensemble des navigateurs, j’attend de voir sur du mobile par exemple
+&lt;a href=&quot;http://people.mozilla.org/~jkew/woff/woff-spec-latest.html&quot; target=&quot;_blank&quot;&gt; http://people.mozilla.org/~jkew/woff/woff-spec-latest.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;les-tests&quot;&gt;Les tests&lt;/h2&gt;
+
+&lt;p&gt;Je vous ai donné des liens vers des matrices, mais finalement sont-elles justes ?
+Bonne question c’est encore un point faible dans le processus du W3C. Actuellement ce sont les développeurs des navigateurs qui créer les tests. Et vous savez quoi, ils arrivent toujours à passer 100% des tests qu’ils fournissent.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/SunSpider/Default.html&quot;&gt;Webkit SunSpider Results&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/Acid3/Default.html&quot;&gt;ACID3 Results&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/CSS3Info/Default.html&quot;&gt;CSS3.info Selectors Test&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://samples.msdn.microsoft.com/ietestcenter/&quot;&gt;IE Testing Center&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://html5test.com/&quot;&gt;http://html5test.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ils n’y a pas de bon ou mauvais tests dans la liste de ses liens, il y a surtout un manque de travail du côté du W3C, c’est à eux de fixer les règles et une règle peut donner plusieurs tests. Ils sembleraient que 100000 tests soit nécessaire uniquement pour la partie HTML. Pour l’instant Microsoft a fourni 5899 tests.&lt;/p&gt;
+
+&lt;h2 id=&quot;loutillage&quot;&gt;L’outillage&lt;/h2&gt;
+
+&lt;p&gt;J’ai appris une bonne nouvelle, le SP1 de Visual Studio 2010 permet le support de HTML5 ! Auto complétion, coloration et validation !
+Dreamweaver CS5 a aussi le support
+A par ça les outils sont encore rares, au pire il vous reste Notepad++ ;)&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Je vais terminer là-dessus.
+HTML5 sera l’avenir mais pas encore le présent, on est encore dans l’innovation et sur des fonctionnalités instables, qui peuvent changer à tout moment (ex: les web socket).
+Beaucoup de JavaScript est encore nécessaire et la compatibilité cross plateforme n’est toujours pas là.
+On est donc loin de se séparer complètement de Silverlight ou de Flash, qui évoluent très très rapidement et qui seront deux techno certainement hallucinantes d’ici 2014. C’est finalement une guerre entre constructeurs au détriment des utilisateurs qui est encore en train de se dérouler, cela rappel le combat HD-DVD contre Blu-ray. La standardisation unique n’est peut-être tout simplement pas humainement atteignable.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 29 Mar 2011 13:17:00 +0200</pubDate>
+        <link>http://localhost:4000/2011/03/29/microsoft-webcamp-html5/</link>
+        <guid isPermaLink="true">http://localhost:4000/2011/03/29/microsoft-webcamp-html5/</guid>
+        
+        
+        <category>css3</category>
+        
+        <category>html5</category>
+        
+        <category>Informatique</category>
+        
+        <category>Microsoft</category>
+        
+      </item>
+    
   </channel>
 </rss>
