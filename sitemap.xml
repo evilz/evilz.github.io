@@ -693,21 +693,6 @@
   
     
     <url>
-      <loc>http://localhost:4000/2009/06/19/a-propos/</loc>
-      
-        <lastmod>2009-06-19T18:13:00+02:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
       <loc>http://localhost:4000/2009/06/11/bulle-daide-avec-jquery-et-beautytips/</loc>
       
         <lastmod>2009-06-11T17:43:00+02:00</lastmod>
@@ -756,21 +741,6 @@
       <loc>http://localhost:4000/2009/04/21/les-generiques-premier-pas-vers-le-concept-dry/</loc>
       
         <lastmod>2009-04-21T14:22:00+02:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>http://localhost:4000/2009/04/21/rappel-alt-net-paris-12-mercredi-19h30.ignore/</loc>
-      
-        <lastmod>2009-04-21T09:35:00+02:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -843,24 +813,9 @@
   
     
     <url>
-      <loc>http://localhost:4000/2009/03/16/alt-net-fr-10-e2-80-b2-debat-mvc-compte-rendu-par-moi.ignore/</loc>
+      <loc>http://localhost:4000/2009/03/16/alt-net-fr-debat-mvc-compte-rendu/</loc>
       
         <lastmod>2009-03-16T10:04:00+01:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>http://localhost:4000/2009/03/03/nouveau-site-alt-net-france.ignore/</loc>
-      
-        <lastmod>2009-03-03T13:56:00+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -876,21 +831,6 @@
       <loc>http://localhost:4000/2009/02/19/alt-net-fr-10-aspectize/</loc>
       
         <lastmod>2009-02-19T09:04:00+01:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>http://localhost:4000/2009/02/13/traffic-sur-google-map-de-liphone.ignore/</loc>
-      
-        <lastmod>2009-02-13T10:26:00+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1146,7 +1086,7 @@
     <url>
       <loc>http://localhost:4000/about/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1161,7 +1101,7 @@
     <url>
       <loc>http://localhost:4000/feed.xml</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1176,7 +1116,7 @@
     <url>
       <loc>http://localhost:4000/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1193,7 +1133,7 @@
     <url>
       <loc>http://localhost:4000/page2/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1208,7 +1148,7 @@
     <url>
       <loc>http://localhost:4000/page3/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1223,7 +1163,7 @@
     <url>
       <loc>http://localhost:4000/page4/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1238,7 +1178,7 @@
     <url>
       <loc>http://localhost:4000/page5/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1253,7 +1193,7 @@
     <url>
       <loc>http://localhost:4000/page6/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1268,7 +1208,7 @@
     <url>
       <loc>http://localhost:4000/page7/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -1283,7 +1223,7 @@
     <url>
       <loc>http://localhost:4000/page8/</loc>
       
-        <lastmod>2017-12-29T15:38:52+01:00</lastmod>
+        <lastmod>2017-12-29T19:26:36+01:00</lastmod>
       
       
         <changefreq>monthly</changefreq>

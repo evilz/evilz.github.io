@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <title>Cecil.Decompiler Part 1 - Language Writer</title>
-  <meta name="description" content=" ">
+  <meta name="description" content="Introduction">
 
   <link rel="canonical" href="http://localhost:4000/2009/02/09/cecil-decompiler-part-1-language-writer/">
   <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="http://localhost:4000/feed.xml">
@@ -28,7 +28,7 @@
   "headline": "Cecil.Decompiler Part 1 - Language Writer",
   "datePublished": "2009-02-09T09:29:00+01:00",
   "dateModified": "2009-02-09T09:29:00+01:00",
-  "description": " ",
+  "description": "Introduction",
   "author": {
     "@type": "Person",
     "name": "Vincent Bourdon"
@@ -906,13 +906,431 @@ pre {
         <!-- Post Feature Image -->
    
 
-   <p><a href="http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer"><amp-img src="http://www.techheadbrothers.com/images/thblogo.png" alt="THB" title="THB" layout="responsive"><noscript><img src="http://www.techheadbrothers.com/images/thblogo.png" alt="THB" title="THB"></noscript></amp-img> </a></p>
+   <h1 id="introduction">Introduction</h1>
 
-<p>Mon premier article sur Cecil.Decompiler vient d’être publié sur <a href="http://www.techheadbrothers.com">TechHeadBrother </a>.</p>
+<p>Cet article va vous faire découvrir le projet Cecil.Decompiler sur lequel j’ai commencé à travailler au Code Camp de décembre 2008. Je vous invite à lire les posts suivants, pour en savoir plus sur ce fameux code camp.</p>
 
-<p>Voici le lien : <a href="http://www.techheadbrothers.com/Articles.aspx/cecil-decompiler-part-1-language-writer">Cecil.Decompiler Part 1 : Language Writer</a></p>
+<p>http://evilznet.com/post/Evilznet-apres-un-CodeCamp.aspx
+http://www.evain.net/blog/articles/2008/12/16/decompiler-codecamp
+http://codingly.com/2008/12/16/cecildecompiler-un-decompilateur-net-opensource
+http://patricelamarche.net/2009/01/03/CecilDecompilerDecompilateurNetOpenSourceBaséSurCecil.aspx</p>
 
-<p>Bonne lecture</p>
+<p>Nous allons voir le namespace <code class="highlighter-rouge">Cecil.Decompiler.Languages</code> et plus particulièrement le LanguageWriter.
+C’est sur cette partie que j’ai travaillé durant le Code Camp avec Patrice Lamarche pour la décompilation du langage VB. Mes explications seront basées sur les classes de base que l’ont trouves dans le core de <code class="highlighter-rouge">Cecil.Decompiler</code> et qui ont été écrites par Jb Evain.</p>
+
+<h1 id="définition-dun-langage">Définition d’un langage</h1>
+
+<p><amp-img src="https://farm5.staticflickr.com/4595/39372522761_d64f6709c2_z.jpg" alt="language" width="640" height="583" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4595/39372522761_d64f6709c2_z.jpg" alt="language" width="640" height="583"></noscript></amp-img></p>
+
+<p>Tous les langages utilisés dans <code class="highlighter-rouge">Cecil.Decompiler</code> doivent implémenter l’interface <code class="highlighter-rouge">ILanguage</code>.
+Un langage est défini par un nom (propriété <code class="highlighter-rouge">Name</code>) et deux méthodes :</p>
+
+<ul>
+  <li>
+<code class="highlighter-rouge">CreatePipeline()</code> qui renvoie un nouveau <code class="highlighter-rouge">DecompilationPipeline</code>, c’est-à-dire une suite d’opérations qui s’applique sur le contexte de décompilation pour transformer son résultat. (Nous aborderons ce point dans un futur article ;))</li>
+  <li>
+<code class="highlighter-rouge">GetWriter()</code> qui renvoie un <code class="highlighter-rouge">ILanguageWriter</code> (c’est le cœur de notre sujet)</li>
+</ul>
+
+<p>Pour C#, la classe qui implémente l’interface s’appelle <code class="highlighter-rouge">CSharp</code>. Cette classe est directement utilisable, mais pour de futures optimisations en fonction des évolutions du langage, plusieurs classes enfants ont été créés <code class="highlighter-rouge">CSharpV1</code>, <code class="highlighter-rouge">CSharpV2</code>, <code class="highlighter-rouge">CSharpV3</code>. Actuellement ces quatre classes sont identiques sauf pour la propriété Name qui retourne une valeur différente.
+Une énumération <code class="highlighter-rouge">CSharpVersion</code> est aussi présente pour lister ces différentes implémentations, cela pourra servir pour afficher très simplement toutes ces versions dans une liste déroulante de notre GUI.</p>
+
+<h1 id="la-sortie--iformater">La sortie : IFormater</h1>
+
+<p>Le formater va définir comment seront ajouté les résultats de la décompilation dans le flux de sortie. On peut imaginer toute sorte de formater Html, XML, SilverLight …
+IFormater spécifie 12 méthodes qui devront exister dans les formaters concrets.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">void</span> <span class="nf">Write</span> <span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteLine</span> <span class="p">();</span>  
+<span class="k">void</span> <span class="nf">WriteSpace</span> <span class="p">();</span>  
+<span class="k">void</span> <span class="nf">WriteToken</span> <span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteComment</span> <span class="p">(</span><span class="kt">string</span> <span class="n">comment</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteKeyword</span> <span class="p">(</span><span class="kt">string</span> <span class="n">keyword</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteLiteral</span> <span class="p">(</span><span class="kt">string</span> <span class="n">literal</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteDefinition</span> <span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">definition</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteReference</span> <span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">reference</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">WriteIdentifier</span> <span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">identifier</span><span class="p">);</span>  
+<span class="k">void</span> <span class="nf">Indent</span> <span class="p">();</span>  
+<span class="k">void</span> <span class="nf">Outdent</span> <span class="p">();</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Le Core de <code class="highlighter-rouge">Cecil.decompiler</code> fournie une classe concrète <code class="highlighter-rouge">PlainTextFormater</code>.
+Comme son nom l’indique c’est le formater le plus basic, il va simplement écrire le résultat sous forme de texte dans le flux désiré : une console, un fichier …
+Nous allons voir comment implémenter très simplement une sortie dans une console avec de la couleur.
+Pour commencer, je vais créer un nouveau projet de type librairie en C# (3.5) que je vais appeler <code class="highlighter-rouge">ColoredConsoleFormater</code>. Il faut ensuite ajouter la référence vers <code class="highlighter-rouge">Cecil.Decompiler</code>.</p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4594/39372522991_84cac5d3a7.jpg" alt="project" width="241" height="134" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4594/39372522991_84cac5d3a7.jpg" alt="project" width="241" height="134"></noscript></amp-img></p>
+
+<p>Je renomme ou créé une classe <code class="highlighter-rouge">ColoredConsoleFormater.cs</code> qui va implémenter <code class="highlighter-rouge">IFormater</code></p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">namespace</span> <span class="nn">Cecil.Decompiler.Languages</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ColoredConsoleFormater</span> <span class="p">:</span> <span class="n">IFormatter</span>
+    <span class="p">{</span>
+        <span class="err">#</span><span class="n">region</span> <span class="n">IFormatter</span> <span class="n">Members</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteLine</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteSpace</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteToken</span><span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteComment</span><span class="p">(</span><span class="kt">string</span> <span class="n">comment</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+ 
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteKeyword</span><span class="p">(</span><span class="kt">string</span> <span class="n">keyword</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteLiteral</span><span class="p">(</span><span class="kt">string</span> <span class="n">literal</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+ 
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteDefinition</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">definition</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+ 
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteReference</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">reference</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">WriteIdentifier</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">identifier</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+ 
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Indent</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Outdent</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="nf">NotImplementedException</span><span class="p">();</span>
+        <span class="p">}</span>
+ 
+        <span class="err">#</span><span class="n">endregion</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>L’idée est ici, de faire écrire chacune de ces méthodes dans une couleur différente. Par exemple les mots clés en bleu, les commentaires en vert …</p>
+
+<p>Il y a 8 méthodes qui écrivent du texte, je vais donc ajouter 8 constantes de type ConsoleColor en affectant différentes couleurs de mon choix.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">NormalColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Gray</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">TokenColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">White</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">CommentColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Green</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">KeywordColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Blue</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">LiteralColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Red</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">DefinitionColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Cyan</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">ReferenceColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Yellow</span><span class="p">;</span>
+<span class="k">private</span> <span class="k">const</span> <span class="n">ConsoleColor</span> <span class="n">IdentifierColor</span> <span class="p">=</span> <span class="n">ConsoleColor</span><span class="p">.</span><span class="n">Magenta</span><span class="p">;</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Il faut maintenant écrire dans la console en utilisant ces couleurs. Je commence par implémenter la méthode <code class="highlighter-rouge">Write(string str)</code> qui va simplement écrire la chaine passée en argument dans la console. Les autres méthodes pourront alors spécifier la couleur dans laquelle le texte doit être écrit, puis appeler cette méthode.</p>
+
+<p>Apres l’appel, il ne faut pas oublier de remettre la console dans la couleur de base.</p>
+
+<p>La méthode <code class="highlighter-rouge">WriteLine()</code> est un cas particulier, je fais ici appelle directement à la méthode <code class="highlighter-rouge">WriteLine()</code> de la console, cela garantie un bon retour à la ligne qui peut être représenté différemment en fonction des systèmes.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteLine</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">();</span>
+<span class="p">}</span>
+ 
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteSpace</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="s">" "</span><span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteToken</span><span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">TokenColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteComment</span><span class="p">(</span><span class="kt">string</span> <span class="n">comment</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">CommentColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="n">comment</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteKeyword</span><span class="p">(</span><span class="kt">string</span> <span class="n">keyword</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">KeywordColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="n">keyword</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteLiteral</span><span class="p">(</span><span class="kt">string</span> <span class="n">literal</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">LiteralColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="n">literal</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteDefinition</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">definition</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">DefinitionColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteReference</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">reference</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">ReferenceColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteIdentifier</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">,</span> <span class="kt">object</span> <span class="n">identifier</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">IdentifierColor</span><span class="p">;</span>
+    <span class="nf">Write</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p><amp-img src="https://farm5.staticflickr.com/4726/25503576108_e644361b7c_z.jpg" alt="console1" width="640" height="321" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4726/25503576108_e644361b7c_z.jpg" alt="console1" width="640" height="321"></noscript></amp-img></p>
+
+<p>Il reste maintenant à afficher correctement l’indentation du code en implémentant <code class="highlighter-rouge">Indent()</code> et <code class="highlighter-rouge">Outdent()</code>.
+Pour cela nous allons utiliser un compteur qui stocke le nombre de tabulation courante. <code class="highlighter-rouge">Indent()</code> va alors incrémenter cette valeur et <code class="highlighter-rouge">Outdent()</code> la décrémenter.
+Pour écrire les indentations nous créons une nouvelle méthode <code class="highlighter-rouge">WriteIndent()</code>, elle sera appelée par la méthode <code class="highlighter-rouge">Write()</code>. Les indentations ne devront pas être écrites plusieurs fois par ligne, il faut donc utiliser une variable de type bool pour indiquer si <code class="highlighter-rouge">WriteIndent()</code> doit être appelée ou non. La méthode <code class="highlighter-rouge">WriteLine()</code> affectera sa valeur à true alors que <code class="highlighter-rouge">Write()</code> l’affectera à false.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="kt">int</span> <span class="n">indent</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">write_indent</span><span class="p">;</span>
+
+<span class="k">void</span> <span class="nf">WriteIndent</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(!</span><span class="n">write_indent</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">indent</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="s">"\t"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Write</span><span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nf">WriteIndent</span><span class="p">();</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+    <span class="n">write_indent</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteLine</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">();</span>
+    <span class="n">write_indent</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Indent</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">indent</span><span class="p">++;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Outdent</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">indent</span><span class="p">--;</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Il ne reste plus qu’à rajouter un constructeur par défaut qui va initialiser la couleur de la console avec la couleur de base (NormalColor)</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="nf">ColoredConsoleFormater</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ForegroundColor</span> <span class="p">=</span> <span class="n">NormalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p><amp-img src="https://farm5.staticflickr.com/4690/25503575998_06cdd2367c_z.jpg" alt="console2" width="640" height="321" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4690/25503575998_06cdd2367c_z.jpg" alt="console2" width="640" height="321"></noscript></amp-img></p>
+
+<p>Vous vous demandez surement pourquoi les méthodes <code class="highlighter-rouge">WriteDefinition()</code>, <code class="highlighter-rouge">WriteReference()</code>, <code class="highlighter-rouge">WriteIdentifier()</code> prennent un argument supplémentaire qui n’est pas utilisé ici. Ce second argument pourra, par exemple, être utilisé dans notre GUI pour faire un lien lorsque l’utilisateur va cliquer sur la chaine ou même pourvoir ajouter différentes fonctionnalités en fonction de son type.</p>
+
+<h1 id="le-writer">Le writer</h1>
+
+<p>Le writer est la classe qui va définir la syntaxe du langage, il ne faut pas confondre avec le formater qui lui définit la sortie, c’est à dire le flux final.</p>
+
+<p>Comme nous l’avons vu au dessus le writer est renvoyé par le langage et implémente l’interface ILanguageWriter.</p>
+
+<p>L’implémentation nécessite l’écriture des différentes surcharges de la méthode Write(). Cette méthode sera le point d’entrée du Writer. En fonction de l’argument qui sera passé, par exemple la définition d’un type, d’une méthode ou simplement une expression, elle écrira le résultat de la décompilation correspondante dans le formater.</p>
+
+<p>Avant d’implémenter directement l’interface, l’on va passer par une classe intermédiaire BaseLanguageWriter qui contient quelques méthodes facilement réutilisable dans tous les writer concrets, et un constructeur prenant en paramètre un Ilangage et un IFormater.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="nf">BaseLanguageWriter</span> <span class="p">(</span><span class="n">ILanguage</span> <span class="n">language</span><span class="p">,</span> <span class="n">IFormatter</span> <span class="n">formatter</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteToken</span> <span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteSpace</span> <span class="p">();</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteLine</span> <span class="p">();</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteKeyword</span> <span class="p">(</span><span class="kt">string</span> <span class="n">keyword</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">Write</span> <span class="p">(</span><span class="kt">string</span> <span class="n">str</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteLiteral</span> <span class="p">(</span><span class="kt">string</span> <span class="n">literal</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteIdentifier</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">object</span> <span class="n">identifier</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteDefinition</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">object</span> <span class="n">definition</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">WriteReference</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">object</span> <span class="n">reference</span><span class="p">);</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">Indent</span> <span class="p">();</span>
+<span class="k">protected</span> <span class="k">void</span> <span class="nf">Outdent</span> <span class="p">();</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Vous l’aurez sans doute deviné, toutes ces méthodes sont des raccourcis vers les méthodes équivalentes du IFormater que l’on à vu juste avant. De plus cette classe hérite d’une autre classe BaseCodeVisitor fournie avec l’AST de Cecil.Decompiler.</p>
+
+<p>Passons maintenant à notre classe concrète que l’on appellera CSharpWriter. Nous n’allons pas voir en détail tout l’implémentation, pour cela vous pouvez télécharger les sources sur le SVN. Je vais plutôt vous expliquer le fonctionnement.</p>
+
+<p>Après la décompilation, chaque petite partie de code est représentée dans un graphe d’objet (AST) par des nœuds de type ICodeNode. A partir de là, on peut donc facilement implémenter un pattern, que certain reconnaitront (car c’est le même pour Linq et ses expressions), à base d’une grosse méthode Visit() qui prend en argument un ICodeNode.</p>
+
+<p>Cette méthode, qui se trouve dans la classe BaseCodeVisitor, va tout simplement lire le type réel de l’ICodeNode pour appeler une méthode plus spécifique. Ce n’est en fait qu’un gros switch.</p>
+
+<p>Voici un exemple pour un bout de code pour un Statement. La méthode Write() est appelée :</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Write</span> <span class="p">(</span><span class="n">Statement</span> <span class="n">statement</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nf">Visit</span> <span class="p">(</span><span class="n">statement</span><span class="p">);</span>
+    <span class="nf">WriteLine</span> <span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>On va alors visiter le contenu du statement. Je vais ici prendre pour exemple un statement de type if/else, je vous laisse le loisir de regarder tous les types différents de ICodeNode existants.
+Le switch va identifier le type de nœud par rapport à la valeur de sa propriété CodeNodeType qui contient une valeur de l’énumération CodeNodeType :</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="k">enum</span> <span class="n">CodeNodeType</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="n">IfStatement</span><span class="p">,</span>
+    <span class="n">BinaryExpression</span><span class="p">,</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="c1">// Methode de BaseCodeVisitor</span>
+<span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">Visit</span> <span class="p">(</span><span class="n">ICodeNode</span> <span class="n">node</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="p">==</span> <span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+ 
+    <span class="k">switch</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">CodeNodeType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// … différents case</span>
+    <span class="k">case</span> <span class="n">CodeNodeType</span><span class="p">.</span><span class="n">IfStatement</span><span class="p">:</span>
+        <span class="nf">VisitIfStatement</span> <span class="p">((</span><span class="n">IfStatement</span><span class="p">)</span> <span class="n">node</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="c1">// … différents case</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentException</span> <span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>On peut voir qu’une méthode spécifique pour ce genre de statement est à son tour appelée : VisitIfStatement() qui prend simplement le node courant casté.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">VisitIfStatement</span> <span class="p">(</span><span class="n">IfStatement</span> <span class="n">node</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nf">WriteKeyword</span> <span class="p">(</span><span class="s">"if"</span><span class="p">);</span>
+    <span class="nf">WriteSpace</span> <span class="p">();</span>
+    <span class="nf">WriteBetweenParenthesis</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">Condition</span><span class="p">);</span>
+    <span class="nf">WriteLine</span> <span class="p">();</span>
+ 
+    <span class="nf">Visit</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">Then</span><span class="p">);</span>
+ 
+    <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">Else</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+ 
+    <span class="nf">WriteKeyword</span> <span class="p">(</span><span class="s">"else"</span><span class="p">);</span>
+    <span class="nf">WriteLine</span> <span class="p">();</span>
+    <span class="nf">Visit</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">Else</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Cette méthode écrit enfin dans le flux de sortie. C’est du C#, donc on commence par écrire le mot clé if, on ajoute un espace pour la présentation (optionnel). Il faut ensuite écrire le contenu de la condition entre parenthèse, cela est fait via la méthode WriteBetweenParenthesis() qui écrit la parenthèse ouvrante, visite l’expression de la condition et écrit la parenthèse fermante.</p>
+
+<div class="language-csharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="k">void</span> <span class="nf">WriteBetweenParenthesis</span> <span class="p">(</span><span class="n">Expression</span> <span class="n">expression</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nf">WriteToken</span> <span class="p">(</span><span class="s">"("</span><span class="p">);</span>
+    <span class="nf">Visit</span> <span class="p">(</span><span class="n">expression</span><span class="p">);</span>
+    <span class="nf">WriteToken</span> <span class="p">(</span><span class="s">")"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Et voilà on parcourt le graph de façon récursive !
+Visit() va resélectionner la bonne méthode à appeler en fonction du type de l’expression et ainsi de suite jusqu’au bout de l’arbre.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Nous avons vue comment implémenter un langage comme C#. Il faut cependant savoir que le graph d’objet ne correspond par forcément toujours aux attentes du langage cible, il est donc nécessaire de faire des manipulations en amont sur le graph via le fameux pipeline. Actuellement deux langages sont traités par l’équipe, il s’agit C# et VB. Ne tient qu’à vous d’implémenter un autre langage .net.</p>
 
     </section>
     <footer class="post-footer">

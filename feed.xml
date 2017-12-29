@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Dec 2017 15:38:52 +0100</pubDate>
-    <lastBuildDate>Fri, 29 Dec 2017 15:38:52 +0100</lastBuildDate>
+    <pubDate>Fri, 29 Dec 2017 19:26:36 +0100</pubDate>
+    <lastBuildDate>Fri, 29 Dec 2017 19:26:36 +0100</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -1018,7 +1018,7 @@ De plus via la propriété InputScope nous allons pouvoir spécifier un contexte
 
 &lt;p&gt;et le résultat&lt;/p&gt;
 
-&lt;amp-img src=&quot;http://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png&quot; width=&quot;300&quot; height=&quot;551&quot; layout=&quot;responsive&quot; alt=&quot;sample&quot;&gt;&lt;/amp-img&gt;
+&lt;amp-img src=&quot;https://farm6.static.flickr.com/5178/5467950877_f3c8b2b347_o.png&quot; width=&quot;300&quot; height=&quot;551&quot; layout=&quot;responsive&quot; alt=&quot;sample&quot;&gt;&lt;/amp-img&gt;
 
 &lt;p&gt;Cette méthode est très simple et rapide à mettre en place, cependant les mots retournés, même si le contexte est précisé, ne correspondent pas forcément au besoin actuel, d’ou la seconde méthode.&lt;/p&gt;
 
@@ -1068,7 +1068,7 @@ De plus via la propriété InputScope nous allons pouvoir spécifier un contexte
 
 &lt;!--more--&gt;
 
-&lt;p&gt;Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s’agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone’¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !&lt;/p&gt;
+&lt;p&gt;Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s’agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone’¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !&lt;/p&gt;
 
 &lt;p&gt;Cette session a été présentée par Luc Vo Van, David CATUHE, Pierre Cauchois&lt;/p&gt;
 
@@ -1280,7 +1280,7 @@ Ce qu’Il faut comprendre ici c’est que Microsoft a comme objectif d’optimi
  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Dans le WMAppManifest.xml on retrouve l’entrée suivante :&lt;/p&gt;
+&lt;p&gt;Dans le WMAppManifest.xml on retrouve l’entrée suivante :&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-markup&quot;&gt;&amp;lt;ExtendedTask Name=&quot;BackgroundTask&quot;&amp;gt;
 &amp;lt;BackgroundServiceAgent Specifier=&quot;ScheduledTaskAgent&quot; Name=&quot;SampleAgent&quot;Source=&quot;#AssemblyName#&quot; Type=&quot;#AssemblyName#.TaskScheduler&quot; /&amp;gt;

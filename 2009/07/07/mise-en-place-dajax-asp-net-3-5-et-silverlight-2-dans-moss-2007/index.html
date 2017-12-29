@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <title>Mise en place d&#39;Ajax Asp.net 3.5 et Silverlight 2 dans MOSS 2007</title>
-  <meta name="description" content="L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 20...">
+  <meta name="description" content="L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. ...">
 
   <link rel="canonical" href="http://localhost:4000/2009/07/07/mise-en-place-dajax-asp-net-3-5-et-silverlight-2-dans-moss-2007/">
   <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="http://localhost:4000/feed.xml">
@@ -28,7 +28,7 @@
   "headline": "Mise en place d&#39;Ajax Asp.net 3.5 et Silverlight 2 dans MOSS 2007",
   "datePublished": "2009-07-07T14:22:00+02:00",
   "dateModified": "2009-07-07T14:22:00+02:00",
-  "description": "L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 20...",
+  "description": "L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. ...",
   "author": {
     "@type": "Person",
     "name": "Vincent Bourdon"
@@ -906,17 +906,17 @@ pre {
         <!-- Post Feature Image -->
    
 
-   <p><a title="Silverlight_powered de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3697837810/"><amp-img class="alignleft withborder" src="http://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180" layout="responsive"><noscript><img class="alignleft withborder" src="http://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180"></noscript></amp-img></a>L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. Par défaut MOSS utilise le Framework 3.0, donc l’ajax d’asp.net 3.5 et Silverlight ne pouvait pas déjà être présent.</p>
+   <p><a title="Silverlight_powered de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3697837810/"><amp-img class="alignleft withborder" src="https://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180" layout="responsive"><noscript><img class="alignleft withborder" src="https://farm3.static.flickr.com/2666/3697837810_9c31f17e2f_m.jpg" alt="Silverlight_powered" width="240" height="180"></noscript></amp-img></a>L’objet de ce post est de décrire la procédure à suivre pour ajouter les fonctionnalités d’AJAX Asp.net 3.5 et Silverlight 2 sur les applications MOSS 2007. Par défaut MOSS utilise le Framework 3.0, donc l’ajax d’asp.net 3.5 et Silverlight ne pouvait pas déjà être présent.</p>
 <h3>INSTALLER LE FRAMEWORK 3.5</h3>
 <p>Téléchargez est installez le Framework .NET 3.5 SP1 disponible <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=ab99342f-5d1a-413d-8319-81da479ab0d7&amp;displaylang=en" target="_blank">ici</a>.</p>
 <h3>MODIFIER LE FICHIER WEB.CONFIG</h3>
-<p>Après l’installation du Framework ASP.NET 3.5 il est nécessaire de modifier le fichier de configuration des site MOSS 2007 avec les sections spécifiques à Ajax. Pour un site par défaut le fichier ce trouve ici</p>
+<p>Après l’installation du Framework ASP.NET 3.5 il est nécessaire de modifier le fichier de configuration des site MOSS 2007 avec les sections spécifiques à Ajax. Pour un site par défaut le fichier ce trouve ici</p>
 <div>
   <p><em>c:inetpubwwwrootwssvirtualdirectories80</em>&lt;/div&gt;</p>
 
   <p><em></em></p>
 
-  <p><strong>Ajout du &lt;sectionGroup&gt; dans l’élément &lt;configSections&gt;</strong></p>
+  <p><strong>Ajout du &lt;sectionGroup&gt; dans l’élément &lt;configSections&gt;</strong></p>
   <pre class="brush:xml">&lt;sectionGroup name="system.web.extensions"
                type="System.Web.Configuration.SystemWebExtensionsSectionGroup,
                System.Web.Extensions, Version=3.5.0.0, Culture=neutral,
@@ -997,7 +997,7 @@ Ajout du HTTP module dans la section &lt;httpModules&gt;
 &lt;SafeControl Assembly="System.Web.Extensions,
            Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
            Namespace="System.Web.UI" TypeName="*" Safe="True" /&gt;</pre>
-  <p><strong>Ajout des redirections d’assemblies dans la section &lt;runtime&gt;&lt;assemblyBinding&gt;</strong> (optionnel)</p>
+  <p><strong>Ajout des redirections d’assemblies dans la section &lt;runtime&gt;&lt;assemblyBinding&gt;</strong> (optionnel)</p>
   <pre class="brush:xml">&lt;dependentAssembly&gt;
  &lt;assemblyIdentity name="System.Web.Extensions" publicKeyToken="31bf3856ad364e35"/&gt;
  &lt;bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/&gt;
@@ -1047,11 +1047,11 @@ Ajout du HTTP module dans la section &lt;httpModules&gt;
    &lt;/system.webServer&gt;</pre>
   <h3>CONFIGURATION DU MIME TYPES SILVERLIGHT DANS IIS</h3>
   <ul>
-	<li>Ouvrir l'interface de configuration IIS (%SystemRoot%system32inetsrviis.msc)</li>
+	<li>Ouvrir l'interface de configuration IIS (%SystemRoot%system32inetsrviis.msc)</li>
 	<li>Sélectionnez le site MOSS puis faites clique droite -&gt; propriétés.</li>
-	<li>Dans l'onglet HTTP Header cliquez sur le bouton MIME Types</li>
+	<li>Dans l'onglet HTTP Header cliquez sur le bouton MIME Types</li>
 	<li>Cliquez sur le bouton Nouveau pour ajouter un Type</li>
-	<li>Dans la fenêtre d'ajout entrer :
+	<li>Dans la fenêtre d'ajout entrer :
 - Extension:.xapï¿½
 - MIME Type: application/x-silverlight-app</li>
 	<li>Validez puis redémarrez IIS (iisreset)</li>

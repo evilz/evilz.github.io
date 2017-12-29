@@ -12,10 +12,10 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Rappel, Alt.net Paris</title>
-  <meta name="description" content="">
+  <title>ALT.Net FR</title>
+  <meta name="description" content="C’est jeudi que notre petit débat Alt.net FR sur MVC avait lieu. Nous nous sommes donc retrouvé à environ une bonne vingtaine de personnes dans le 8ème arron...">
 
-  <link rel="canonical" href="http://localhost:4000/2009/04/21/rappel-alt-net-paris-12-mercredi-19h30.ignore/">
+  <link rel="canonical" href="http://localhost:4000/2009/03/16/alt-net-fr-debat-mvc-compte-rendu/">
   <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="http://localhost:4000/feed.xml">
   <link rel="manifest" href="/manifest.json">
 
@@ -24,11 +24,11 @@
 {
   "@context": "http://schema.org",
   "@type": "NewsArticle",
-  "mainEntityOfPage": "http://localhost:4000/2009/04/21/rappel-alt-net-paris-12-mercredi-19h30.ignore/",
-  "headline": "Rappel, Alt.net Paris",
-  "datePublished": "2009-04-21T09:35:00+02:00",
-  "dateModified": "2009-04-21T09:35:00+02:00",
-  "description": "",
+  "mainEntityOfPage": "http://localhost:4000/2009/03/16/alt-net-fr-debat-mvc-compte-rendu/",
+  "headline": "ALT.Net FR",
+  "datePublished": "2009-03-16T10:04:00+01:00",
+  "dateModified": "2009-03-16T10:04:00+01:00",
+  "description": "C’est jeudi que notre petit débat Alt.net FR sur MVC avait lieu. Nous nous sommes donc retrouvé à environ une bonne vingtaine de personnes dans le 8ème arron...",
   "author": {
     "@type": "Person",
     "name": "Vincent Bourdon"
@@ -896,7 +896,7 @@ pre {
 <main class="content" role="main">
   <article class="post">
     <div class="post-meta">
-      <h1 class="post-title">Rappel, Alt.net Paris</h1>
+      <h1 class="post-title">ALT.Net FR</h1>
     </div>
 
  
@@ -905,21 +905,74 @@ pre {
 
         <!-- Post Feature Image -->
    
+   
+   
+   <div class="flex">
+    <div class="fixed-header m1">
 
-   <p><a href="http://www.altnetfr.org/"><amp-img src="http://www.altnetfr.org/wp-content/themes/EntrepreneurPress/images/altnet.gif" alt="" layout="responsive"><noscript><img src="http://www.altnetfr.org/wp-content/themes/EntrepreneurPress/images/altnet.gif" alt=""></noscript></amp-img></a></p>
+      <amp-img src="https://farm5.staticflickr.com/4595/39343357032_fca666ce6b.jpg"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
+  
+   
 
-<p>La 12eme édition d’Alt.net Paris sera l’occasion de parler d’Entity Framework, avec une présentation de <a href="http://blogs.codes-sources.com/matthieu/default.aspx">Mathieu Mezil</a>. Cette rencontre aura lieu demain (le 22 avril) à 19h30 dans les locaux de <a href="http://www.winwise.fr/">Winwise</a> au 16 rue Gaillon, 75002 Paris.</p>
+   <p>C’est jeudi que notre petit débat Alt.net FR sur MVC avait lieu. Nous nous sommes donc retrouvé à environ une bonne vingtaine de personnes dans le 8ème arrondissement, avec pas mal de nouvelles têtes.
+Pour un sujet qui n’occupait que 4, 5 personnes au début sur les discussions google, il a finalement fait déplacer des foules (plus grosse réunion depuis les débuts de Alt.net France). Il nous à fallut revoir la disposition de la salle, avec plus de chaises pour ainsi former un grand cercle. La séance c’est déroulée sans projecteur et n’a malheureusement pas pu être enregistrée.</p>
 
-<p> </p>
+<p><amp-img src="https://farm5.staticflickr.com/4595/39343357032_fca666ce6b.jpg" alt="debat mvc" width="300" height="187" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4595/39343357032_fca666ce6b.jpg" alt="debat mvc" width="300" height="187"></noscript></amp-img></p>
 
-<p><strong>Si vous venez merci d’indiquer votre présence sur <a href="http://doodle.com/chi6rmib4t48g2mk">cette page</a> !</strong></p>
+<h1 id="introduction-au-mvc-">Introduction au MVC ?</h1>
 
-<p>Pour plus d’info : <a href="http://www.altnetfr.org/2009/04/02/altnet-paris-12-entity-framework/">http://www.altnetfr.org/2009/04/02/altnet-paris-12-entity-framework/</a></p>
+<p>Après une rapide présentation de chacun des participants, et un rappel par Julien, de l’esprit Alt.net, j’ai commencé en posant quelques questions d’ordre général pour permettre de mieux cibler les différents niveaux avec Asp.net MVC :</p>
+
+<p>A peine une dizaine de personnes ont déjà utilisé MVC, et la majorité d’entre eux ont commencé le développement web il y a assez longtemps (au moins avec du php/asp). La grande partie des personnes restantes était venues pour découvrir ou chercher un peu plus que la brève introduction des Techdays.
+Justement combien ont assisté à la séance des TechDays ? 5 à 6 personnes donc pas énormément de monde. Apparemment cette présentation aux TechDays n’a convaincue personne et les retours ne sont pas glorieux.
+Combien on déjà fait du WebForm ? Une bonne majorité environ 15 personnes (ouf ! )
+Nous proposons donc à Gauthier, qui a le plus d’expérience avec ce Design (compte tenu de l’absence de Symon), de refaire un récapitulatif du fonctionnement :</p>
+
+<ul>
+  <li>M : Model =&gt; entités métier, couche de service (WCF, etc.)</li>
+  <li>V : View =&gt; l’interface utilisateur</li>
+  <li>C : Controller =&gt; le point d’entrée unique qui décide quel modèle utiliser et dans quel vue.</li>
+</ul>
+
+<p>Julien complète ces explications par un schéma d’interaction entre ces différents tiers :
+CMV serait donc le nom le plus approprié en fait. Une Action du Controller est appelée grâce au nouveau module de Routing d’asp.net (une Action est par défaut une méthode public du controller). Cette méthode va récuperer les données de façon classique via vos services d’acces aux données puis les passer à la vue. Pour finir la méthode demande le rendu de la vue désirée.</p>
+
+<h1 id="pourquoi-mvc-">Pourquoi MVC ?</h1>
+<p>Alors que notre introduction aura pris un quart d’heure. La question de « pourquoi MVC ?» est rapidement venue sur le tapis. Un petit groupe (les dev Web) essayait de justifier l’utilisation de ce Design face au design WebForm d’asp.net. Je ne vais pas refaire le débat ici mais un avantage vu par quelqu’un pouvait être considéré comme un inconvénient pour un autre. Voici une petite liste des points évoqués (à vous de vous faire votre opinion)</p>
+
+<ul>
+  <li>Gestion de l’état (viewstate)</li>
+  <li>Postback</li>
+  <li>Le cycle de vie</li>
+  <li>Le debug</li>
+  <li>Les tests</li>
+  <li>Le html et js</li>
+  <li>Les contrôles</li>
+</ul>
+
+<h1 id="conclusion-">Conclusion :</h1>
+
+<p>Je vais reprendre le compte rendu de Robert pour conclure :</p>
+
+<blockquote>
+  <p>J’ai trouvez que le débat était très passionnant, mais un peu trop focalisé sûr l’aspect WebForms contre MVC (un débat un peu « troll » selon quelqu’un dont je ne dit pas le nom). Pour ma part, comme quelqu’un qui a jamais fait du ASP.NET MVC (ou autre MVC), mais qui a fait du ASP classique et WebForms, j’ai trouvé les arguments du côté MVC bon, mais je ne suis pas complètement convaincu. J’étais absolument d’accord avec la déclaration « on peut faire un logiciel merdique avec des WebForms et l’MVC », en revanche je pense qu’on peut faire un bon logiciel en utilisant MVC ou WebForms (je trouve que Subtext est un très bon « codebase », même si c’est en WebForms).
+J’étais un peu déçu que l’on n’ai pas parlé des view engines. Je cois que je arriverais à facilement comprendre les couches en C# sur le serveur, mais que les rendu du HTML risque de rapidement devenir bordelique. Même si l’HTML n’est pas un sujet très dure à comprendre je cois que ce n’est pas facile d’avoir une bonne organisation du code pour générer du HTML.
+J’étais étonné de voir au tant de monde, comme on a tout organisé à la dernière minute. J’étais un peu déçu qu’on n’ait pas vu Yann qui a animé notre forum.</p>
+</blockquote>
+
+<p>Il serait peut être bon de refaire une vraie réunion, avec présentation, pour rentrer dans la technique avec de bonnes démos, à vous de nous dire !</p>
 
     </section>
     <footer class="post-footer">
       <section class="share">
-        <a class="icon" href="https://twitter.com/intent/tweet?url=http://localhost:4000/2009/04/21/rappel-alt-net-paris-12-mercredi-19h30.ignore&text=Rappel%2C+Alt.net+Paris&via=Evilznet" target="_blank">
+        <a class="icon" href="https://twitter.com/intent/tweet?url=http://localhost:4000/2009/03/16/alt-net-fr-debat-mvc-compte-rendu&text=ALT.Net+FR&via=Evilznet" target="_blank">
           Share on
           <svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
 
@@ -957,7 +1010,7 @@ pre {
             </span>
           </p>
           <hr>
-          <p class="published">Published <time datetime="2009-04-21 09:35">21 Apr 2009</time></p>
+          <p class="published">Published <time datetime="2009-03-16 10:04">16 Mar 2009</time></p>
         </section>
       </div>
       <div class="isRight">
