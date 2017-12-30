@@ -4,11 +4,201 @@
     <title>Evilz blog</title>
     <description>Code for Human
 </description>
-    <link>https://www.evilznet.com/</link>
-    <atom:link href="https://www.evilznet.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Dec 2017 20:08:59 +0100</pubDate>
-    <lastBuildDate>Fri, 29 Dec 2017 20:08:59 +0100</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 30 Dec 2017 11:35:35 +0100</pubDate>
+    <lastBuildDate>Sat, 30 Dec 2017 11:35:35 +0100</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Du Fsharp à NewCrafts 2017</title>
+        <description>&lt;p&gt;J’ai eu la chance d’assister aux deux jours de la &lt;a href=&quot;http://ncrafts.io&quot;&gt;conférence NewCrafts de cette année&lt;/a&gt;.
+Sur les deux jours, nous avons pu assister à de nombreuses présentations très intéressantes,
+mais je vais ici m’intéresser aux sessions abordant du Fsharp et auxquelles j’ai pu participer.&lt;/p&gt;
+
+&lt;h2 id=&quot;scott-wlaschin---thirteen-ways-of-looking-at-a-turtle&quot;&gt;Scott Wlaschin - Thirteen ways of looking at a Turtle&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@ScottWlaschin&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4590/38677096634_9fa35623fb_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tout le monde se pose la même question en lisant le titre de la session : “Une tortue ? What …?”
+En fait Scott nous propose en utilisant l’image de cette tortue une API très simpliste permettant de tracer des traits.
+La “tortue” peut se déplacer en avant, tourner sur un angle donné et finalement dessiner ou non le trait pendant son déplacement.&lt;/p&gt;
+
+&lt;p&gt;Cette API de quatre méthodes peut sembler trop simple pour être vraiment intéressante, mais nous allons voir sa réalisation en utilisant 13 approches différentes.
+Cela va du modèle orienté objet classique, en passant par de l’actor model puis de l’event sourcing.&lt;/p&gt;
+
+&lt;p&gt;Je vous recommande fortement de jeter un coup d’œil, car même si le code est présenté en F#, cela reste applicable dans d’autres plateformes/langages.
+L’ensemble du contenu est en ligne sur &lt;a href=&quot;https://fsharpforfunandprofit.com/turtle/&quot;&gt;son fameux site&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;michel-grootjans-et-thomas-coopman--playing-with-projections&quot;&gt;Michel Grootjans et Thomas Coopman : Playing with projections&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@michelgrootjans @tcoopman&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;J’ai participé à un atelier, où nous avons joué avec des projections. 
+Lorsque l’on fait de l’event sourcing, il va souvent falloir relire et rejouer les événements d’une certaine façon, que ce soit pour retourner dans un état particulier ou pour faire des analyses, il y a souvent besoin de faire des transformations sur des paquets d’événements.&lt;/p&gt;
+
+&lt;p&gt;L’objectif de cet atelier était donc de travailler sur ces transformations qui sont appelées des Projections.
+Le domaine métier est relativement simple, mais possède déjà de nombreux types d’événements.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4681/24519809777_39e840ba0c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;J’avoue ne pas avoir fait l’exercice directement en F# mais en C# en utilisant pas mal de linq. Donc facilement portable en F#.
+D’ailleurs l’exercice est disponible dans de nombreux langages.&lt;/p&gt;
+
+&lt;p&gt;Je vous invite à regarder &lt;a href=&quot;https://github.com/michelgrootjans/playing_with_projections&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;evelina-gabasova---the-force-awakens&quot;&gt;Evelina Gabasova - The F#orce Awakens&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@evelgab&lt;/strong&gt;&lt;/p&gt;
+
+&lt;amp-youtube data-videoid=&quot;R10rPhpLvr8&quot; layout=&quot;responsive&quot; width=&quot;480&quot; height=&quot;270&quot;&gt;&lt;/amp-youtube&gt;
+
+&lt;p&gt;Après une introduction digne de la saga Star Wars, Evelina nous a présenté comment elle a réalisé une analyse autour des personnages en utilisant les scripts des sept films.&lt;/p&gt;
+
+&lt;p&gt;1) La première étape consistait à réussir à parser les différents scripts des films pour en extraire les noms des personnages. Elle a alors utilisé les scènes pour en déduire les personnages connectés.
+Cela ne s’est pas fait sans mal puisque chaque script possède un format différent et que certains personnages n’ont même pas de dialogue.&lt;/p&gt;
+
+&lt;p&gt;Pour cette première étape ce sont des regex et des active patterns qui ont été utilisés.&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Active pattern to parse the contents of the script&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[ 0-9]*(INT.|EXT.)[ A-Z0-9]&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^[/A-Z0-9]+[-]*[/A-Z0-9 ]*[-]*[/A-Z0-9 ]+$&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2) Deuxième étape : Analyser les données.&lt;/p&gt;
+
+&lt;p&gt;Evelina nous a montré ses différents &lt;a href=&quot;https://notebooks.azure.com/&quot;&gt;Azure notebook&lt;/a&gt; d’analyse.
+Ces notebooks, fortement inspirés de ceux disponibles depuis longtemps en Python, permettent de mélanger texte et code exécutable.
+Il est même possible d’utiliser la lib Fsharp.Data pour générer des graphiques plus ou moins complexes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4728/39355368362_eea1c8ed5d_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3) Troisième étape : Utiliser plusieurs apis publiques fournissant des informations supplémentaires sur Star Wars.
+Il s’agit principalement de l’api &lt;a href=&quot;http://swapi.co/API&quot;&gt;Swapi&lt;/a&gt;
+Elle fournit des détails sur de nombreux éléments de la saga et possède même les clients pour plusieurs langages.
+C’est Evelina qui a créé le client F#.&lt;/p&gt;
+
+&lt;p&gt;Pour cela elle a utilisé une fonctionnalité très puissante de F# : les Type Provider.
+Une simple référence vers le package JsonProvider a créé deux constantes contenant une json d’exemple : une avec les champs minimum et l’autre complète. Le provider se charge de créer dynamiquement un modèle.&lt;/p&gt;
+
+&lt;p&gt;Elle a complété sa démo en croisant des données récupérées d’IMDB en utilisant la même technique, mais un provider différent : ‘HtmlProvider’ qui est lui capable de récupérer un tableau de données pour notre exemple.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4642/39385329141_3591e4cb6e_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pour tous les détails, rendez-vous sur &lt;a href=&quot;http://evelinag.com/blog/2016/01-25-social-network-force-awakens/&quot;&gt;son blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Que faut-il retenir de tout ça ? 
+Plusieurs points sont intéressants à garder en tête :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;F# permet de très vite et avec peu de code prototyper l’analyse de données.
+les Type Provider et les notebooks sont aussi d’une grande aide.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Commencer par analyser un ensemble de données connu avant de se lancer sur des analyses à grande échelle.
+Bien que le domaine lié à Star Wars puisse paraître geek, c’est surtout un domaine connu par beaucoup de monde, et cela permet de s’apercevoir rapidement des résultats incohérents.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;gien-verschatse---playing-nice-together-how-to-use-f-in-a-brownfield-project&quot;&gt;Gien Verschatse - Playing nice together: how to use F# in a brownfield project&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@selketjah&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4732/39385329281_ae3fc96c21_n.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;J’attendais cette session avec impatience. Gien, développeuse Belge pour des jeux de casino en ligne, nous a fait un retour d’expérience sur son intégration de développement F# au sein d’un existant en C#.&lt;/p&gt;
+
+&lt;p&gt;Elle a donc passé en revue les différentes fonctionnalités qui pouvaient ou non être utilisées depuis un programme C# voire VB.net.&lt;/p&gt;
+
+&lt;p&gt;J’ai refait moi-même quelques tests suite à cette présentation et &lt;a href=&quot;https://github.com/evilz/Fsharp-from-csharp&quot;&gt;mon code est disponible ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ce que je retiens surtout de ce retour d’expérience, c’est le courage de Gien à s’être lancée dans l’aventure F#, dans le sens où il est difficile (pour ne pas dire impossible) de trouver des missions en F#. C’est donc à nous d’introduire au fur et à mesure cette techno si cela nous semble adéquat.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;krzysztof-cieslak---hacking-f-in-js-ecosystem&quot;&gt;Krzysztof Cieslak - Hacking F# in JS ecosystem&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@k_cieslak&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4725/39355368152_ff3dc158a0_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dans cette session, Krzysztof nous présente le dernier Framework à la mode dans la communauté FSharp, &lt;code class=&quot;highlighter-rouge&quot;&gt;Fable&lt;/code&gt;.
+Fable est un compilateur F# vers JavaScript qui s’appuie sur Babel.&lt;/p&gt;
+
+&lt;p&gt;Fable va prendre votre code F#, en extraire un AST et le fournir à Babel qui fait le reste du travail pour obtenir un code Js pour Navigateur ou NodeJS.
+On peut alors se poser la question : Mais pourquoi ?
+La réponse simple serait “parce qu’on peut !” ou encore “pourquoi pas !”&lt;/p&gt;
+
+&lt;p&gt;Mais il y a de vrais avantages à utiliser F# comme langage principal :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Une approche fonctionnelle&lt;/li&gt;
+  &lt;li&gt;Tout est fortement typé : Record type et Union Type&lt;/li&gt;
+  &lt;li&gt;Toutes les fonctionnalités avancées : pattern matching, Computation Expression&lt;/li&gt;
+  &lt;li&gt;Réutilisation de code côté serveur&lt;/li&gt;
+  &lt;li&gt;Pragmatique&lt;/li&gt;
+  &lt;li&gt;Communauté&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Il nous a ensuite présenté l’outil à travers plusieurs démos dans le navigateur avec du JS très simple, mais aussi une démo react.&lt;/p&gt;
+
+&lt;p&gt;Il faut aussi savoir que Fable permet la génération de sourcemap ; il est donc possible de déboguer le code F# depuis la fenêtre de DevTool de Chrome !&lt;/p&gt;
+
+&lt;p&gt;La dernière version de Fable est utilisable directement depuis la cli dotnet et permet donc d’initialiser rapidement un projet ou de démarrer un serveur : 
+ dotnet fable start&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://fable.io/blog/Introducing-1-0-beta.html&quot;&gt;Plus d’infos sur ce billet du blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;De plus si comme moi vous vous demandez comment jouer avec du code d’une librairie externe et comment récupérer tous les types un peu comme le fait Typescript, les devs de la communauté ont pensé à tout et ont créé cet outil : &lt;a href=&quot;https://www.npmjs.com/package/ts2fable&quot;&gt;ts2fable&lt;/a&gt;, qui permet de convertir un type definition de Typescript en Fsharp.&lt;/p&gt;
+
+&lt;p&gt;Vous trouverez plus d’informations et de démos sur &lt;a href=&quot;http://fable.io/&quot;&gt;le site officiel&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;mathias-brandewinder---serverless-f-with-azure-functions-fsibot-goes-nano-services&quot;&gt;Mathias Brandewinder - Serverless F# with Azure Functions: fsibot goes nano-services&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@brandewinder&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4644/39385329341_8e1455883c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Le Professeur Tournesol nous a très rapidement montré comment mettre en place grâce aux Azure Functions un système Server Less (ou presque) en F#.&lt;/p&gt;
+
+&lt;p&gt;Ce que j’apprécie principalement sur le système des Azure Functions c’est l’interface en ligne simple et agréable à utiliser. Il est vraiment facile de créer une nouvelle fonction et de définir le trigger qui va la déclencher. 
+Il y a déjà pas mal de triggers disponibles et nous avons pu voir l’utilisation d’un trigger basé sur une horloge et d’un autre sur des messages queue.&lt;/p&gt;
+
+&lt;p&gt;      &lt;/p&gt;
+
+&lt;p&gt;Le FsiBot de Mathias utilise ces deux triggers. L’application regarde à intervalles réguliers les tweets d’un channel comportant du F#, compile et s’exécute.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4599/38677096784_1554bbcf02_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mathias-brandewinder/fsibot-serverless&quot;&gt;Le code est disponible ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://brandewinder.com/2017/04/01/azure-function-app-diagram/&quot;&gt;Et un petit billet explicatif ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;et-pour-conclure&quot;&gt;Et pour conclure&lt;/h2&gt;
+
+&lt;p&gt;Deux journées finalement assez riches pour la communauté F#. Et même si les 45min de présentation ne permettent pas de rentrer dans le détail, cela a l’avantage de présenter la technologie et les possibilités du langage aux développeurs.
+Je vous invite donc à regarder de près ce langage .net au travers des différents liens fournis ainsi que sur http://fsharp.org et &lt;a href=&quot;https://github.com/fsprojects/awesome-fsharp&quot;&gt;awesome-fsharp&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/2017/06/07/Du-fsharp-a-newcraft-2017/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/06/07/Du-fsharp-a-newcraft-2017/</guid>
+        
+        <category>dotnet</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
     
       <item>
         <title>Introduction à l'authentification OAuth2 avec ASPNET Core et GitHub</title>
@@ -616,8 +806,8 @@ La requête nous renvoie une réponse en json dans laquelle on va piocher les in
 &lt;p&gt;Retrouvez l’ensemble du code sur &lt;a href=&quot;https://github.com/SoatGroup/aspnetcore-oauth2&quot;&gt;le GitHub de SOAT&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Mon, 24 Oct 2016 00:00:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2016/10/24/introduction-oauth2-aspnet/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2016/10/24/introduction-oauth2-aspnet/</guid>
+        <link>http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</guid>
         
         <category>dotnet</category>
         
@@ -838,8 +1028,8 @@ Bref pour conclure je dirais “Wait and See”&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 17 Jun 2016 00:00:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/</guid>
+        <link>http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</guid>
         
         <category>dotnet</category>
         
@@ -859,8 +1049,8 @@ Laissez les touches enfoncées pendant de le boot.&lt;/p&gt;
 &lt;/amp-gist&gt;
 </description>
         <pubDate>Sun, 01 May 2016 00:00:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2016/05/01/mac-startup-options/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2016/05/01/mac-startup-options/</guid>
+        <link>http://localhost:4000/2016/05/01/mac-startup-options/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/01/mac-startup-options/</guid>
         
         <category>Mac</category>
         
@@ -883,8 +1073,8 @@ Cette habitude je l’ai aussi sur les PC et Apple a ajoutée la fonctionnalité
 &lt;p&gt;c’est ici : &lt;a title=&quot;Zoom on DoubleClick&quot; href=&quot;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&quot; target=&quot;_blank&quot;&gt;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Nov 2013 16:13:00 +0100</pubDate>
-        <link>https://www.evilznet.com/2013/11/05/zoom-sur-le-contenu-dans-chrome/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2013/11/05/zoom-sur-le-contenu-dans-chrome/</guid>
+        <link>http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</guid>
         
         <category>chrome</category>
         
@@ -925,8 +1115,8 @@ Même si Miguel de Icaza et son équipe à fait du bon boulot, son implémentati
 De plus, notez que PHP enregistre de manière interne et intégrale les valeurs : cette représentation dépend de la machine. Si vous essayez d’enregistrer une valeur trop grande, elle risque d’être convertie et de donner lieu à des effets de bords vicieux.&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Aug 2013 07:21:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</guid>
+        <link>http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</guid>
         
         
         <category>dataconvert</category>
@@ -961,8 +1151,8 @@ Je viens de créer un repository sur GitHub pour mettre les algos que j’ai uti
 &lt;p&gt;Amusez vous bien ;p&lt;/p&gt;
 </description>
         <pubDate>Tue, 27 Aug 2013 23:03:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2013/08/27/developpez-un-probleme-tous-les-jours/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2013/08/27/developpez-un-probleme-tous-les-jours/</guid>
+        <link>http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</guid>
         
         
         <category>github</category>
@@ -989,8 +1179,8 @@ Je viens de créer un repository sur GitHub pour mettre les algos que j’ai uti
 Coté sécurité c’est pas le top, mais c’est juste des papiers qui normalement trainent sur le bureau :p&lt;/p&gt;
 </description>
         <pubDate>Tue, 23 Jul 2013 22:24:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2013/07/23/stockez-vos-factures-et-autres-papiers/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2013/07/23/stockez-vos-factures-et-autres-papiers/</guid>
+        <link>http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</guid>
         
         <category>outil</category>
         
@@ -1048,8 +1238,8 @@ De plus via la propriété InputScope nous allons pouvoir spécifier un contexte
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 19 Dec 2011 15:54:00 +0100</pubDate>
-        <link>https://www.evilznet.com/2011/12/19/lautocompletion-sur-windows-phone-7/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2011/12/19/lautocompletion-sur-windows-phone-7/</guid>
+        <link>http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</link>
+        <guid isPermaLink="true">http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</guid>
         
         <category>autocompletion</category>
         
@@ -1394,8 +1584,8 @@ Quelques nouvelles task ont été rajoutées pour nous simplifier la vie.&lt;/p&
 &lt;p&gt;Il sera aussi possible d’utiliser un service de diffusion privée toujours sur le même principe un lien sera fourni au développeur de l’application qui ne sera pas visible directement sur le marketplace. Il suffira alors de donner le lien aux différents clients.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jun 2011 10:58:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
+        <link>http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
+        <guid isPermaLink="true">http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
         
         
         <category>Informatique</category>
@@ -1405,121 +1595,6 @@ Quelques nouvelles task ont été rajoutées pour nous simplifier la vie.&lt;/p&
         <category>Microsoft</category>
         
         <category>windows phone</category>
-        
-      </item>
-    
-      <item>
-        <title>Microsoft WebCamp HTML5</title>
-        <description>&lt;p&gt;Ce mercredi 16 mars j’ai assisté au WebCamp HTML5 chez Microsoft présenté par David Rousset, Aurélien Verla, Glovanni Clément et Sébastien Doncker.
-Je ne vais pas vous rapporter l’ensemble des infos qui nous ont été présentées, je vais sélectionner ce qui me semble le plus important et en profiter pour y intégrer mon point de vue (complètement personnel).&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;que-faut-il-comprendre-par-html5-&quot;&gt;Que faut-il comprendre par HTML5 ?&lt;/h2&gt;
-&lt;p&gt;Quand on entend parler d’HTML5 il est souvent sous-entendu HTML5 et ses amis. Il s’agit finalement d’un ensemble de techno/produits utilisés pour le Web dans les navigateurs ‘« moderne ‘». On y trouve :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Html5 : le langage de balisage (markup)&lt;/li&gt;
-  &lt;li&gt;CSS3 : Feuille de Style&lt;/li&gt;
-  &lt;li&gt;SVG 1.1 : graphisme vectoriel&lt;/li&gt;
-  &lt;li&gt;WOFF : un format de police de caractère comprimée&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;ou-en-est-on-&quot;&gt;Ou en est-on ?&lt;/h2&gt;
-
-&lt;p&gt;Avant de donner l’état d’avancement d’HTML5, un bref rappel sur ce qui s’est passé ces dernières années est nécessaire :&lt;/p&gt;
-
-&lt;p&gt;Le W3C, groupe connu de tous, qui s’occupent de spécifier les standards Web, travaillait depuis bien longtemps sur une version XHTML2 devant succédé à XHTML1.1 ou HTML4.&lt;/p&gt;
-
-&lt;p&gt;Malheureusement la direction choisie pour le développement de ces spécifications ne correspondait pas à la vision de l’ensemble, bien que je pense que cela ne sera jamais possible. Le problème majeur de cette nouvelle version étant la non-rétrocompatibilité avec les versions précédentes, sous-entendu ‘« ton site, tu le supprimes  et tu recommences ‘». Sur le principe je ne trouve pas ça déconnant, beaucoup de site son revu complètement au niveau front de toute façon. 
-Le second problème c’est que le working group chargé y travaille depuis longtemps, bien trop longtemps.  C’est alors qu’un nouveau groupe (de rebelles) nommé le Web HyperText Application Technology Working Group (ou WHATWG) se forme pour travailler sur une nouvelle version de HTML. C’est finalement en avril 2007 que les spécifications de ce nouveau groupe sont adoptées par le W3C comme spécification de départ pour le HTML5 ! Mais l’histoire est loin d’être finie, le 2 juillet 2009 les crédits accordés pour le working group XHTML2 ne sont plus renouvelés, il est donc clair maintenant que l’avenir se tourne vers HTML5. Le compte de fée aurait pu finir ainsi en Happy End, mais c’était sans prend en compte que l’existence de deux groupes est toujours présente. Et c’est ainsi que l’on rentre dans une lutte acharné en le W3C et le WHATWG, dont la façon d’aborder la problématique est légèrement différente.&lt;/p&gt;
-
-&lt;p&gt;Le W3C c’est :
-442 membres, dont pas mal de Microsoft.
-La problématique actuelle de Microsoft c’est de réussir à faire migrer ses clients (PME et grand compte) vers des navigateurs actuels (IE9 pour ne pas le citer). Ils ont d’ailleurs lancé une initiative pour arriver à l’éradication d’IE6 &lt;a href=&quot;http://ie6countdown.com/&quot; target=&quot;_blank&quot;&gt;http://ie6countdown.com/&lt;/a&gt;. On comprend très bien cette problématique ou dans certaine boite des applications entières reposent sur l’utilisation de composant ActiveX ou d’autres bidouilles farfelues n’étant plus supportées dans nos navigateurs actuel. Ok, certes, mais y a un moment où il faut dire stop. On sait bien que IE6 à son lot de bugs, et qu’il n’est plus supporté, alors s’il vous plait messieurs ou mesdames les DSI, faites migrer votre parc, jetez vos applications mal développées qui ne sont pas ouvertes et qui vous contraigne sans arrêt.&lt;/p&gt;
-
-&lt;p&gt;De l’autre côté nous retrouvons le WHATWG, dont l’acteur principal est Ian Hickson qui est maintenant chez Google. Ian est accompagné de plusieurs personnes de chez Apple, Mozilla Foundation, et Opera Software. Le groupe est nettement plus petit. Et toutes les entreprises citées précédemment n’ont aucun complexe à mettre régulièrement leurs navigateurs à jours. Et c’est donc tout naturellement qu’ils ont créé une spécification HTML nommée ‘« living standard ‘», dont le principe est dévoluer constamment, c’est très agile dans le fond :p. (&lt;a href=&quot;http://www.alsacreations.com/actu/lire/1171-ne-mappelez-plus-html-5.html&quot; target=&quot;_blank&quot;&gt;http://www.alsacreations.com/actu/lire/1171-ne-mappelez-plus-html-5.html&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;Conclusion on se retrouve avec 2 spécifications à 2 vitesses.&lt;/p&gt;
-
-&lt;h2 id=&quot;mais-alors-html5-concrètement-cest-quoi-&quot;&gt;Mais alors HTML5 concrètement c’est quoi ?&lt;/h2&gt;
-
-&lt;p&gt;Concrètement HTML5 c’est principalement un gros buzz commercial pour vendre du navigateur. Les spécifications W3C sont toujours en Draft et peuvent encore évoluer, en face les spécifications WHATWG ne font que ça ! Au finale chaque navigateur décide d’implémenter les fonctionnalités qu’ils veulent et de la façon qu’ils pensent être correcte.
-Même si certaines dates ont été annoncées, par exemple : version final du draft W3C pour mai 2011 (donc dans 2 mois) la réalité prouve le contraire, et MS pense à voir une version finale vers 2014, d’autres mauvaises langues (dont je fais partie) ont lancé un pavé dans la marre en annonçant une possible version finale en 2022.&lt;/p&gt;
-
-&lt;h2 id=&quot;bon-alors-on-peut-faire-quoi-&quot;&gt;Bon alors on peut faire quoi ?&lt;/h2&gt;
-
-&lt;p&gt;On peut commencer à regarder, et si l’on veut vraiment se lancer et créer un site compatible sur tous les navigateurs il faut faire le tri dans les fonctionnalités en regardant diverses matrices :&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://a.deveria.com/caniuse/&quot; target=&quot;_blank&quot;&gt; http://a.deveria.com/caniuse/&lt;/a&gt;
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)&quot; target=&quot;_blank&quot;&gt; http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)&lt;/a&gt;
-&lt;a href=&quot;http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers&quot; target=&quot;_blank&quot;&gt; http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers&lt;/a&gt;
-&lt;a href=&quot;http://rgaucher.info/pub/whatwg_html5_implementations.html&quot;&gt; http://rgaucher.info/pub/whatwg_html5_implementations.html&lt;/a&gt;
-Pour vous donner une idée de l’état prenons une fonctionnalité en exemple :
-La balise  :
-Cette nouvelle balise permet d’afficher simplement un lecteur de vidéo directement géré par le navigateur. Génial ! Et au niveau des codecs supportés ? Arf la question qui fache. Le W3C ne donne aucune précision sur ce point, du coup on se retrouve avec trois codecs différents qui ne sont pas supportés par tous les navigateurs.
-Au début Apple et les autres sont rapidement parti sur le codec H264, malheureusement ce codec pose le problème des royalties. Et nos amis de Mozilla ne sont pas pour payer le moindre centime, ils décident alors de partir sur Ogg Theora, puis Google nous sort son VP8 appelé maintenant WebM. Au final, pour avoir une vidéo supportée par tous, il faut l’encoder plusieurs fois. On retrouve un le même problème pour le côté audio, mp3 = royalties.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/HTML5_video#cite_note-21&quot; target=&quot;_blank&quot;&gt; http://en.wikipedia.org/wiki/HTML5_video#cite_note-21&lt;/a&gt;
-&lt;a href=&quot;http://www.alsacreations.com/article/lire/1125-introduction-balise-video-html5-mp4-h264-webm-ogg-theora.html&quot; target=&quot;_blank&quot;&gt; http://www.alsacreations.com/article/lire/1125-introduction-balise-video-html5-mp4-h264-webm-ogg-theora.html&lt;/a&gt;
-&lt;a href=&quot;http://diveintohtml5.org/video.html&quot; target=&quot;_blank&quot;&gt; http://diveintohtml5.org/video.html&lt;/a&gt;
-Se pose aussi le problème de la personnalisation du player, tous les navigateurs ne supportent pas exactement le même niveau de personnalisation. Et cela risque de demander un peu de JavaScript.
-&lt;a href=&quot;http://dev.opera.com/articles/view/custom-html5-video-player-with-css3-and-jquery/&quot; target=&quot;_blank&quot;&gt; http://dev.opera.com/articles/view/custom-html5-video-player-with-css3-and-jquery/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Et quid des performances ? Pour une video FullHD une accélération matérielle peut être intéressante, il semble actuellement qu’IE9 soit un peu en avance sur ce sujet.
-La technologie avancées de streaming comme le Smooth Streaming de Microsoft ou encore la gestion des DRMs n’est pas supportée. Il est donc intéressant dans ce cas de faire un fallback de Silverlight ou Flash vers HTML5.
-Vous l’aurez compris tout n’est pas si beau en HTML5 et l’on est loin du ‘« write once work everywere ‘». Mais il faut commencer à y aller pas à pas. Les nouvelles balises offertes par html5 peuvent donner une meilleure accessibilité et une meilleure indexation des moteurs de recherche&lt;/p&gt;
-
-&lt;p&gt;(&amp;lt;nav&amp;gt;,&amp;lt;section&amp;gt;,&amp;lt;aside&amp;gt;,&amp;lt;header&amp;gt;,&amp;lt;footer&amp;gt;,&amp;lt;nav&amp;gt;,&amp;lt;dialog&amp;gt;,&amp;lt;figure&amp;gt;)&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm5.staticflickr.com/4593/38633731884_877dbc5e00_n.jpg&quot; width=&quot;320&quot; height=&quot;160&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Les CSS3 donnent plus de possibilité de personnalisation du rendu visuel particulièrement via les média queries qui permet une adaptation accrue au support. C’est un peu moins de bidouille pour faire une ombre ou une bordure aux angles arrondis.&lt;/p&gt;
-
-&lt;p&gt;WOFF, qui est une enveloppe de polices devrait permettre rapidement de pourvoir utiliser n’importe quelle Font sur l’ensemble des navigateurs, j’attend de voir sur du mobile par exemple
-&lt;a href=&quot;http://people.mozilla.org/~jkew/woff/woff-spec-latest.html&quot; target=&quot;_blank&quot;&gt; http://people.mozilla.org/~jkew/woff/woff-spec-latest.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;les-tests&quot;&gt;Les tests&lt;/h2&gt;
-
-&lt;p&gt;Je vous ai donné des liens vers des matrices, mais finalement sont-elles justes ?
-Bonne question c’est encore un point faible dans le processus du W3C. Actuellement ce sont les développeurs des navigateurs qui créer les tests. Et vous savez quoi, ils arrivent toujours à passer 100% des tests qu’ils fournissent.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/SunSpider/Default.html&quot;&gt;Webkit SunSpider Results&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/Acid3/Default.html&quot;&gt;ACID3 Results&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ie.microsoft.com/testdrive/Benchmarks/CSS3Info/Default.html&quot;&gt;CSS3.info Selectors Test&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://samples.msdn.microsoft.com/ietestcenter/&quot;&gt;IE Testing Center&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://html5test.com/&quot;&gt;http://html5test.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Ils n’y a pas de bon ou mauvais tests dans la liste de ses liens, il y a surtout un manque de travail du côté du W3C, c’est à eux de fixer les règles et une règle peut donner plusieurs tests. Ils sembleraient que 100000 tests soit nécessaire uniquement pour la partie HTML. Pour l’instant Microsoft a fourni 5899 tests.&lt;/p&gt;
-
-&lt;h2 id=&quot;loutillage&quot;&gt;L’outillage&lt;/h2&gt;
-
-&lt;p&gt;J’ai appris une bonne nouvelle, le SP1 de Visual Studio 2010 permet le support de HTML5 ! Auto complétion, coloration et validation !
-Dreamweaver CS5 a aussi le support
-A par ça les outils sont encore rares, au pire il vous reste Notepad++ ;)&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Je vais terminer là-dessus.
-HTML5 sera l’avenir mais pas encore le présent, on est encore dans l’innovation et sur des fonctionnalités instables, qui peuvent changer à tout moment (ex: les web socket).
-Beaucoup de JavaScript est encore nécessaire et la compatibilité cross plateforme n’est toujours pas là.
-On est donc loin de se séparer complètement de Silverlight ou de Flash, qui évoluent très très rapidement et qui seront deux techno certainement hallucinantes d’ici 2014. C’est finalement une guerre entre constructeurs au détriment des utilisateurs qui est encore en train de se dérouler, cela rappel le combat HD-DVD contre Blu-ray. La standardisation unique n’est peut-être tout simplement pas humainement atteignable.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Mar 2011 13:17:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2011/03/29/microsoft-webcamp-html5/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2011/03/29/microsoft-webcamp-html5/</guid>
-        
-        
-        <category>css3</category>
-        
-        <category>html5</category>
-        
-        <category>Informatique</category>
-        
-        <category>Microsoft</category>
         
       </item>
     
