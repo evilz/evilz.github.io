@@ -4,10 +4,10 @@
     <title>Evilz blog</title>
     <description>Code for Human
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 30 Dec 2017 11:35:35 +0100</pubDate>
-    <lastBuildDate>Sat, 30 Dec 2017 11:35:35 +0100</lastBuildDate>
+    <link>https://www.evilznet.com/</link>
+    <atom:link href="https://www.evilznet.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 30 Dec 2017 12:03:00 +0100</pubDate>
+    <lastBuildDate>Sat, 30 Dec 2017 12:03:00 +0100</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -190,8 +190,8 @@ Il y a déjà pas mal de triggers disponibles et nous avons pu voir l’utilisat
 Je vous invite donc à regarder de près ce langage .net au travers des différents liens fournis ainsi que sur http://fsharp.org et &lt;a href=&quot;https://github.com/fsprojects/awesome-fsharp&quot;&gt;awesome-fsharp&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
-        <link>http://localhost:4000/2017/06/07/Du-fsharp-a-newcraft-2017/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/06/07/Du-fsharp-a-newcraft-2017/</guid>
+        <link>https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</guid>
         
         <category>dotnet</category>
         
@@ -806,8 +806,8 @@ La requête nous renvoie une réponse en json dans laquelle on va piocher les in
 &lt;p&gt;Retrouvez l’ensemble du code sur &lt;a href=&quot;https://github.com/SoatGroup/aspnetcore-oauth2&quot;&gt;le GitHub de SOAT&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Mon, 24 Oct 2016 00:00:00 +0200</pubDate>
-        <link>http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/10/24/introduction-oauth2-aspnet/</guid>
+        <link>https://www.evilznet.com/2016/10/24/introduction-oauth2-aspnet/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2016/10/24/introduction-oauth2-aspnet/</guid>
         
         <category>dotnet</category>
         
@@ -1028,8 +1028,8 @@ Bref pour conclure je dirais “Wait and See”&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 17 Jun 2016 00:00:00 +0200</pubDate>
-        <link>http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/06/17/PrivateEye-Profiling-as-Code/</guid>
+        <link>https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/</guid>
         
         <category>dotnet</category>
         
@@ -1049,8 +1049,8 @@ Laissez les touches enfoncées pendant de le boot.&lt;/p&gt;
 &lt;/amp-gist&gt;
 </description>
         <pubDate>Sun, 01 May 2016 00:00:00 +0200</pubDate>
-        <link>http://localhost:4000/2016/05/01/mac-startup-options/</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/05/01/mac-startup-options/</guid>
+        <link>https://www.evilznet.com/2016/05/01/mac-startup-options/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2016/05/01/mac-startup-options/</guid>
         
         <category>Mac</category>
         
@@ -1073,8 +1073,8 @@ Cette habitude je l’ai aussi sur les PC et Apple a ajoutée la fonctionnalité
 &lt;p&gt;c’est ici : &lt;a title=&quot;Zoom on DoubleClick&quot; href=&quot;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&quot; target=&quot;_blank&quot;&gt;https://chrome.google.com/webstore/detail/zoom-on-doubleclick/jkmalmidnicnnmceielaelokkdmmgkcb&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Nov 2013 16:13:00 +0100</pubDate>
-        <link>http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</link>
-        <guid isPermaLink="true">http://localhost:4000/2013/11/05/zoom-sur-le-contenu-dans-chrome/</guid>
+        <link>https://www.evilznet.com/2013/11/05/zoom-sur-le-contenu-dans-chrome/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2013/11/05/zoom-sur-le-contenu-dans-chrome/</guid>
         
         <category>chrome</category>
         
@@ -1115,8 +1115,8 @@ Même si Miguel de Icaza et son équipe à fait du bon boulot, son implémentati
 De plus, notez que PHP enregistre de manière interne et intégrale les valeurs : cette représentation dépend de la machine. Si vous essayez d’enregistrer une valeur trop grande, elle risque d’être convertie et de donner lieu à des effets de bords vicieux.&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Aug 2013 07:21:00 +0200</pubDate>
-        <link>http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</link>
-        <guid isPermaLink="true">http://localhost:4000/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</guid>
+        <link>https://www.evilznet.com/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2013/08/28/equivalent-de-pack-et-unpack-phpperl-en-net/</guid>
         
         
         <category>dataconvert</category>
@@ -1151,8 +1151,8 @@ Je viens de créer un repository sur GitHub pour mettre les algos que j’ai uti
 &lt;p&gt;Amusez vous bien ;p&lt;/p&gt;
 </description>
         <pubDate>Tue, 27 Aug 2013 23:03:00 +0200</pubDate>
-        <link>http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</link>
-        <guid isPermaLink="true">http://localhost:4000/2013/08/27/developpez-un-probleme-tous-les-jours/</guid>
+        <link>https://www.evilznet.com/2013/08/27/developpez-un-probleme-tous-les-jours/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2013/08/27/developpez-un-probleme-tous-les-jours/</guid>
         
         
         <category>github</category>
@@ -1179,8 +1179,8 @@ Je viens de créer un repository sur GitHub pour mettre les algos que j’ai uti
 Coté sécurité c’est pas le top, mais c’est juste des papiers qui normalement trainent sur le bureau :p&lt;/p&gt;
 </description>
         <pubDate>Tue, 23 Jul 2013 22:24:00 +0200</pubDate>
-        <link>http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</link>
-        <guid isPermaLink="true">http://localhost:4000/2013/07/23/stockez-vos-factures-et-autres-papiers/</guid>
+        <link>https://www.evilznet.com/2013/07/23/stockez-vos-factures-et-autres-papiers/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2013/07/23/stockez-vos-factures-et-autres-papiers/</guid>
         
         <category>outil</category>
         
@@ -1238,8 +1238,8 @@ De plus via la propriété InputScope nous allons pouvoir spécifier un contexte
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 19 Dec 2011 15:54:00 +0100</pubDate>
-        <link>http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</link>
-        <guid isPermaLink="true">http://localhost:4000/2011/12/19/lautocompletion-sur-windows-phone-7/</guid>
+        <link>https://www.evilznet.com/2011/12/19/lautocompletion-sur-windows-phone-7/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2011/12/19/lautocompletion-sur-windows-phone-7/</guid>
         
         <category>autocompletion</category>
         
@@ -1584,8 +1584,8 @@ Quelques nouvelles task ont été rajoutées pour nous simplifier la vie.&lt;/p&
 &lt;p&gt;Il sera aussi possible d’utiliser un service de diffusion privée toujours sur le même principe un lien sera fourni au développeur de l’application qui ne sera pas visible directement sur le marketplace. Il suffira alors de donner le lien aux différents clients.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jun 2011 10:58:00 +0200</pubDate>
-        <link>http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
-        <guid isPermaLink="true">http://localhost:4000/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
+        <link>https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
         
         
         <category>Informatique</category>
