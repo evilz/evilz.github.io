@@ -1,0 +1,134 @@
+---
+layout: default
+---
+<div class="feature"></div>
+<main class="content" role="main">
+  <article class="post">
+    <div class="post-meta">
+      <h1 class="post-title">{{ page.title }}</h1>
+    </div>
+
+ 
+    <section class="post-content">
+      <a name="topofpage"></a>
+
+        <!-- Post Feature Image -->
+   {% if page.feature %}
+   {% capture feature %}{{ page.feature }}{% endcapture %}
+   {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
+   <div class="flex">
+    <div class="fixed-header m1">
+
+      <amp-img src="{{ feature }}"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
+  
+   {% endif %}
+
+   {{ content | markdownify | amp_images }}
+    </section>
+
+    <footer class="post-footer">
+      <section class="share">
+        <a class="icon" href="https://twitter.com/intent/tweet?url={{ site.url }}{{ page.id }}&text={{page.title | cgi_escape}}&via={{ site.twitter_username }}" target="_blank">
+          Share on
+          {% include icon-twitter.svg %}
+        </a>
+
+        <a class="subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}"> <span class="tooltip"> <i class="fa fa-rss"></i> RSS feed.</span></a>
+      </section>
+    </footer>
+    <div class="bottom-teaser cf">
+      <div class="isLeft">
+        <h5 class="index-headline featured"><span>Written by</span></h5>
+        <section class="author">
+          <div class="author-image"></div>
+          <h4>{{ site.name }}</h4>
+          <p class="bio">{{site.bio}}</p>
+
+          <p>
+            <span>
+              {% if site.github_username %}
+                {% include icon-github.html username=site.github_username %}
+              {% endif %}
+            </span>
+
+            <span>
+              {% if site.twitter_username %}
+                {% include icon-twitter.html username=site.twitter_username %}
+              {% endif %}
+            </span>
+          </p>
+          <hr>
+          <p class="published">Published <time datetime="{{ page.date | date: "%F %R" }}">{{ page.date | date_to_string }}</time></p>
+        </section>
+      </div>
+      <div class="isRight">
+          <h5 class="index-headline featured"><span>A lire aussi</span></h5>
+
+          <footer class="site-footer">
+              <section class="poweredby">
+                
+ <!-- Pagination links -->
+ <div class="PageNavigation">
+    {% if page.previous.url %}
+      <a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+      {% if page.previous.feature %}
+        {% capture feature %}{{ page.previous.feature }}{% endcapture %}
+        {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="{{ feature }}"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+    {% endif %}
+
+      
+    {% endif %}
+    
+    {% if page.next.url %}
+      <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+        {% if page.next.feature %}
+        {% capture feature %}{{ page.next.feature }}{% endcapture %}
+        {% unless feature contains 'http://' or feature contains 'https://' %}{% capture feature %}{{ site.url }}/{{ feature }}{% endcapture %}{% endunless %}
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="{{ feature }}"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+        {% endif %}
+
+      
+    {% endif %}
+  </div>
+
+              </section>
+             
+             
+            
+            </footer>
+
+       
+
+        
+      </div>
+    </div>
+  </article>
+</main>
