@@ -6,9 +6,199 @@
 </description>
     <link>https://www.evilznet.com/</link>
     <atom:link href="https://www.evilznet.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 31 Dec 2017 16:20:44 +0100</pubDate>
-    <lastBuildDate>Sun, 31 Dec 2017 16:20:44 +0100</lastBuildDate>
+    <pubDate>Sun, 31 Dec 2017 18:05:19 +0100</pubDate>
+    <lastBuildDate>Sun, 31 Dec 2017 18:05:19 +0100</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Du Fsharp à NewCrafts 2017</title>
+        <description>&lt;p&gt;J’ai eu la chance d’assister aux deux jours de la &lt;a href=&quot;http://ncrafts.io&quot;&gt;conférence NewCrafts de cette année&lt;/a&gt;.
+Sur les deux jours, nous avons pu assister à de nombreuses présentations très intéressantes,
+mais je vais ici m’intéresser aux sessions abordant du Fsharp et auxquelles j’ai pu participer.&lt;/p&gt;
+
+&lt;h2 id=&quot;scott-wlaschin---thirteen-ways-of-looking-at-a-turtle&quot;&gt;Scott Wlaschin - Thirteen ways of looking at a Turtle&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@ScottWlaschin&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4590/38677096634_9fa35623fb_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tout le monde se pose la même question en lisant le titre de la session : “Une tortue ? What …?”
+En fait Scott nous propose en utilisant l’image de cette tortue une API très simpliste permettant de tracer des traits.
+La “tortue” peut se déplacer en avant, tourner sur un angle donné et finalement dessiner ou non le trait pendant son déplacement.&lt;/p&gt;
+
+&lt;p&gt;Cette API de quatre méthodes peut sembler trop simple pour être vraiment intéressante, mais nous allons voir sa réalisation en utilisant 13 approches différentes.
+Cela va du modèle orienté objet classique, en passant par de l’actor model puis de l’event sourcing.&lt;/p&gt;
+
+&lt;p&gt;Je vous recommande fortement de jeter un coup d’œil, car même si le code est présenté en F#, cela reste applicable dans d’autres plateformes/langages.
+L’ensemble du contenu est en ligne sur &lt;a href=&quot;https://fsharpforfunandprofit.com/turtle/&quot;&gt;son fameux site&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;michel-grootjans-et-thomas-coopman--playing-with-projections&quot;&gt;Michel Grootjans et Thomas Coopman : Playing with projections&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@michelgrootjans @tcoopman&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;J’ai participé à un atelier, où nous avons joué avec des projections. 
+Lorsque l’on fait de l’event sourcing, il va souvent falloir relire et rejouer les événements d’une certaine façon, que ce soit pour retourner dans un état particulier ou pour faire des analyses, il y a souvent besoin de faire des transformations sur des paquets d’événements.&lt;/p&gt;
+
+&lt;p&gt;L’objectif de cet atelier était donc de travailler sur ces transformations qui sont appelées des Projections.
+Le domaine métier est relativement simple, mais possède déjà de nombreux types d’événements.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4681/24519809777_39e840ba0c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;J’avoue ne pas avoir fait l’exercice directement en F# mais en C# en utilisant pas mal de linq. Donc facilement portable en F#.
+D’ailleurs l’exercice est disponible dans de nombreux langages.&lt;/p&gt;
+
+&lt;p&gt;Je vous invite à regarder &lt;a href=&quot;https://github.com/michelgrootjans/playing_with_projections&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;evelina-gabasova---the-force-awakens&quot;&gt;Evelina Gabasova - The F#orce Awakens&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@evelgab&lt;/strong&gt;&lt;/p&gt;
+
+&lt;amp-youtube data-videoid=&quot;R10rPhpLvr8&quot; layout=&quot;responsive&quot; width=&quot;480&quot; height=&quot;270&quot;&gt;&lt;/amp-youtube&gt;
+
+&lt;p&gt;Après une introduction digne de la saga Star Wars, Evelina nous a présenté comment elle a réalisé une analyse autour des personnages en utilisant les scripts des sept films.&lt;/p&gt;
+
+&lt;p&gt;1) La première étape consistait à réussir à parser les différents scripts des films pour en extraire les noms des personnages. Elle a alors utilisé les scènes pour en déduire les personnages connectés.
+Cela ne s’est pas fait sans mal puisque chaque script possède un format différent et que certains personnages n’ont même pas de dialogue.&lt;/p&gt;
+
+&lt;p&gt;Pour cette première étape ce sont des regex et des active patterns qui ont été utilisés.&lt;/p&gt;
+
+&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Active pattern to parse the contents of the script&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[ 0-9]*(INT.|EXT.)[ A-Z0-9]&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^[/A-Z0-9]+[-]*[/A-Z0-9 ]*[-]*[/A-Z0-9 ]+$&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2) Deuxième étape : Analyser les données.&lt;/p&gt;
+
+&lt;p&gt;Evelina nous a montré ses différents &lt;a href=&quot;https://notebooks.azure.com/&quot;&gt;Azure notebook&lt;/a&gt; d’analyse.
+Ces notebooks, fortement inspirés de ceux disponibles depuis longtemps en Python, permettent de mélanger texte et code exécutable.
+Il est même possible d’utiliser la lib Fsharp.Data pour générer des graphiques plus ou moins complexes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4728/39355368362_eea1c8ed5d_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3) Troisième étape : Utiliser plusieurs apis publiques fournissant des informations supplémentaires sur Star Wars.
+Il s’agit principalement de l’api &lt;a href=&quot;http://swapi.co/API&quot;&gt;Swapi&lt;/a&gt;
+Elle fournit des détails sur de nombreux éléments de la saga et possède même les clients pour plusieurs langages.
+C’est Evelina qui a créé le client F#.&lt;/p&gt;
+
+&lt;p&gt;Pour cela elle a utilisé une fonctionnalité très puissante de F# : les Type Provider.
+Une simple référence vers le package JsonProvider a créé deux constantes contenant une json d’exemple : une avec les champs minimum et l’autre complète. Le provider se charge de créer dynamiquement un modèle.&lt;/p&gt;
+
+&lt;p&gt;Elle a complété sa démo en croisant des données récupérées d’IMDB en utilisant la même technique, mais un provider différent : ‘HtmlProvider’ qui est lui capable de récupérer un tableau de données pour notre exemple.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4642/39385329141_3591e4cb6e_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pour tous les détails, rendez-vous sur &lt;a href=&quot;http://evelinag.com/blog/2016/01-25-social-network-force-awakens/&quot;&gt;son blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Que faut-il retenir de tout ça ? 
+Plusieurs points sont intéressants à garder en tête :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;F# permet de très vite et avec peu de code prototyper l’analyse de données.
+les Type Provider et les notebooks sont aussi d’une grande aide.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Commencer par analyser un ensemble de données connu avant de se lancer sur des analyses à grande échelle.
+Bien que le domaine lié à Star Wars puisse paraître geek, c’est surtout un domaine connu par beaucoup de monde, et cela permet de s’apercevoir rapidement des résultats incohérents.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;gien-verschatse---playing-nice-together-how-to-use-f-in-a-brownfield-project&quot;&gt;Gien Verschatse - Playing nice together: how to use F# in a brownfield project&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@selketjah&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4732/39385329281_ae3fc96c21_n.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;J’attendais cette session avec impatience. Gien, développeuse Belge pour des jeux de casino en ligne, nous a fait un retour d’expérience sur son intégration de développement F# au sein d’un existant en C#.&lt;/p&gt;
+
+&lt;p&gt;Elle a donc passé en revue les différentes fonctionnalités qui pouvaient ou non être utilisées depuis un programme C# voire VB.net.&lt;/p&gt;
+
+&lt;p&gt;J’ai refait moi-même quelques tests suite à cette présentation et &lt;a href=&quot;https://github.com/evilz/Fsharp-from-csharp&quot;&gt;mon code est disponible ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ce que je retiens surtout de ce retour d’expérience, c’est le courage de Gien à s’être lancée dans l’aventure F#, dans le sens où il est difficile (pour ne pas dire impossible) de trouver des missions en F#. C’est donc à nous d’introduire au fur et à mesure cette techno si cela nous semble adéquat.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;krzysztof-cieslak---hacking-f-in-js-ecosystem&quot;&gt;Krzysztof Cieslak - Hacking F# in JS ecosystem&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@k_cieslak&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4725/39355368152_ff3dc158a0_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dans cette session, Krzysztof nous présente le dernier Framework à la mode dans la communauté FSharp, &lt;code class=&quot;highlighter-rouge&quot;&gt;Fable&lt;/code&gt;.
+Fable est un compilateur F# vers JavaScript qui s’appuie sur Babel.&lt;/p&gt;
+
+&lt;p&gt;Fable va prendre votre code F#, en extraire un AST et le fournir à Babel qui fait le reste du travail pour obtenir un code Js pour Navigateur ou NodeJS.
+On peut alors se poser la question : Mais pourquoi ?
+La réponse simple serait “parce qu’on peut !” ou encore “pourquoi pas !”&lt;/p&gt;
+
+&lt;p&gt;Mais il y a de vrais avantages à utiliser F# comme langage principal :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Une approche fonctionnelle&lt;/li&gt;
+  &lt;li&gt;Tout est fortement typé : Record type et Union Type&lt;/li&gt;
+  &lt;li&gt;Toutes les fonctionnalités avancées : pattern matching, Computation Expression&lt;/li&gt;
+  &lt;li&gt;Réutilisation de code côté serveur&lt;/li&gt;
+  &lt;li&gt;Pragmatique&lt;/li&gt;
+  &lt;li&gt;Communauté&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Il nous a ensuite présenté l’outil à travers plusieurs démos dans le navigateur avec du JS très simple, mais aussi une démo react.&lt;/p&gt;
+
+&lt;p&gt;Il faut aussi savoir que Fable permet la génération de sourcemap ; il est donc possible de déboguer le code F# depuis la fenêtre de DevTool de Chrome !&lt;/p&gt;
+
+&lt;p&gt;La dernière version de Fable est utilisable directement depuis la cli dotnet et permet donc d’initialiser rapidement un projet ou de démarrer un serveur : 
+ dotnet fable start&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://fable.io/blog/Introducing-1-0-beta.html&quot;&gt;Plus d’infos sur ce billet du blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;De plus si comme moi vous vous demandez comment jouer avec du code d’une librairie externe et comment récupérer tous les types un peu comme le fait Typescript, les devs de la communauté ont pensé à tout et ont créé cet outil : &lt;a href=&quot;https://www.npmjs.com/package/ts2fable&quot;&gt;ts2fable&lt;/a&gt;, qui permet de convertir un type definition de Typescript en Fsharp.&lt;/p&gt;
+
+&lt;p&gt;Vous trouverez plus d’informations et de démos sur &lt;a href=&quot;http://fable.io/&quot;&gt;le site officiel&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;mathias-brandewinder---serverless-f-with-azure-functions-fsibot-goes-nano-services&quot;&gt;Mathias Brandewinder - Serverless F# with Azure Functions: fsibot goes nano-services&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;@brandewinder&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4644/39385329341_8e1455883c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Le Professeur Tournesol nous a très rapidement montré comment mettre en place grâce aux Azure Functions un système Server Less (ou presque) en F#.&lt;/p&gt;
+
+&lt;p&gt;Ce que j’apprécie principalement sur le système des Azure Functions c’est l’interface en ligne simple et agréable à utiliser. Il est vraiment facile de créer une nouvelle fonction et de définir le trigger qui va la déclencher. 
+Il y a déjà pas mal de triggers disponibles et nous avons pu voir l’utilisation d’un trigger basé sur une horloge et d’un autre sur des messages queue.&lt;/p&gt;
+
+&lt;p&gt;      &lt;/p&gt;
+
+&lt;p&gt;Le FsiBot de Mathias utilise ces deux triggers. L’application regarde à intervalles réguliers les tweets d’un channel comportant du F#, compile et s’exécute.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4599/38677096784_1554bbcf02_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mathias-brandewinder/fsibot-serverless&quot;&gt;Le code est disponible ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://brandewinder.com/2017/04/01/azure-function-app-diagram/&quot;&gt;Et un petit billet explicatif ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;et-pour-conclure&quot;&gt;Et pour conclure&lt;/h2&gt;
+
+&lt;p&gt;Deux journées finalement assez riches pour la communauté F#. Et même si les 45min de présentation ne permettent pas de rentrer dans le détail, cela a l’avantage de présenter la technologie et les possibilités du langage aux développeurs.
+Je vous invite donc à regarder de près ce langage .net au travers des différents liens fournis ainsi que sur http://fsharp.org et &lt;a href=&quot;https://github.com/fsprojects/awesome-fsharp&quot;&gt;awesome-fsharp&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
+        <link>https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</guid>
+        
+        <category>dotnet</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
     
       <item>
         <title>Installer VScode sur votre Nexus 5</title>
@@ -287,199 +477,9 @@ Pour tous les infos rendez-vous ici &lt;a href=&quot;https://code.headmelted.com
 &lt;p&gt;Bien que cela fonctionne, il faut avouer que la puissance de l’ARM n’aide pas à obtenir une experience utilisateur des plus aggréables.
 Il faut espérer que l’on puisse un jour installer MaruOS sur des téléphones bien plus puissants.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2017/06/07/vscode-on-nexus-5/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2017/06/07/vscode-on-nexus-5/</guid>
-        
-        <category>dotnet</category>
-        
-        <category>Informatique</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Du Fsharp à NewCrafts 2017</title>
-        <description>&lt;p&gt;J’ai eu la chance d’assister aux deux jours de la &lt;a href=&quot;http://ncrafts.io&quot;&gt;conférence NewCrafts de cette année&lt;/a&gt;.
-Sur les deux jours, nous avons pu assister à de nombreuses présentations très intéressantes,
-mais je vais ici m’intéresser aux sessions abordant du Fsharp et auxquelles j’ai pu participer.&lt;/p&gt;
-
-&lt;h2 id=&quot;scott-wlaschin---thirteen-ways-of-looking-at-a-turtle&quot;&gt;Scott Wlaschin - Thirteen ways of looking at a Turtle&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@ScottWlaschin&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4590/38677096634_9fa35623fb_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Tout le monde se pose la même question en lisant le titre de la session : “Une tortue ? What …?”
-En fait Scott nous propose en utilisant l’image de cette tortue une API très simpliste permettant de tracer des traits.
-La “tortue” peut se déplacer en avant, tourner sur un angle donné et finalement dessiner ou non le trait pendant son déplacement.&lt;/p&gt;
-
-&lt;p&gt;Cette API de quatre méthodes peut sembler trop simple pour être vraiment intéressante, mais nous allons voir sa réalisation en utilisant 13 approches différentes.
-Cela va du modèle orienté objet classique, en passant par de l’actor model puis de l’event sourcing.&lt;/p&gt;
-
-&lt;p&gt;Je vous recommande fortement de jeter un coup d’œil, car même si le code est présenté en F#, cela reste applicable dans d’autres plateformes/langages.
-L’ensemble du contenu est en ligne sur &lt;a href=&quot;https://fsharpforfunandprofit.com/turtle/&quot;&gt;son fameux site&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;michel-grootjans-et-thomas-coopman--playing-with-projections&quot;&gt;Michel Grootjans et Thomas Coopman : Playing with projections&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@michelgrootjans @tcoopman&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;J’ai participé à un atelier, où nous avons joué avec des projections. 
-Lorsque l’on fait de l’event sourcing, il va souvent falloir relire et rejouer les événements d’une certaine façon, que ce soit pour retourner dans un état particulier ou pour faire des analyses, il y a souvent besoin de faire des transformations sur des paquets d’événements.&lt;/p&gt;
-
-&lt;p&gt;L’objectif de cet atelier était donc de travailler sur ces transformations qui sont appelées des Projections.
-Le domaine métier est relativement simple, mais possède déjà de nombreux types d’événements.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4681/24519809777_39e840ba0c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;J’avoue ne pas avoir fait l’exercice directement en F# mais en C# en utilisant pas mal de linq. Donc facilement portable en F#.
-D’ailleurs l’exercice est disponible dans de nombreux langages.&lt;/p&gt;
-
-&lt;p&gt;Je vous invite à regarder &lt;a href=&quot;https://github.com/michelgrootjans/playing_with_projections&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;evelina-gabasova---the-force-awakens&quot;&gt;Evelina Gabasova - The F#orce Awakens&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@evelgab&lt;/strong&gt;&lt;/p&gt;
-
-&lt;amp-youtube data-videoid=&quot;R10rPhpLvr8&quot; layout=&quot;responsive&quot; width=&quot;480&quot; height=&quot;270&quot;&gt;&lt;/amp-youtube&gt;
-
-&lt;p&gt;Après une introduction digne de la saga Star Wars, Evelina nous a présenté comment elle a réalisé une analyse autour des personnages en utilisant les scripts des sept films.&lt;/p&gt;
-
-&lt;p&gt;1) La première étape consistait à réussir à parser les différents scripts des films pour en extraire les noms des personnages. Elle a alors utilisé les scènes pour en déduire les personnages connectés.
-Cela ne s’est pas fait sans mal puisque chaque script possède un format différent et que certains personnages n’ont même pas de dialogue.&lt;/p&gt;
-
-&lt;p&gt;Pour cette première étape ce sont des regex et des active patterns qui ont été utilisés.&lt;/p&gt;
-
-&lt;div class=&quot;language-fsharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Active pattern to parse the contents of the script&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[ 0-9]*(INT.|EXT.)[ A-Z0-9]&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;^[/A-Z0-9]+[-]*[/A-Z0-9 ]*[-]*[/A-Z0-9 ]+$&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;SceneTitle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namePattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Word&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2) Deuxième étape : Analyser les données.&lt;/p&gt;
-
-&lt;p&gt;Evelina nous a montré ses différents &lt;a href=&quot;https://notebooks.azure.com/&quot;&gt;Azure notebook&lt;/a&gt; d’analyse.
-Ces notebooks, fortement inspirés de ceux disponibles depuis longtemps en Python, permettent de mélanger texte et code exécutable.
-Il est même possible d’utiliser la lib Fsharp.Data pour générer des graphiques plus ou moins complexes.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4728/39355368362_eea1c8ed5d_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3) Troisième étape : Utiliser plusieurs apis publiques fournissant des informations supplémentaires sur Star Wars.
-Il s’agit principalement de l’api &lt;a href=&quot;http://swapi.co/API&quot;&gt;Swapi&lt;/a&gt;
-Elle fournit des détails sur de nombreux éléments de la saga et possède même les clients pour plusieurs langages.
-C’est Evelina qui a créé le client F#.&lt;/p&gt;
-
-&lt;p&gt;Pour cela elle a utilisé une fonctionnalité très puissante de F# : les Type Provider.
-Une simple référence vers le package JsonProvider a créé deux constantes contenant une json d’exemple : une avec les champs minimum et l’autre complète. Le provider se charge de créer dynamiquement un modèle.&lt;/p&gt;
-
-&lt;p&gt;Elle a complété sa démo en croisant des données récupérées d’IMDB en utilisant la même technique, mais un provider différent : ‘HtmlProvider’ qui est lui capable de récupérer un tableau de données pour notre exemple.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4642/39385329141_3591e4cb6e_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Pour tous les détails, rendez-vous sur &lt;a href=&quot;http://evelinag.com/blog/2016/01-25-social-network-force-awakens/&quot;&gt;son blog&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Que faut-il retenir de tout ça ? 
-Plusieurs points sont intéressants à garder en tête :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;F# permet de très vite et avec peu de code prototyper l’analyse de données.
-les Type Provider et les notebooks sont aussi d’une grande aide.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Commencer par analyser un ensemble de données connu avant de se lancer sur des analyses à grande échelle.
-Bien que le domaine lié à Star Wars puisse paraître geek, c’est surtout un domaine connu par beaucoup de monde, et cela permet de s’apercevoir rapidement des résultats incohérents.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;gien-verschatse---playing-nice-together-how-to-use-f-in-a-brownfield-project&quot;&gt;Gien Verschatse - Playing nice together: how to use F# in a brownfield project&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@selketjah&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4732/39385329281_ae3fc96c21_n.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;J’attendais cette session avec impatience. Gien, développeuse Belge pour des jeux de casino en ligne, nous a fait un retour d’expérience sur son intégration de développement F# au sein d’un existant en C#.&lt;/p&gt;
-
-&lt;p&gt;Elle a donc passé en revue les différentes fonctionnalités qui pouvaient ou non être utilisées depuis un programme C# voire VB.net.&lt;/p&gt;
-
-&lt;p&gt;J’ai refait moi-même quelques tests suite à cette présentation et &lt;a href=&quot;https://github.com/evilz/Fsharp-from-csharp&quot;&gt;mon code est disponible ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Ce que je retiens surtout de ce retour d’expérience, c’est le courage de Gien à s’être lancée dans l’aventure F#, dans le sens où il est difficile (pour ne pas dire impossible) de trouver des missions en F#. C’est donc à nous d’introduire au fur et à mesure cette techno si cela nous semble adéquat.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;krzysztof-cieslak---hacking-f-in-js-ecosystem&quot;&gt;Krzysztof Cieslak - Hacking F# in JS ecosystem&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@k_cieslak&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4725/39355368152_ff3dc158a0_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Dans cette session, Krzysztof nous présente le dernier Framework à la mode dans la communauté FSharp, &lt;code class=&quot;highlighter-rouge&quot;&gt;Fable&lt;/code&gt;.
-Fable est un compilateur F# vers JavaScript qui s’appuie sur Babel.&lt;/p&gt;
-
-&lt;p&gt;Fable va prendre votre code F#, en extraire un AST et le fournir à Babel qui fait le reste du travail pour obtenir un code Js pour Navigateur ou NodeJS.
-On peut alors se poser la question : Mais pourquoi ?
-La réponse simple serait “parce qu’on peut !” ou encore “pourquoi pas !”&lt;/p&gt;
-
-&lt;p&gt;Mais il y a de vrais avantages à utiliser F# comme langage principal :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Une approche fonctionnelle&lt;/li&gt;
-  &lt;li&gt;Tout est fortement typé : Record type et Union Type&lt;/li&gt;
-  &lt;li&gt;Toutes les fonctionnalités avancées : pattern matching, Computation Expression&lt;/li&gt;
-  &lt;li&gt;Réutilisation de code côté serveur&lt;/li&gt;
-  &lt;li&gt;Pragmatique&lt;/li&gt;
-  &lt;li&gt;Communauté&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Il nous a ensuite présenté l’outil à travers plusieurs démos dans le navigateur avec du JS très simple, mais aussi une démo react.&lt;/p&gt;
-
-&lt;p&gt;Il faut aussi savoir que Fable permet la génération de sourcemap ; il est donc possible de déboguer le code F# depuis la fenêtre de DevTool de Chrome !&lt;/p&gt;
-
-&lt;p&gt;La dernière version de Fable est utilisable directement depuis la cli dotnet et permet donc d’initialiser rapidement un projet ou de démarrer un serveur : 
- dotnet fable start&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://fable.io/blog/Introducing-1-0-beta.html&quot;&gt;Plus d’infos sur ce billet du blog&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;De plus si comme moi vous vous demandez comment jouer avec du code d’une librairie externe et comment récupérer tous les types un peu comme le fait Typescript, les devs de la communauté ont pensé à tout et ont créé cet outil : &lt;a href=&quot;https://www.npmjs.com/package/ts2fable&quot;&gt;ts2fable&lt;/a&gt;, qui permet de convertir un type definition de Typescript en Fsharp.&lt;/p&gt;
-
-&lt;p&gt;Vous trouverez plus d’informations et de démos sur &lt;a href=&quot;http://fable.io/&quot;&gt;le site officiel&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;mathias-brandewinder---serverless-f-with-azure-functions-fsibot-goes-nano-services&quot;&gt;Mathias Brandewinder - Serverless F# with Azure Functions: fsibot goes nano-services&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;@brandewinder&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4644/39385329341_8e1455883c_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Le Professeur Tournesol nous a très rapidement montré comment mettre en place grâce aux Azure Functions un système Server Less (ou presque) en F#.&lt;/p&gt;
-
-&lt;p&gt;Ce que j’apprécie principalement sur le système des Azure Functions c’est l’interface en ligne simple et agréable à utiliser. Il est vraiment facile de créer une nouvelle fonction et de définir le trigger qui va la déclencher. 
-Il y a déjà pas mal de triggers disponibles et nous avons pu voir l’utilisation d’un trigger basé sur une horloge et d’un autre sur des messages queue.&lt;/p&gt;
-
-&lt;p&gt;      &lt;/p&gt;
-
-&lt;p&gt;Le FsiBot de Mathias utilise ces deux triggers. L’application regarde à intervalles réguliers les tweets d’un channel comportant du F#, compile et s’exécute.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4599/38677096784_1554bbcf02_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/mathias-brandewinder/fsibot-serverless&quot;&gt;Le code est disponible ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://brandewinder.com/2017/04/01/azure-function-app-diagram/&quot;&gt;Et un petit billet explicatif ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;et-pour-conclure&quot;&gt;Et pour conclure&lt;/h2&gt;
-
-&lt;p&gt;Deux journées finalement assez riches pour la communauté F#. Et même si les 45min de présentation ne permettent pas de rentrer dans le détail, cela a l’avantage de présenter la technologie et les possibilités du langage aux développeurs.
-Je vous invite donc à regarder de près ce langage .net au travers des différents liens fournis ainsi que sur http://fsharp.org et &lt;a href=&quot;https://github.com/fsprojects/awesome-fsharp&quot;&gt;awesome-fsharp&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2017/06/07/Du-fsharp-a-newcraft-2017/</guid>
+        <pubDate>Sun, 14 May 2017 00:00:00 +0200</pubDate>
+        <link>https://www.evilznet.com/2017/05/14/vscode-on-nexus-5/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2017/05/14/vscode-on-nexus-5/</guid>
         
         <category>dotnet</category>
         
