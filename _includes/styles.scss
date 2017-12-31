@@ -87,6 +87,12 @@ $space-4: 4rem;
   height: 360px;
 }
 
+.fixed-footer {
+  position: relative;
+  max-width: 300px;
+  height: 80px;
+}
+
 amp-img {
   background-color: $bg-color;
 }
