@@ -6,9 +6,297 @@
 </description>
     <link>https://www.evilznet.com/</link>
     <atom:link href="https://www.evilznet.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 30 Dec 2017 12:03:00 +0100</pubDate>
-    <lastBuildDate>Sat, 30 Dec 2017 12:03:00 +0100</lastBuildDate>
+    <pubDate>Sun, 31 Dec 2017 16:20:44 +0100</pubDate>
+    <lastBuildDate>Sun, 31 Dec 2017 16:20:44 +0100</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Installer VScode sur votre Nexus 5</title>
+        <description>&lt;h1 id=&quot;utilisez-votre-téléphone-comme-poste-de-développement&quot;&gt;Utilisez votre téléphone comme poste de développement&lt;/h1&gt;
+
+&lt;p&gt;De quoi s’agit-il exactement ?
+Dans cette article je vais vous montrer comment transformer votre téléphone android en poste de travail avec un IDE.
+Pour être plus clair nous allons voir comment flasher un Nexus 5 avec un OS nommé MaruOS et installer Visual Studio Code.&lt;/p&gt;
+
+&lt;p&gt;L’idée n’est pas nouvelle, et certain parmis vous auront surement déjà entendu parlé de projets comme Windows Continuum, qui permet notamment de travailler avec les produits de la gamme Office.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4690/27628499129_318e06e7e8.jpg&quot; alt=&quot;microsoft display dock&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ou encore de Andromium et Sentio https://www.sentio.com/. qui tente de créer et vendre un “superbook” qui se résume à un écran de 11” et un clavier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4646/24540013647_7a970ed87d_z.jpg&quot; alt=&quot;sentio superbook&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mais MaruOS possède des avantages non négligeables :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ca marche aujourd’hui !&lt;/li&gt;
+  &lt;li&gt;On a sous la main un linux complet !&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;pré-requis&quot;&gt;Pré-requis&lt;/h1&gt;
+
+&lt;p&gt;Avant de vous lancer dans l’aventure voici une petite liste du matériel nécessaire :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;un téléphone Nexus 5 ou 7 que l’on peut flasher sans crainte (d’autres modèles seront disponible plus tard)&lt;/li&gt;
+  &lt;li&gt;un clavier bluetooth&lt;/li&gt;
+  &lt;li&gt;une souris bluetooth&lt;/li&gt;
+  &lt;li&gt;un câble de connexion SlimPort USB-to-HDMI&lt;/li&gt;
+  &lt;li&gt;du Wifi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Personnellement, j’utilise un clavier &lt;code class=&quot;highlighter-rouge&quot;&gt;it works&lt;/code&gt; trouvé à Darty.
+&lt;img src=&quot;https://farm5.staticflickr.com/4591/39375522522_60a73e844c.jpg&quot; alt=&quot;clavier bluetooth&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Et une souris Razer Orochi
+&lt;img src=&quot;https://farm5.staticflickr.com/4734/24540013737_b6b2cb5027_z.jpg&quot; alt=&quot;razer orochi&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;maru-os&quot;&gt;Maru OS&lt;/h2&gt;
+
+&lt;p&gt;La première étape consiste à installer MaruOS sur le téléphone.
+Qu’est ce que Maru ? Maru c’est “simplement” un Android 6 + un linux debian qui tournent en parallèle sur votre téléphone.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4735/24540013907_aeb507a4b1_z.jpg&quot; alt=&quot;maru oss&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vous aurez du coup un téléphone standard Android et dès que vous le connectez en utilisant le câble SlimPort sur un écran en hdmi, la parti linux va se mettre en route et s’afficher à l’écran. Notez que pendant ce temps votre téléphone reste utilisable.&lt;/p&gt;
+
+&lt;p&gt;Dans la suite nous allons voir comment installer VS Code, mais évidemment les possibilités sont quasi infinies tant que ce que vous voulez installer existe pour linux sous une architecture ARM. Car oui n’oubliez pas que les téléphones sont, dans la plupart des cas, sur une technologie ARM et donc cote performance ca se ressent de temps en temps.
+Il sera donc par exemple impossible de compiler du code C# :(&lt;/p&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Sauvegardez tous vos documents, photos, contacts … qui sont sur le téléphone !!! 
+Nous allons le flasher en utilisant une restauration ce qui va effacer toutes les données&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;1-activer-le-mode-développeur-et-le-debug-usb&quot;&gt;1. Activer le mode développeur et le debug USB&lt;/h4&gt;
+
+&lt;h5 id=&quot;sur-votre-pc&quot;&gt;Sur votre PC&lt;/h5&gt;
+&lt;p&gt;Il faut dans un premier temps installer les drivers usb. Pour les obtenir il y a deux possibilités :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Télécharger les drivers ici : &lt;a href=&quot;http://developer.android.com/sdk/win-usb.html&quot;&gt;http://developer.android.com/sdk/win-usb.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Utiliser l’android SDK manager&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm5.staticflickr.com/4735/25535590248_406c1a9995_z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;sur-le-téléphone&quot;&gt;Sur le téléphone&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dans les paramètres, allez dans la section Système&lt;/li&gt;
+  &lt;li&gt;A propos du téléphone&lt;/li&gt;
+  &lt;li&gt;Tapez 7 fois sur le numéro de build pour devenir développeur !&lt;/li&gt;
+  &lt;li&gt;Revenez dans les paramètres et dans Systeme&lt;/li&gt;
+  &lt;li&gt;Puis dans Les options de développeur&lt;/li&gt;
+  &lt;li&gt;Activez le debug USB&lt;/li&gt;
+  &lt;li&gt;Branchez le cable USB&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Si tout va bien le téléphone est détecter et les drivers s’installent tout seul.&lt;/p&gt;
+
+&lt;h4 id=&quot;2-télécharger-la-rom&quot;&gt;2. Télécharger la Rom&lt;/h4&gt;
+
+&lt;p&gt;En fonction de votre système: Mac Os, Linux ou Windows une release avec les scripts d’installation est disponible ici &lt;a href=&quot;https://github.com/maruos/maruos/releases&quot;&gt;https://github.com/maruos/maruos/releases&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;L’avantage c’est qu’il vous suffi d’exécuter un script et de suivre le programme d’installation qui est capable de débloquer bootloader et flasher Maru en quelques étapes.&lt;/p&gt;
+
+&lt;p&gt;Dans mon cas je vais utiliser la version pour windows. Pour plus d’info sur l’installation rendez-vous ici : &lt;a href=&quot;https://github.com/maruos/maruos/wiki/Installation-Guide&quot;&gt;https://github.com/maruos/maruos/wiki/Installation-Guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Dézippez le contenu du zip et lancez l’exécution du fichier install et suivez le processus&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:&lt;span class=&quot;se&quot;&gt;\m&lt;/span&gt;aru-v0.4-installer-hammerhead-windows-0db8cdcb&amp;gt;install.cmd
+
+Welcome to the Maru installer!
+
+In order to install Maru you will need to:
+
+1. Connect your device to your computer over USB
+
+2. Enable USB Debugging on your device:
+
+   1.  Go to the Settings app and scroll down to
+       the System section
+
+       NOTE: If you already have &lt;span class=&quot;s2&quot;&gt;&quot;Developer options&quot;&lt;/span&gt;
+       under System &lt;span class=&quot;k&quot;&gt;then &lt;/span&gt;go directly to &lt;span class=&quot;c&quot;&gt;#5&lt;/span&gt;
+
+   2.  Tap on &lt;span class=&quot;s2&quot;&gt;&quot;About phone&quot;&lt;/span&gt;
+   3.  Tap &lt;span class=&quot;s2&quot;&gt;&quot;Build number&quot;&lt;/span&gt; 7 &lt;span class=&quot;nb&quot;&gt;times &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;you get a message
+       that says you are now a developer
+   4.  Go back to the main Settings app
+   5.  Tap on &lt;span class=&quot;s2&quot;&gt;&quot;Developer options&quot;&lt;/span&gt;
+   6.  Ensure that &lt;span class=&quot;s2&quot;&gt;&quot;USB debugging&quot;&lt;/span&gt; is enabled
+   7.  Tap &lt;span class=&quot;s2&quot;&gt;&quot;OK&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;you see a dialog asking you to allow
+       USB Debugging &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;your computer&lt;span class=&quot;s1&quot;&gt;'s RSA key fingerprint
+
+WARNING: Installing Maru will wipe all your personal data
+so make sure you first back-up anything important!
+
+Are you ready to install Maru? (yes/no):
+
+Aborting installation.
+
+Press any key to exit...
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;post-install&quot;&gt;Post install&lt;/h3&gt;
+
+&lt;p&gt;Vous avez maintenant un android tout neuf, plus exactement un Maru OS.
+La pluspart du temps on voudra quand meme avoir les services google qui ne sont pas installés par défaut pisque qu’il ne s’agit pas d’une distrib officielle.&lt;/p&gt;
+
+&lt;h4 id=&quot;restauration-de-google-apps&quot;&gt;Restauration de Google Apps&lt;/h4&gt;
+
+&lt;p&gt;Si vous souhaitez restaurer l’accès au Play Store de votre appareil, vous devrez effectuer un peu de travail supplémentaire.&lt;/p&gt;
+
+&lt;p&gt;Nous allons utiliser TWRP pour restaurer les applications Google:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Téléchargez les applications Play à partir de Open Gapps et enregistrez le zip dans
+ le même répertoire que vous avez décompressé l’installateur Maru:&lt;/p&gt;
+
+    &lt;p&gt;Pour Maru OS v0.2.4 et ci-dessous:
+ &lt;a href=&quot;http://opengapps.org/?arch=arm&amp;amp;api=5.1&amp;amp;variant=pico&quot;&gt;http://opengapps.org/?arch=arm&amp;amp;api=5.1&amp;amp;variant=pico&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Pour Maru OS v0.3 et supérieur:
+ &lt;a href=&quot;http://opengapps.org/?arch=arm&amp;amp;api=6.0&amp;amp;variant=pico&quot;&gt;http://opengapps.org/?arch=arm&amp;amp;api=6.0&amp;amp;variant=pico&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Téléchargez TWRP pour votre appareil et enregistrez-le dans le même répertoire que vous
+ dézippé l’installateur Maru:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://twrp.me/Devices&quot;&gt;https://twrp.me/Devices&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connectez votre appareil à votre ordinateur, activez le débogage USB et suivez les instructions ci-dessous en fonction de votre plate-forme.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;mac-ou-linux&quot;&gt;Mac ou Linux&lt;/h5&gt;
+
+&lt;p&gt;Ouvrez un terminal et exécutez les opérations suivantes:&lt;/p&gt;
+
+&lt;p&gt;Astuce: vous devrez peut-être exécuter la commande fastboot en tant que root si elle se bloque à &lt;code class=&quot;highlighter-rouge&quot;&gt;waiting for any device&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;unzipped maru installer directory&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./adb push &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &amp;lt;gapps filename&amp;gt;.zip /sdcard/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./adb reboot bootloader
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./fastboot flash recovery &amp;lt;twrp filename&amp;gt;.img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;windows&quot;&gt;Windows&lt;/h5&gt;
+
+&lt;p&gt;Ouvrez l’invite de commande et exécutez les opérations suivantes:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;unzipped maru installer directory&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb push &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &amp;lt;gapps filename&amp;gt;.zip /sdcard/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb reboot bootloader
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;fastboot flash recovery &amp;lt;twrp filename&amp;gt;.img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous allez maintenant être dans le bootloader et devez faire quelques étapes supplémentaires:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Utilisez le bouton &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Volume Up&amp;gt;&lt;/code&gt; de votre appareil pour parcourir les options du bootloader
+ en “mode de récupération” et appuyez sur le bouton &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Power&amp;gt;&lt;/code&gt; pour démarrer dans la récupération TWRP&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Appuyez sur “Installer”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Appuyez sur le fichier zip des applications Google que vous avez téléchargé précédemment (vous devrez peut-être faire défiler vers le bas).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Balayez pour confirmer le flash des applications Google&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Appuyez sur “Redémarrer le système” pour redémarrer dans Maru&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Vous devriez maintenant avoir des applications Google Play!&lt;/p&gt;
+
+&lt;h4 id=&quot;configurer-les-connections&quot;&gt;Configurer les connections&lt;/h4&gt;
+
+&lt;p&gt;Connectez depuis le système Android votre clavier et souris en bluetooth. Généralement il faut entrer un code au clavier pour valider sa connection.
+Connectez aussi votre wifi.&lt;/p&gt;
+
+&lt;p&gt;Connectez le téléphone avec le cable &lt;code class=&quot;highlighter-rouge&quot;&gt;SlimPort&lt;/code&gt; pour démmarer Linux.&lt;/p&gt;
+
+&lt;h2 id=&quot;installation-vs-code&quot;&gt;Installation VS Code&lt;/h2&gt;
+
+&lt;h3 id=&quot;installation-depuis-les-sources&quot;&gt;Installation depuis les sources&lt;/h3&gt;
+
+&lt;p&gt;Nous allons voir comment compiler en quelques commande Visual Studio Code depuis les sources disponibles sur Github.
+Cela nécessite plusieurs outils et frameworks de développement, notamment NodeJs et python.&lt;/p&gt;
+
+&lt;h4 id=&quot;1-installation-des-outils-de-développement&quot;&gt;1/ installation des outils de développement&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install curl
+curl &lt;span class=&quot;nt&quot;&gt;-sL&lt;/span&gt; https://deb.nodesource.com/setup_6.x | &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; bash -
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; nodejs
+
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install libx11-dev libxkbfile-dev
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; build-essential
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; libxss1
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; libgconf-2-4
+//sudo apt-get install python
+
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install rpm
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;2-compile&quot;&gt;2/ compile&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/microsoft/vscode
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vscode
+./scripts/npm.sh install &lt;span class=&quot;nt&quot;&gt;--arch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;armhf
+
+&lt;span class=&quot;c&quot;&gt;# building Visual Studio Code Debian package on ARM&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# get source code&lt;/span&gt;
+git clone git@github.com:Microsoft/vscode.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vscode
+
+&lt;span class=&quot;c&quot;&gt;# build debian package&lt;/span&gt;
+./scripts/npm.sh install &lt;span class=&quot;nt&quot;&gt;--arch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;armhf
+./node_modules/.bin/gulp vscode-linux-arm-build-deb
+
+&lt;span class=&quot;c&quot;&gt;# locate built package, install and run&lt;/span&gt;
+find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.deb &lt;span class=&quot;c&quot;&gt;#this will give location of built package&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dpkg install &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;location-from-previous-step]
+code-oss &lt;span class=&quot;c&quot;&gt;# to run the installed program&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;3-install-from-packages-&quot;&gt;3/ install from packages !&lt;/h4&gt;
+
+&lt;p&gt;Merci a headmelted d’avoir fait tout le travail :) 
+Pour tous les infos rendez-vous ici &lt;a href=&quot;https://code.headmelted.com/&quot;&gt;https://code.headmelted.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install wget
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; wget &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://code.headmelted.com/installers/apt.sh &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Bien que cela fonctionne, il faut avouer que la puissance de l’ARM n’aide pas à obtenir une experience utilisateur des plus aggréables.
+Il faut espérer que l’on puisse un jour installer MaruOS sur des téléphones bien plus puissants.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Jun 2017 00:00:00 +0200</pubDate>
+        <link>https://www.evilznet.com/2017/06/07/vscode-on-nexus-5/</link>
+        <guid isPermaLink="true">https://www.evilznet.com/2017/06/07/vscode-on-nexus-5/</guid>
+        
+        <category>dotnet</category>
+        
+        <category>Informatique</category>
+        
+        
+      </item>
     
       <item>
         <title>Du Fsharp à NewCrafts 2017</title>
@@ -1249,352 +1537,6 @@ De plus via la propriété InputScope nous allons pouvoir spécifier un contexte
         
         <category>WP7</category>
         
-        
-      </item>
-    
-      <item>
-        <title>Après-midi du développement - Windows Phone Mango</title>
-        <description>&lt;p&gt;Mercredi 1&lt;sup&gt;er&lt;/sup&gt; juin nous avons passé une demi-journée dans les locaux de Microsoft pour une tour des évolutions du développement sur la nouvelle version de Windows Phone 7.1 alias &lt;strong&gt;Mango&lt;/strong&gt;&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;Avec plus de 1500 APIs, le nouveau SDK Windows Phone 7 s’agrandit considérablement : Réalité augmentée, capteurs, multitasking, intégration de Silverlight et XNA dans la même application, base de données locale, nouveaux scénarios de notifications, accès à plus de donnés du téléphone’¦ sans compter les nouveaux outils pour le développeur ! De quoi revoir et améliorer vos applications existantes, mais aussi créer de nouveaux usages. Un beau programme pour une après-midi du développement riche en fruits frais !&lt;/p&gt;
-
-&lt;p&gt;Cette session a été présentée par Luc Vo Van, David CATUHE, Pierre Cauchois&lt;/p&gt;
-
-&lt;h1 id=&quot;visual-studio&quot;&gt;Visual Studio&lt;/h1&gt;
-
-&lt;h2 id=&quot;les-projets&quot;&gt;Les projets&lt;/h2&gt;
-
-&lt;p&gt;Après l’installation du nouveau SDK téléchargeable &lt;a href=&quot;http://www.microsoft.com/downloads/en/details.aspx?FamilyID=77586864-ab15-40e1-bc38-713a95a56a05&amp;amp;displaylang=en&quot; title=&quot;sdk mango&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Quatre nouveau templates de projet seront présent dans Visual Studio 2010 pour développer vos applications Mango.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3491/5810803389_bea764353e_o.png&quot; width=&quot;287&quot; height=&quot;169&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Chacun de ces Templates étant lié à une nouvelle fonctionnalité de Mango.&lt;/p&gt;
-
-&lt;p&gt;Le multi-targeting est aussi présent et nous laisse le choix de la version de Windows Phone.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3224/5810803465_0ca347a4d1_o.png&quot; width=&quot;527&quot; height=&quot;249&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Il est facilement possible de mettre à jour vos applications existantes vers 7.1 gr’ce à un Wizzard. Attention cependant le retour vers 7.0 peut être plus compliqué, donc faites des tests de migration sur une copie de votre projet ou sur une nouvelle branche.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2346/5811384780_d118a1053d_o.png&quot; width=&quot;341&quot; height=&quot;186&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3066/5811384742_de38893169.jpg&quot; width=&quot;500&quot; height=&quot;283&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;A noté cependant qu’il n’est pas obligatoire de migrer vers 7.1 pour que les applications fonctionnent sur le future système, elles pourront fonctionner sans problème et bénéficierons même de meilleures performances liées aux améliorations du système.&lt;/p&gt;
-
-&lt;h2 id=&quot;lémulateur&quot;&gt;L’émulateur&lt;/h2&gt;
-
-&lt;p&gt;L’émulateur permet maintenant de simuler une activité des sensors : Accéléromètre et GPS&lt;/p&gt;
-
-&lt;p&gt;Pour l’accéléromètre les positions prédéfinies du téléphone sont sélectionnable dans une liste bien qu’il soit tout aussi possible de modifier la position simplement avec la souris. De plus, nous pouvons jouer des scénarios de données comme le ‘« shake ‘».&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3365/5810803797_8d3d30f61f.jpg&quot; width=&quot;500&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Pour la partie location, bing map est affiché dans la fenêtre (étonnant) et permet de créer soit par simple clique sur la carte soit par recherche un parcours (une liste de coordonnées). Ce parcours est ensuite joué c’est-à-dire un changement de point toutes les x seconde.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2258/5811368232_e7c8bb868e.jpg&quot; width=&quot;500&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;h2 id=&quot;profiler&quot;&gt;Profiler&lt;/h2&gt;
-
-&lt;p&gt;Un profiler dédier au projet WP7 a été ajouté, il n’est pas à l’heure actuelle dans sa version définitive, mais il permet déjà de pouvoir ciblé certains problèmes de frame rate et d’utilisation de thread sur la CPU/GPU.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3202/5811384844_c9f161ce34.jpg&quot; width=&quot;500&quot; height=&quot;346&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;amp-img src=&quot;https://farm4.static.flickr.com/3489/5810804249_39abaa27b6.jpg&quot; width=&quot;500&quot; height=&quot;281&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;h1 id=&quot;runtime&quot;&gt;RunTime&lt;/h1&gt;
-
-&lt;p&gt;La CRL a été améliorée pour obtenir de meilleures performances, la sérialisation/désérialisation en faisant partie, ce qui permet par exemple de réhydrater une application tombstonée plus rapidement.
-Le WebClient a aussi été revu pour ne plus forcément utiliser le thread UI tandis que le GC intervient moins fréquemment et est plus sélectif.
-Comme le nouveau SDK ce base sur la version 4 de Silverlight, cela ajoute de nouvelles possibilités (Flux de caméra) et de nouveaux contrôles (PathListBox, RichTextBox …) et un thread dédié à l’input a été ajouté. Enfin le décodage des images ce fait maintenant en t’che de fond.&lt;/p&gt;
-
-&lt;p&gt;Côté XNA les instructions SIMD sont maintenant gérées, les opérations sur les vecteurs sont parallélisées et il est même possible de combiné un développement Silverlight avec du XNA !&lt;/p&gt;
-
-&lt;h1 id=&quot;cycle-de-vie&quot;&gt;Cycle de vie&lt;/h1&gt;
-
-&lt;p&gt;Le cycle de vie se voit ajouté un nouvel état nommé Dormant, quand l’utilisateur sort de l’application l’événement Deactivated est déclenché et le système met l’application dans cet état Dormant, tous les threads de l’application sont arrêtés mais l’état de la mémoire reste intact. Si l’application est réactivée la mémoire est réutilisée directement. Cependant si trop d’application sont démarrées et qu’il ne reste plus assez de mémoire, le système passe alors les applications les moins utilsées en tombstoning pour libérer la mémoire.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2554/5811368676_b081651da4.jpg&quot; width=&quot;393&quot; height=&quot;500&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Lors de la réactivation d’une application on utilise IsApplicationInstancePreserved pour savoir si l’application était dans l’état Dormant ou non.&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Code to execute when the application is activated (brought to foreground)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// This code will not execute when the application is first launched&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Application_Activated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActivatedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IsApplicationInstancePreserved&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ApplicationDataStatus&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;application instance preserved.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// Check to see if the key for the application state data is in the State dictionary.&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PhoneApplicationService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;State&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ContainsKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ApplicationDataObject&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// If it exists, assign the data to the application member variable.&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ApplicationDataStatus&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data from preserved state.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ApplicationDataObject&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PhoneApplicationService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;State&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ApplicationDataObject&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;background-audio-agent&quot;&gt;Background Audio Agent&lt;/h1&gt;
-
-&lt;p&gt;Il est enfin possible de d’écouter de la musique en fond ! Youpi.&lt;/p&gt;
-
-&lt;p&gt;Le système va utiliser l’instance de Zune pour cela et on ne pourra bien sûr avoir qu’un seul morceau lut à la fois.
-Pour créer ce type d’application un template de projet a été ajouté : Windows Phone Audio Playback Agent
-On va utiliser le namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;Microsoft.Phone.BackgroundAudio&lt;/code&gt; et plus exactement le singleton &lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundAudioPlayer.Instance&lt;/code&gt; qui correspond à Zune.&lt;/p&gt;
-
-&lt;p&gt;On peut alors fournir un objet &lt;code class=&quot;highlighter-rouge&quot;&gt;AudioTrack&lt;/code&gt; à cette instance puis la contrôler (play, pause, Rewind, SkipNext, SkipPrevious, Stop , FastForward) et s’abonner à son changement d’état &lt;code class=&quot;highlighter-rouge&quot;&gt;PlayStateChanged&lt;/code&gt; pour par exemple savoir quand la piste audio se termine pour exécuter une autre action.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Astuce : Dans l’émulateur appuyez sur F10 pour afficher le lecteur zune.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;background-transfert&quot;&gt;Background Transfert&lt;/h1&gt;
-
-&lt;p&gt;Le second background agent introduit avec Mango est le &lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundTransferService&lt;/code&gt; qui permet comme son nom l’indique de transférer des fichiers par réseau même si l’application n’est pas en cours d’exécution. De plus il est possible de planifier les transferts, de connaitre leur progression et de gérer la file d’attente.&lt;/p&gt;
-
-&lt;p&gt;Toutes les API liée à cette fonctionnalité se trouve dans le namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;Microsoft.Phone.BackgroundTransfer&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;BackgroundTransferEventArgs&lt;/li&gt;
-  &lt;li&gt;BackgroundTransferRequest&lt;/li&gt;
-  &lt;li&gt;BackgroundTransferService&lt;/li&gt;
-  &lt;li&gt;TransferPreferences&lt;/li&gt;
-  &lt;li&gt;TransferStatus&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;A noté quelques limitations :&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Transferts en simultanée (téléphone): 2&lt;/li&gt;
-  &lt;li&gt;Transferts en attente : 500 max&lt;/li&gt;
-  &lt;li&gt;Transferts par application : 5 max&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;En Get (Téléchargement)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Ne fonctionne pas en 2G/EDGE/GPRS&lt;/li&gt;
-      &lt;li&gt;Réseau cellulaire : 20Mo max&lt;/li&gt;
-      &lt;li&gt;Wifi sur batterie : 100Mo max&lt;/li&gt;
-      &lt;li&gt;Wifi et téléphone branché au courant : Illimité&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Post (Téléchargement/upload)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Upload : 5Mo max&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Voici un exemple de code.&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BackgroundTransferRequest&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceUploadLocationURL&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localDBName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferPreferences&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TransferPreferences&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AllowBattery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UploadLocation&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TransfersFiles&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localDBName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferStatusChanged&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferEventArgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btr_UploadTransferStatusChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransferProgressChanged&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferEventArgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;btr_TransferProgressChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Microsoft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Phone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransfer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BackgroundTransferService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;scheduledtask-agent&quot;&gt;ScheduledTask Agent&lt;/h1&gt;
-
-&lt;p&gt;Pour finir avec les t’ches de fond, il est aussi possible d’écrire un bout de code à exécuter en tant que t’che planifiée.&lt;/p&gt;
-
-&lt;p&gt;Il existe deux types de t’ches planifiées et donc une classe héritant de &lt;code class=&quot;highlighter-rouge&quot;&gt;ScheduledTask&lt;/code&gt; pour chacun de ces types : &lt;code class=&quot;highlighter-rouge&quot;&gt;PeriodicTask&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;ResourceIntensiveTask&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;La différence c’est que la t’che périodique s’exécute régulièrement pendant un court instant et ne consomme peu de ressources alors que la t’che intensive elle s’exécute moins souvent mais consomme plus et plus longtemps.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Les limitations sont les suivantes :&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Mémoire : 5Mo&lt;/li&gt;
-  &lt;li&gt;Expiration : 2 semaines&lt;/li&gt;
-  &lt;li&gt;Accès aux API restreint&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;L’utilisateur à la possibilité de les déactiver
-&lt;strong&gt;Périodique :&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Il s’exécute toutes les 30 minutes pendant 15 secondes (Attention les 30 minutes sont approximatives si deux background agent doivent se lancer à des horaires proches le téléphone va les lancer en même temps pour optimiser son temps de travail).&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Peut ne pas être appelé ! (s’il y a trop de background agent actifs).
-&lt;strong&gt;Ressource intensive :&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Pendant 10 minutes&lt;/li&gt;
-  &lt;li&gt;Ne s’exécute que si le téléphone est sur secteur&lt;/li&gt;
-  &lt;li&gt;Que si le téléphone est connecté au wifi ou au PC&lt;/li&gt;
-  &lt;li&gt;Que s’il y a au moins 90% de la batterie&lt;/li&gt;
-  &lt;li&gt;Ne se lance que si le téléphone est au repos (aucune application lancée)
-Ce qu’Il faut comprendre ici c’est que Microsoft a comme objectif d’optimiser le temps de vie de la batterie des WP7 et donc de réduire le plus possible l’utilisation intensive et inutile de ressources.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Voici un exemple de code :&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Microsoft.Phone.Scheduler.PeriodicTask&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;PeriodicTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PeriodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TaskUniqueNameInApp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Description&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;My Periodic Task Description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExpirationTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddDays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;periodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Microsoft.Phone.Scheduler.ResourceIntensiveTask&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ResourceIntensiveTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ResourceIntensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TaskUniqueNameInApp &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Description&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;My Intensive Task Description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExpirationTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddDays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intensiveTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Il faut ensuite créer une classe qui hérite de &lt;code class=&quot;highlighter-rouge&quot;&gt;ScheduledTaskAgent&lt;/code&gt; et surcharger la méthode &lt;code class=&quot;highlighter-rouge&quot;&gt;OnInvoke&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;OnCancel&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TaskScheduler&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ScheduledTaskAgent&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OnInvoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ScheduledTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PeriodicTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//is ResourceIntensiveTask&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;NotifyComplete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Dans le WMAppManifest.xml on retrouve l’entrée suivante :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-markup&quot;&gt;&amp;lt;ExtendedTask Name=&quot;BackgroundTask&quot;&amp;gt;
-&amp;lt;BackgroundServiceAgent Specifier=&quot;ScheduledTaskAgent&quot; Name=&quot;SampleAgent&quot;Source=&quot;#AssemblyName#&quot; Type=&quot;#AssemblyName#.TaskScheduler&quot; /&amp;gt;
-&amp;lt;/ExtendedTask&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alarm &amp;amp; Reminder&lt;/p&gt;
-
-&lt;p&gt;Deux nouveautés les alarmes et rappel que vous pouvez intégrer dans vos applications, voici un exemple de code :&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Alarm&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.Phone.Scheduler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AddAlarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RoutedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;Alarm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Ding dong!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BeginTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddSeconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Debout la dedans!.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alarm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;rappel&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Microsoft.Phone.Scheduler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AddReminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RoutedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;Reminder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Reminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SoundMachineReminder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;BeginTime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddSeconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;N'oubliez pas que vous pouvez télécharger les musiques en local&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Title&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Sound Machine Reminder System&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;     	&lt;span class=&quot;n&quot;&gt;RecurrenceType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecurrenceInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Yearly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;     	&lt;span class=&quot;n&quot;&gt;NavigationUri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/MainPage.xaml&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UriKind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;ScheduledActionService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Tile &amp;amp; push notification&lt;/p&gt;
-
-&lt;p&gt;Plusieurs nouveautés concernant les tuiles :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;On peut les modifier localement depuis une application via la classe &lt;code class=&quot;highlighter-rouge&quot;&gt;StandardTileData&lt;/code&gt; qui permet de modifier les informations de devant : &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;BackgroundImage&lt;/code&gt;,Count mais aussi de derrriere : &lt;code class=&quot;highlighter-rouge&quot;&gt;BackContent&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BackTitle&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BackBackgroundImag&lt;/code&gt;e. Si les informations ‘« back ‘» sont fourni la tuile va pivoter a intervalle régulier.&lt;/li&gt;
-  &lt;li&gt;On peut plusieurs tuiles pour la même application qui vont permettre de créer des raccourcie vers des pages de votre application, ces tuiles sont bien sur elle aussi personnalisable.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2031/5811556294_3a54a32e89_m.jpg&quot; width=&quot;240&quot; height=&quot;102&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2396/5810992111_51ae872653_m.jpg&quot; width=&quot;240&quot; height=&quot;83&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;h1 id=&quot;sl4--xna&quot;&gt;SL4 &amp;amp; XNA&lt;/h1&gt;
-
-&lt;p&gt;Il est maintenant possible d’utiliser les ces deux technologies dans la même application.&lt;/p&gt;
-
-&lt;p&gt;Basé sur une application Silverlight nous pouvons basculer entre les moteurs Silverlight et XNA en utilisant la méthode &lt;code class=&quot;highlighter-rouge&quot;&gt;GraphicsDevice.SetSharingMode()&lt;/code&gt;. Lorsque le mode sharing est activé XNA se charge du rendu et les opérations &lt;code class=&quot;highlighter-rouge&quot;&gt;Update&lt;/code&gt; et &lt;code class=&quot;highlighter-rouge&quot;&gt;Draw&lt;/code&gt; sont déclenchées par des évènements de &lt;code class=&quot;highlighter-rouge&quot;&gt;GameTimer&lt;/code&gt;. Le contenu Silverlight peut alors être intégré comme une texture en utilisant un &lt;code class=&quot;highlighter-rouge&quot;&gt;UIElementRenderer&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;contacts--calendrier&quot;&gt;Contacts / Calendrier&lt;/h1&gt;
-
-&lt;p&gt;On peut maintenant accéder aux informations de l’utilisateur de façon asynchrone bien entendu et le petit plus, c’est que l’on peut aussi requêter en Linq. Retrouvez les infos complètes sur la msdn &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh220665(v=VS.92).aspx&quot;&gt;Microsoft.Phone.UserData&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Launchers / Choosers
-Quelques nouvelles task ont été rajoutées pour nous simplifier la vie.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;BingMapsTask (localisation)&lt;/li&gt;
-  &lt;li&gt;BingMapsDirectionsTask (navigation turn-by-turn)&lt;/li&gt;
-  &lt;li&gt;AddressChooserTask (adresse postale)&lt;/li&gt;
-  &lt;li&gt;GameInviteTask (partage de jeux)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;caméra&quot;&gt;Caméra&lt;/h1&gt;
-
-&lt;p&gt;Il va maintenant être possible de créer des applications de réalité augmentée par l’utilisation de la caméra ! On dispose de deux API, une propre au téléphone PhotoCamera qui permet entre autre de gérer le flash, le focus … et l’API WebCam de SL4 qui est compatible avec celle utilisée sur PC.&lt;/p&gt;
-
-&lt;h1 id=&quot;motion-api&quot;&gt;Motion API&lt;/h1&gt;
-
-&lt;p&gt;L’API Motion est une api combinant à la fois les données de l’accéléromètre, de la boussole et du gyroscope et qui permet après des calculs complexes de géométrique de déterminer ‘« l’attitude ‘» du téléphone. Cette API sera utile notamment pour les fameuses applications de réalité augmentée.&lt;/p&gt;
-
-&lt;p&gt;Voir l’utilisation &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202984(v=vs.92).aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;sql-compact&quot;&gt;Sql Compact&lt;/h1&gt;
-
-&lt;p&gt;Le sdk intègre maintenant une BDD SQL CE (.sdf).&lt;/p&gt;
-
-&lt;p&gt;La base est créée par une approche ‘« Code First ‘», autrement dit on crée un modèle par classes sur lesquelles ont rajoute des attributs comme &lt;code class=&quot;highlighter-rouge&quot;&gt;Table&lt;/code&gt; ou &lt;code class=&quot;highlighter-rouge&quot;&gt;Column&lt;/code&gt;. Ce modèle est ensuite utilisé au travers d’un &lt;code class=&quot;highlighter-rouge&quot;&gt;DataContext&lt;/code&gt; sur lequel on fait des requêtes Linq, des insert/update/delete.&lt;/p&gt;
-
-&lt;p&gt;Vous trouverez un exemple complet &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202876%28v=VS.92%29.aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;search-extensibility&quot;&gt;Search Extensibility&lt;/h1&gt;
-
-&lt;p&gt;Les applications mango ont maintenant la possibilité de s’enregistrer en tant qu’application susceptible de correspondre à une recherche fait directement par Bing. Une fois l’application enregistrée, si elle a un rapport avec le terme recherché, l’application pourra directement être lancée depuis le résultat de la recherche Bing. L’application va alors se lancer en prenant en compte le terme recherché.&lt;/p&gt;
-
-&lt;p&gt;Pour ce faire les extensions sont déclarées dans le WMAppManifest ainsi que dans un fichier supplémentaire extras.xml un fichier.&lt;/p&gt;
-
-&lt;amp-img src=&quot;https://farm3.static.flickr.com/2060/5811368788_a398f9a772_o.png&quot; width=&quot;250&quot; height=&quot;469&quot; alt=&quot;AMP&quot;&gt;&lt;/amp-img&gt;
-
-&lt;p&gt;Plus d’informations &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202957(v=VS.92).aspx&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;network&quot;&gt;Network&lt;/h1&gt;
-
-&lt;p&gt;Windows Phone OS 7.1 inclut de nouvelles API réseau basé sur les sockets. Les protocols TCP et UDP(unicast et multicast) sont supportés. &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx&quot;&gt;http://msdn.microsoft.com/en-us/library/hh202870(v=VS.92).aspx&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;De plus &lt;code class=&quot;highlighter-rouge&quot;&gt;DeviceNetworkInformation&lt;/code&gt; a été complété pour faciliter l’utilisation et tester rapidement la connectivité.&lt;/p&gt;
-
-&lt;amp-gist data-gistid=&quot;da53d446718e442a99c342c12e19dfca&quot; data-file=&quot;network-wp7-api.csv&quot; layout=&quot;fixed-height&quot; height=&quot;978&quot;&gt;
-&lt;/amp-gist&gt;
-
-&lt;h1 id=&quot;marcketplace&quot;&gt;Marcketplace&lt;/h1&gt;
-
-&lt;p&gt;Il sera possible de distribuer une application beta à un ensemble de testeur (100 max) avant certification. Le processus est le suivant : le développeur fourni une liste de testeurs, il reçoit un lien deeplink qu’il transfert, les testeurs ont alors 90 jours pour renvoyer leur feedback.&lt;/p&gt;
-
-&lt;p&gt;Il sera aussi possible d’utiliser un service de diffusion privée toujours sur le même principe un lien sera fourni au développeur de l’application qui ne sera pas visible directement sur le marketplace. Il suffira alors de donner le lien aux différents clients.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 08 Jun 2011 10:58:00 +0200</pubDate>
-        <link>https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</link>
-        <guid isPermaLink="true">https://www.evilznet.com/2011/06/08/apres-midi-du-developpement-windows-phone-mango/</guid>
-        
-        
-        <category>Informatique</category>
-        
-        <category>mango</category>
-        
-        <category>Microsoft</category>
-        
-        <category>windows phone</category>
         
       </item>
     
