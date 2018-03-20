@@ -20,11 +20,9 @@ git clone https://${GH_TOKEN}@github.com/evilz/evilz.github.io.git --branch Jeky
 bundle exec jekyll build
 
 # push
-cp CNAME _site/CNAME
 cd _site
 git config user.email "evilznet@gmail.com"
 git config user.name "evilz"
-git checkout -b travis
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push --force origin travis 
+git push --force origin master
