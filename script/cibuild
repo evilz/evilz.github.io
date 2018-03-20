@@ -25,4 +25,4 @@ git config user.email "evilznet@gmail.com"
 git config user.name "evilz"
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push --force origin master
+git push --force origin testouille
