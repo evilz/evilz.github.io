@@ -23,6 +23,9 @@ bundle exec jekyll build
 cd _site
 git config user.email "evilznet@gmail.com"
 git config user.name "evilz"
+git checkout -b travis
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push --force origin testouille
+git push origin travis 
+#git push -u
+#git push --force origin testouille
