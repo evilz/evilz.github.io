@@ -1,30 +1,42 @@
 #!/bin/bash
 
+# enable error reporting to the console
+set -e
+
+SOURCE_BRANCH="Jekyll_Sources"
+TARGET_BRANCH="HEAD:master"
+REPO="https://${GH_TOKEN}@github.com/evilz/evilz.github.io.git"
+CLONE_DIR="out"
+JEKYLL_DIR="_site"
+
+# git config
+git config user.email "evilznet@gmail.com"
+git config user.name "evilz"
+
+
 # skip if build is triggered by pull request
 if [ $TRAVIS_PULL_REQUEST == "true" ]; then
   echo "this is PR, exiting"
   exit 0
 fi
 
-# enable error reporting to the console
-set -e
+# cleanup "CLONE_DIR"
+rm -rf $CLONE_DIR
+mkdir $CLONE_DIR
 
-# cleanup "_site"
-rm -rf _site
-mkdir _site
+# clone remote repo to "CLONE_DIR"
+git clone $REPO $CLONE_DIR
+git checkout -b $SOURCE_BRANCH
 
-# clone remote repo to "_site"
-git clone https://${GH_TOKEN}@github.com/evilz/evilz.github.io.git --branch Jekyll_Sources _site
-
-# build with Jekyll into "_site"
+# build with Jekyll into "CLONE_DIR"
 bundle exec jekyll build
 
 # push
-cp CNAME _site/CNAME
-cd _site
-git config user.email "evilznet@gmail.com"
-git config user.name "evilz"
-git checkout -b travis
+cp CNAME $CLONE_DIR/CNAME
+cd $CLONE_DIR
+
+
+git checkout -b $TARGET_BRANCH
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push --force origin HEAD:master 
+#### git push --force origin $TARGET_BRANCH
