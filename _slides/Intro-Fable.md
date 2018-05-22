@@ -3,6 +3,7 @@ theme : "white"
 customTheme : "custom"
 layout: slides
 title: Introduction a FABLE
+permalink: intro-fable.html
 date: 2017-05-14
 author: evilz
 comments: true
