@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+  <head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Lora:400,700' rel='stylesheet' type='text/css'>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-gist" src="https://cdn.ampproject.org/v0/amp-gist-0.1.js"></script>
+  <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Convertir son blog en Progressive Web App</title>
+  <meta name="description" content="Cet article est le second de la série dédiée aux retours d’expérience sur le sujet  : Obtenir un site performant avec Accelerated Mobile Page, Progressive We...">
+
+  <link rel="canonical" href="https://www.evilznet.com/2018/03/05/AMP-WPA-CDN-2/">
+  <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="https://www.evilznet.com/feed.xml">
+  <link rel="manifest" href="/manifest.json">
+
+  <script type="application/ld+json">
+  
+{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "https://www.evilznet.com/2018/03/05/AMP-WPA-CDN-2/",
+  "headline": "Convertir son blog en Progressive Web App",
+  "datePublished": "2018-03-05T00:00:00+00:00",
+  "dateModified": "2018-03-05T00:00:00+00:00",
+  "description": "Cet article est le second de la série dédiée aux retours d’expérience sur le sujet  : Obtenir un site performant avec Accelerated Mobile Page, Progressive We...",
+  "author": {
+    "@type": "Person",
+    "name": "Vincent Bourdon"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Evilz blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.evilznet.com/assets/images/logo.jpg",
+      "width": "60",
+      "height": "60"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.evilznet.com/assets/images/logo.jpg",
+    "height": "60",
+    "width": "60"
+  }
+}
+
+  </script>
+
+  <style amp-custom>
+  
+  /**
+ * Syntax highlighting styles
+ */
+.highlight {
+  background: #fff;
+  /* Comment */
+  /* Error */
+  /* Keyword */
+  /* Operator */
+  /* Comment.Multiline */
+  /* Comment.Preproc */
+  /* Comment.Single */
+  /* Comment.Special */
+  /* Generic.Deleted */
+  /* Generic.Emph */
+  /* Generic.Error */
+  /* Generic.Heading */
+  /* Generic.Inserted */
+  /* Generic.Output */
+  /* Generic.Prompt */
+  /* Generic.Strong */
+  /* Generic.Subheading */
+  /* Generic.Traceback */
+  /* Keyword.Constant */
+  /* Keyword.Declaration */
+  /* Keyword.Namespace */
+  /* Keyword.Pseudo */
+  /* Keyword.Reserved */
+  /* Keyword.Type */
+  /* Literal.Number */
+  /* Literal.String */
+  /* Name.Attribute */
+  /* Name.Builtin */
+  /* Name.Class */
+  /* Name.Constant */
+  /* Name.Decorator */
+  /* Name.Entity */
+  /* Name.Exception */
+  /* Name.Function */
+  /* Name.Label */
+  /* Name.Namespace */
+  /* Name.Tag */
+  /* Name.Variable */
+  /* Operator.Word */
+  /* Text.Whitespace */
+  /* Literal.Number.Float */
+  /* Literal.Number.Hex */
+  /* Literal.Number.Integer */
+  /* Literal.Number.Oct */
+  /* Literal.String.Backtick */
+  /* Literal.String.Char */
+  /* Literal.String.Doc */
+  /* Literal.String.Double */
+  /* Literal.String.Escape */
+  /* Literal.String.Heredoc */
+  /* Literal.String.Interpol */
+  /* Literal.String.Other */
+  /* Literal.String.Regex */
+  /* Literal.String.Single */
+  /* Literal.String.Symbol */
+  /* Name.Builtin.Pseudo */
+  /* Name.Variable.Class */
+  /* Name.Variable.Global */
+  /* Name.Variable.Instance */
+  /* Literal.Number.Integer.Long */ }
+  .highlighter-rouge .highlight {
+    background: #fcfcfc; }
+  .highlight pre {
+    background-color: #fcfcfc; }
+  .highlight code {
+    background-color: #fcfcfc; }
+  .highlight .hll {
+    background-color: #ffffcc; }
+  .highlight .c {
+    color: #999988;
+    font-style: italic; }
+  .highlight .err {
+    color: #a61717;
+    background-color: #e3d2d2; }
+  .highlight .k {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .o {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .cm {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cp {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .c1 {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cs {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .gd {
+    color: #000000;
+    background-color: #ffdddd; }
+  .highlight .ge {
+    color: #000000;
+    font-style: italic; }
+  .highlight .gr {
+    color: #aa0000; }
+  .highlight .gh {
+    color: #999999; }
+  .highlight .gi {
+    color: #000000;
+    background-color: #ddffdd; }
+  .highlight .go {
+    color: #888888; }
+  .highlight .gp {
+    color: #555555; }
+  .highlight .gs {
+    font-weight: bold; }
+  .highlight .gu {
+    color: #aaaaaa; }
+  .highlight .gt {
+    color: #aa0000; }
+  .highlight .kc {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kd {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kn {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kp {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kr {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kt {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .m {
+    color: #009999; }
+  .highlight .s {
+    color: #d01040; }
+  .highlight .na {
+    color: #008080; }
+  .highlight .nb {
+    color: #0086B3; }
+  .highlight .nc {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .no {
+    color: #008080; }
+  .highlight .nd {
+    color: #3c5d5d;
+    font-weight: bold; }
+  .highlight .ni {
+    color: #800080; }
+  .highlight .ne {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nf {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nl {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nn {
+    color: #555555; }
+  .highlight .nt {
+    color: #000080; }
+  .highlight .nv {
+    color: #008080; }
+  .highlight .ow {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .w {
+    color: #bbbbbb; }
+  .highlight .mf {
+    color: #009999; }
+  .highlight .mh {
+    color: #009999; }
+  .highlight .mi {
+    color: #009999; }
+  .highlight .mo {
+    color: #009999; }
+  .highlight .sb {
+    color: #d01040; }
+  .highlight .sc {
+    color: #d01040; }
+  .highlight .sd {
+    color: #d01040; }
+  .highlight .s2 {
+    color: #d01040; }
+  .highlight .se {
+    color: #d01040; }
+  .highlight .sh {
+    color: #d01040; }
+  .highlight .si {
+    color: #d01040; }
+  .highlight .sx {
+    color: #d01040; }
+  .highlight .sr {
+    color: #009926; }
+  .highlight .s1 {
+    color: #d01040; }
+  .highlight .ss {
+    color: #990073; }
+  .highlight .bp {
+    color: #999999; }
+  .highlight .vc {
+    color: #008080; }
+  .highlight .vg {
+    color: #008080; }
+  .highlight .vi {
+    color: #008080; }
+  .highlight .il {
+    color: #009999; }
+
+/* Basscss Margin */
+.m0 {
+  margin: 0; }
+
+.mt0 {
+  margin-top: 0; }
+
+.mr0 {
+  margin-right: 0; }
+
+.mb0 {
+  margin-bottom: 0; }
+
+.ml0 {
+  margin-left: 0; }
+
+.mx0 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.my0 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.m1 {
+  margin: 0.5rem; }
+
+.mt1 {
+  margin-top: 0.5rem; }
+
+.mr1 {
+  margin-right: 0.5rem; }
+
+.mb1 {
+  margin-bottom: 0.5rem; }
+
+.ml1 {
+  margin-left: 0.5rem; }
+
+.mx1 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
+
+.my1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; }
+
+.m2 {
+  margin: 1rem; }
+
+.mt2 {
+  margin-top: 1rem; }
+
+.mr2 {
+  margin-right: 1rem; }
+
+.mb2 {
+  margin-bottom: 1rem; }
+
+.ml2 {
+  margin-left: 1rem; }
+
+.mx2 {
+  margin-left: 1rem;
+  margin-right: 1rem; }
+
+.my2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
+.m3 {
+  margin: 2rem; }
+
+.mt3 {
+  margin-top: 2rem; }
+
+.mr3 {
+  margin-right: 2rem; }
+
+.mb3 {
+  margin-bottom: 2rem; }
+
+.ml3 {
+  margin-left: 2rem; }
+
+.mx3 {
+  margin-left: 2rem;
+  margin-right: 2rem; }
+
+.my3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem; }
+
+.m4 {
+  margin: 4rem; }
+
+.mt4 {
+  margin-top: 4rem; }
+
+.mr4 {
+  margin-right: 4rem; }
+
+.mb4 {
+  margin-bottom: 4rem; }
+
+.ml4 {
+  margin-left: 4rem; }
+
+.mx4 {
+  margin-left: 4rem;
+  margin-right: 4rem; }
+
+.my4 {
+  margin-top: 4rem;
+  margin-bottom: 4rem; }
+
+.mxn1 {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem; }
+
+.mxn2 {
+  margin-left: -1rem;
+  margin-right: -1rem; }
+
+.mxn3 {
+  margin-left: -2rem;
+  margin-right: -2rem; }
+
+.mxn4 {
+  margin-left: -4rem;
+  margin-right: -4rem; }
+
+.ml-auto {
+  margin-left: auto; }
+
+.mr-auto {
+  margin-right: auto; }
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto; }
+
+.icon > svg {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle; }
+  .icon > svg path {
+    fill: #828282; }
+
+.fixed-container {
+  position: relative;
+  max-width: 700px;
+  height: 180px; }
+
+.fixed-header {
+  position: relative;
+  max-width: 700px;
+  height: 360px; }
+
+.fixed-footer {
+  position: relative;
+  max-width: 300px;
+  height: 80px; }
+
+amp-img {
+  background-color: #fff; }
+
+amp-img.contain img {
+  object-fit: contain; }
+
+amp-img.cover img {
+  object-fit: cover; }
+
+.cf:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+main {
+  display: block; }
+
+body {
+  background-color: #fff;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -webkit-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig"; }
+
+.site-header {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 16px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .site-header {
+      padding: 0 16px; } }
+  .site-header .page-links {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 30px; }
+    .site-header .page-links a {
+      text-decoration: none;
+      color: #999999; }
+      .site-header .page-links a:hover {
+        color: #333333; }
+
+.blog-header {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .blog-header .blog-title {
+    margin-bottom: 8px;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    outline: 0;
+    line-height: 50px;
+    word-break: break-word;
+    color: #333333; }
+  .blog-header .blog-description {
+    font-size: 28px;
+    margin: 0 0 20px;
+    padding: 0;
+    line-height: 1.2;
+    color: #666666;
+    font-weight: 300; }
+
+.content {
+  width: 100%;
+  max-width: 700px;
+  margin: 25px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .content {
+      padding: 0 16px; } }
+  .content article {
+    padding: 20px 0;
+    border-bottom: 1px solid #f2f2f0; }
+    .content article:last-child {
+      border-bottom: 0px; }
+    .content article .post-title {
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      font-style: normal;
+      display: block;
+      font-size: 36px;
+      line-height: 1.15;
+      margin: 0 0; }
+      .content article .post-title a {
+        text-decoration: none;
+        color: #333332; }
+        .content article .post-title a:hover {
+          text-decoration: none; }
+    .content article .post-excerpt {
+      letter-spacing: -0.02em;
+      font-weight: 300;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1.59;
+      color: #666665; }
+    .content article .post-meta {
+      font-size: 14px;
+      color: #b3b3b1;
+      line-height: 30px; }
+      .content article .post-meta a {
+        color: #b3b3b1;
+        text-decoration: none; }
+        .content article .post-meta a:hover {
+          text-decoration: underline; }
+
+.post-template .content {
+  max-width: 700px; }
+
+.index-headline {
+  border-top: 1px solid #dededc;
+  margin: 0;
+  padding: 16px 0; }
+  .index-headline span {
+    color: #b3b3b1;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+
+.pagination {
+  text-align: center;
+  padding: 16px 0 0;
+  font-size: 12px; }
+  .pagination a {
+    color: #999999;
+    text-decoration: none; }
+    .pagination a:hover {
+      color: #333333; }
+
+.site-footer {
+  margin: 0 auto;
+  padding: 48px 0;
+  width: 100%;
+  max-width: 700px;
+  font-size: 12px;
+  text-align: center;
+  color: #999999;
+  line-height: 17.6px; }
+  .site-footer a {
+    color: #666666;
+    text-decoration: none; }
+    .site-footer a:hover {
+      color: #333333; }
+
+.post .post-meta {
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+.post .post-title {
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 50px;
+  line-height: 1.1;
+  color: #333332;
+  margin-bottom: 50px; }
+.post .author-image {
+  background-image: url(/assets/images/logo.jpg);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 8px;
+  margin-bottom: -10px;
+  float: left;
+  background-size: cover;
+  border-radius: 100%;
+  text-indent: -9999px; }
+.post .post-meta-text {
+  color: #b3b3b1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  overflow: hidden;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+.post .post-content {
+  width: 100%;
+  font-family: Georgia, Cambria, "Times New Roman", Times, "Lora", serif;
+  color: #333333; }
+  .post .post-content h1, .post .post-content h2, .post .post-content h3 {
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3, .post .post-content h4, .post .post-content h5, .post .post-content h6 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.3;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3 {
+    font-size: 36px; }
+  .post .post-content h2, .post .post-content h1 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 42px;
+    line-height: 1.2;
+    margin-top: 50px;
+    margin-bottom: 0px; }
+  .post .post-content table {
+    border-collapse: collapse; }
+  .post .post-content table, .post .post-content th, .post .post-content td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left; }
+  .post .post-content p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.59;
+    letter-spacing: -.002em;
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: #333333;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto; }
+  .post .post-content a {
+    color: #333333;
+    text-decoration: underline; }
+  .post .post-content amp-img, .post .post-content amp-youtube {
+    margin-top: 30px; }
+  .post .post-content figure {
+    margin: 0;
+    padding: 0 0 30px; }
+  .post .post-content figcaption {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #666665;
+    outline: 0;
+    z-index: 300;
+    text-align: center; }
+  .post .post-content hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 30px auto;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .post-content blockquote {
+    margin: 0 0 30px;
+    margin-left: -26px;
+    border-left: 3px solid #57ad68;
+    padding-left: 20px; }
+    .post .post-content blockquote p {
+      letter-spacing: 0.01rem;
+      font-weight: 400;
+      mborder-left: 3px solid #57ad68;
+      mpadding-left: 20px;
+      mmargin-left: -26px;
+      padding-bottom: 3px; }
+  .post .post-content ul, .post .post-content ol {
+    padding: 0 0 30px;
+    margin: 0; }
+  .post .post-content li {
+    padding: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 23px;
+    line-height: 30px;
+    margin-left: 30px;
+    margin-bottom: 12px;
+    padding-top: 2px; }
+    .post .post-content li p {
+      padding: 0 0 1.618rem; }
+  .post .post-content ol li {
+    list-style-type: decimal; }
+.post .bottom-teaser {
+  padding: 50px 0 0 0;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .bottom-teaser hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 16px 0 16px 100px;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .bottom-teaser .isLeft {
+    float: left;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isLeft {
+        width: 100%;
+        padding-bottom: 32px; } }
+    .post .bottom-teaser .isLeft .bio {
+      margin-top: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .username {
+      margin-left: 4px;
+      margin-right: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isLeft a {
+      color: black;
+      text-decoration: none; }
+      .post .bottom-teaser .isLeft a:hover {
+        color: #333333;
+        text-decoration: underline; }
+    .post .bottom-teaser .isLeft .author-image {
+      display: block;
+      width: 80px;
+      height: 80px;
+      float: left;
+      background-size: cover;
+      border-radius: 100%;
+      text-indent: -9999px; }
+    .post .bottom-teaser .isLeft h4 {
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+    .post .bottom-teaser .isLeft p {
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+      .post .bottom-teaser .isLeft p.published {
+        color: #999999; }
+  .post .bottom-teaser .isRight {
+    float: right;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isRight {
+        width: 100%; } }
+    .post .bottom-teaser .isRight .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isRight .site-footer {
+      margin: 0;
+      padding: 0;
+      color: #333333;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.3;
+      color: #999999; }
+      .post .bottom-teaser .isRight .site-footer a {
+        color: #333333;
+        text-decoration: none; }
+        .post .bottom-teaser .isRight .site-footer a:hover {
+          text-decoration: underline; }
+      .post .bottom-teaser .isRight .site-footer .poweredby {
+        display: block;
+        padding-bottom: 18px;
+        font-weight: 700;
+        color: #333333; }
+
+.share {
+  text-align: right;
+  padding: 20px 0 0; }
+  .share a {
+    text-decoration: none;
+    color: #bbbbbb;
+    padding-left: 12px; }
+    .share a .hidden {
+      display: none; }
+    .share a:hover {
+      color: #333333; }
+
+pre,
+code {
+  font-size: 15px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  background-color: #fcfcfc;
+  color: #000000; }
+
+code {
+  padding: 1px 5px; }
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto; }
+  pre > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0; }
+
+.pagination .disabled {
+  opacity: 0; }
+
+  </style>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+
+  <body>
+    <header class="site-header">
+  <a href="/" class="logo"><span class="logo"><amp-img src="/assets/images/logo.jpg" width="48" height="48" alt="evilz logo" /></span></a>
+
+  <div class="page-links">
+    <a class="page-link" href="/">Home</a>
+    
+      
+      • <a class="page-link" href="/_slides/Intro-Fable/">Introduction a FABLE</a>
+      
+    
+      
+      • <a class="page-link" href="/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</header>
+
+
+    <div class="feature"></div>
+<main class="content" role="main">
+  <article class="post">
+    <div class="post-meta">
+      <h1 class="post-title">Convertir son blog en Progressive Web App</h1>
+    </div>
+
+ 
+    <section class="post-content">
+      <a name="topofpage"></a>
+
+        <!-- Post Feature Image -->
+   
+   
+   
+   <div class="flex">
+    <div class="fixed-header m1">
+
+      <amp-img src="https://farm5.staticflickr.com/4661/25545415777_98d1d43130_c.jpg"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
+  
+   
+
+   <p>Cet article est le second de la série dédiée aux retours d’expérience sur le sujet  : <strong>Obtenir un site performant avec Accelerated Mobile Page, Progressive Web App et un content delivery network</strong></p>
+
+<p><a href="https://www.evilznet.com/2018/02/14/AMP-WPA-CDN-1/">Partie 1 : AMP</a>
+Partie 2 : PWA 
+Partie 3 : CDN &amp; SSL : à venir …</p>
+
+<h2 id="pwa-cest-quoi-">PWA, c’est quoi ?</h2>
+
+<p>Là encore il s’agit d’une idée lancée par google. Si tout est expliqué ici <a href="https://developers.google.com/web/progressive-web-apps/">https://developers.google.com/web/progressive-web-apps/</a>,
+je vais tenter d’en résumer rapidement les principes.</p>
+
+<p>L’objectif est d’avoir une application web qui puisse être directement installée sur mobile sans passer par un store, et qui puisse être indexée par les moteurs de recherche.
+Ces PWA devront se rapprocher le plus possible d’une application native en matière de fonctionnalités et donc s’adapter en fonction des capacités du périphérique utilisé : 
+Géolocalisation
+Push-notification
+Audio / Vidéo
+… et plein d’autres 
+Ce site vous permet de voir les capacités de votre navigateur : <a href="https://whatwebcando.today/camera-microphone.html">https://whatwebcando.today/camera-microphone.html</a></p>
+
+<p>À la différence des applications natives, une PWA devra répondre rapidement. Autrement dit, on ne va pas télécharger 40Mo lors de la première ouverture ! Le premier chargement sera le plus souvent limité à un <code class="highlighter-rouge">shell</code> vide, ensuite l’application va télécharger de façon asynchrone le contenu que l’on veut afficher lorsque cela est nécessaire.</p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4607/26446689588_f53f02b193_o.png" alt="" width="743" height="550" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4607/26446689588_f53f02b193_o.png" alt="" width="743" height="550"></noscript></amp-img></p>
+
+<p>Le téléchargement et la mise en cache du shell ou des contenus se basent sur une nouvelle API, les “Service Workers”, pas encore complètement supportée par tous les navigateurs.
+cf. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#Browser_compatibility">tableau de compatibilité des navigateurs sur MDN</a>.
+Le service worker est simplement un background worker avec lequel on communique pour effectuer des tâches de fond.</p>
+
+<h2 id="amp--pwa-compatible-">AMP + PWA compatible ?</h2>
+
+<p>Ces deux technologies ne partagent pas exactement les mêmes objectifs.
+Si AMP a pour but d’accélérer le web sur mobile en le rendant très léger, PWA est plus lourd puisque son but est presque de remplacer les applications natives et le passage par un store.</p>
+
+<p>Il y a encore quelques mois, ces deux technologies n’étaient donc pas compatibles entre elles, mais depuis, le composant <code class="highlighter-rouge">&lt;amp-install-serviceworker&gt;</code> est disponible et permet d’installer le service worker depuis une page APM.
+<a href="https://www.ampproject.org/docs/reference/components/amp-install-serviceworker">https://www.ampproject.org/docs/reference/components/amp-install-serviceworker</a></p>
+
+<h2 id="mise-en-place-du-service-worker">Mise en place du service worker</h2>
+
+<p>Un service worker est un script fonctionnant en tâche de fond, et qui est détaché du contexte UI. Autrement dit, le worker n’a pas d’accès direct au DOM ni aux interactions utilisateur. Toute la communication se fait au travers d’événements et de l’API postMessage.
+Le worker a cependant accès à toutes les requêtes/réponses Http ; il fonctionne un peu comme un proxy. De plus, les APIs de cache et de stockage sont disponibles,
+il est alors possible pour chaque requête de vérifier si une réponse existe dans le cache et dans le cas contraire on va pouvoir y ajouter la réponse associée à la requête pour la prochaine fois.</p>
+
+<p>Le service worker possède un cycle de vie précis après son enregistrement :</p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4710/39521147105_011573ea11_o.png" alt="" width="702" height="685" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4710/39521147105_011573ea11_o.png" alt="" width="702" height="685"></noscript></amp-img></p>
+
+<p>Vous pouvez tester facilement avec ce script en regardant les logs dans la console :</p>
+
+<p>[code language=”js”]
+self.addEventListener(‘install’, event =&gt; {
+  console.log(‘V1 installing…’);
+});</p>
+
+<p>self.addEventListener(‘activate’, event =&gt; {
+  console.log(‘V1 now ready to handle fetches!’);
+});</p>
+
+<p>self.addEventListener(‘fetch’, event =&gt; {
+});
+[/code]</p>
+
+<p>Le composant AMP va donc référencer un script qui définit les <code class="highlighter-rouge">handlers</code> pour ces événements.</p>
+
+<p>[code language=”js”]</p>
+<amp-install-serviceworker src="/serviceworker.js" layout="nodisplay">
+</amp-install-serviceworker>
+<p>[/code]</p>
+
+<p>Dans mon cas, j’ai fait le choix de ne pas faire de shell, le contenu complet de chaque page sera mis en cache pour chaque requête.
+Le fichier serviceworker.js se trouve à la racine de mon site et ne contient que le code suivant :</p>
+
+<p>[code language=”js”]
+self.addEventListener(‘fetch’, function (event) {
+    event.respondWith(
+        caches.open(‘mysite’).then(function (cache) {
+            return cache.match(event.request).then(function (response) {
+                var fetchPromise = fetch(event.request).then(function (networkResponse) {
+                    if (event.request.method === “GET”) {
+                        cache.put(event.request, networkResponse.clone());
+                    }
+                    return networkResponse;
+                })</p>
+
+<div class="highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code>            return response || fetchPromise;
+        })
+    })
+); }); [/code]
+</code></pre>
+  </div>
+</div>
+
+<p>À chaque requête de type GET, je mets la réponse en cache si ce n’était pas fait.</p>
+
+<p>Si vous préférez partir sur un design avec un shell, il est recommandé de précharger et mettre en cache les ressources nécessaires au shell dès l’installation du Service Worker.</p>
+
+<p>Le script ressemblera alors à celui-ci :</p>
+
+<p>[code language=”js”]
+var cacheName = ‘shell-content’;
+var filesToCache = [
+  ‘/css/styles.css’,
+  ‘/js/scripts.js’,
+  ‘/images/logo.svg’,
+  ‘/offline.html’,
+  ‘/’,
+];</p>
+
+<p>self.addEventListener(‘install’, function(e) {
+  console.log(‘[ServiceWorker] Install’);
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log(‘[ServiceWorker] Caching app shell’);
+      return cache.addAll(filesToCache);
+    })
+  );
+});
+[/code]</p>
+
+<h2 id="https-ou-rien">HTTPS ou rien</h2>
+
+<p>Les services workers fonctionnent uniquement avec le protocole HTTPS ou en localhost. 
+Fonctionnant comme un proxy, pouvant modifier le contenu des requêtes et des réponses, il est évident que tout doit se passer dans un contexte sécurisé grâce à un certificat SSL. 
+Si vous maîtrisez votre infra, installer un certificat sur votre serveur ne devrait pas être compliqué. 
+Dans mon cas, je suis sur Github pages avec un nom de domaine personnalisé et dans ce cas, l’utilisation du protocole HTTPS n’est pas possible. Nous verrons dans la troisième partie de l’article comme obtenir un site en HTTPS grâce au service de CloudFare.</p>
+
+<h2 id="manifest">Manifest</h2>
+
+<p>Les mécanismes de mise en cache sont maintenant fonctionnels, il reste cependant une dernière partie de l’application à ajouter : <code class="highlighter-rouge">le manifeste</code>.</p>
+
+<p>Le manifeste permet d’ajouter des informations de description de votre application web:</p>
+<ul>
+  <li>son nom</li>
+  <li>une description</li>
+  <li>son auteur</li>
+  <li>des icônes</li>
+  <li>des couleurs de thème</li>
+</ul>
+
+<p>Il suffit de créer un document texte au format JSON et de le référencer dans votre site :</p>
+
+<p>[code language=”html”]</p>
+<link rel="manifest" href="/manifest.json">
+
+<p>[/code]</p>
+
+<p>Voici le contenu de mon fichier :</p>
+
+<p>[code language=”js”]
+{
+name: “Evilznet Blog”,
+short_name: “Evilznet”,
+description: “Personal blog about computing stuff”,
+start_url: “.”,
+display: “standalone”,
+background_color: “#FFFFFF”,
+theme_color: “#FFFFFF”,
+icons: [
+{
+src: “/android-icon-36x36.png”,
+sizes: “36x36”,
+type: “image/png”,
+density: “0.75”
+},
+{
+src: “/android-icon-48x48.png”,
+sizes: “48x48”,
+type: “image/png”,
+density: “1.0”
+},
+{
+src: “/android-icon-72x72.png”,
+sizes: “72x72”,
+type: “image/png”,
+density: “1.5”
+},
+{
+src: “/android-icon-96x96.png”,
+sizes: “96x96”,
+type: “image/png”,
+density: “2.0”
+},
+{
+src: “/android-icon-144x144.png”,
+sizes: “144x144”,
+type: “image/png”,
+density: “3.0”
+},
+{
+src: “/android-icon-192x192.png”,
+sizes: “192x192”,
+type: “image/png”,
+density: “4.0”
+},
+{
+src: “/android-icon-512x512.png”,
+sizes: “512x512”,
+type: “image/png”
+}
+]
+}
+[/code]</p>
+
+<p>Le but du manifeste est de permettre l’installation de l’application sur l’écran d’accueil d’un appareil. Si vous utilisez chrome sur android, lors de la première visite un menu va apparaître en bas de l’écran, vous proposant d’ajouter l’application sur votre écran d’accueil android.</p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4768/40372775602_e1380fb9ba_o.png" width="50%" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4768/40372775602_e1380fb9ba_o.png" width="50%"></noscript></amp-img></p>
+
+<h2 id="devtools">DevTools</h2>
+
+<p>Pendant le développement de votre application, vous voudrez vérifier le fonctionnement et peut être déboguer l’application. 
+On va alors utiliser l’onglet <code class="highlighter-rouge">Application</code> des devtools de chrome.
+On y retrouve les informations du service worker, des stockages et du manifeste.
+Vous pourrez notamment :</p>
+<ul>
+  <li>arrêter / démarrer le service worker</li>
+  <li>envoyer des messages au service worker</li>
+  <li>nettoyer le cache</li>
+  <li>passer en mode en offline</li>
+</ul>
+
+<p><amp-img src="https://farm5.staticflickr.com/4631/39421337385_893fc710ed_o.png" alt="" width="979" height="569" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4631/39421337385_893fc710ed_o.png" alt="" width="979" height="569"></noscript></amp-img></p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4706/38509645510_b05c58e272_o.png" alt="" width="979" height="948" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4706/38509645510_b05c58e272_o.png" alt="" width="979" height="948"></noscript></amp-img></p>
+
+<p><amp-img src="https://farm5.staticflickr.com/4671/39421337495_02e4d3bbbf_o.png" alt="" width="1605" height="683" layout="responsive"><noscript><img src="https://farm5.staticflickr.com/4671/39421337495_02e4d3bbbf_o.png" alt="" width="1605" height="683"></noscript></amp-img></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Si l’on peut facilement imaginer que les applications natives pourraient dans la plupart des cas être remplacées par une ‘simple Application Web’, l’aspect commercial va jouer énormément dans la démocratisation du concept.
+Google, qui mise principalement sur les pubs internet au travers de son moteur de recherche, va fortement pousser la technologie. Mais des géants comme Apple dont les revenus proviennent principalement de l’AppStore ne la priorisent pas.
+C’est assez paradoxal lorsque l’on se rappelle de la sortie du premier Iphone et des mots de Steve Jobs à l’époque :</p>
+
+<blockquote>
+  <p>The full Safari engine is inside of iPhone. And so, you can write amazing Web 2.0 and Ajax apps that look exactly and behave exactly like apps on the iPhone. And these apps can integrate perfectly with iPhone services. They can make a call, they can send an email, they can look up a location on Google Maps.
+And guess what? There’s no SDK that you need! You’ve got everything you need if you know how to write apps using the most modern web standards to write amazing apps for the iPhone today. So developers, we think we’ve got a very sweet story for you. You can begin building your iPhone apps today.</p>
+</blockquote>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8Vq993Td6ys?start=37" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<p>Il parlait clairement de ce genre de technologie. Quel visionnaire ce Steve.</p>
+
+<p>Dans le prochain article, je vais vous montrer comment utiliser les services de CloudFare pour résoudre le problème du protocole HTTPS et profiter du cache sur son CDN.</p>
+
+    </section>
+
+    <footer class="post-footer">
+      <section class="share">
+        <a class="icon" href="https://twitter.com/intent/tweet?url=https://www.evilznet.com/2018/03/05/AMP-WPA-CDN-2&text=Convertir+son+blog+en+Progressive+Web+App&via=Evilznet" target="_blank">
+          Share on
+          <svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+
+        </a>
+
+        <a class="subscribe" href="/feed.xml"> <span class="tooltip"> <i class="fa fa-rss"></i> RSS feed.</span></a>
+      </section>
+    </footer>
+    <div class="bottom-teaser cf">
+      <div class="isLeft">
+        <h5 class="index-headline featured"><span>Written by</span></h5>
+        <section class="author">
+          <div class="author-image"></div>
+          <h4>Vincent Bourdon</h4>
+          <p class="bio">.Net Dev since 2001
+</p>
+
+          <p>
+            <span>
+              
+                
+<span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><a href="https://github.com/evilz"><span class="username">evilz</span></a>
+
+
+              
+            </span>
+
+            <span>
+              
+                
+<span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><a href="https://twitter.com/Evilznet"><span class="username">Evilznet</span></a>
+
+
+              
+            </span>
+          </p>
+          <hr>
+          <p class="published">Published <time datetime="2018-03-05 00:00">05 Mar 2018</time></p>
+        </section>
+      </div>
+      <div class="isRight">
+          <h5 class="index-headline featured"><span>A lire aussi</span></h5>
+
+          <footer class="site-footer">
+              <section class="poweredby">
+                
+ <!-- Pagination links -->
+ <div class="PageNavigation">
+    
+      <a class="prev" href="/2018/02/14/AMP-WPA-CDN-1/">&laquo; Convertir son blog avec Accelerated Mobile Page</a>
+      
+        
+        
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="https://farm1.staticflickr.com/970/42228313812_303f47eef2_c.jpg"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+    
+
+      
+    
+    
+    
+      <a class="next" href="/2018/04/11/fsharp-exchange-2018/">Retour sur la Fsharp Exchange 2018 &raquo;</a>
+        
+        
+        
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="https://farm1.staticflickr.com/976/28404284398_89e98f320e_c.jpg"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+        
+
+      
+    
+  </div>
+
+              </section>
+             
+             
+            
+            </footer>
+
+       
+
+        
+      </div>
+    </div>
+  </article>
+</main>
+
+    
+    <amp-analytics type="googleanalytics" id="amp-analytics">
+<script type="application/json">
+{
+  "vars": {
+    "account": "UA-2063306-2"
+  },
+  "triggers": {
+    "trackPageview": {
+      "on": "visible",
+      "request": "pageview"
+    }
+  }
+}
+</script>
+</amp-analytics>
+
+
+<amp-install-serviceworker
+    src="/serviceworker.js"
+    layout="nodisplay">
+</amp-install-serviceworker>    
+
+<amp-gist
+data-gistid="ccabc534e91280364fcbe9b775a551a9"
+data-file="empty"
+layout="fixed-height"
+height="0">
+</amp-gist>
+
+  </body>
+</html>
