@@ -25,15 +25,15 @@ rm -rf $CLONE_DIR
 mkdir $CLONE_DIR
 
 # clone remote repo to "CLONE_DIR"
-git clone $REPO $CLONE_DIR
-git checkout -b $SOURCE_BRANCH
+#git clone $REPO $CLONE_DIR
+#git checkout -b $SOURCE_BRANCH
 
 # build with Jekyll into "CLONE_DIR"
 bundle exec jekyll build
 
 # push
-cp CNAME $CLONE_DIR/CNAME
-cd $CLONE_DIR
+cp CNAME $JEKYLL_DIR/CNAME
+cd $JEKYLL_DIR
 
 
 git checkout -b $TARGET_BRANCH
