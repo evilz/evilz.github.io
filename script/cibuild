@@ -27,4 +27,4 @@ git config user.name "evilz"
 git checkout -b travis
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push --force origin origin/master 
+git push --force origin HEAD:master 
