@@ -36,7 +36,7 @@ cp CNAME $JEKYLL_DIR/CNAME
 cd $JEKYLL_DIR
 
 
-git checkout -b master
+git checkout -b travis
 git add --all
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-#### git push --force origin $TARGET_BRANCH
+git push --force origin travis
