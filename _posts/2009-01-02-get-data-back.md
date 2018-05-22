@@ -6,4 +6,28 @@ author: evilz
 comments: true
 categories: [Informatique, outils]
 ---
-<p>Je viens de passer une semaine de folie &agrave; essayer de r&eacute;cup&eacute;rer mes donn&eacute;es. <br />L&rsquo;histoire commence avec un Ipod classic de 80Go compl&egrave;tement foireux,&nbsp;en gros&nbsp;&eacute;cran blanc au d&eacute;marrage, ensuite impossible de l&rsquo;&eacute;teindre ou de d&eacute;tecter l&rsquo;ipod sur le PC. <br />Finalement je me d&eacute;cide &agrave; ne garder que le disque dur pour en&nbsp;faire un disque externe usb. Pour cela je m&rsquo;ach&egrave;te un boitier <strong>ICY BOX 1.8 Zif</strong>. </p><p align="left"><a href="https://www.flickr.com/photos/evilznet/3156511433/" title="icybox18Zif de evilz, sur Flickr"><div style="text-align: center"><img src="https://farm4.static.flickr.com/3234/3156511433_594ee2fefa_o.jpg" alt="icybox18Zif" width="300" height="300" /> </div></a></p><p>Je le re&ccedil;ois le 26, je commence &agrave; le monter, et l&agrave; premi&egrave;re surprise : le disque est trop gros (ou le boitier trop petit au choix). D&eacute;j&agrave; &ccedil;a commence mal, au bout d&rsquo;une heure je trouve une solution : Mettre dans le boiter dans la pochette de l&rsquo;Ipod, &ccedil;a maintient le tout correctement.<br />Plus qu&rsquo;&agrave; brancher ! Et mer&hellip; Je me suis tromp&eacute; de sens pour la nappe du <strong>Zif</strong>. Les gars qui ont invent&eacute; la nappe n&rsquo;ont pas pens&eacute; &agrave; mettre un d&eacute;trompeur !<br />Je redemonte, je rebranche, le disque apparait ! Mais il est marqu&eacute; non initialis&eacute; sous mon vista. Clique droite sur le disque (je suis dans l&rsquo;interface de gestion des disque de vista) puis initialiser. Vista me pette une erreur : </p><address>VDS ne peut pas &eacute;crire le code de d&eacute;marrage sur un disque lors d&#39;une op&eacute;ration de nettoyage. Code d&#39;erreur : 8007045D@02070008<br /></address><p><span class="Apple-style-span" style="font-style: italic"><span class="Apple-style-span" style="font-size: x-small"></span></span><br />Apr&egrave;s une recherche sur google je ne trouve qu&rsquo;un lien vers un forum&hellip;<br />Bref J&rsquo;ai tout essay&eacute; impossible de monter le disque, de fixer son MBR.<br />Je d&eacute;cide d&rsquo;abandonner l&rsquo;hisutoire du dique externe, mais de r&eacute;cup&eacute;rer mais donn&eacute;es. </p><a href="https://www.flickr.com/photos/evilznet/3156512791/" title="getdataback de evilz, sur Flickr"><img src="https://farm4.static.flickr.com/3086/3156512791_f0aeb3efeb_o.jpg" alt="getdataback" width="130" height="107" align="left" /></a> <p>Pour cela j&rsquo;utilise <strong>GetDataBack</strong> (FAT) de&nbsp;<a href="http://www.runtime.org/french/index.html" target="_blank" title="Runtime software">Runtime</a>. Ce logiciel tout l&eacute;ger est simplement excellent, je l&rsquo;avais d&eacute;j&agrave; utilis&eacute; auparavent, il est capable de retrouver des fichiers supprim&eacute; d&rsquo;y a pas mal de temps, et m&ecirc;me apr&egrave;s un formatage.<br />Lui aussi me p&egrave;te plein d&rsquo;erreurs de lecture du dique, mais j&rsquo;arrive finallement &agrave; r&eacute;cup&eacute;rer mes donn&eacute;es ! Youpi !<br />Sur ce Bonne Ann&eacute;e ! </p>
+
+Je viens de passer une semaine de folie à essayer de récupérer mes données.  
+L’histoire commence avec un Ipod classic de 80Go complètement foireux, en gros écran blanc au démarrage, ensuite impossible de l’éteindre ou de détecter l’ipod sur le PC.  
+Finalement je me décide à ne garder que le disque dur pour en faire un disque externe usb. Pour cela je m’achète un boitier **ICY BOX 1.8 Zif**.
+
+![icybox18Zif](https://farm4.staticflickr.com/3234/3156511433_5a28f15f4c.jpg)
+
+
+Je le reçois le 26, je commence à le monter, et là première surprise : le disque est trop gros (ou le boitier trop petit au choix). Déjà ça commence mal, au bout d’une heure je trouve une solution : Mettre dans le boiter dans la pochette de l’Ipod, ça maintient le tout correctement.  
+Plus qu’à brancher ! Et mer… Je me suis trompé de sens pour la nappe du **Zif**. Les gars qui ont inventé la nappe n’ont pas pensé à mettre un détrompeur !  
+Je redemonte, je rebranche, le disque apparait ! Mais il est marqué non initialisé sous mon vista. Clique droite sur le disque (je suis dans l’interface de gestion des disque de vista) puis initialiser. Vista me pette une erreur :
+
+```
+VDS ne peut pas écrire le code de démarrage sur un disque lors d'une opération de nettoyage. Code d'erreur : 8007045D@02070008 
+```
+
+Après une recherche sur google je ne trouve qu’un lien vers un forum…  
+Bref J’ai tout essayé impossible de monter le disque, de fixer son MBR.  
+Je décide d’abandonner l’hisutoire du dique externe, mais de récupérer mais données.
+
+![getdataback](https://farm4.static.flickr.com/3086/3156512791_f0aeb3efeb_o.jpg)
+
+Pour cela j’utilise **GetDataBack** (FAT) de [Runtime](http://www.runtime.org/french/index.html "Runtime software"). Ce logiciel tout léger est simplement excellent, je l’avais déjà utilisé auparavent, il est capable de retrouver des fichiers supprimé d’y a pas mal de temps, et même après un formatage.  
+Lui aussi me pète plein d’erreurs de lecture du dique, mais j’arrive finallement à récupérer mes données ! Youpi !  
+Sur ce Bonne Année !
