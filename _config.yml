@@ -39,3 +39,4 @@ plugins:
 
 # Exclude list 
 exclude: [Ignore, README.md, Gemfile, Gemfile.lock, node_modules, gulpfile.js, package.json, _site, src, vendor, CNAME, LICENSE, Rakefile] 
+include: [_slides]
