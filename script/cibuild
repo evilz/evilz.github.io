@@ -25,7 +25,7 @@ rm -rf $JEKYLL_DIR
 mkdir $JEKYLL_DIR
 
 # clone remote repo to "JEKYLL_DIR"
-git clone $REPO -branch $TARGET_BRANCH $JEKYLL_DIR
+git clone $REPO --branch $TARGET_BRANCH $JEKYLL_DIR
 
 # build with Jekyll into "CLONE_DIR"
 bundle exec jekyll build
