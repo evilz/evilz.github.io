@@ -978,47 +978,55 @@ il est alors possible pour chaque requête de vérifier si une réponse existe d
 
 <p>Vous pouvez tester facilement avec ce script en regardant les logs dans la console :</p>
 
-<p>[code language=”js”]
-self.addEventListener(‘install’, event =&gt; {
-  console.log(‘V1 installing…’);
-});</p>
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'install'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'V1 installing…'</span><span class="p">);</span>
+<span class="p">});</span>
 
-<p>self.addEventListener(‘activate’, event =&gt; {
-  console.log(‘V1 now ready to handle fetches!’);
-});</p>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'activate'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'V1 now ready to handle fetches!'</span><span class="p">);</span>
+<span class="p">});</span>
 
-<p>self.addEventListener(‘fetch’, event =&gt; {
-});
-[/code]</p>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="p">});</span>
+</code></pre>
+  </div>
+</div>
 
 <p>Le composant AMP va donc référencer un script qui définit les <code class="highlighter-rouge">handlers</code> pour ces événements.</p>
 
-<p>[code language=”js”]</p>
-<amp-install-serviceworker src="/serviceworker.js" layout="nodisplay">
-</amp-install-serviceworker>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="nt">&lt;amp-install-serviceworker</span>
+   <span class="na">src=</span><span class="s">"/serviceworker.js"</span>
+   <span class="na">layout=</span><span class="s">"nodisplay"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/amp-install-serviceworker&gt;</span>   
+</code></pre>
+  </div>
+</div>
 
 <p>Dans mon cas, j’ai fait le choix de ne pas faire de shell, le contenu complet de chaque page sera mis en cache pour chaque requête.
 Le fichier serviceworker.js se trouve à la racine de mon site et ne contient que le code suivant :</p>
 
-<p>[code language=”js”]
-self.addEventListener(‘fetch’, function (event) {
-    event.respondWith(
-        caches.open(‘mysite’).then(function (cache) {
-            return cache.match(event.request).then(function (response) {
-                var fetchPromise = fetch(event.request).then(function (networkResponse) {
-                    if (event.request.method === “GET”) {
-                        cache.put(event.request, networkResponse.clone());
-                    }
-                    return networkResponse;
-                })</p>
-
-<div class="highlighter-rouge">
+<div class="language-js highlighter-rouge">
   <div class="highlight">
-    <pre class="highlight"><code>            return response || fetchPromise;
-        })
-    })
-); }); [/code]
+    <pre class="highlight"><code><span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+        <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">'mysite'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">fetchPromise</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">networkResponse</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s2">"GET"</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">cache</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">,</span> <span class="nx">networkResponse</span><span class="p">.</span><span class="nx">clone</span><span class="p">());</span>
+                    <span class="p">}</span>
+                    <span class="k">return</span> <span class="nx">networkResponse</span><span class="p">;</span>
+                <span class="p">})</span>
+
+                <span class="k">return</span> <span class="nx">response</span> <span class="o">||</span> <span class="nx">fetchPromise</span><span class="p">;</span>
+            <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">);</span>
+<span class="p">});</span>
 </code></pre>
   </div>
 </div>
@@ -1029,26 +1037,29 @@ self.addEventListener(‘fetch’, function (event) {
 
 <p>Le script ressemblera alors à celui-ci :</p>
 
-<p>[code language=”js”]
-var cacheName = ‘shell-content’;
-var filesToCache = [
-  ‘/css/styles.css’,
-  ‘/js/scripts.js’,
-  ‘/images/logo.svg’,
-  ‘/offline.html’,
-  ‘/’,
-];</p>
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="kd">var</span> <span class="nx">cacheName</span> <span class="o">=</span> <span class="s1">'shell-content'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">filesToCache</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s1">'/css/styles.css'</span><span class="p">,</span>
+  <span class="s1">'/js/scripts.js'</span><span class="p">,</span>
+  <span class="s1">'/images/logo.svg'</span><span class="p">,</span>
+  <span class="s1">'/offline.html’,
+  '</span><span class="o">/</span><span class="err">’</span><span class="p">,</span>
+<span class="p">];</span>
 
-<p>self.addEventListener(‘install’, function(e) {
-  console.log(‘[ServiceWorker] Install’);
-  e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      console.log(‘[ServiceWorker] Caching app shell’);
-      return cache.addAll(filesToCache);
-    })
-  );
-});
-[/code]</p>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'install'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'[ServiceWorker] Install'</span><span class="p">);</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span>
+    <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">cacheName</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'[ServiceWorker] Caching app shell'</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">addAll</span><span class="p">(</span><span class="nx">filesToCache</span><span class="p">);</span>
+    <span class="p">})</span>
+  <span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+  </div>
+</div>
 
 <h2 id="https-ou-rien">HTTPS ou rien</h2>
 
@@ -1072,67 +1083,72 @@ Dans mon cas, je suis sur Github pages avec un nom de domaine personnalisé et d
 
 <p>Il suffit de créer un document texte au format JSON et de le référencer dans votre site :</p>
 
-<p>[code language=”html”]</p>
-<link rel="manifest" href="/manifest.json">
-
-<p>[/code]</p>
+<div class="language-html highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"manifest"</span> <span class="na">href=</span><span class="s">"/manifest.json"</span><span class="nt">&gt;</span>
+</code></pre>
+  </div>
+</div>
 
 <p>Voici le contenu de mon fichier :</p>
 
-<p>[code language=”js”]
-{
-name: “Evilznet Blog”,
-short_name: “Evilznet”,
-description: “Personal blog about computing stuff”,
-start_url: “.”,
-display: “standalone”,
-background_color: “#FFFFFF”,
-theme_color: “#FFFFFF”,
-icons: [
-{
-src: “/android-icon-36x36.png”,
-sizes: “36x36”,
-type: “image/png”,
-density: “0.75”
-},
-{
-src: “/android-icon-48x48.png”,
-sizes: “48x48”,
-type: “image/png”,
-density: “1.0”
-},
-{
-src: “/android-icon-72x72.png”,
-sizes: “72x72”,
-type: “image/png”,
-density: “1.5”
-},
-{
-src: “/android-icon-96x96.png”,
-sizes: “96x96”,
-type: “image/png”,
-density: “2.0”
-},
-{
-src: “/android-icon-144x144.png”,
-sizes: “144x144”,
-type: “image/png”,
-density: “3.0”
-},
-{
-src: “/android-icon-192x192.png”,
-sizes: “192x192”,
-type: “image/png”,
-density: “4.0”
-},
-{
-src: “/android-icon-512x512.png”,
-sizes: “512x512”,
-type: “image/png”
-}
-]
-}
-[/code]</p>
+<div class="language-js highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="p">{</span>
+<span class="nl">name</span><span class="p">:</span> <span class="s2">"Evilznet Blog"</span><span class="p">,</span>
+<span class="nx">short_name</span><span class="p">:</span> <span class="s2">"Evilznet"</span><span class="p">,</span>
+<span class="nx">description</span><span class="p">:</span> <span class="s2">"Personal blog about computing stuff"</span><span class="p">,</span>
+<span class="nx">start_url</span><span class="p">:</span> <span class="s2">"."</span><span class="p">,</span>
+<span class="nx">display</span><span class="p">:</span> <span class="s2">"standalone"</span><span class="p">,</span>
+<span class="nx">background_color</span><span class="p">:</span> <span class="s2">"#FFFFFF"</span><span class="p">,</span>
+<span class="nx">theme_color</span><span class="p">:</span> <span class="s2">"#FFFFFF"</span><span class="p">,</span>
+<span class="nx">icons</span><span class="p">:</span> <span class="p">[</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-36x36.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"36x36"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"0.75"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-48x48.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"48x48"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"1.0"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-72x72.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"72x72"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"1.5"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-96x96.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"96x96"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"2.0"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-144x144.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"144x144"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"3.0"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-192x192.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"192x192"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span><span class="p">,</span>
+<span class="na">density</span><span class="p">:</span> <span class="s2">"4.0"</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="na">src</span><span class="p">:</span> <span class="s2">"/android-icon-512x512.png"</span><span class="p">,</span>
+<span class="na">sizes</span><span class="p">:</span> <span class="s2">"512x512"</span><span class="p">,</span>
+<span class="na">type</span><span class="p">:</span> <span class="s2">"image/png"</span>
+<span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+</div>
 
 <p>Le but du manifeste est de permettre l’installation de l’application sur l’écran d’accueil d’un appareil. Si vous utilisez chrome sur android, lors de la première visite un menu va apparaître en bas de l’écran, vous proposant d’ajouter l’application sur votre écran d’accueil android.</p>
 
@@ -1168,7 +1184,7 @@ C’est assez paradoxal lorsque l’on se rappelle de la sortie du premier Iphon
 And guess what? There’s no SDK that you need! You’ve got everything you need if you know how to write apps using the most modern web standards to write amazing apps for the iPhone today. So developers, we think we’ve got a very sweet story for you. You can begin building your iPhone apps today.</p>
 </blockquote>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8Vq993Td6ys?start=37" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+<amp-youtube data-videoid="8Vq993Td6ys" layout="responsive" width="480" height="270" data-param-start="37"></amp-youtube>
 
 <p>Il parlait clairement de ce genre de technologie. Quel visionnaire ce Steve.</p>
 
