@@ -21,9 +21,11 @@ Si certains sont au coeur de F# comme Steffen Forkmann [@sforkmann](https://twit
 De plus, nous avons clôturé cette conférence en mode table ronde avec une sélection de quelques contributeurs sélectionnés par Don Syme lui-même.
 En mode interview, ces contributeurs se sont présentés, ont présenté leur projet, le parcours pour arriver à contribuer et maintenir les projets.
 
-<div align="center">
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Now starting the panel of <a href="https://twitter.com/hashtag/fsharp?src=hash&amp;ref_src=twsrc%5Etfw">#fsharp</a> Rockstar OSS contributors ! <a href="https://twitter.com/hashtag/fsharpx?src=hash&amp;ref_src=twsrc%5Etfw">#fsharpx</a> <a href="https://t.co/7a4eNGJtVw">pic.twitter.com/7a4eNGJtVw</a></p>&mdash; Alfonso Garcia-Caro (@alfonsogcnunez) <a href="https://twitter.com/alfonsogcnunez/status/982294203718885376?ref_src=twsrc%5Etfw">April 6, 2018</a></blockquote>
-</div>
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="982294203718885376">
+</amp-twitter>
 
 Ce qui rassemble toutes ces personnes, c'est avant tout la passion du code, du fonctionnel pour la plupart, et du partage. Il faut savoir que les échanges les plus importants se passent en dehors des présentations pendant les pauses. Tout le monde est très accessible et il est même possible d'avoir de petits code reviews sur un coin de table.
 
