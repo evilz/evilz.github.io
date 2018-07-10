@@ -29,24 +29,28 @@ En mode interview, ces contributeurs se sont présentés, ont présenté leur pr
 
 Ce qui rassemble toutes ces personnes, c'est avant tout la passion du code, du fonctionnel pour la plupart, et du partage. Il faut savoir que les échanges les plus importants se passent en dehors des présentations pendant les pauses. Tout le monde est très accessible et il est même possible d'avoir de petits code reviews sur un coin de table.
 
-
-<div align="center">
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/fsharpX?src=hash&amp;ref_src=twsrc%5Etfw">#fsharpX</a> we do whatever Scott Washin tells us to do 😂 <a href="https://twitter.com/SoatGroup?ref_src=twsrc%5Etfw">@SoatGroup</a> <a href="https://t.co/4Y8cHCD21L">pic.twitter.com/4Y8cHCD21L</a></p>&mdash; Vincent Bourdon (@Evilznet) <a href="https://twitter.com/Evilznet/status/981812141874401280?ref_src=twsrc%5Etfw">April 5, 2018</a></blockquote>
-</div>
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="981812141874401280">
+</amp-twitter>
 
 
 Voici une petite interview de Don Syme à propos de la communauté.
-<div align="center">
-<blockquote class="twitter-video" data-lang="en"><p lang="en" dir="ltr">I caught a quick chat with <a href="https://twitter.com/dsyme?ref_src=twsrc%5Etfw">@dsyme</a>, creator of <a href="https://twitter.com/hashtag/fsharp?src=hash&amp;ref_src=twsrc%5Etfw">#fsharp</a> language. We talk about <a href="https://twitter.com/hashtag/fsharpX?src=hash&amp;ref_src=twsrc%5Etfw">#fsharpX</a> and F# community. //<a href="https://twitter.com/mlusiak?ref_src=twsrc%5Etfw">@mlusiak</a> <a href="https://t.co/Yj74tJIjCY">pic.twitter.com/Yj74tJIjCY</a></p>&mdash; tretton37 (@tretton37) <a href="https://twitter.com/tretton37/status/981909620401766400?ref_src=twsrc%5Etfw">April 5, 2018</a></blockquote>
-</div>
 
-
-
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="981909620401766400">
+</amp-twitter>
 
 ## Fsharp Everywhere !
-<div align="center">
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Twitter: “F# is dead”, “Most F# devs moved to Haskell or something else”... <br><br>Meanwhile real world and industry <a href="https://twitter.com/hashtag/fsharp?src=hash&amp;ref_src=twsrc%5Etfw">#fsharp</a> usage: <a href="https://t.co/4OmYLXsBC0">pic.twitter.com/4OmYLXsBC0</a></p>&mdash; Krzysztof Cieślak (@k_cieslak) <a href="https://twitter.com/k_cieslak/status/983321387703074816?ref_src=twsrc%5Etfw">April 9, 2018</a></blockquote>
-</div>
+
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="983321387703074816">
+</amp-twitter>
 
 
 L'utilisation de F# n'en finit pas d'évoluer ! C'est évidemment un très bon langage (tout comme C#) mais deux faits importants aident à cette progression :
@@ -87,10 +91,11 @@ Il y a encore plein de possibilités, l'accès aux données, la gestion de logs,
 
 Tout ceci ne serait pas possible sans un bon outillage. Les IDEs sont de plus en plus nombreux avec chacun leurs propres fonctionnalités. La plupart s'appuyant sur le [F# Compiler Services](http://fsharp.github.io/FSharp.Compiler.Service/)
 
-<div align="center">
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">. <a href="https://twitter.com/_cartermp?ref_src=twsrc%5Etfw">@_cartermp</a> shows how F# is now &quot;in the box&quot; in more ways than ever before. Great to see! <a href="https://twitter.com/hashtag/fsharpX?src=hash&amp;ref_src=twsrc%5Etfw">#fsharpX</a> <a href="https://t.co/rDS3W6Ctir">pic.twitter.com/rDS3W6Ctir</a></p>&mdash; Compositional IT (@compositionalit) <a href="https://twitter.com/compositionalit/status/982171754226335744?ref_src=twsrc%5Etfw">April 6, 2018</a></blockquote>
-</div>
-
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="982171754226335744">
+</amp-twitter>
 
 ## Fsharp et Dotnet Core et Microsoft 
 
@@ -100,9 +105,12 @@ On constate une forte évolution au travers de dotnet Core/standard et de la CLI
 Mais en plus, F# fait maintenant partie de la stratégie "mainstream" et les modifications apportées sur les outils sont constamment testées sur des environements F# et certaines librairies associées.
 Cela a déjà permis de constater des bugs dans Packet et Nugets et la résolution des problèmes se fait en bonne collaboration.
 
-<div align="center">
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Whoa! 😵 this time it&#39;s sure Microsoft look deeply at F#! testing dotnet core against <a href="https://twitter.com/safe_stack?ref_src=twsrc%5Etfw">@safe_stack</a> is amazing <a href="https://twitter.com/_cartermp?ref_src=twsrc%5Etfw">@_cartermp</a> <a href="https://twitter.com/hashtag/fsharpX?src=hash&amp;ref_src=twsrc%5Etfw">#fsharpX</a>  <a href="https://twitter.com/FableCompiler?ref_src=twsrc%5Etfw">@FableCompiler</a> <a href="https://twitter.com/SoatGroup?ref_src=twsrc%5Etfw">@SoatGroup</a> <a href="https://t.co/shdDofYRe2">pic.twitter.com/shdDofYRe2</a></p>&mdash; Vincent Bourdon (@Evilznet) <a href="https://twitter.com/Evilznet/status/982175964665819138?ref_src=twsrc%5Etfw">April 6, 2018</a></blockquote>
-</div>
+
+<amp-twitter width="375"
+  height="472"
+  layout="responsive"
+  data-tweetid="982175964665819138">
+</amp-twitter>
 
 Visual Studio s'enrichit enfin en fonctionnalités. Il suffit de voir ce post : [F# language and tools update for Visual Studio 2017 version 15.6](https://blogs.msdn.microsoft.com/dotnet/2018/03/06/f-language-and-tools-update-for-visual-studio-2017-version-15-6/) fait par Phillip Carter.
 
