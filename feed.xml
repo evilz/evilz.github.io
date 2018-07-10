@@ -6,8 +6,8 @@
 </description>
     <link>https://www.evilznet.com/</link>
     <atom:link href="https://www.evilznet.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 Jul 2018 13:45:30 +0000</pubDate>
-    <lastBuildDate>Tue, 10 Jul 2018 13:45:30 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Jul 2018 13:54:31 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Jul 2018 13:54:31 +0000</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -30,136 +30,113 @@ En mode interview, ces contributeurs se sont présentés, ont présenté leur pr
 
 &lt;p&gt;Ce qui rassemble toutes ces personnes, c’est avant tout la passion du code, du fonctionnel pour la plupart, et du partage. Il faut savoir que les échanges les plus importants se passent en dehors des présentations pendant les pauses. Tout le monde est très accessible et il est même possible d’avoir de petits code reviews sur un coin de table.&lt;/p&gt;
 
-&lt;div align=&quot;center&quot;&gt;
-  &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;
-    &lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/fsharpX?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharpX&lt;/a&gt; we do whatever Scott Washin tells us to do 😂 &lt;a href=&quot;https://twitter.com/SoatGroup?ref_src=twsrc%5Etfw&quot;&gt;@SoatGroup&lt;/a&gt; &lt;a href=&quot;https://t.co/4Y8cHCD21L&quot;&gt;pic.twitter.com/4Y8cHCD21L&lt;/a&gt;&lt;/p&gt;
-    &lt;p&gt;— Vincent Bourdon (@Evilznet) &lt;a href=&quot;https://twitter.com/Evilznet/status/981812141874401280?ref_src=twsrc%5Etfw&quot;&gt;April 5, 2018&lt;/a&gt;&amp;lt;/blockquote&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;amp-twitter width=&quot;375&quot; height=&quot;472&quot; layout=&quot;responsive&quot; data-tweetid=&quot;981812141874401280&quot;&gt;
+&lt;/amp-twitter&gt;
 
-    &lt;p&gt;Voici une petite interview de Don Syme à propos de la communauté.&lt;/p&gt;
-    &lt;div align=&quot;center&quot;&gt;
-      &lt;blockquote class=&quot;twitter-video&quot; data-lang=&quot;en&quot;&gt;
-        &lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;I caught a quick chat with &lt;a href=&quot;https://twitter.com/dsyme?ref_src=twsrc%5Etfw&quot;&gt;@dsyme&lt;/a&gt;, creator of &lt;a href=&quot;https://twitter.com/hashtag/fsharp?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharp&lt;/a&gt; language. We talk about &lt;a href=&quot;https://twitter.com/hashtag/fsharpX?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharpX&lt;/a&gt; and F# community. //&lt;a href=&quot;https://twitter.com/mlusiak?ref_src=twsrc%5Etfw&quot;&gt;@mlusiak&lt;/a&gt; &lt;a href=&quot;https://t.co/Yj74tJIjCY&quot;&gt;pic.twitter.com/Yj74tJIjCY&lt;/a&gt;&lt;/p&gt;
-        &lt;p&gt;— tretton37 (@tretton37) &lt;a href=&quot;https://twitter.com/tretton37/status/981909620401766400?ref_src=twsrc%5Etfw&quot;&gt;April 5, 2018&lt;/a&gt;&amp;lt;/blockquote&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;p&gt;Voici une petite interview de Don Syme à propos de la communauté.&lt;/p&gt;
 
-        &lt;h2 id=&quot;fsharp-everywhere-&quot;&gt;Fsharp Everywhere !&lt;/h2&gt;
-        &lt;div align=&quot;center&quot;&gt;
-          &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;
-            &lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Twitter: “F# is dead”, “Most F# devs moved to Haskell or something else”… &lt;br /&gt;&lt;br /&gt;Meanwhile real world and industry &lt;a href=&quot;https://twitter.com/hashtag/fsharp?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharp&lt;/a&gt; usage: &lt;a href=&quot;https://t.co/4OmYLXsBC0&quot;&gt;pic.twitter.com/4OmYLXsBC0&lt;/a&gt;&lt;/p&gt;
-            &lt;p&gt;— Krzysztof Cieślak (@k_cieslak) &lt;a href=&quot;https://twitter.com/k_cieslak/status/983321387703074816?ref_src=twsrc%5Etfw&quot;&gt;April 9, 2018&lt;/a&gt;&amp;lt;/blockquote&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;amp-twitter width=&quot;375&quot; height=&quot;472&quot; layout=&quot;responsive&quot; data-tweetid=&quot;981909620401766400&quot;&gt;
+&lt;/amp-twitter&gt;
 
-            &lt;p&gt;L’utilisation de F# n’en finit pas d’évoluer ! C’est évidemment un très bon langage (tout comme C#) mais deux faits importants aident à cette progression :&lt;/p&gt;
+&lt;h2 id=&quot;fsharp-everywhere-&quot;&gt;Fsharp Everywhere !&lt;/h2&gt;
 
-            &lt;ul&gt;
-              &lt;li&gt;La mode du fonctionnel : on entend beaucoup parler de &lt;strong&gt;Haskel&lt;/strong&gt;, de &lt;strong&gt;ELM&lt;/strong&gt; ou plus simplement &lt;strong&gt;React&lt;/strong&gt;.&lt;/li&gt;
-              &lt;li&gt;Avec F#, on peut répondre à tous les besoins ! Et c’est ce qui à été démontré pendant cette conférence.&lt;/li&gt;
-            &lt;/ul&gt;
+&lt;amp-twitter width=&quot;375&quot; height=&quot;472&quot; layout=&quot;responsive&quot; data-tweetid=&quot;983321387703074816&quot;&gt;
+&lt;/amp-twitter&gt;
 
-            &lt;h3 id=&quot;pour-le-web&quot;&gt;Pour le WEB&lt;/h3&gt;
+&lt;p&gt;L’utilisation de F# n’en finit pas d’évoluer ! C’est évidemment un très bon langage (tout comme C#) mais deux faits importants aident à cette progression :&lt;/p&gt;
 
-            &lt;ul&gt;
-              &lt;li&gt;côté back on peut utiliser Giraffe, Suave, WebSharper, Freya …&lt;/li&gt;
-              &lt;li&gt;côté front : Fable et Fable.Elmish&lt;/li&gt;
-              &lt;li&gt;pour les deux, la stack SAFE permet de faire du Suave / Azure / Fable / Elmish quasiment en un claquement de doigts !&lt;/li&gt;
-            &lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;La mode du fonctionnel : on entend beaucoup parler de &lt;strong&gt;Haskel&lt;/strong&gt;, de &lt;strong&gt;ELM&lt;/strong&gt; ou plus simplement &lt;strong&gt;React&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Avec F#, on peut répondre à tous les besoins ! Et c’est ce qui à été démontré pendant cette conférence.&lt;/li&gt;
+&lt;/ul&gt;
 
-            &lt;p&gt;La présentation de Tomasz Heimowski était tout simplement impressionnante et tout le monde retiendra sa VITESSE de développement et le feedback rapide que l’on peut avoir en F#.
+&lt;h3 id=&quot;pour-le-web&quot;&gt;Pour le WEB&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;côté back on peut utiliser Giraffe, Suave, WebSharper, Freya …&lt;/li&gt;
+  &lt;li&gt;côté front : Fable et Fable.Elmish&lt;/li&gt;
+  &lt;li&gt;pour les deux, la stack SAFE permet de faire du Suave / Azure / Fable / Elmish quasiment en un claquement de doigts !&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;La présentation de Tomasz Heimowski était tout simplement impressionnante et tout le monde retiendra sa VITESSE de développement et le feedback rapide que l’on peut avoir en F#.
 &lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11308-safe-apps-with-f-web-stack&quot;&gt;SAFE apps with F# web stack&lt;/a&gt; – Tomasz Heimowski (&lt;a href=&quot;http://theimowski.com/talk-safe-stack/#/&quot;&gt;slides&lt;/a&gt;)&lt;/p&gt;
 
-            &lt;h3 id=&quot;pour-lanalyse-de-donnes&quot;&gt;Pour l’analyse de données&lt;/h3&gt;
+&lt;h3 id=&quot;pour-lanalyse-de-données&quot;&gt;Pour l’analyse de données&lt;/h3&gt;
 
-            &lt;p&gt;F# permet facilement de manipuler des jeux de données grâce au design de code sous forme de pipeline. 
+&lt;p&gt;F# permet facilement de manipuler des jeux de données grâce au design de code sous forme de pipeline. 
 Cela permet de facilement ajouter/modifier des filtres, des sélections, des transformations sur les données.
 De plus, les typeprovider ajoutent si besoin une notion de typage à la volée quasiment gratuite.
 En utilisant la REPL et de simples scripts .fsx, on arrive à visualiser des résultats en quelques minutes.
 Cette année, Jamie Dixon nous a parlé de son expérience avec son fils sur les courses de Stock cars avec un simple RASPBERRY PI :
   &lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11639-stock-cars-raspberry-pi-and-f-sharp&quot;&gt;STOCK CARS, RASPBERRY PI, AND F#&lt;/a&gt;&lt;/p&gt;
 
-            &lt;h3 id=&quot;transpilage&quot;&gt;Transpilage&lt;/h3&gt;
+&lt;h3 id=&quot;transpilage&quot;&gt;Transpilage&lt;/h3&gt;
 
-            &lt;p&gt;F# étant un bon langage typé et fonctionnel, les développeurs l’aiment jusqu’à l’utiliser comme source pour être transpilé dans une autre plateforme. Cette année nous avons vu :&lt;/p&gt;
+&lt;p&gt;F# étant un bon langage typé et fonctionnel, les développeurs l’aiment jusqu’à l’utiliser comme source pour être transpilé dans une autre plateforme. Cette année nous avons vu :&lt;/p&gt;
 
-            &lt;ul&gt;
-              &lt;li&gt;&lt;strong&gt;Fable&lt;/strong&gt; : qui permet de transpiler en Javascript et faire du code pour navigateur ou du nodeJS&lt;/li&gt;
-              &lt;li&gt;&lt;strong&gt;FEZ&lt;/strong&gt;: qui transpile en code pour BEAM, présenté par Karl Nilsson (&lt;a href=&quot;https://docs.google.com/presentation/d/1yos-mvWd01_78UNLpTpvABlyhizbp5td_91b03AuO7E/edit#slide=id.p&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-            &lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Fable&lt;/strong&gt; : qui permet de transpiler en Javascript et faire du code pour navigateur ou du nodeJS&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;FEZ&lt;/strong&gt;: qui transpile en code pour BEAM, présenté par Karl Nilsson (&lt;a href=&quot;https://docs.google.com/presentation/d/1yos-mvWd01_78UNLpTpvABlyhizbp5td_91b03AuO7E/edit#slide=id.p&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
 
-            &lt;h3 id=&quot;ecosystme-dotnet&quot;&gt;Ecosystème dotnet&lt;/h3&gt;
+&lt;h3 id=&quot;ecosystème-dotnet&quot;&gt;Ecosystème dotnet&lt;/h3&gt;
 
-            &lt;p&gt;Il y a encore plein de possibilités, l’accès aux données, la gestion de logs, le machine learling, etc. Il ne faut pas oublier qu’il est tout simplement possible de faire tout ce que l’on peut faire en dotnet ! Du mobile, des applis riches, des microservices, du cloud…&lt;/p&gt;
+&lt;p&gt;Il y a encore plein de possibilités, l’accès aux données, la gestion de logs, le machine learling, etc. Il ne faut pas oublier qu’il est tout simplement possible de faire tout ce que l’on peut faire en dotnet ! Du mobile, des applis riches, des microservices, du cloud…&lt;/p&gt;
 
-            &lt;h3 id=&quot;loutillage&quot;&gt;L’outillage&lt;/h3&gt;
+&lt;h3 id=&quot;loutillage&quot;&gt;L’outillage&lt;/h3&gt;
 
-            &lt;p&gt;Tout ceci ne serait pas possible sans un bon outillage. Les IDEs sont de plus en plus nombreux avec chacun leurs propres fonctionnalités. La plupart s’appuyant sur le &lt;a href=&quot;http://fsharp.github.io/FSharp.Compiler.Service/&quot;&gt;F# Compiler Services&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Tout ceci ne serait pas possible sans un bon outillage. Les IDEs sont de plus en plus nombreux avec chacun leurs propres fonctionnalités. La plupart s’appuyant sur le &lt;a href=&quot;http://fsharp.github.io/FSharp.Compiler.Service/&quot;&gt;F# Compiler Services&lt;/a&gt;&lt;/p&gt;
 
-            &lt;div align=&quot;center&quot;&gt;
-              &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;
-                &lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;. &lt;a href=&quot;https://twitter.com/_cartermp?ref_src=twsrc%5Etfw&quot;&gt;@_cartermp&lt;/a&gt; shows how F# is now &quot;in the box&quot; in more ways than ever before. Great to see! &lt;a href=&quot;https://twitter.com/hashtag/fsharpX?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharpX&lt;/a&gt; &lt;a href=&quot;https://t.co/rDS3W6Ctir&quot;&gt;pic.twitter.com/rDS3W6Ctir&lt;/a&gt;&lt;/p&gt;
-                &lt;p&gt;— Compositional IT (@compositionalit) &lt;a href=&quot;https://twitter.com/compositionalit/status/982171754226335744?ref_src=twsrc%5Etfw&quot;&gt;April 6, 2018&lt;/a&gt;&amp;lt;/blockquote&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;amp-twitter width=&quot;375&quot; height=&quot;472&quot; layout=&quot;responsive&quot; data-tweetid=&quot;982171754226335744&quot;&gt;
+&lt;/amp-twitter&gt;
 
-                &lt;h2 id=&quot;fsharp-et-dotnet-core-et-microsoft&quot;&gt;Fsharp et Dotnet Core et Microsoft&lt;/h2&gt;
+&lt;h2 id=&quot;fsharp-et-dotnet-core-et-microsoft&quot;&gt;Fsharp et Dotnet Core et Microsoft&lt;/h2&gt;
 
-                &lt;p&gt;L’un des points les plus marquants pour moi, c’est la stratégie de Microsoft qui a clairement changé ces derniers temps, et notamment depuis l’ouverture en open source et l’arrivée de l’équipe Xamarin.
+&lt;p&gt;L’un des points les plus marquants pour moi, c’est la stratégie de Microsoft qui a clairement changé ces derniers temps, et notamment depuis l’ouverture en open source et l’arrivée de l’équipe Xamarin.
 On constate une forte évolution au travers de dotnet Core/standard et de la CLI.&lt;/p&gt;
 
-                &lt;p&gt;Mais en plus, F# fait maintenant partie de la stratégie “mainstream” et les modifications apportées sur les outils sont constamment testées sur des environements F# et certaines librairies associées.
+&lt;p&gt;Mais en plus, F# fait maintenant partie de la stratégie “mainstream” et les modifications apportées sur les outils sont constamment testées sur des environements F# et certaines librairies associées.
 Cela a déjà permis de constater des bugs dans Packet et Nugets et la résolution des problèmes se fait en bonne collaboration.&lt;/p&gt;
 
-                &lt;div align=&quot;center&quot;&gt;
-                  &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;
-                    &lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Whoa! 😵 this time it's sure Microsoft look deeply at F#! testing dotnet core against &lt;a href=&quot;https://twitter.com/safe_stack?ref_src=twsrc%5Etfw&quot;&gt;@safe_stack&lt;/a&gt; is amazing &lt;a href=&quot;https://twitter.com/_cartermp?ref_src=twsrc%5Etfw&quot;&gt;@_cartermp&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/fsharpX?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#fsharpX&lt;/a&gt;  &lt;a href=&quot;https://twitter.com/FableCompiler?ref_src=twsrc%5Etfw&quot;&gt;@FableCompiler&lt;/a&gt; &lt;a href=&quot;https://twitter.com/SoatGroup?ref_src=twsrc%5Etfw&quot;&gt;@SoatGroup&lt;/a&gt; &lt;a href=&quot;https://t.co/shdDofYRe2&quot;&gt;pic.twitter.com/shdDofYRe2&lt;/a&gt;&lt;/p&gt;
-                    &lt;p&gt;— Vincent Bourdon (@Evilznet) &lt;a href=&quot;https://twitter.com/Evilznet/status/982175964665819138?ref_src=twsrc%5Etfw&quot;&gt;April 6, 2018&lt;/a&gt;&amp;lt;/blockquote&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;amp-twitter width=&quot;375&quot; height=&quot;472&quot; layout=&quot;responsive&quot; data-tweetid=&quot;982175964665819138&quot;&gt;
+&lt;/amp-twitter&gt;
 
-                    &lt;p&gt;Visual Studio s’enrichit enfin en fonctionnalités. Il suffit de voir ce post : &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2018/03/06/f-language-and-tools-update-for-visual-studio-2017-version-15-6/&quot;&gt;F# language and tools update for Visual Studio 2017 version 15.6&lt;/a&gt; fait par Phillip Carter.&lt;/p&gt;
+&lt;p&gt;Visual Studio s’enrichit enfin en fonctionnalités. Il suffit de voir ce post : &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2018/03/06/f-language-and-tools-update-for-visual-studio-2017-version-15-6/&quot;&gt;F# language and tools update for Visual Studio 2017 version 15.6&lt;/a&gt; fait par Phillip Carter.&lt;/p&gt;
 
-                    &lt;blockquote&gt;
-                      &lt;p&gt;We now build the F# Compiler Service project as a part of our CI, thanks to Steffen Forkmann&lt;/p&gt;
-                    &lt;/blockquote&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;We now build the F# Compiler Service project as a part of our CI, thanks to Steffen Forkmann&lt;/p&gt;
+&lt;/blockquote&gt;
 
-                    &lt;h2 id=&quot;liens-vers-les-prsentations&quot;&gt;Liens vers les présentations&lt;/h2&gt;
+&lt;h2 id=&quot;liens-vers-les-présentations&quot;&gt;Liens vers les présentations&lt;/h2&gt;
 
-                    &lt;p&gt;Les vidéos sont accessibles uniquement si vous avez payé l’accès à la conférence, les slides sont quant à elles publiques.&lt;/p&gt;
+&lt;p&gt;Les vidéos sont accessibles uniquement si vous avez payé l’accès à la conférence, les slides sont quant à elles publiques.&lt;/p&gt;
 
-                    &lt;ul&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10137-keynote-crossroads-f-sharp-in-the-middle-of-nowhere&quot;&gt;Keynote: Crossroads: F# in the middle of… nowhere?&lt;/a&gt; – Alfonso Garcia-Caro&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11304-fable-for-busy-moms-dads-how-fsharp-and-fable-help-me-to-spend-more-time-with-my-kids&quot;&gt;Fable for busy moms &amp;amp; dads! How F# and Fable help me to spend more time with my kids!&lt;/a&gt; – François Nicaise (&lt;a href=&quot;https://whitetigle.github.io/fsharpx2018/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11312-fez-fsharp-type-safety-for-the-beam&quot;&gt;FEZ – fsharp type safety for the BEAM&lt;/a&gt; – Karl Nilsson (&lt;a href=&quot;https://docs.google.com/presentation/d/1yos-mvWd01_78UNLpTpvABlyhizbp5td_91b03AuO7E/edit#slide=id.p&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11478-property-based-testing-in-f-sharp&quot;&gt;Property Based Testing in F#&lt;/a&gt; – Christina Nicolau&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11310-elmish-get-your-dev-stack-back-under-control&quot;&gt;Elmish: get your dev stack back under control&lt;/a&gt; – Maxime Mangel (&lt;a href=&quot;https://mangelmaxime.github.io/fsharp-exchange-2018-elmish/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11308-safe-apps-with-f-web-stack&quot;&gt;SAFE apps with F# web stack&lt;/a&gt; – Tomasz Heimowski (&lt;a href=&quot;http://theimowski.com/talk-safe-stack/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11745-easing-the-path-to-f-sharp-adoption&quot;&gt;Easing the Path to F# Adoption&lt;/a&gt; – Colin Bull&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11629-a-journey-into-the-f-sharp-compiler&quot;&gt;A journey into the F# compiler&lt;/a&gt; – Steffen Forkmann (&lt;a href=&quot;https://forki.github.io/CompilerIntro/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11639-stock-cars-raspberry-pi-and-f-sharp&quot;&gt;STOCK CARS, RASPBERRY PI, AND F#&lt;/a&gt; – Jamie Dixon&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11347-azure-f-sharpunctions&quot;&gt;Azure F#unctions&lt;/a&gt; – Mikhail Shilkov (&lt;a href=&quot;https://www.slideshare.net/MikhailShilkov/azure-functions-92988186&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11603-3d-model-manipulation-with-f-sharp&quot;&gt;3D Model Manipulation with F#&lt;/a&gt; – Wael El Oraiby&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11481-lightning-talk-lessons-from-f-sharp-from-academic-prototypes-to-safety-critical-systems&quot;&gt;Lightning Talk: Lessons from F#: From Academic Prototypes to Safety-Critical Systems&lt;/a&gt; – Heidy Khlaaf&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11593-lightning-talk-session-types-for-f-sharpers&quot;&gt;Lightning Talk: Session types for F#ers&lt;/a&gt; – Fahd Abdeljallal&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11440-lightning-talk-f-sharp-support-in-jetbrains-rider&quot;&gt;Lightning Talk: F# Support in JetBrains Rider&lt;/a&gt; – Eugene Auduchinok&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11439-keynote-f-sharp-code-i-love&quot;&gt;Keynote: F# Code I Love&lt;/a&gt; – Don Syme (&lt;a href=&quot;https://twitter.com/dsyme/status/982238973861945344&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10138-keynote-thrilled-to-have-phillip-carter-hosting-a-keynote-at-fsharpx-2018&quot;&gt;Keynote: F# in 2018!&lt;/a&gt; – Phillip Carter&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11309-how-do-we-cook-highload-microservices-at-sbtech&quot;&gt;How do we cook highload microservices at SBTech&lt;/a&gt; – Anton Moldovan&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11516-the-curious-case-of-freya-suave-and-giraffe-reducing-risks-in-picking-a-new-tech&quot;&gt;The Curious Case of Freya, Suave, and Giraffe: Reducing Risks In Picking a New Tech.&lt;/a&gt; – Gien Verschatse&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10265-keynote-can-t-wait-to-hear-from-mathias-brandewinder-at-fsharpx-2018&quot;&gt;Keynote: Deep Learning with CNTK and F#&lt;/a&gt; – Mathias Brandewinder&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11306-geo-art-with-fsharp-and-ordnance-survey-data&quot;&gt;Geo-Art with F# and Ordnance Survey Data&lt;/a&gt; – Kit Eason&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11506-distributed-tracing-lessons-learned&quot;&gt;Distributed Tracing, Lessons Learned&lt;/a&gt; – Gina Marie Maini&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11602-dr-functionallove-or-how-eroad-learned-to-stop-worrying-and-love-f-sharp&quot;&gt;Lightning Talk: Dr FunctionalLove or: How EROAD learned to stop worrying and love F#&lt;/a&gt; – Jim Bennett (&lt;a href=&quot;https://www.slideshare.net/JimBennett10/learning-to-love-f&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018&quot;&gt;Lightning Talk: Existentials – Playing Hide and Seek With Your Types&lt;/a&gt; – Nicholas Cowle&lt;/li&gt;
-                      &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11438-park-bench-panel-hosted-by-don-syme&quot;&gt;Park Bench Panel hosted by Don Syme&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                  &lt;/blockquote&gt;
-                &lt;/div&gt;
-              &lt;/blockquote&gt;
-            &lt;/div&gt;
-          &lt;/blockquote&gt;
-        &lt;/div&gt;
-      &lt;/blockquote&gt;
-    &lt;/div&gt;
-  &lt;/blockquote&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10137-keynote-crossroads-f-sharp-in-the-middle-of-nowhere&quot;&gt;Keynote: Crossroads: F# in the middle of… nowhere?&lt;/a&gt; – Alfonso Garcia-Caro&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11304-fable-for-busy-moms-dads-how-fsharp-and-fable-help-me-to-spend-more-time-with-my-kids&quot;&gt;Fable for busy moms &amp;amp; dads! How F# and Fable help me to spend more time with my kids!&lt;/a&gt; – François Nicaise (&lt;a href=&quot;https://whitetigle.github.io/fsharpx2018/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11312-fez-fsharp-type-safety-for-the-beam&quot;&gt;FEZ – fsharp type safety for the BEAM&lt;/a&gt; – Karl Nilsson (&lt;a href=&quot;https://docs.google.com/presentation/d/1yos-mvWd01_78UNLpTpvABlyhizbp5td_91b03AuO7E/edit#slide=id.p&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11478-property-based-testing-in-f-sharp&quot;&gt;Property Based Testing in F#&lt;/a&gt; – Christina Nicolau&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11310-elmish-get-your-dev-stack-back-under-control&quot;&gt;Elmish: get your dev stack back under control&lt;/a&gt; – Maxime Mangel (&lt;a href=&quot;https://mangelmaxime.github.io/fsharp-exchange-2018-elmish/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11308-safe-apps-with-f-web-stack&quot;&gt;SAFE apps with F# web stack&lt;/a&gt; – Tomasz Heimowski (&lt;a href=&quot;http://theimowski.com/talk-safe-stack/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11745-easing-the-path-to-f-sharp-adoption&quot;&gt;Easing the Path to F# Adoption&lt;/a&gt; – Colin Bull&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11629-a-journey-into-the-f-sharp-compiler&quot;&gt;A journey into the F# compiler&lt;/a&gt; – Steffen Forkmann (&lt;a href=&quot;https://forki.github.io/CompilerIntro/#/&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11639-stock-cars-raspberry-pi-and-f-sharp&quot;&gt;STOCK CARS, RASPBERRY PI, AND F#&lt;/a&gt; – Jamie Dixon&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11347-azure-f-sharpunctions&quot;&gt;Azure F#unctions&lt;/a&gt; – Mikhail Shilkov (&lt;a href=&quot;https://www.slideshare.net/MikhailShilkov/azure-functions-92988186&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11603-3d-model-manipulation-with-f-sharp&quot;&gt;3D Model Manipulation with F#&lt;/a&gt; – Wael El Oraiby&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11481-lightning-talk-lessons-from-f-sharp-from-academic-prototypes-to-safety-critical-systems&quot;&gt;Lightning Talk: Lessons from F#: From Academic Prototypes to Safety-Critical Systems&lt;/a&gt; – Heidy Khlaaf&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11593-lightning-talk-session-types-for-f-sharpers&quot;&gt;Lightning Talk: Session types for F#ers&lt;/a&gt; – Fahd Abdeljallal&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11440-lightning-talk-f-sharp-support-in-jetbrains-rider&quot;&gt;Lightning Talk: F# Support in JetBrains Rider&lt;/a&gt; – Eugene Auduchinok&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11439-keynote-f-sharp-code-i-love&quot;&gt;Keynote: F# Code I Love&lt;/a&gt; – Don Syme (&lt;a href=&quot;https://twitter.com/dsyme/status/982238973861945344&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10138-keynote-thrilled-to-have-phillip-carter-hosting-a-keynote-at-fsharpx-2018&quot;&gt;Keynote: F# in 2018!&lt;/a&gt; – Phillip Carter&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11309-how-do-we-cook-highload-microservices-at-sbtech&quot;&gt;How do we cook highload microservices at SBTech&lt;/a&gt; – Anton Moldovan&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11516-the-curious-case-of-freya-suave-and-giraffe-reducing-risks-in-picking-a-new-tech&quot;&gt;The Curious Case of Freya, Suave, and Giraffe: Reducing Risks In Picking a New Tech.&lt;/a&gt; – Gien Verschatse&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/10265-keynote-can-t-wait-to-hear-from-mathias-brandewinder-at-fsharpx-2018&quot;&gt;Keynote: Deep Learning with CNTK and F#&lt;/a&gt; – Mathias Brandewinder&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11306-geo-art-with-fsharp-and-ordnance-survey-data&quot;&gt;Geo-Art with F# and Ordnance Survey Data&lt;/a&gt; – Kit Eason&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11506-distributed-tracing-lessons-learned&quot;&gt;Distributed Tracing, Lessons Learned&lt;/a&gt; – Gina Marie Maini&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11602-dr-functionallove-or-how-eroad-learned-to-stop-worrying-and-love-f-sharp&quot;&gt;Lightning Talk: Dr FunctionalLove or: How EROAD learned to stop worrying and love F#&lt;/a&gt; – Jim Bennett (&lt;a href=&quot;https://www.slideshare.net/JimBennett10/learning-to-love-f&quot;&gt;slides&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018&quot;&gt;Lightning Talk: Existentials – Playing Hide and Seek With Your Types&lt;/a&gt; – Nicholas Cowle&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://skillsmatter.com/app/conferences/9419-f-sharp-exchange-2018/skillscasts/11438-park-bench-panel-hosted-by-don-syme&quot;&gt;Park Bench Panel hosted by Don Syme&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Wed, 11 Apr 2018 00:00:00 +0000</pubDate>
         <link>https://www.evilznet.com/2018/04/11/fsharp-exchange-2018/</link>
