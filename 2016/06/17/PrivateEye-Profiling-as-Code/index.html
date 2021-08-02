@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+  <head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Lora:400,700' rel='stylesheet' type='text/css'>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-gist" src="https://cdn.ampproject.org/v0/amp-gist-0.1.js"></script>
+  <script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>
+  <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>PrivateEye, Profiling as Code</title>
+  <meta name="description" content="J’ai eu la change de participer à un petit atelier sur Private Eye avec Greg Young durant la conférence NCraft 2016.">
+
+  <link rel="canonical" href="https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/">
+  <link rel="alternate" type="application/rss+xml" title="Evilz blog" href="https://www.evilznet.com/feed.xml">
+  <link rel="manifest" href="/manifest.json">
+
+  <script type="application/ld+json">
+  
+{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code/",
+  "headline": "PrivateEye, Profiling as Code",
+  "datePublished": "2016-06-17T00:00:00+00:00",
+  "dateModified": "2016-06-17T00:00:00+00:00",
+  "description": "J’ai eu la change de participer à un petit atelier sur Private Eye avec Greg Young durant la conférence NCraft 2016.",
+  "author": {
+    "@type": "Person",
+    "name": "Vincent Bourdon"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Evilz blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.evilznet.com/assets/images/logo.jpg",
+      "width": "60",
+      "height": "60"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://www.evilznet.com/assets/images/logo.jpg",
+    "height": "60",
+    "width": "60"
+  }
+}
+
+  </script>
+
+  <style amp-custom>
+  
+  /**
+ * Syntax highlighting styles
+ */
+.highlight {
+  background: #fff;
+  /* Comment */
+  /* Error */
+  /* Keyword */
+  /* Operator */
+  /* Comment.Multiline */
+  /* Comment.Preproc */
+  /* Comment.Single */
+  /* Comment.Special */
+  /* Generic.Deleted */
+  /* Generic.Emph */
+  /* Generic.Error */
+  /* Generic.Heading */
+  /* Generic.Inserted */
+  /* Generic.Output */
+  /* Generic.Prompt */
+  /* Generic.Strong */
+  /* Generic.Subheading */
+  /* Generic.Traceback */
+  /* Keyword.Constant */
+  /* Keyword.Declaration */
+  /* Keyword.Namespace */
+  /* Keyword.Pseudo */
+  /* Keyword.Reserved */
+  /* Keyword.Type */
+  /* Literal.Number */
+  /* Literal.String */
+  /* Name.Attribute */
+  /* Name.Builtin */
+  /* Name.Class */
+  /* Name.Constant */
+  /* Name.Decorator */
+  /* Name.Entity */
+  /* Name.Exception */
+  /* Name.Function */
+  /* Name.Label */
+  /* Name.Namespace */
+  /* Name.Tag */
+  /* Name.Variable */
+  /* Operator.Word */
+  /* Text.Whitespace */
+  /* Literal.Number.Float */
+  /* Literal.Number.Hex */
+  /* Literal.Number.Integer */
+  /* Literal.Number.Oct */
+  /* Literal.String.Backtick */
+  /* Literal.String.Char */
+  /* Literal.String.Doc */
+  /* Literal.String.Double */
+  /* Literal.String.Escape */
+  /* Literal.String.Heredoc */
+  /* Literal.String.Interpol */
+  /* Literal.String.Other */
+  /* Literal.String.Regex */
+  /* Literal.String.Single */
+  /* Literal.String.Symbol */
+  /* Name.Builtin.Pseudo */
+  /* Name.Variable.Class */
+  /* Name.Variable.Global */
+  /* Name.Variable.Instance */
+  /* Literal.Number.Integer.Long */ }
+  .highlighter-rouge .highlight {
+    background: #fcfcfc; }
+  .highlight pre {
+    background-color: #fcfcfc; }
+  .highlight code {
+    background-color: #fcfcfc; }
+  .highlight .hll {
+    background-color: #ffffcc; }
+  .highlight .c {
+    color: #999988;
+    font-style: italic; }
+  .highlight .err {
+    color: #a61717;
+    background-color: #e3d2d2; }
+  .highlight .k {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .o {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .cm {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cp {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .c1 {
+    color: #999988;
+    font-style: italic; }
+  .highlight .cs {
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .gd {
+    color: #000000;
+    background-color: #ffdddd; }
+  .highlight .ge {
+    color: #000000;
+    font-style: italic; }
+  .highlight .gr {
+    color: #aa0000; }
+  .highlight .gh {
+    color: #999999; }
+  .highlight .gi {
+    color: #000000;
+    background-color: #ddffdd; }
+  .highlight .go {
+    color: #888888; }
+  .highlight .gp {
+    color: #555555; }
+  .highlight .gs {
+    font-weight: bold; }
+  .highlight .gu {
+    color: #aaaaaa; }
+  .highlight .gt {
+    color: #aa0000; }
+  .highlight .kc {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kd {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kn {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kp {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kr {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .kt {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .m {
+    color: #009999; }
+  .highlight .s {
+    color: #d01040; }
+  .highlight .na {
+    color: #008080; }
+  .highlight .nb {
+    color: #0086B3; }
+  .highlight .nc {
+    color: #445588;
+    font-weight: bold; }
+  .highlight .no {
+    color: #008080; }
+  .highlight .nd {
+    color: #3c5d5d;
+    font-weight: bold; }
+  .highlight .ni {
+    color: #800080; }
+  .highlight .ne {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nf {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nl {
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nn {
+    color: #555555; }
+  .highlight .nt {
+    color: #000080; }
+  .highlight .nv {
+    color: #008080; }
+  .highlight .ow {
+    color: #000000;
+    font-weight: bold; }
+  .highlight .w {
+    color: #bbbbbb; }
+  .highlight .mf {
+    color: #009999; }
+  .highlight .mh {
+    color: #009999; }
+  .highlight .mi {
+    color: #009999; }
+  .highlight .mo {
+    color: #009999; }
+  .highlight .sb {
+    color: #d01040; }
+  .highlight .sc {
+    color: #d01040; }
+  .highlight .sd {
+    color: #d01040; }
+  .highlight .s2 {
+    color: #d01040; }
+  .highlight .se {
+    color: #d01040; }
+  .highlight .sh {
+    color: #d01040; }
+  .highlight .si {
+    color: #d01040; }
+  .highlight .sx {
+    color: #d01040; }
+  .highlight .sr {
+    color: #009926; }
+  .highlight .s1 {
+    color: #d01040; }
+  .highlight .ss {
+    color: #990073; }
+  .highlight .bp {
+    color: #999999; }
+  .highlight .vc {
+    color: #008080; }
+  .highlight .vg {
+    color: #008080; }
+  .highlight .vi {
+    color: #008080; }
+  .highlight .il {
+    color: #009999; }
+
+/* Basscss Margin */
+.m0 {
+  margin: 0; }
+
+.mt0 {
+  margin-top: 0; }
+
+.mr0 {
+  margin-right: 0; }
+
+.mb0 {
+  margin-bottom: 0; }
+
+.ml0 {
+  margin-left: 0; }
+
+.mx0 {
+  margin-left: 0;
+  margin-right: 0; }
+
+.my0 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.m1 {
+  margin: 0.5rem; }
+
+.mt1 {
+  margin-top: 0.5rem; }
+
+.mr1 {
+  margin-right: 0.5rem; }
+
+.mb1 {
+  margin-bottom: 0.5rem; }
+
+.ml1 {
+  margin-left: 0.5rem; }
+
+.mx1 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
+
+.my1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; }
+
+.m2 {
+  margin: 1rem; }
+
+.mt2 {
+  margin-top: 1rem; }
+
+.mr2 {
+  margin-right: 1rem; }
+
+.mb2 {
+  margin-bottom: 1rem; }
+
+.ml2 {
+  margin-left: 1rem; }
+
+.mx2 {
+  margin-left: 1rem;
+  margin-right: 1rem; }
+
+.my2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
+.m3 {
+  margin: 2rem; }
+
+.mt3 {
+  margin-top: 2rem; }
+
+.mr3 {
+  margin-right: 2rem; }
+
+.mb3 {
+  margin-bottom: 2rem; }
+
+.ml3 {
+  margin-left: 2rem; }
+
+.mx3 {
+  margin-left: 2rem;
+  margin-right: 2rem; }
+
+.my3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem; }
+
+.m4 {
+  margin: 4rem; }
+
+.mt4 {
+  margin-top: 4rem; }
+
+.mr4 {
+  margin-right: 4rem; }
+
+.mb4 {
+  margin-bottom: 4rem; }
+
+.ml4 {
+  margin-left: 4rem; }
+
+.mx4 {
+  margin-left: 4rem;
+  margin-right: 4rem; }
+
+.my4 {
+  margin-top: 4rem;
+  margin-bottom: 4rem; }
+
+.mxn1 {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem; }
+
+.mxn2 {
+  margin-left: -1rem;
+  margin-right: -1rem; }
+
+.mxn3 {
+  margin-left: -2rem;
+  margin-right: -2rem; }
+
+.mxn4 {
+  margin-left: -4rem;
+  margin-right: -4rem; }
+
+.ml-auto {
+  margin-left: auto; }
+
+.mr-auto {
+  margin-right: auto; }
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto; }
+
+.icon > svg {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle; }
+  .icon > svg path {
+    fill: #828282; }
+
+.fixed-container {
+  position: relative;
+  max-width: 700px;
+  height: 180px; }
+
+.fixed-header {
+  position: relative;
+  max-width: 700px;
+  height: 360px; }
+
+.fixed-footer {
+  position: relative;
+  max-width: 300px;
+  height: 80px; }
+
+amp-img {
+  background-color: #fff; }
+
+amp-img.contain img {
+  object-fit: contain; }
+
+amp-img.cover img {
+  object-fit: cover; }
+
+.cf:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+main {
+  display: block; }
+
+body {
+  background-color: #fff;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -webkit-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig"; }
+
+.site-header {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 16px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .site-header {
+      padding: 0 16px; } }
+  .site-header .page-links {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 30px; }
+    .site-header .page-links a {
+      text-decoration: none;
+      color: #999999; }
+      .site-header .page-links a:hover {
+        color: #333333; }
+
+.blog-header {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .blog-header .blog-title {
+    margin-bottom: 8px;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    outline: 0;
+    line-height: 50px;
+    word-break: break-word;
+    color: #333333; }
+  .blog-header .blog-description {
+    font-size: 28px;
+    margin: 0 0 20px;
+    padding: 0;
+    line-height: 1.2;
+    color: #666666;
+    font-weight: 300; }
+
+.content {
+  width: 100%;
+  max-width: 700px;
+  margin: 25px auto 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media only screen and (max-width: 800px) {
+    .content {
+      padding: 0 16px; } }
+  .content article {
+    padding: 20px 0;
+    border-bottom: 1px solid #f2f2f0; }
+    .content article:last-child {
+      border-bottom: 0px; }
+    .content article .post-title {
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      font-style: normal;
+      display: block;
+      font-size: 36px;
+      line-height: 1.15;
+      margin: 0 0; }
+      .content article .post-title a {
+        text-decoration: none;
+        color: #333332; }
+        .content article .post-title a:hover {
+          text-decoration: none; }
+    .content article .post-excerpt {
+      letter-spacing: -0.02em;
+      font-weight: 300;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1.59;
+      color: #666665; }
+    .content article .post-meta {
+      font-size: 14px;
+      color: #b3b3b1;
+      line-height: 30px; }
+      .content article .post-meta a {
+        color: #b3b3b1;
+        text-decoration: none; }
+        .content article .post-meta a:hover {
+          text-decoration: underline; }
+
+.post-template .content {
+  max-width: 700px; }
+
+.index-headline {
+  border-top: 1px solid #dededc;
+  margin: 0;
+  padding: 16px 0; }
+  .index-headline span {
+    color: #b3b3b1;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+
+.pagination {
+  text-align: center;
+  padding: 16px 0 0;
+  font-size: 12px; }
+  .pagination a {
+    color: #999999;
+    text-decoration: none; }
+    .pagination a:hover {
+      color: #333333; }
+
+.site-footer {
+  margin: 0 auto;
+  padding: 48px 0;
+  width: 100%;
+  max-width: 700px;
+  font-size: 12px;
+  text-align: center;
+  color: #999999;
+  line-height: 17.6px; }
+  .site-footer a {
+    color: #666666;
+    text-decoration: none; }
+    .site-footer a:hover {
+      color: #333333; }
+
+.post .post-meta {
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+.post .post-title {
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 50px;
+  line-height: 1.1;
+  color: #333332;
+  margin-bottom: 50px; }
+.post .author-image {
+  background-image: url(/assets/images/logo.jpg);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 8px;
+  margin-bottom: -10px;
+  float: left;
+  background-size: cover;
+  border-radius: 100%;
+  text-indent: -9999px; }
+.post .post-meta-text {
+  color: #b3b3b1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  overflow: hidden;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+.post .post-content {
+  width: 100%;
+  font-family: Georgia, Cambria, "Times New Roman", Times, "Lora", serif;
+  color: #333333; }
+  .post .post-content h1, .post .post-content h2, .post .post-content h3 {
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3, .post .post-content h4, .post .post-content h5, .post .post-content h6 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.3;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .post-content h3 {
+    font-size: 36px; }
+  .post .post-content h2, .post .post-content h1 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 42px;
+    line-height: 1.2;
+    margin-top: 50px;
+    margin-bottom: 0px; }
+  .post .post-content table {
+    border-collapse: collapse; }
+  .post .post-content table, .post .post-content th, .post .post-content td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left; }
+  .post .post-content p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.59;
+    letter-spacing: -.002em;
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: #333333;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto; }
+  .post .post-content a {
+    color: #333333;
+    text-decoration: underline; }
+  .post .post-content amp-img, .post .post-content amp-youtube {
+    margin-top: 30px; }
+  .post .post-content figure {
+    margin: 0;
+    padding: 0 0 30px; }
+  .post .post-content figcaption {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #666665;
+    outline: 0;
+    z-index: 300;
+    text-align: center; }
+  .post .post-content hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 30px auto;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .post-content blockquote {
+    margin: 0 0 30px;
+    margin-left: -26px;
+    border-left: 3px solid #57ad68;
+    padding-left: 20px; }
+    .post .post-content blockquote p {
+      letter-spacing: 0.01rem;
+      font-weight: 400;
+      mborder-left: 3px solid #57ad68;
+      mpadding-left: 20px;
+      mmargin-left: -26px;
+      padding-bottom: 3px; }
+  .post .post-content ul, .post .post-content ol {
+    padding: 0 0 30px;
+    margin: 0; }
+  .post .post-content li {
+    padding: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 23px;
+    line-height: 30px;
+    margin-left: 30px;
+    margin-bottom: 12px;
+    padding-top: 2px; }
+    .post .post-content li p {
+      padding: 0 0 1.618rem; }
+  .post .post-content ol li {
+    list-style-type: decimal; }
+.post .bottom-teaser {
+  padding: 50px 0 0 0;
+  font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+  .post .bottom-teaser hr {
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 15%;
+    margin: 16px 0 16px 100px;
+    border: 0px solid #dddddd;
+    border-top: 1px solid #dddddd; }
+  .post .bottom-teaser .isLeft {
+    float: left;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isLeft {
+        width: 100%;
+        padding-bottom: 32px; } }
+    .post .bottom-teaser .isLeft .bio {
+      margin-top: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .username {
+      margin-left: 4px;
+      margin-right: 18px;
+      margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isLeft a {
+      color: black;
+      text-decoration: none; }
+      .post .bottom-teaser .isLeft a:hover {
+        color: #333333;
+        text-decoration: underline; }
+    .post .bottom-teaser .isLeft .author-image {
+      display: block;
+      width: 80px;
+      height: 80px;
+      float: left;
+      background-size: cover;
+      border-radius: 100%;
+      text-indent: -9999px; }
+    .post .bottom-teaser .isLeft h4 {
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+    .post .bottom-teaser .isLeft p {
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+      padding-left: 100px; }
+      .post .bottom-teaser .isLeft p.published {
+        color: #999999; }
+  .post .bottom-teaser .isRight {
+    float: right;
+    width: 47%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media only screen and (max-width: 800px) {
+      .post .bottom-teaser .isRight {
+        width: 100%; } }
+    .post .bottom-teaser .isRight .index-headline {
+      padding-bottom: 32px; }
+    .post .bottom-teaser .isRight .site-footer {
+      margin: 0;
+      padding: 0;
+      color: #333333;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.3;
+      color: #999999; }
+      .post .bottom-teaser .isRight .site-footer a {
+        color: #333333;
+        text-decoration: none; }
+        .post .bottom-teaser .isRight .site-footer a:hover {
+          text-decoration: underline; }
+      .post .bottom-teaser .isRight .site-footer .poweredby {
+        display: block;
+        padding-bottom: 18px;
+        font-weight: 700;
+        color: #333333; }
+
+.share {
+  text-align: right;
+  padding: 20px 0 0; }
+  .share a {
+    text-decoration: none;
+    color: #bbbbbb;
+    padding-left: 12px; }
+    .share a .hidden {
+      display: none; }
+    .share a:hover {
+      color: #333333; }
+
+pre,
+code {
+  font-size: 15px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  background-color: #fcfcfc;
+  color: #000000; }
+
+code {
+  padding: 1px 5px; }
+
+pre {
+  padding: 8px 12px;
+  overflow-x: auto; }
+  pre > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0; }
+
+.pagination .disabled {
+  opacity: 0; }
+
+  </style>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+
+  <body>
+    <header class="site-header">
+  <a href="/" class="logo"><span class="logo"><amp-img src="/assets/images/logo.jpg" width="48" height="48" alt="evilz logo" /></span></a>
+
+  <div class="page-links">
+    <a class="page-link" href="/">Home</a>
+    
+      
+      • <a class="page-link" href="/intro-fable.html">Introduction a FABLE</a>
+      
+    
+      
+      • <a class="page-link" href="/about/">About</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</header>
+
+
+    <div class="feature"></div>
+<main class="content" role="main">
+  <article class="post">
+    <div class="post-meta">
+      <h1 class="post-title">PrivateEye, Profiling as Code</h1>
+    </div>
+
+ 
+    <section class="post-content">
+      <a name="topofpage"></a>
+
+        <!-- Post Feature Image -->
+   
+   
+   
+   <div class="flex">
+    <div class="fixed-header m1">
+
+      <amp-img src="https://i.ytimg.com/vi/aHxIb84afAA/maxresdefault.jpg"
+      width="700"
+      height="300"
+      layout="fill"
+      class="cover"
+      alt="AMP"></amp-img>
+    </div>
+  </div>
+  
+   
+
+   <p>J’ai eu la change de participer à un petit atelier sur <strong>Private Eye</strong> avec <strong>Greg Young</strong> durant la conférence NCraft 2016.</p>
+
+<p>Greg Young est très connu dans la communauté pour avoir évangélisé le terme de CQRS. Mais pour cette occasion il ne s’agit plus de parler de CQRS mais bel et bien d’un outil de profiling développé par Greg lui même.</p>
+
+<p>Dans cet atelier, nous avons joué avec PrivateEye et appris à monitorer un processus de la CLR via une REPL F#. Les participants pouvaient aussi bien être sous Windows, OSX ou Linux.</p>
+
+<h1 id="profiling">Profiling</h1>
+
+<p>Avant de se lancer dans le vif du sujet, il est bon de rappeler ce qu’est le profiling et dans quel cas cela est utilisé.</p>
+
+<p>On utilise un Profiler principalement lorsque l’on a des problèmes liés à la performance. Un profiler va récolter un grand nombre d’informations sur l’exécution d’une application comme la mémoire allouée, par qui? comment ? à quelle fréquence? etc…
+Le but étant de trouver les goulots d’étranglement, les fuites mémoire, des consommations importantes de CPU et autres problématiques qui peuvent ralentir le bon fonctionnement.</p>
+
+<p>De nombreux profilers existent sur le marché et Visual Studio en inclue même un par défaut. Cependant, ils sont souvent difficiles à mettre en place sur des environnement de production. Imaginez un environnement avec une architecture de type CQRS E/S qui traite un grand nombre de requêtes. Il peut être compliqué, voir impossible de recréer le scénario qui a engendré les problèmes en production lorsque cela est dû à une charge trop importante. Private Eye à donc été créé dans l’optique de résoudre cette problématique.</p>
+
+<h1 id="repl">Repl</h1>
+
+<p>Mais là où Private eye sort du lot habituel, c’est qu’il nous offre une API qui permet par code de requêter le moteur de profiling.
+L’api peut être utilisée via tous les langages .net, mais le focus est pour l’instant mis sur l’utilisation à travers la REPL F#.</p>
+
+<p>**Qu’est ce qu’une REPL ? **</p>
+
+<p>Ce terme signifie <strong>Read–eval–print loop</strong>. 
+Il s’agit simplement d’une boucle en qui lit le code entré, l’évalue et affiche le résultat. Globalement c’est ce que l’on retrouve dans tous les langages de scripting ou de shell.
+On peut aussi parler de session interactive. Sous Visual Studio 2015 il existe une fenêtre interactive pour F# et pour C#.</p>
+
+<amp-img src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/29/92/3187.2015-10-07%20VS2015Update1CTP-1-interactive.png" width="691" height="290" layout="responsive" alt="AMP"><noscript><img src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/29/92/3187.2015-10-07%20VS2015Update1CTP-1-interactive.png" width="691" height="290" alt="AMP"></noscript></amp-img>
+
+<p>Pour en savoir plus il existe une introduction à la REPL C# sur channel 9  <a href="https://channel9.msdn.com/Events/Visual-Studio/Connect-event-2015/103">ici</a></p>
+
+<h1 id="utilisation">Utilisation</h1>
+<p>La version présentée pour l’occasion est la version gratuite, que l’on peut télécharger <a href="http://www.privateeye.io/free.html">ici</a>
+Il vous faudra aussi F# d’installé sur votre machine pour exécuter <strong>fsi.exe</strong></p>
+
+<p>Les étapes sont finalement simples :</p>
+
+<h2 id="configurer-le-profiling-de-la-clr">Configurer le profiling de la CLR</h2>
+
+<p>Ce système existe de base avec la CLR. Il suffit de définir les valeurs des variables d’environnement suivantes:</p>
+
+<div class="language-powershell highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="nb">set </span><span class="nv">COR_ENABLE_PROFILING</span><span class="o">=</span>1
+<span class="nb">set </span><span class="nv">COR_PROFILER</span><span class="o">={</span>D51126CE-1443-42ED-8FD6-B4D32C466292<span class="o">}</span>
+<span class="nb">set </span><span class="nv">COR_PROFILER_PATH</span><span class="o">=</span>%~dp0x64\PrivateEye.Profiler.dll
+
+<span class="nb">set </span><span class="nv">PRIVATEEYE_PROFILER_MODE</span><span class="o">=</span>0
+<span class="nb">set </span><span class="nv">PRIVATEEYE_PROFILER_PORT</span><span class="o">=</span>4444
+</code></pre>
+  </div>
+</div>
+
+<h2 id="démmarer-une-session-interactive-en-écoute">Démmarer une session interactive en écoute</h2>
+
+<ul>
+  <li>
+    <p>On lance une session interactive F# :  <code class="highlighter-rouge">fsi.exe</code></p>
+  </li>
+  <li>
+</ul>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="c1">// On charge privateeye.fsx</span>
+<span class="p">#</span><span class="n">load</span> <span class="s2">"privateeye.fsx"</span><span class="p">;;</span>
+
+<span class="c1">// On import le namespace PrivateEye.Bridge</span>
+<span class="k">open</span> <span class="nn">PrivateEye</span><span class="p">.</span><span class="nc">Bridge</span><span class="p">;;</span>
+
+
+<span class="c1">// on ajoute des fonctions d'affichage prédéfinies. </span>
+<span class="c1">// Ce mécanisme est présent de base, il permet d'enregistrer un fonction d'affichage pour un type donné. </span>
+<span class="c1">// Dans notre cas on enregistre six fonctions.</span>
+<span class="n">addFsiPrinters</span><span class="bp">()</span><span class="p">;;</span>
+
+<span class="c1">// Enfin, on se met on écoute d'une connexion</span>
+<span class="nn">Profiler</span><span class="p">.</span><span class="nc">StartListening</span><span class="bp">()</span><span class="p">;;</span> 
+</code></pre>
+  </div>
+</div>
+
+<p>Le profiler est maintenant prêt à recevoir et traiter les informations.
+Il ne reste plus qu’à lancer votre application .net.
+Une connexion va alors s’ouvrir tant que votre programme .net est en cours d’exécution puis se fermer automatiquement.</p>
+
+<h2 id="requêter-le-profiler">Requêter le profiler</h2>
+
+<p>On peut maintenant regarder ce que le profiler a récupéré comme informations.</p>
+
+<p>Dans la session interactive F# exécutez la fonction suivante :</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">mostCalledMethods</span><span class="bp">()</span><span class="p">;;</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Une liste de toute les méthodes appelé par le programme sont alors affichées. 
+Disons que seulement les dix premières nous intéresses, il suffit de d’envoyer le résultat à une séquence et de sélectionner que dix éléments.</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">mostCalledMethods</span><span class="bp">()</span> <span class="p">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="mi">10</span><span class="p">;;</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Voici un petit résumé en image</p>
+
+<amp-img src="/content/privateeye-demo.gif" width="731" height="449" layout="responsive" alt="AMP"><noscript><img src="/content/privateeye-demo.gif" width="731" height="449" alt="AMP"></noscript></amp-img>
+
+<blockquote>
+  <p>Pour vous simplifier la vie vous pouvez simplement lancer <code class="highlighter-rouge">runfsi.cmd</code> qui fera tout pour vous :)
+Puis ouvrir une fenêtre de commande et exécuter <code class="highlighter-rouge">launchapp_anycpu.cmd PATH_DE_VOTRE_APP_NET</code></p>
+</blockquote>
+
+<h2 id="observation-pendant-lexécution">Observation pendant l’exécution</h2>
+
+<p>Bien qu’il existe à ce jour tout un tas de méthodes perméttant de requêter les informations récoltées pendant l’execution. (dont la liste est disponible <a href="https://github.com/PrivateEye/PrivateEye/wiki/FSharp-API"> ici </a>)</p>
+
+<p>Il est aussi possible de s’abonner sur des évènements pendant l’écoute ! Il ne s’agit pas réellement d’évènement au sens C#, mais plutôt d’observable aux quelles nous allons souscrire.
+Voici un petit exemple, toujours dans la session interactive entrez le code suivant:</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">onAllocation</span><span class="bp">()</span> <span class="p">|&gt;</span> <span class="nn">Observable</span><span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">printfn</span> <span class="s2">"Alloc %s"</span> <span class="n">x</span><span class="p">.</span><span class="nn">Method</span><span class="p">.</span><span class="nc">Name</span><span class="p">)</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Relancez votre programme .net.
+Vous devriez maintenant voir s’afficher dans la session</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="nc">Alloc</span> <span class="nc">XXXXX</span> 
+<span class="nc">Alloc</span> <span class="nc">XXXXX</span> 
+<span class="nc">Alloc</span> <span class="nc">XXXXX</span> 
+<span class="nc">Alloc</span> <span class="nc">XXXXX</span> 
+</code></pre>
+  </div>
+</div>
+
+<p>Evidement il s’agit ici d’un exemple très simple avec un simple log, mais il ne tiens qu’à vous de définir ce que vous voulez exécuter à chaque callback.
+Couplé à la librairie <code class="highlighter-rouge">FSharp.Charting</code> on peut facilement envisager de sortir de beaux graphiques.</p>
+
+<p>Il existe aussi d’autres observable mis à notre disposition notamment : <code class="highlighter-rouge">onException()</code> et <code class="highlighter-rouge">onGCCompleted()</code>.</p>
+
+<p>La liste complète est <a href="https://github.com/PrivateEye/PrivateEye/wiki/FSharp-API#observables">ici</a> ainsi qu’un complément d’information sur les types utilisables dans les callbacks <a href="https://github.com/PrivateEye/PrivateEye/wiki/Using-Observables">ici</a></p>
+
+<h2 id="record-and-replay">Record and Replay</h2>
+
+<p>C’est bien tout ça, mais si j’ai oublié de souscrire à l’observable ou que j’ai besoin de modifier quelque chose dans la souscription ? 
+Il faut que je relance mon application et que je rejoue tout mon scénario :’(</p>
+
+<p>Bonne nouvelle ! ce n’est pas nécessaire ! Il est possible avec PrivateEye d’enregistrer une session et de la rejouer ensuite. 
+La mise en place est extrêmement simple après avoir mis en écoute la session il vous suffit d’appeler la méthode startRecording avec le nom du fichier ou seront stockées les données.</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">startListening</span><span class="bp">()</span><span class="p">;;</span>
+<span class="nc">Starting</span> <span class="nc">TCP</span> <span class="n">listening</span> <span class="n">on</span> <span class="nc">TCP</span> <span class="n">endpoint</span><span class="p">:</span> <span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">4444</span><span class="p">.</span>
+<span class="k">val</span> <span class="n">it</span> <span class="p">:</span> <span class="kt">unit</span> <span class="p">=</span> <span class="bp">()</span>
+
+<span class="n">startRecording</span><span class="p">(</span><span class="s2">"mysession.foo"</span><span class="o">);;</span>
+<span class="k">val</span> <span class="n">it</span> <span class="p">:</span> <span class="kt">unit</span> <span class="p">=</span> <span class="bp">()</span>
+</code></pre>
+  </div>
+</div>
+
+<p>Quelques informations complémentaires :</p>
+<ul>
+  <li>Cette méthode bloque votre session, il existe une autre fonction startRecordingInteractive() pour continuer à utiliser la session si besoin</li>
+  <li>Le fichier de données va être très gros, prévoyez suffisamment de place (plusieurs Giga)</li>
+</ul>
+
+<p>Une fois l’enregistrement terminé, le fichier est créé. Il vous suffit alors d’exécuter <code class="highlighter-rouge">replayRecording()</code> pour rejouer la session.</p>
+
+<div class="language-fsharp highlighter-rouge">
+  <div class="highlight">
+    <pre class="highlight"><code><span class="n">replayRecording</span><span class="p">(</span><span class="s2">"mysession.foo"</span><span class="o">);;</span>
+<span class="nc">Starting</span> <span class="n">replay</span><span class="p">.</span>
+<span class="nc">Received</span> <span class="n">identification</span> <span class="nc">Mono</span> <span class="nc">PrivateEye</span> <span class="n">v0</span><span class="p">.</span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span> <span class="nc">Process</span> <span class="nc">Id</span> <span class="mi">484</span> <span class="nc">Commercial</span><span class="p">:</span> <span class="nc">False</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">5898240</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="o">%</span>
+<span class="k">val</span> <span class="n">it</span> <span class="p">:</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Threading</span><span class="p">.</span><span class="nn">Tasks</span><span class="p">.</span><span class="nc">Task</span> <span class="p">=</span>
+  <span class="nn">System</span><span class="p">.</span><span class="nn">Threading</span><span class="p">.</span><span class="nn">Tasks</span><span class="p">.</span><span class="nc">Task</span> <span class="p">{</span><span class="nc">AsyncState</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+                               <span class="nc">CreationOptions</span> <span class="p">=</span> <span class="nc">None</span><span class="p">;</span>
+                               <span class="nc">Exception</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+                               <span class="nc">Id</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+                               <span class="nc">IsCanceled</span> <span class="p">=</span> <span class="bp">false</span><span class="p">;</span>
+                               <span class="nc">IsCompleted</span> <span class="p">=</span> <span class="bp">false</span><span class="p">;</span>
+                               <span class="nc">IsFaulted</span> <span class="p">=</span> <span class="bp">false</span><span class="p">;</span>
+                               <span class="nc">Status</span> <span class="p">=</span> <span class="nc">Running</span><span class="o">;}</span>
+
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">11796480</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">20</span><span class="p">.</span><span class="mi">1</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">17694720</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">30</span><span class="p">.</span><span class="mi">1</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">23592960</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">40</span><span class="p">.</span><span class="mi">2</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">29491200</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">50</span><span class="p">.</span><span class="mi">2</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">35389440</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">60</span><span class="p">.</span><span class="mi">3</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">41287680</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">70</span><span class="p">.</span><span class="mi">3</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">47185920</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">80</span><span class="p">.</span><span class="mi">4</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">status</span> <span class="mi">53084160</span><span class="o">/</span><span class="mi">58720256</span> <span class="mi">90</span><span class="p">.</span><span class="mi">4</span><span class="o">%</span>
+<span class="nc">Replay</span> <span class="n">completed</span><span class="p">.</span>
+</code></pre>
+  </div>
+</div>
+
+<h1 id="version-payante">Version payante</h1>
+
+<blockquote>
+  <p>Cette version n’a malheureusement pas pu être présenté   durant la NCraft.</p>
+</blockquote>
+
+<p>Via la version payant, il vous sera possible de monitorer votre environnement de production. 
+L’ensemble du système présenté fonctionnera alors dans l’autre sens. Vos applications de production seront elles en attentent de connexion et depuis votre session interactive F# vous allez vous connecter à l’application désirée.
+Par défaut, rien ne sera monitorer. Il faudra activer chaque fonctionnalitén petit à petit et ce de façon très précise pour éviter de faire tomber la production.</p>
+
+<p>Je ne peux malheureusement pas donner plus d’informations pour l’instant car cette version n’est pas encore disponible.</p>
+
+<h1 id="questions-en-vrac">Questions en vrac</h1>
+
+<ul>
+  <li>Y aura t’il un support des applications <strong>.net Core</strong> ?
+    <ul>
+      <li>Non pas pour tout de suite car les API Core à utiliser ne sont pas encore bien définies et ce ne sera pas le cas avant pas mal de temps.</li>
+    </ul>
+  </li>
+  <li>Pour quand est prévu la sortie de la version payant ?
+    <ul>
+      <li>Une sortie vers la fin l’année 2016 est envisagé.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Bien que pas encore mature, PrivateEye est un outil prometteur qui s’adresse évidemment à des connaiseurs et tout bon Hackeur.
+La maitrise de F# n’est pas une nécéssité et il existe meme un package nuget que l’on peut facilement référencer dans un projet .net.
+Bref pour conclure je dirais “Wait and See”</p>
+
+
+    </section>
+
+    <footer class="post-footer">
+      <section class="share">
+        <a class="icon" href="https://twitter.com/intent/tweet?url=https://www.evilznet.com/2016/06/17/PrivateEye-Profiling-as-Code&text=PrivateEye%2C+Profiling+as+Code&via=Evilznet" target="_blank">
+          Share on
+          <svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+
+        </a>
+
+        <a class="subscribe" href="/feed.xml"> <span class="tooltip"> <i class="fa fa-rss"></i> RSS feed.</span></a>
+      </section>
+    </footer>
+    <div class="bottom-teaser cf">
+      <div class="isLeft">
+        <h5 class="index-headline featured"><span>Written by</span></h5>
+        <section class="author">
+          <div class="author-image"></div>
+          <h4>Vincent Bourdon</h4>
+          <p class="bio">.Net Dev since 2001
+</p>
+
+          <p>
+            <span>
+              
+                
+<span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><a href="https://github.com/evilz"><span class="username">evilz</span></a>
+
+
+              
+            </span>
+
+            <span>
+              
+                
+<span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><a href="https://twitter.com/Evilznet"><span class="username">Evilznet</span></a>
+
+
+              
+            </span>
+          </p>
+          <hr>
+          <p class="published">Published <time datetime="2016-06-17 00:00">17 Jun 2016</time></p>
+        </section>
+      </div>
+      <div class="isRight">
+          <h5 class="index-headline featured"><span>A lire aussi</span></h5>
+
+          <footer class="site-footer">
+              <section class="poweredby">
+                
+ <!-- Pagination links -->
+ <div class="PageNavigation">
+    
+      <a class="prev" href="/2016/05/01/mac-startup-options/">&laquo; Options de démarrage pour Mac</a>
+      
+        
+        
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="https://farm5.staticflickr.com/4636/39324318452_0a701c928c_n.jpg"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+    
+
+      
+    
+    
+    
+      <a class="next" href="/2016/10/24/introduction-oauth2-aspnet/">Introduction à l'authentification OAuth2 avec ASPNET Core et GitHub &raquo;</a>
+        
+        
+        
+        <div class="flex">
+          <div class="fixed-footer m1">
+
+            <amp-img src="https://farm5.staticflickr.com/4597/27565105059_9daa9856aa_n.jpg"
+            width="50"
+            height="50"
+            layout="fill"
+            class="cover"
+            alt="AMP"></amp-img>
+        </div>
+      </div>
+        
+
+      
+    
+  </div>
+
+              </section>
+             
+             
+            
+            </footer>
+
+       
+
+        
+      </div>
+    </div>
+  </article>
+</main>
+
+    
+    <amp-analytics type="googleanalytics" id="amp-analytics">
+<script type="application/json">
+{
+  "vars": {
+    "account": "UA-2063306-2"
+  },
+  "triggers": {
+    "trackPageview": {
+      "on": "visible",
+      "request": "pageview"
+    }
+  }
+}
+</script>
+</amp-analytics>
+
+
+<amp-install-serviceworker
+    src="/serviceworker.js"
+    layout="nodisplay">
+</amp-install-serviceworker>    
+
+<amp-gist
+data-gistid="ccabc534e91280364fcbe9b775a551a9"
+data-file="empty"
+layout="fixed-height"
+height="0">
+</amp-gist>
+
+  </body>
+</html>
