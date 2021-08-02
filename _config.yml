@@ -22,13 +22,13 @@ title: Evilz blog
 email: evilz@evilznet.com
 description: >- # this means to ignore newlines until "baseurl:"
   Code for Human
-baseurl: "https://www.evilznet.com" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://www.evilznet.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: Evilznet
 github_username:  evilz
 
 # Build settings
-theme: minima
+theme: jekflix
 plugins:
   - jekyll-feed
 
