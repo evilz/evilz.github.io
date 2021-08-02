@@ -28,7 +28,7 @@ twitter_username: Evilznet
 github_username:  evilz
 
 # Build settings
-theme: jekflix
+theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
 
