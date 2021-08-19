@@ -1,17 +1,16 @@
 ---
 layout: page
 title: About
-description: Some description.
+description: QUI SUIS-JE ?
 permalink: /about/
 ---
 
-<img class="img-rounded" src="/assets/img/uploads/profile.png" alt="Thiago Rossener" width="200">
+<img class="img-rounded" src="/assets/img/uploads/profile.jpg" alt="Vincent Bourdon" width="200">
 
-# About
+# à propos
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+🤔 QUI SUIS-JE ?
+Je suis passionné par tout ce qui est high-tech et design.
+Expert du web, domaine sur lequel j'ai débuté avec l'ASP classic et Visual Studio InterDev,
+je suis naturellement passé sur les Techno .net en 2001 (VB.net puis c#).
+Avant tout développeur, j'ai effectué de nombreuses missions en tant que consultant, architecte, expert ou formateur et même coach Craftsman.
