@@ -5,8 +5,6 @@ export const headerData = {
     { text: 'Accueil', href: getPermalink('/') },
     { text: 'Articles', href: getBlogPermalink() },
     { text: 'Tags', href: getPermalink('/tags') },
-    { text: 'Catégories', href: getPermalink('/categories') },
-    { text: 'À propos', href: getPermalink('/about') },
     { text: 'Contact', href: getPermalink('/contact') },
   ],
   actions: [{ text: 'GitHub', href: 'https://github.com/evilz', target: '_blank', icon: 'tabler:brand-github' }],
@@ -20,13 +18,11 @@ export const footerData = {
         { text: 'Accueil', href: getPermalink('/') },
         { text: 'Articles', href: getBlogPermalink() },
         { text: 'Tags', href: getPermalink('/tags') },
-        { text: 'Catégories', href: getPermalink('/categories') },
       ],
     },
     {
       title: 'Contenu',
       links: [
-        { text: 'À propos', href: getPermalink('/about') },
         { text: 'Contact', href: getPermalink('/contact') },
         { text: 'Staff', href: getPermalink('/staff') },
         { text: 'RSS', href: getAsset('/rss.xml') },

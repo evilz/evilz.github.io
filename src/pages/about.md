@@ -6,7 +6,7 @@ metadata:
 permalink: /about/
 ---
 
-<img class="img-rounded" src="/assets/img/uploads/profile.jpg" alt="Vincent Bourdon" width="200">
+<img class="img-rounded" src="/assets/img/uploads/profile.png" alt="Vincent Bourdon" width="200">
 
 # à propos
 

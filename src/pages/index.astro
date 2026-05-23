@@ -19,10 +19,7 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <Hero
-    actions={[
-      { variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() },
-      { text: 'À propos', href: getPermalink('/about') },
-    ]}
+    actions={[{ variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() }]}
     image={{ src: siteData.image, alt: siteData.name }}
   >
     <Fragment slot="title">
@@ -39,7 +36,6 @@ const metadata = {
     stats={[
       { title: 'Articles', amount: String(contentSummary.postCount) },
       { title: 'Tags', amount: String(contentSummary.tagCount) },
-      { title: 'Catégories', amount: String(contentSummary.categoryCount) },
     ]}
   />
 
@@ -64,22 +60,11 @@ const metadata = {
         description: 'Parcourez tous les sujets référencés dans les billets.',
         icon: 'tabler:tags',
       },
-      {
-        title: 'Catégories',
-        description: 'Accédez aux catégories historiques conservées depuis le blog d’origine.',
-        icon: 'tabler:category',
-      },
-      {
-        title: 'À propos',
-        description: 'Le profil et les textes existants restent disponibles sans perte de contenu.',
-        icon: 'tabler:user-circle',
-      },
     ]}
   >
     <Fragment slot="after">
       <div class="mt-8 flex flex-wrap gap-3 justify-center">
         <Button href={getPermalink('/tags')} variant="secondary">Tous les tags</Button>
-        <Button href={getPermalink('/categories')} variant="secondary">Toutes les catégories</Button>
       </div>
     </Fragment>
   </Features2>
