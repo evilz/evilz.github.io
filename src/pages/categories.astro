@@ -1,0 +1,44 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import { fetchPosts } from '~/utils/blog';
+import { categoryDetails } from '~/data/categoryDetails';
+import { getPermalink } from '~/utils/permalinks';
+
+const posts = await fetchPosts();
+const counts = new Map<string, number>();
+for (const post of posts) {
+  if (post.category?.slug) counts.set(post.category.slug, (counts.get(post.category.slug) || 0) + 1);
+}
+const metadata = {
+  title: 'Catégories',
+  description: 'Catégories historiques du blog.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="px-4 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-5xl">
+    <Headline
+      subtitle="Les catégories historiques du blog sont conservées, avec leur description d’origine lorsque disponible."
+      >Catégories</Headline
+    >
+    <div class="grid sm:grid-cols-2 gap-6">
+      {
+        categoryDetails.map((category) => (
+          <a
+            href={getPermalink(category.slug, 'category')}
+            class="rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm p-6 hover:border-primary hover:-translate-y-0.5 transition"
+          >
+            <div class="flex items-center justify-between gap-4">
+              <h2 class="text-xl font-bold font-heading">{category.title}</h2>
+              <span class="text-sm text-muted dark:text-slate-400">{counts.get(category.slug) || 0} article(s)</span>
+            </div>
+            <p class="mt-3 text-muted dark:text-slate-400">
+              {category.description || 'Catégorie conservée depuis le blog précédent.'}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

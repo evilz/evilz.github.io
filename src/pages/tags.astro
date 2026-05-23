@@ -1,0 +1,64 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import { fetchPosts } from '~/utils/blog';
+import { getPermalink } from '~/utils/permalinks';
+
+const posts = await fetchPosts();
+const tagsMap = new Map<string, typeof posts>();
+for (const post of posts) {
+  for (const tag of post.tags || []) {
+    const current = tagsMap.get(tag.slug) || [];
+    current.push(post);
+    tagsMap.set(tag.slug, current);
+  }
+}
+const tags = Array.from(tagsMap.entries()).sort((a, b) => a[0].localeCompare(b[0], 'fr'));
+const metadata = {
+  title: 'Tags',
+  description: 'Index des tags du blog.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="px-4 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-5xl">
+    <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline>
+    <div class="flex flex-wrap gap-3 mb-12">
+      {
+        tags.map(([slug, taggedPosts]) => (
+          <a
+            class="rounded-full border border-gray-200 dark:border-slate-700 px-4 py-2 hover:border-primary hover:text-primary"
+            href={`#${slug}`}
+          >
+            #{taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="space-y-12">
+      {
+        tags.map(([slug, taggedPosts]) => {
+          const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
+          return (
+            <section id={slug} class="scroll-mt-24">
+              <h2 class="text-2xl font-bold font-heading mb-4">#{title}</h2>
+              <ul class="space-y-3">
+                {taggedPosts.map((post) => (
+                  <li class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-b border-gray-100 dark:border-slate-800 pb-3">
+                    <a class="hover:text-primary" href={getPermalink(post.permalink, 'post')}>
+                      {post.title}
+                    </a>
+                    <time class="text-sm text-muted dark:text-slate-400">
+                      {post.publishDate.toLocaleDateString('fr-FR')}
+                    </time>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })
+      }
+    </div>
+  </section>
+</Layout>

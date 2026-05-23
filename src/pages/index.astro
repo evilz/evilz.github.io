@@ -1,0 +1,41 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { getBlogPermalink, getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Evilz blog',
+  ignoreTitleTemplate: true,
+  description: 'Code for Human',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero actions={[{ variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() }]}>
+    <Fragment slot="title">
+      Code for
+      <span class="text-primary dark:text-white">Human</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Code, architecture, outils, IA et bidouilles high-tech : retour d’expérience d’un dev qui aime comprendre,
+      construire et partager.
+    </Fragment>
+  </Hero>
+
+  <BlogLatestPosts
+    title="Derniers articles"
+    linkText="Voir toutes les archives"
+    count={8}
+    classes={{ container: 'pt-4 md:pt-6 pb-8 md:pb-10' }}
+  />
+
+  <section class="pb-10 md:pb-12 -mt-2 md:-mt-4">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 flex justify-center">
+      <Button href={getPermalink('/tags')} variant="secondary">Tous les tags</Button>
+    </div>
+  </section>
+</Layout>
