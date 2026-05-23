@@ -10,6 +10,8 @@ export const headerData = {
 };
 
 export const footerData = {
+  links: [],
+  secondaryLinks: [],
   socialLinks: [
     { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/evilz' },
     { ariaLabel: 'X', icon: 'tabler:brand-x', href: 'https://x.com/Evilznet' },
