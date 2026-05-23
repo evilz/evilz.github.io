@@ -1,0 +1,19 @@
+---
+title: "Hot chocolate GraphQL workshop - ep.03 : Resolver et Data loader"
+publishDate: '2020-08-02T00:00:00'
+excerpt: "Un épisode du workshop Hot Chocolate consacré à le rôle des resolvers et l'utilisation des data loaders pour mieux structurer les accès aux données."
+image: https://img.youtube.com/vi/mDLHyDmHy84/maxresdefault.jpg
+author: evilz
+tags:
+- graphql
+- dotnet
+- api
+- video
+- youtube
+category: video
+---
+Cet épisode du workshop Hot Chocolate est consacré à le rôle des resolvers et l'utilisation des data loaders pour mieux structurer les accès aux données. Bumble dev avance pas à pas pour montrer comment construire une API GraphQL propre, tout en expliquant les choix de modélisation et les impacts côté implémentation.
+
+La série est intéressante parce qu'elle ne se limite pas à la syntaxe : elle parle aussi d'architecture, de conventions et de performance. Chaque épisode apporte une brique supplémentaire pour mieux comprendre Hot Chocolate et construire une API GraphQL plus robuste avec .NET.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mDLHyDmHy84" title="Hot chocolate GraphQL workshop - ep.03 : Resolver et Data loader" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
