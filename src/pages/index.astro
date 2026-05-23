@@ -1,41 +1,246 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+import { siteData } from '~/data/siteData';
 
-import { getBlogPermalink, getPermalink } from '~/utils/permalinks';
+import { fetchPosts } from '~/utils/blog';
+import { findImage } from '~/utils/images';
+import { getFormattedDate } from '~/utils/utils';
+import { getAsset, getBlogPermalink, getPermalink } from '~/utils/permalinks';
 
 const metadata = {
   title: 'Evilz blog',
   ignoreTitleTemplate: true,
   description: 'Code for Human',
 };
+
+const posts = await fetchPosts();
+const [featuredPost, ...restPosts] = posts;
+const articleCards = restPosts.slice(0, 6);
+const featuredImage = featuredPost ? await findImage(featuredPost.image) : undefined;
+
+const cardsWithImages = await Promise.all(
+  articleCards.map(async (post) => ({
+    post,
+    image: await findImage(post.image),
+  }))
+);
+
+const tagCounts = posts.reduce(
+  (acc, post) => {
+    post.tags?.forEach((tag) => {
+      acc.set(tag.slug, { slug: tag.slug, title: tag.title, count: (acc.get(tag.slug)?.count ?? 0) + 1 });
+    });
+    return acc;
+  },
+  new Map<string, { slug: string; title: string; count: number }>()
+);
+
+const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(0, 10);
 ---
 
 <Layout metadata={metadata}>
-  <Hero actions={[{ variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() }]}>
-    <Fragment slot="title">
-      Code for
-      <span class="text-primary dark:text-white">Human</span>
-    </Fragment>
+  <section class="relative overflow-hidden bg-[#05070f]">
+    <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/20 blur-3xl"></div>
+    <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 pt-14 pb-10 md:pt-20 md:pb-14">
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
+        <div class="space-y-6">
+          <p class="inline-flex items-center rounded-full border border-[#f6b648]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#f6b648]">
+            Code for Human
+          </p>
+          <h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+            Vincent Bourdon
+            <span class="block text-[#f6b648]">Développeur & Architecte</span>
+          </h1>
+          <p class="max-w-2xl text-base text-slate-300 sm:text-lg">
+            Code, architecture, outils, IA et bidouilles high-tech : retour d’expérience d’un dev qui aime comprendre,
+            construire et partager.
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button href={getBlogPermalink()} variant="primary">Lire les articles</Button>
+            <Button href={getPermalink('/tags')} variant="secondary">Explorer les tags</Button>
+          </div>
+        </div>
+        <div class="relative rounded-2xl border border-white/10 bg-[#080d1b] p-6 shadow-[0_0_0_1px_rgba(246,182,72,0.1),0_24px_60px_rgba(0,0,0,0.45)]">
+          <div class="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top,_rgba(246,182,72,0.22),_transparent_55%)]"></div>
+          <div class="relative">
+            <p class="text-xs font-medium uppercase tracking-[0.24em] text-[#f6b648]">Identity</p>
+            <p class="mt-3 text-2xl font-semibold text-white">Build for humans. Ship like an engineer.</p>
+            <p class="mt-3 text-sm text-slate-300">
+              Sécurité, performance, DX et pédagogie pour transformer les idées en produits robustes.
+            </p>
+            <div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
+              <a class="rounded-lg border border-white/10 bg-white/5 px-3 py-3 text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={getBlogPermalink()}>
+                Articles
+              </a>
+              <a class="rounded-lg border border-white/10 bg-white/5 px-3 py-3 text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={getPermalink('/about')}>
+                À propos
+              </a>
+              <a class="rounded-lg border border-white/10 bg-white/5 px-3 py-3 text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={getAsset('/rss.xml')}>
+                RSS
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <Fragment slot="subtitle">
-      Code, architecture, outils, IA et bidouilles high-tech : retour d’expérience d’un dev qui aime comprendre,
-      construire et partager.
-    </Fragment>
-  </Hero>
+      {
+        featuredPost && (
+          <section class="mt-12 rounded-2xl border border-white/10 bg-[#070b16] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.4)] md:p-8">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#f6b648]">Article mis en avant</p>
+            <article class="mt-4 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div class="overflow-hidden rounded-xl border border-white/10 bg-black/20">
+                {featuredImage && (
+                  <a href={getPermalink(featuredPost.permalink, 'post')}>
+                    <Image
+                      src={featuredImage}
+                      class="h-full w-full object-cover"
+                      widths={[500, 1000]}
+                      width={1000}
+                      height={563}
+                      sizes="(max-width: 1024px) 500px, 1000px"
+                      alt={featuredPost.title}
+                      format="webp"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </a>
+                )}
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-white sm:text-3xl">
+                  <a href={getPermalink(featuredPost.permalink, 'post')} class="transition hover:text-[#f6b648]">
+                    {featuredPost.title}
+                  </a>
+                </h2>
+                <p class="mt-3 text-sm text-slate-300">{featuredPost.excerpt}</p>
+                <p class="mt-4 text-xs text-slate-400">
+                  {getFormattedDate(featuredPost.publishDate)}
+                  {featuredPost.category && (
+                    <>
+                      {' '}·{' '}
+                      <a href={getPermalink(featuredPost.category.slug, 'category')} class="hover:text-[#f6b648]">
+                        {featuredPost.category.title}
+                      </a>
+                    </>
+                  )}
+                </p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {featuredPost.tags?.slice(0, 4).map((tag) => (
+                    <a
+                      href={getPermalink(tag.slug, 'tag')}
+                      class="rounded-full border border-[#f6b648]/50 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#f6b648] transition hover:bg-[#f6b648] hover:text-black"
+                    >
+                      #{tag.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </article>
+          </section>
+        )
+      }
+    </div>
+  </section>
 
-  <BlogLatestPosts
-    title="Derniers articles"
-    linkText="Voir toutes les archives"
-    count={8}
-    classes={{ container: 'pt-4 md:pt-6 pb-8 md:pb-10' }}
-  />
+  <section class="bg-[#04060d] pb-14 md:pb-16">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="flex items-end justify-between gap-4 py-8 md:py-10">
+        <div>
+          <h2 class="text-2xl font-bold text-white md:text-3xl">Derniers articles</h2>
+          <p class="mt-2 text-sm text-slate-300">Retours d’expérience, sécurité, architecture et IA appliquée.</p>
+        </div>
+        <a href={getBlogPermalink()} class="text-sm font-medium text-[#f6b648] hover:underline">
+          Voir toutes les archives
+        </a>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {cardsWithImages.map(({ post, image }) => (
+          <article class="overflow-hidden rounded-xl border border-white/10 bg-[#0a1020] transition hover:-translate-y-0.5 hover:border-[#f6b648]/70">
+            {image && (
+              <a href={getPermalink(post.permalink, 'post')} class="block">
+                <Image
+                  src={image}
+                  class="h-48 w-full object-cover"
+                  widths={[450, 900]}
+                  width={900}
+                  height={506}
+                  sizes="(max-width: 1024px) 450px, 900px"
+                  alt={post.title}
+                  format="webp"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            )}
+            <div class="space-y-3 p-5">
+              <p class="text-xs text-slate-400">
+                {getFormattedDate(post.publishDate)}
+                {post.category && (
+                  <>
+                    {' '}·{' '}
+                    <a href={getPermalink(post.category.slug, 'category')} class="hover:text-[#f6b648]">
+                      {post.category.title}
+                    </a>
+                  </>
+                )}
+              </p>
+              <h3 class="text-xl font-semibold text-white">
+                <a href={getPermalink(post.permalink, 'post')} class="transition hover:text-[#f6b648]">{post.title}</a>
+              </h3>
+              <p class="text-sm text-slate-300">{post.excerpt}</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                {post.tags?.slice(0, 3).map((tag) => (
+                  <a
+                    href={getPermalink(tag.slug, 'tag')}
+                    class="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+                  >
+                    #{tag.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
 
-  <section class="pb-10 md:pb-12 -mt-2 md:-mt-4">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 flex justify-center">
-      <Button href={getPermalink('/tags')} variant="secondary">Tous les tags</Button>
+      <div class="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <section class="rounded-xl border border-white/10 bg-[#0a1020] p-5">
+          <h3 class="text-lg font-semibold text-white">Tags populaires</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {topTags.map((tag) => (
+              <a
+                href={getPermalink(tag.slug, 'tag')}
+                class="rounded-full border border-[#f6b648]/45 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#f6b648] transition hover:bg-[#f6b648] hover:text-black"
+              >
+                #{tag.title} <span class="text-[11px] opacity-80">({tag.count})</span>
+              </a>
+            ))}
+          </div>
+        </section>
+        <section class="rounded-xl border border-white/10 bg-[#0a1020] p-5">
+          <h3 class="text-lg font-semibold text-white">À propos</h3>
+          <p class="mt-3 text-sm text-slate-300">
+            {siteData.name}, {siteData.role}. {siteData.bio}
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <a class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={siteData.github} target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={siteData.twitter} target="_blank" rel="noopener noreferrer">
+              X
+            </a>
+            <a class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={`mailto:${siteData.email}`}>
+              Contact
+            </a>
+            <a class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]" href={getAsset('/rss.xml')}>
+              RSS
+            </a>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 </Layout>
