@@ -20,48 +20,25 @@ const metadata = {
 <Layout metadata={metadata}>
   <Hero
     actions={[{ variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() }]}
-    image={{ src: siteData.image, alt: siteData.name }}
+   
   >
     <Fragment slot="title">
-      {siteData.name}
-      <span class="text-accent dark:text-white">— Code for Human</span>
+      Code for 
+      <span class="text-accent dark:text-white">Human</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Blog personnel autour du code, du web, de .NET, des outils et de quelques parenthèses high-tech.
-    </Fragment>
+Code, architecture, outils, IA et bidouilles high-tech : retour d’expérience d’un dev qui aime comprendre, construire et partager.
+      </Fragment>
+      
   </Hero>
 
-  <Stats
-    stats={[
-      { title: 'Articles', amount: String(contentSummary.postCount) },
-      { title: 'Tags', amount: String(contentSummary.tagCount) },
-    ]}
-  />
-
   <BlogLatestPosts
-    title="Derniers billets"
+    title="Derniers articles"
     linkText="Voir toutes les archives"
-    information="Tous les contenus historiques du blog ont été conservés et remis en valeur dans une interface Astro + Tailwind basée sur AstroWind."
-    count={6}
+    count={8}
   />
 
-  <Features2
-    title="Explorer le blog"
-    subtitle="Les routes historiques importantes restent disponibles, avec en plus une navigation plus claire."
-    items={[
-      {
-        title: 'Archives',
-        description: 'Retrouvez la liste complète des billets dans la page Articles.',
-        icon: 'tabler:archive',
-      },
-      {
-        title: 'Tags',
-        description: 'Parcourez tous les sujets référencés dans les billets.',
-        icon: 'tabler:tags',
-      },
-    ]}
-  >
     <Fragment slot="after">
       <div class="mt-8 flex flex-wrap gap-3 justify-center">
         <Button href={getPermalink('/tags')} variant="secondary">Tous les tags</Button>
