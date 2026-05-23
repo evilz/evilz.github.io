@@ -32,11 +32,15 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline subtitle="L’ensemble des billets migrés depuis le blog historique, sans perte de contenu.">
-      Les articles
-    </Headline>
-    <BlogList posts={page.data} />
-    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+  <section class="px-4 sm:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
+    <div
+      class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
+    >
+      <Headline subtitle="L’ensemble des billets migrés depuis le blog historique, sans perte de contenu.">
+        Les articles
+      </Headline>
+      <BlogList posts={page.data} />
+      <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    </div>
   </section>
 </Layout>

@@ -20,10 +20,10 @@ const relatedPosts = post.tags ? await getRelatedPosts(post, 4) : [];
     <BlogHighlightedPosts
       classes={{
         container:
-          'pt-0 lg:pt-0 md:pt-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+          'pt-4 lg:pt-4 md:pt-4 max-w-6xl mx-auto px-4 sm:px-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
       }}
-      title="Related Posts"
-      linkText="View All Posts"
+      title="Articles liés"
+      linkText="Voir tous les articles"
       linkUrl={getBlogPermalink()}
       postIds={relatedPosts.map((post) => post.id)}
     />

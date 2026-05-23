@@ -31,11 +31,15 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 md:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline subtitle={detail?.description || 'Catégorie conservée depuis le blog précédent.'}
-      >{category.title}</Headline
+  <section class="px-4 md:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
+    <div
+      class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
     >
-    <BlogList posts={page.data} />
-    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+      <Headline subtitle={detail?.description || 'Catégorie conservée depuis le blog précédent.'}
+        >{category.title}</Headline
+      >
+      <BlogList posts={page.data} />
+      <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    </div>
   </section>
 </Layout>

@@ -10,25 +10,29 @@ export interface Props {
   nextText?: string;
 }
 
-const { prevUrl, nextUrl, prevText = 'Newer posts', nextText = 'Older posts' } = Astro.props;
+const { prevUrl, nextUrl, prevText = 'Articles plus récents', nextText = 'Articles plus anciens' } = Astro.props;
 ---
 
 {
   (prevUrl || nextUrl) && (
-    <div class="container flex">
-      <div class="flex flex-row mx-auto container justify-between">
+    <div class="mt-8">
+      <div class="flex flex-row mx-auto max-w-6xl justify-between gap-3">
         <Button
           variant="tertiary"
-          class={`md:px-3 px-3 mr-2 ${!prevUrl ? 'invisible' : ''}`}
+          class={`!rounded-xl !border !border-slate-200 !bg-white/90 !px-4 !py-2.5 !text-slate-700 hover:!border-primary hover:!text-primary dark:!border-white/15 dark:!bg-[#0b1222] dark:!text-slate-200 dark:hover:!border-[#f6b648] dark:hover:!text-[#f6b648] ${!prevUrl ? 'invisible' : ''}`}
           href={getPermalink(prevUrl)}
         >
-          <Icon name="tabler:chevron-left" class="w-6 h-6" />
+          <Icon name="tabler:chevron-left" class="w-5 h-5" />
           <p class="ml-2">{prevText}</p>
         </Button>
 
-        <Button variant="tertiary" class={`md:px-3 px-3 ${!nextUrl ? 'invisible' : ''}`} href={getPermalink(nextUrl)}>
+        <Button
+          variant="tertiary"
+          class={`!rounded-xl !border !border-slate-200 !bg-white/90 !px-4 !py-2.5 !text-slate-700 hover:!border-primary hover:!text-primary dark:!border-white/15 dark:!bg-[#0b1222] dark:!text-slate-200 dark:hover:!border-[#f6b648] dark:hover:!text-[#f6b648] ${!nextUrl ? 'invisible' : ''}`}
+          href={getPermalink(nextUrl)}
+        >
           <span class="mr-2">{nextText}</span>
-          <Icon name="tabler:chevron-right" class="w-6 h-6" />
+          <Icon name="tabler:chevron-right" class="w-5 h-5" />
         </Button>
       </div>
     </div>
