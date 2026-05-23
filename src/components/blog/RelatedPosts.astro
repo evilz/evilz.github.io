@@ -19,7 +19,8 @@ const relatedPosts = post.tags ? await getRelatedPosts(post, 4) : [];
   APP_BLOG.isRelatedPostsEnabled ? (
     <BlogHighlightedPosts
       classes={{
-        container: 'pt-4 lg:pt-4 md:pt-4 max-w-6xl mx-auto px-4 sm:px-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+        container:
+          'pt-4 lg:pt-4 md:pt-4 max-w-6xl mx-auto px-4 sm:px-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
       }}
       title="Articles liés"
       linkText="Voir tous les articles"

@@ -22,8 +22,11 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <section class="px-4 sm:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
-    <div class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]">
-      <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline>
+    <div
+      class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
+    >
+      <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline
+      >
       <div class="flex flex-wrap gap-2.5 mb-10">
         {
           tags.map(([slug, taggedPosts]) => (
@@ -42,7 +45,10 @@ const metadata = {
           tags.map(([slug, taggedPosts]) => {
             const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
             return (
-              <section id={slug} class="scroll-mt-24 rounded-xl border border-slate-200 bg-white/80 p-4 md:p-6 dark:border-white/10 dark:bg-[#0f172b]">
+              <section
+                id={slug}
+                class="scroll-mt-24 rounded-xl border border-slate-200 bg-white/80 p-4 md:p-6 dark:border-white/10 dark:bg-[#0f172b]"
+              >
                 <h2 class="text-2xl font-bold font-heading mb-4 text-slate-900 dark:text-slate-100">#{title}</h2>
                 <ul class="space-y-3">
                   {taggedPosts.map((post) => (

@@ -56,18 +56,21 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
   </div>
 
   <div class="p-4">
-  <h3 class="text-xl font-bold leading-tight mb-2 font-heading text-slate-900 dark:text-slate-100">
-    {
-      link ? (
-        <a class="inline-block transition ease-in duration-200 hover:text-primary dark:hover:text-[#f6b648]" href={link}>
-          {post.title}
-        </a>
-      ) : (
-        post.title
-      )
-    }
-  </h3>
+    <h3 class="text-xl font-bold leading-tight mb-2 font-heading text-slate-900 dark:text-slate-100">
+      {
+        link ? (
+          <a
+            class="inline-block transition ease-in duration-200 hover:text-primary dark:hover:text-[#f6b648]"
+            href={link}
+          >
+            {post.title}
+          </a>
+        ) : (
+          post.title
+        )
+      }
+    </h3>
 
-  <p class="text-slate-600 dark:text-slate-300 text-sm">{post.excerpt}</p>
+    <p class="text-slate-600 dark:text-slate-300 text-sm">{post.excerpt}</p>
   </div>
 </article>

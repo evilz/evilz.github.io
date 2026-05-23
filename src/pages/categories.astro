@@ -18,7 +18,9 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <section class="px-4 sm:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
-    <div class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]">
+    <div
+      class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
+    >
       <Headline
         subtitle="Les catégories historiques du blog sont conservées, avec leur description d’origine lorsque disponible."
         >Catégories</Headline
@@ -32,7 +34,9 @@ const metadata = {
             >
               <div class="flex items-center justify-between gap-4">
                 <h2 class="text-xl font-bold font-heading text-slate-900 dark:text-slate-100">{category.title}</h2>
-                <span class="text-sm text-slate-500 dark:text-slate-400">{counts.get(category.slug) || 0} article(s)</span>
+                <span class="text-sm text-slate-500 dark:text-slate-400">
+                  {counts.get(category.slug) || 0} article(s)
+                </span>
               </div>
               <p class="mt-3 text-slate-600 dark:text-slate-300">
                 {category.description || 'Catégorie conservée depuis le blog précédent.'}

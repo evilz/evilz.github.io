@@ -22,7 +22,9 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
 
 <section class="px-4 sm:px-6 py-8 sm:py-12 lg:py-16 mx-auto max-w-6xl">
   <article>
-    <header class="rounded-2xl border border-slate-200 bg-white/90 p-5 sm:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_18px_40px_rgba(0,0,0,0.35)]">
+    <header
+      class="rounded-2xl border border-slate-200 bg-white/90 p-5 sm:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
+    >
       <div class="flex justify-between flex-col sm:flex-row max-w-4xl mx-auto mt-0 mb-3 sm:items-center">
         <p class="text-sm text-slate-600 dark:text-slate-300">
           <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
@@ -30,7 +32,8 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
           {
             displayAuthor && (
               <>
-                {' '}· <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
+                {' '}
+                · <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
                 <span class="inline-block">{displayAuthor}</span>
               </>
             )
@@ -40,7 +43,10 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
               <>
                 {' '}
                 ·{' '}
-                <a class="inline-block hover:text-primary dark:hover:text-[#f6b648]" href={getPermalink(post.category.slug, 'category')}>
+                <a
+                  class="inline-block hover:text-primary dark:hover:text-[#f6b648]"
+                  href={getPermalink(post.category.slug, 'category')}
+                >
                   {post.category.title}
                 </a>
               </>
@@ -56,7 +62,9 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
         </p>
       </div>
 
-      <h1 class="max-w-4xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-slate-900 dark:text-slate-100">
+      <h1
+        class="max-w-4xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-slate-900 dark:text-slate-100"
+      >
         {post.title}
       </h1>
       <p class="max-w-4xl mx-auto mt-4 mb-8 text-lg md:text-xl text-slate-700 dark:text-slate-300 text-justify">
