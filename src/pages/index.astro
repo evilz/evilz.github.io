@@ -1,0 +1,86 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { getBlogPermalink, getPermalink } from '~/utils/permalinks';
+import { contentSummary } from '~/data/contentSummary';
+import { siteData } from '~/data/siteData';
+
+const metadata = {
+  title: 'Evilz blog',
+  ignoreTitleTemplate: true,
+  description: 'Code for Human',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    actions={[
+      { variant: 'primary', text: 'Lire les articles', href: getBlogPermalink() },
+      { text: 'À propos', href: getPermalink('/about') },
+    ]}
+    image={{ src: siteData.image, alt: siteData.name }}
+  >
+    <Fragment slot="title">
+      {siteData.name}
+      <span class="text-accent dark:text-white">— Code for Human</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Blog personnel autour du code, du web, de .NET, des outils et de quelques parenthèses high-tech.
+    </Fragment>
+  </Hero>
+
+  <Stats
+    stats={[
+      { title: 'Articles', amount: String(contentSummary.postCount) },
+      { title: 'Tags', amount: String(contentSummary.tagCount) },
+      { title: 'Catégories', amount: String(contentSummary.categoryCount) },
+    ]}
+  />
+
+  <BlogLatestPosts
+    title="Derniers billets"
+    linkText="Voir toutes les archives"
+    information="Tous les contenus historiques du blog ont été conservés et remis en valeur dans une interface Astro + Tailwind basée sur AstroWind."
+    count={6}
+  />
+
+  <Features2
+    title="Explorer le blog"
+    subtitle="Les routes historiques importantes restent disponibles, avec en plus une navigation plus claire."
+    items={[
+      {
+        title: 'Archives',
+        description: 'Retrouvez la liste complète des billets dans la page Articles.',
+        icon: 'tabler:archive',
+      },
+      {
+        title: 'Tags',
+        description: 'Parcourez tous les sujets référencés dans les billets.',
+        icon: 'tabler:tags',
+      },
+      {
+        title: 'Catégories',
+        description: 'Accédez aux catégories historiques conservées depuis le blog d’origine.',
+        icon: 'tabler:category',
+      },
+      {
+        title: 'À propos',
+        description: 'Le profil et les textes existants restent disponibles sans perte de contenu.',
+        icon: 'tabler:user-circle',
+      },
+    ]}
+  >
+    <Fragment slot="after">
+      <div class="mt-8 flex flex-wrap gap-3 justify-center">
+        <Button href={getPermalink('/tags')} variant="secondary">Tous les tags</Button>
+        <Button href={getPermalink('/categories')} variant="secondary">Toutes les catégories</Button>
+      </div>
+    </Fragment>
+  </Features2>
+</Layout>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="55%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="180" fill="#ffffff" fill-opacity="0.08"/>
+  <circle cx="180" cy="590" r="220" fill="#ffffff" fill-opacity="0.05"/>
+  <text x="90" y="120" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="white">Code for Human</text>
+  <text x="90" y="300" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="white">Evilz blog</text>
+  <text x="90" y="380" font-family="Inter, Arial, sans-serif" font-size="34" fill="#dbeafe">Astro + Tailwind, contenu conservé</text>
+  <text x="90" y="600" font-family="Inter, Arial, sans-serif" font-size="24" fill="#bfdbfe">https://www.evilznet.com</text>
+</svg>

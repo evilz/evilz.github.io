@@ -1,0 +1,13 @@
+---
+title: Namechk
+publishDate: '2009-04-15T10:45:00'
+excerpt: Je viens juste de d&eacute;couvrir ce service nomm&eacute; Namechk, cela permet de rapidement v&eacute;rifier si votre nom d'utilisateur est toujours disponible sur plus de 70 sites de r&eacute;seau social (facebook, lin
+image: /generated-covers/namechk.svg
+author: evilz
+tags:
+- Informatique
+- internet
+---
+<p>Je viens juste de d&eacute;couvrir ce service nomm&eacute; Namechk, cela permet de rapidement v&eacute;rifier si votre nom d'utilisateur est toujours disponible sur plus de 70 sites de r&eacute;seau social (facebook, linkedin, flickr ...)</p>
+<p style="text-align: center;"><a title="namechk.com de evilz, sur Flickr" href="http://www.flickr.com/photos/evilznet/3443582455/"><img src="https://farm4.static.flickr.com/3541/3443582455_db447a7b99.jpg" alt="namechk.com" width="475" height="500" /></a></p>
+<p>Allez tester sur <a href="http://namechk.com/">http://namechk.com/</a></p>

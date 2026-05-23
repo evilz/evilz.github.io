@@ -1,0 +1,14 @@
+---
+import { SITE } from 'astrowind:config';
+---
+
+<div class="flex items-center gap-3">
+  <span
+    class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-white/10 dark:text-white font-bold"
+  >
+    VB
+  </span>
+  <span class="self-center text-lg md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
+    {SITE?.name}
+  </span>
+</div>
