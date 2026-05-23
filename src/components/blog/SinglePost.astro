@@ -20,18 +20,17 @@ const { post, url } = Astro.props;
 const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
 ---
 
-<section class="py-8 sm:py-16 lg:py-20 mx-auto">
+<section class="px-4 sm:px-6 py-8 sm:py-12 lg:py-16 mx-auto max-w-6xl">
   <article>
-    <header>
-      <div class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center">
-        <p>
-          <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
+    <header class="rounded-2xl border border-slate-200 bg-white/90 p-5 sm:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_18px_40px_rgba(0,0,0,0.35)]">
+      <div class="flex justify-between flex-col sm:flex-row max-w-4xl mx-auto mt-0 mb-3 sm:items-center">
+        <p class="text-sm text-slate-600 dark:text-slate-300">
+          <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
           <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
           {
             displayAuthor && (
               <>
-                {' '}
-                · <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
+                {' '}· <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
                 <span class="inline-block">{displayAuthor}</span>
               </>
             )
@@ -41,7 +40,7 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
               <>
                 {' '}
                 ·{' '}
-                <a class="hover:underline inline-block" href={getPermalink(post.category.slug, 'category')}>
+                <a class="inline-block hover:text-primary dark:hover:text-[#f6b648]" href={getPermalink(post.category.slug, 'category')}>
                   {post.category.title}
                 </a>
               </>
@@ -57,14 +56,10 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
         </p>
       </div>
 
-      <h1
-        class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
-      >
+      <h1 class="max-w-4xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-slate-900 dark:text-slate-100">
         {post.title}
       </h1>
-      <p
-        class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify"
-      >
+      <p class="max-w-4xl mx-auto mt-4 mb-8 text-lg md:text-xl text-slate-700 dark:text-slate-300 text-justify">
         {post.excerpt}
       </p>
 
@@ -72,7 +67,7 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
         post.image ? (
           <Image
             src={post.image}
-            class="max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md bg-gray-400 dark:bg-slate-700"
+            class="max-w-full lg:max-w-[980px] mx-auto mb-2 rounded-xl border border-slate-200 bg-slate-200 dark:border-white/10 dark:bg-slate-800"
             widths={[400, 900]}
             sizes="(max-width: 900px) 400px, 900px"
             alt={post?.excerpt || ''}
@@ -83,20 +78,24 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
             decoding="async"
           />
         ) : (
-          <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="border-t dark:border-slate-700" />
+          <div class="max-w-4xl mx-auto">
+            <div class="border-t border-slate-200 dark:border-white/10" />
           </div>
         )
       }
     </header>
     <div
-      class="mx-auto px-6 sm:px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0"
+      class="mx-auto px-5 sm:px-8 py-7 max-w-4xl rounded-2xl border border-slate-200 bg-white/90 shadow-sm prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-200 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-[#f6b648] prose-img:rounded-xl prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0 dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
     >
       <slot />
     </div>
-    <div class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row">
+    <div class="mx-auto px-1 sm:px-1 max-w-4xl mt-8 flex justify-between gap-4 flex-col sm:flex-row">
       <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
-      <SocialShare url={url} text={post.title} class="mt-5 sm:mt-1 align-middle text-gray-500 dark:text-slate-600" />
+      <SocialShare
+        url={url}
+        text={post.title}
+        class="mt-2 sm:mt-1 align-middle text-slate-500 dark:text-slate-400 bg-transparent"
+      />
     </div>
   </article>
 </section>

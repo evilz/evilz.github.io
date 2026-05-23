@@ -21,44 +21,49 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-5xl">
-    <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline>
-    <div class="flex flex-wrap gap-3 mb-12">
-      {
-        tags.map(([slug, taggedPosts]) => (
-          <a
-            class="rounded-full border border-gray-200 dark:border-slate-700 px-4 py-2 hover:border-primary hover:text-primary"
-            href={`#${slug}`}
-          >
-            #{taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title}
-          </a>
-        ))
-      }
-    </div>
+  <section class="px-4 sm:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
+    <div class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]">
+      <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline>
+      <div class="flex flex-wrap gap-2.5 mb-10">
+        {
+          tags.map(([slug, taggedPosts]) => (
+            <a
+              class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-primary hover:text-primary dark:border-[#f6b648]/40 dark:bg-[#f6b648]/10 dark:text-[#f6b648] dark:hover:border-[#f6b648] dark:hover:bg-[#f6b648] dark:hover:text-slate-950"
+              href={`#${slug}`}
+            >
+              #{taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title}
+            </a>
+          ))
+        }
+      </div>
 
-    <div class="space-y-12">
-      {
-        tags.map(([slug, taggedPosts]) => {
-          const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
-          return (
-            <section id={slug} class="scroll-mt-24">
-              <h2 class="text-2xl font-bold font-heading mb-4">#{title}</h2>
-              <ul class="space-y-3">
-                {taggedPosts.map((post) => (
-                  <li class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-b border-gray-100 dark:border-slate-800 pb-3">
-                    <a class="hover:text-primary" href={getPermalink(post.permalink, 'post')}>
-                      {post.title}
-                    </a>
-                    <time class="text-sm text-muted dark:text-slate-400">
-                      {post.publishDate.toLocaleDateString('fr-FR')}
-                    </time>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          );
-        })
-      }
+      <div class="space-y-8">
+        {
+          tags.map(([slug, taggedPosts]) => {
+            const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
+            return (
+              <section id={slug} class="scroll-mt-24 rounded-xl border border-slate-200 bg-white/80 p-4 md:p-6 dark:border-white/10 dark:bg-[#0f172b]">
+                <h2 class="text-2xl font-bold font-heading mb-4 text-slate-900 dark:text-slate-100">#{title}</h2>
+                <ul class="space-y-3">
+                  {taggedPosts.map((post) => (
+                    <li class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 border-b border-slate-200 dark:border-white/10 pb-3">
+                      <a
+                        class="font-medium text-slate-800 transition hover:text-primary dark:text-slate-200 dark:hover:text-[#f6b648]"
+                        href={getPermalink(post.permalink, 'post')}
+                      >
+                        {post.title}
+                      </a>
+                      <time class="text-sm text-slate-500 dark:text-slate-400">
+                        {post.publishDate.toLocaleDateString('fr-FR')}
+                      </time>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })
+        }
+      </div>
     </div>
   </section>
 </Layout>

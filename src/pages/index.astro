@@ -61,8 +61,18 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
             construire et partager.
           </p>
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href={getBlogPermalink()} variant="primary">Lire les articles</Button>
-            <Button href={getPermalink('/tags')} variant="secondary">Explorer les tags</Button>
+            <Button
+              href={getBlogPermalink()}
+              variant="primary"
+              class="!rounded-xl !border-0 !bg-[#f6b648] !text-slate-950 hover:!bg-[#ffd277] dark:!bg-[#f6b648] dark:!text-slate-950"
+              >Lire les articles</Button
+            >
+            <Button
+              href={getPermalink('/tags')}
+              variant="secondary"
+              class="!rounded-xl !border !border-white/30 !bg-white/5 !text-white hover:!border-[#f6b648] hover:!text-[#f6b648] dark:!border-white/30 dark:!bg-white/5 dark:hover:!border-[#f6b648] dark:hover:!text-[#f6b648]"
+              >Explorer les tags</Button
+            >
           </div>
         </div>
         <div
