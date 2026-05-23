@@ -71,7 +71,9 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
         <div class="mb-2">
           <span class="text-sm text-slate-600 dark:text-slate-300">
             <Icon name="tabler:clock" class="w-3.5 h-3.5 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
-            <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
+            <time datetime={post.publishDate.toISOString()} class="inline-block"
+              >{getFormattedDate(post.publishDate)}</time
+            >
             {
               displayAuthor && (
                 <>
