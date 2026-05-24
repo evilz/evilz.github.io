@@ -21,10 +21,13 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 sm:px-6 py-10 sm:py-14 lg:py-16 mx-auto max-w-6xl">
+   <section class="relative overflow-hidden p-6 bg-[#05070f]">
     <div
-      class="rounded-2xl border border-slate-200 bg-white/90 p-5 md:p-8 shadow-sm dark:border-white/10 dark:bg-[#0b1222] dark:shadow-[0_20px_45px_rgba(0,0,0,0.35)]"
+      class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/20 blur-3xl"
     >
+    </div>
+    <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
+   
       <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline
       >
       <div class="flex flex-wrap gap-2.5 mb-10">
@@ -70,6 +73,5 @@ const metadata = {
           })
         }
       </div>
-    </div>
   </section>
 </Layout>
