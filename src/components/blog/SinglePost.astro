@@ -19,16 +19,13 @@ export interface Props {
 const { post, url } = Astro.props;
 const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
 ---
-  <section class="relative overflow-hidden p-6 bg-[#05070f]">
-    <div
-      class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2  bg-[#f6b648]/20 blur-3xl"
-    >
-    </div>
-    <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
-   
+
+<section class="relative overflow-hidden p-6 bg-[#05070f]">
+  <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 bg-[#f6b648]/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
+
   <article>
-    <header
-      class="p-5 sm:p-8 shadow-sm dark:border-white/10 " >
+    <header class="p-5 sm:p-8 shadow-sm dark:border-white/10">
       <div class="flex justify-between flex-col sm:flex-row max-w-4xl mx-auto mt-0 mb-3 sm:items-center">
         <p class="text-sm text-slate-600 dark:text-slate-300">
           <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 text-slate-500 dark:text-slate-400" />
@@ -99,11 +96,12 @@ const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
       }
     </header>
     <div
-      class="mx-auto px-5 sm:px-8 py-7 max-w-4xl   shadow-sm prose prose-md lg:prose-xl 
-      dark:prose-invert dark:prose-headings:text-slate-200 
-      prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter 
-      prose-headings:font-bold prose-a:text-primary dark:prose-a:text-[#f6b648] prose-img:rounded-xl 
-      prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0 ">
+      class="mx-auto px-5 sm:px-8 py-7 max-w-4xl shadow-sm prose prose-md lg:prose-xl
+      dark:prose-invert dark:prose-headings:text-slate-200
+      prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter
+      prose-headings:font-bold prose-a:text-primary dark:prose-a:text-[#f6b648] prose-img:rounded-xl
+      prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0"
+    >
       <slot />
     </div>
     <div class="mx-auto px-1 sm:px-1 max-w-4xl mt-8 flex justify-between gap-4 flex-col sm:flex-row">

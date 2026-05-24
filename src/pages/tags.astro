@@ -21,57 +21,56 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-   <section class="relative overflow-hidden p-6 bg-[#05070f]">
+  <section class="relative overflow-hidden p-6 bg-[#05070f]">
     <div
       class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/20 blur-3xl"
     >
     </div>
     <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
-   
-      <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline
-      >
-      <div class="flex flex-wrap gap-2.5 mb-10">
-        {
-          tags.map(([slug, taggedPosts]) => (
-            <a
-              class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-primary hover:text-primary dark:border-[#f6b648]/40 dark:bg-[#f6b648]/10 dark:text-[#f6b648] dark:hover:border-[#f6b648] dark:hover:bg-[#f6b648] dark:hover:text-slate-950"
-              href={`#${slug}`}
-            >
-              #{taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title}
-            </a>
-          ))
-        }
-      </div>
 
-      <div class="space-y-8">
-        {
-          tags.map(([slug, taggedPosts]) => {
-            const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
-            return (
-              <section
-                id={slug}
-                class="scroll-mt-24 rounded-xl border border-slate-200 bg-white/80 p-4 md:p-6 dark:border-white/10 dark:bg-[#0f172b]"
-              >
-                <h2 class="text-2xl font-bold font-heading mb-4 text-slate-900 dark:text-slate-100">#{title}</h2>
-                <ul class="space-y-3">
-                  {taggedPosts.map((post) => (
-                    <li class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 border-b border-slate-200 dark:border-white/10 pb-3">
-                      <a
-                        class="font-medium text-slate-800 transition hover:text-primary dark:text-slate-200 dark:hover:text-[#f6b648]"
-                        href={getPermalink(post.permalink, 'post')}
-                      >
-                        {post.title}
-                      </a>
-                      <time class="text-sm text-slate-500 dark:text-slate-400">
-                        {post.publishDate.toLocaleDateString('fr-FR')}
-                      </time>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            );
-          })
-        }
-      </div>
+    <Headline subtitle="Tous les tags historiques du blog, regroupés comme dans la version précédente.">Tags</Headline>
+    <div class="flex flex-wrap gap-2.5 mb-10">
+      {
+        tags.map(([slug, taggedPosts]) => (
+          <a
+            class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-primary hover:text-primary dark:border-[#f6b648]/40 dark:bg-[#f6b648]/10 dark:text-[#f6b648] dark:hover:border-[#f6b648] dark:hover:bg-[#f6b648] dark:hover:text-slate-950"
+            href={`#${slug}`}
+          >
+            #{taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="space-y-8">
+      {
+        tags.map(([slug, taggedPosts]) => {
+          const title = taggedPosts[0].tags?.find((tag) => tag.slug === slug)?.title || slug;
+          return (
+            <section
+              id={slug}
+              class="scroll-mt-24 rounded-xl border border-slate-200 bg-white/80 p-4 md:p-6 dark:border-white/10 dark:bg-[#0f172b]"
+            >
+              <h2 class="text-2xl font-bold font-heading mb-4 text-slate-900 dark:text-slate-100">#{title}</h2>
+              <ul class="space-y-3">
+                {taggedPosts.map((post) => (
+                  <li class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 border-b border-slate-200 dark:border-white/10 pb-3">
+                    <a
+                      class="font-medium text-slate-800 transition hover:text-primary dark:text-slate-200 dark:hover:text-[#f6b648]"
+                      href={getPermalink(post.permalink, 'post')}
+                    >
+                      {post.title}
+                    </a>
+                    <time class="text-sm text-slate-500 dark:text-slate-400">
+                      {post.publishDate.toLocaleDateString('fr-FR')}
+                    </time>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })
+      }
+    </div>
   </section>
 </Layout>

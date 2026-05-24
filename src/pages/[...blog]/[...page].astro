@@ -38,13 +38,11 @@ const metadata = {
     >
     </div>
     <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
-   
-    
-      <Headline subtitle="L’ensemble des billets migrés depuis le blog historique, sans perte de contenu.">
-        Les articles
-      </Headline>
-      <BlogList posts={page.data} />
-      <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
- 
+
+    <Headline subtitle="L’ensemble des billets migrés depuis le blog historique, sans perte de contenu.">
+      Les articles
+    </Headline>
+    <BlogList posts={page.data} />
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
   </section>
 </Layout>
