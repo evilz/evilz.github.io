@@ -22,6 +22,10 @@ Curated links originally kept in [`evilz/aspnet-stuff`](https://github.com/evilz
 - [Logging with .NET Core](https://msdn.microsoft.com/en-us/magazine/mt694089.aspx)
 - [serilog-sinks-elasticsearch](https://github.com/serilog/serilog-sinks-elasticsearch)
 
+## Diagnostics
+
+- [ASP.NET Core Diagnostic Scenarios](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios) - examples of broken patterns in ASP.NET Core applications.
+
 ## Test
 
 - [dotnet watch for test](http://www.hanselman.com/blog/UsingDotnetWatchTestForContinuousTestingWithNETCoreAndXUnitnet.aspx)

@@ -21,6 +21,10 @@ Curated links originally kept in [`evilz/Stuff`](https://github.com/evilz/Stuff)
 
 - [Workshopper](https://github.com/workshopper)
 
+## Books
+
+- [Free Programming Books](https://github.com/EbookFoundation/free-programming-books) - freely available programming books and learning resources.
+
 ## Build VS Code on ARM
 
 - [How to contribute to VS Code](https://github.com/Microsoft/vscode/wiki/How-to-Contribute#build-and-run-from-source)
