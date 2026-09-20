@@ -5,6 +5,7 @@ export const headerData = {
     { text: 'Accueil', href: getPermalink('/') },
     { text: 'Articles', href: getBlogPermalink() },
     { text: 'Tags', href: getPermalink('/tags') },
+    { text: 'Projets', href: getPermalink('/projects') },
   ],
   actions: [{ text: 'GitHub', href: 'https://github.com/evilz', target: '_blank', icon: 'tabler:brand-github' }],
 };
