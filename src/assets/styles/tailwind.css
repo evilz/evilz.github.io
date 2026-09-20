@@ -115,3 +115,408 @@
 .dd *:first-child {
   margin-top: 0;
 }
+
+:root {
+  --ac-radius-small: 4px;
+  --ac-radius-medium: 8px;
+  --ac-radius-large: 16px;
+  --ac-radius-xlarge: 24px;
+}
+
+body {
+  --aw-font-sans: 'Mona Sans', 'Inter Variable';
+  --aw-font-serif: 'Mona Sans', 'Inter Variable';
+  --aw-font-heading: 'Hubot Sans', 'Mona Sans', 'Inter Variable';
+  --aw-color-primary: #0055d5;
+  --aw-color-secondary: #0040a7;
+  --aw-color-accent: #0d6731;
+  --aw-color-text-heading: #000000;
+  --aw-color-text-default: #000000;
+  --aw-color-text-muted: #58635b;
+  --aw-color-bg-page: #ffffff;
+  --aw-color-bg-page-dark: #000000;
+
+  --ac-canvas-default: #ffffff;
+  --ac-canvas-inset: #f2f5f3;
+  --ac-canvas-subtle: #f2f5f3;
+  --ac-canvas-muted: #f9fbf9;
+  --ac-text-default: #000000;
+  --ac-text-muted: #58635b;
+  --ac-text-subtle: #58635b;
+  --ac-border-default: #b6bfb8;
+  --ac-border-muted: #e4ebe6;
+  --ac-border-subtle: #d2d9d4;
+  --ac-link: #0055d5;
+  --ac-link-pressed: #002f7a;
+  --ac-accent-primary: #0d6731;
+  --ac-accent-primary-strong: #08872b;
+  --ac-accent-secondary: #be7d00;
+  --ac-accent-secondary-soft: rgba(190, 125, 0, 0.12);
+  --ac-focus: #0377ff;
+  --ac-shadow-card: 0 1px 0 rgba(0, 0, 0, 0.04), 0 18px 40px rgba(25, 31, 27, 0.08);
+  --ac-shadow-card-hover: 0 1px 0 rgba(0, 0, 0, 0.06), 0 24px 54px rgba(25, 31, 27, 0.12);
+  --ac-shadow-panel: 0 1px 0 rgba(0, 0, 0, 0.04), 0 10px 32px rgba(25, 31, 27, 0.08);
+  --ac-shadow-dropdown: 0 20px 48px rgba(25, 31, 27, 0.12);
+
+  background:
+    radial-gradient(circle at top center, rgba(15, 191, 62, 0.08), transparent 26rem),
+    radial-gradient(circle at 100% 8%, rgba(190, 125, 0, 0.1), transparent 20rem),
+    var(--ac-canvas-default);
+  color: var(--ac-text-default);
+  font-family: 'Mona Sans', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.dark body {
+  --aw-color-primary: #a2daff;
+  --aw-color-secondary: #78bafe;
+  --aw-color-accent: #5fed83;
+  --aw-color-text-heading: #ffffff;
+  --aw-color-text-default: #ffffff;
+  --aw-color-text-muted: #d2d9d4;
+  --aw-color-bg-page: #000000;
+
+  --ac-canvas-default: #000000;
+  --ac-canvas-inset: #000000;
+  --ac-canvas-subtle: #0f1511;
+  --ac-canvas-muted: #090d0a;
+  --ac-text-default: #ffffff;
+  --ac-text-muted: #d2d9d4;
+  --ac-text-subtle: #a4aea6;
+  --ac-border-default: #353d37;
+  --ac-border-muted: #191f1b;
+  --ac-border-subtle: #262c28;
+  --ac-link: #a2daff;
+  --ac-link-pressed: #78bafe;
+  --ac-accent-primary: #5fed83;
+  --ac-accent-primary-strong: #23ea57;
+  --ac-accent-secondary: #db9d00;
+  --ac-accent-secondary-soft: rgba(219, 157, 0, 0.18);
+  --ac-focus: #3094ff;
+  --ac-shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04), 0 24px 56px rgba(0, 0, 0, 0.45);
+  --ac-shadow-card-hover: 0 1px 0 rgba(255, 255, 255, 0.06), 0 28px 72px rgba(0, 0, 0, 0.55);
+  --ac-shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 42px rgba(0, 0, 0, 0.45);
+  --ac-shadow-dropdown: 0 20px 52px rgba(0, 0, 0, 0.6);
+
+  background:
+    radial-gradient(circle at top center, rgba(35, 234, 87, 0.12), transparent 24rem),
+    radial-gradient(circle at 100% 8%, rgba(219, 157, 0, 0.18), transparent 18rem),
+    var(--ac-canvas-default);
+}
+
+::selection {
+  background: var(--ac-accent-secondary-soft);
+  color: var(--ac-text-default);
+}
+
+body,
+.bg-page,
+.bg-light,
+.bg-white,
+.bg-white\/90,
+.bg-white\/80 {
+  background-color: var(--ac-canvas-default);
+}
+
+.bg-gray-50,
+.bg-slate-100,
+.bg-slate-200 {
+  background-color: var(--ac-canvas-subtle);
+}
+
+.dark .dark\:bg-\[\#0b1222\],
+.dark .dark\:bg-\[\#0f172b\],
+.dark .dark\:bg-slate-800,
+.dark .dark\:bg-gray-700,
+.dark .dark\:bg-\[\#030621e6\] {
+  background-color: var(--ac-canvas-subtle);
+}
+
+.text-default,
+.text-page,
+.text-gray-900,
+.text-slate-900,
+.text-black,
+.dark .dark\:text-white,
+.dark .dark\:text-slate-100,
+.dark .dark\:text-slate-200,
+.dark .dark\:text-gray-200,
+.dark .dark\:text-gray-300 {
+  color: var(--ac-text-default);
+}
+
+.text-muted,
+.text-gray-700,
+.text-gray-600,
+.text-gray-500,
+.text-slate-700,
+.text-slate-600,
+.text-slate-500,
+.dark .dark\:text-slate-400,
+.dark .dark\:text-slate-300,
+.dark .dark\:text-gray-400 {
+  color: var(--ac-text-muted);
+}
+
+.border-gray-200,
+.border-gray-300,
+.border-slate-200,
+.border-slate-200\/70,
+.border-slate-200\/80,
+.dark .dark\:border-white\/10,
+.dark .dark\:border-slate-500,
+.dark .dark\:border-gray-500\/20 {
+  border-color: var(--ac-border-muted);
+}
+
+.rounded-lg {
+  border-radius: var(--ac-radius-medium);
+}
+
+.rounded-xl {
+  border-radius: var(--ac-radius-large);
+}
+
+.rounded-2xl {
+  border-radius: var(--ac-radius-xlarge);
+}
+
+.shadow-sm,
+.shadow-md {
+  box-shadow: var(--ac-shadow-card);
+}
+
+.drop-shadow-xl {
+  filter: drop-shadow(0 20px 48px rgba(25, 31, 27, 0.12));
+}
+
+.dark .drop-shadow-xl {
+  filter: drop-shadow(0 20px 52px rgba(0, 0, 0, 0.6));
+}
+
+body a {
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+body a:hover {
+  color: var(--ac-link-pressed);
+}
+
+.text-\[\#d4951a\],
+.hover\:text-\[\#d4951a\]:hover,
+.dark .dark\:text-\[\#f6b648\],
+.dark .dark\:hover\:text-\[\#f6b648\]:hover {
+  color: var(--ac-accent-secondary);
+}
+
+.bg-\[\#f6b648\]\/10,
+.dark .dark\:bg-\[\#f6b648\]\/10 {
+  background-color: var(--ac-accent-secondary-soft);
+}
+
+.border-\[\#d4951a\]\/60,
+.border-\[\#d4951a\]\/50,
+.border-\[\#d4951a\]\/45,
+.hover\:border-\[\#d4951a\]\/70:hover,
+.dark .dark\:border-\[\#f6b648\]\/40,
+.dark .dark\:hover\:border-\[\#f6b648\]:hover,
+.dark .dark\:hover\:border-\[\#f6b648\]\/60:hover {
+  border-color: var(--ac-accent-secondary);
+}
+
+.bg-\[\#6541ff\]\/10 {
+  background-color: rgba(0, 85, 213, 0.1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  color: var(--ac-text-default);
+  font-family: 'Hubot Sans', 'Mona Sans', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+}
+
+h1,
+.text-4xl.font-bold,
+.text-5xl.font-bold,
+.text-6xl.font-bold {
+  line-height: 1.05;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: 'Mona Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center border text-center text-base leading-snug transition px-6 py-3 md:px-8;
+  border-radius: 999px;
+  border-color: var(--ac-border-default);
+  background-color: transparent;
+  color: var(--ac-text-default);
+  box-shadow: none;
+}
+
+.btn:hover {
+  border-color: var(--ac-border-default);
+  background-color: var(--ac-canvas-subtle);
+  color: var(--ac-text-default);
+}
+
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ac-focus);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--ac-accent-primary);
+  background-color: var(--ac-accent-primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  border-color: var(--ac-accent-primary-strong);
+  background-color: var(--ac-accent-primary-strong);
+  color: #fff;
+}
+
+.btn-tertiary {
+  color: var(--ac-text-muted);
+}
+
+#header {
+  border-bottom-color: var(--ac-border-muted);
+  background: color-mix(in srgb, var(--ac-canvas-default) 92%, transparent);
+  backdrop-filter: blur(24px);
+}
+
+#header.scroll > div:first-child {
+  @apply bg-transparent;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.dark #header.scroll > div:first-child,
+#header.scroll.dark > div:first-child {
+  @apply bg-transparent border-b-0;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+#header nav a,
+#header nav button {
+  border-radius: 999px;
+  color: var(--ac-text-muted);
+}
+
+#header nav a:hover,
+#header nav button:hover,
+#header nav .aw-link-active,
+#header nav .text-\[\#d4951a\] {
+  background-color: var(--ac-canvas-subtle);
+  color: var(--ac-text-default);
+}
+
+#header.expanded nav {
+  top: 72px;
+  bottom: 82px !important;
+  margin: 0 12px;
+  border: 1px solid var(--ac-border-muted);
+  border-radius: var(--ac-radius-xlarge);
+  background: color-mix(in srgb, var(--ac-canvas-default) 97%, transparent);
+  box-shadow: var(--ac-shadow-dropdown);
+}
+
+.dropdown-menu {
+  border: 1px solid var(--ac-border-muted);
+  border-radius: var(--ac-radius-large);
+  background-color: color-mix(in srgb, var(--ac-canvas-default) 96%, transparent);
+  box-shadow: var(--ac-shadow-dropdown);
+}
+
+main section article,
+main .rounded-xl.border,
+main .rounded-2xl.border {
+  box-shadow: var(--ac-shadow-card);
+}
+
+main section article:hover {
+  box-shadow: var(--ac-shadow-card-hover);
+}
+
+footer {
+  border-top-color: var(--ac-border-muted);
+  background:
+    linear-gradient(180deg, rgba(242, 245, 243, 0.7) 0%, rgba(242, 245, 243, 0.96) 100%),
+    var(--ac-canvas-subtle);
+}
+
+.dark footer {
+  background:
+    linear-gradient(180deg, rgba(15, 21, 17, 0.72) 0%, rgba(15, 21, 17, 0.96) 100%),
+    var(--ac-canvas-subtle);
+}
+
+.prose,
+.prose-lg,
+.lg\:prose-xl {
+  color: var(--ac-text-muted);
+  max-width: 68ch;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6),
+.prose-lg :where(h1, h2, h3, h4, h5, h6),
+.lg\:prose-xl :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--ac-text-default);
+  font-family: 'Hubot Sans', 'Mona Sans', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.prose :where(a),
+.prose-lg :where(a),
+.lg\:prose-xl :where(a) {
+  color: var(--ac-link);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.prose :where(blockquote),
+.prose-lg :where(blockquote),
+.lg\:prose-xl :where(blockquote) {
+  border-left: 3px solid var(--ac-accent-secondary);
+  color: var(--ac-text-default);
+}
+
+.prose :where(pre),
+.prose-lg :where(pre),
+.lg\:prose-xl :where(pre),
+.prose :where(code),
+.prose-lg :where(code),
+.lg\:prose-xl :where(code) {
+  border-radius: var(--ac-radius-large);
+}
+
+.prose :where(pre),
+.prose-lg :where(pre),
+.lg\:prose-xl :where(pre) {
+  border: 1px solid var(--ac-border-muted);
+  background-color: var(--ac-canvas-subtle);
+  box-shadow: var(--ac-shadow-panel);
+}
+
+.prose :where(table),
+.prose-lg :where(table),
+.lg\:prose-xl :where(table) {
+  border-color: var(--ac-border-muted);
+}
