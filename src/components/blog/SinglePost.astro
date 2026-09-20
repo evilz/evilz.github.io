@@ -20,9 +20,9 @@ const { post, url } = Astro.props;
 const displayAuthor = post.author === 'evilz' ? siteData.name : post.author;
 ---
 
-<section class="relative overflow-hidden p-6 bg-[#05070f]">
-  <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 bg-[#f6b648]/20 blur-3xl"></div>
-  <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
+<section class="relative overflow-hidden p-6 bg-white">
+  <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 bg-[#f6b648]/10 blur-3xl"></div>
+  <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/10 blur-3xl"></div>
 
   <article>
     <header class="p-5 sm:p-8 shadow-sm dark:border-white/10">

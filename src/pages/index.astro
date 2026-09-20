@@ -38,25 +38,25 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
 ---
 
 <Layout metadata={metadata}>
-  <section class="relative overflow-hidden bg-[#05070f]">
+  <section class="relative overflow-hidden bg-white">
     <div
-      class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/20 blur-3xl"
+      class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/10 blur-3xl"
     >
     </div>
-    <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/20 blur-3xl"></div>
+    <div class="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-[#6541ff]/10 blur-3xl"></div>
     <div class="max-w-7xl mx-auto px-4 md:px-6 pt-14 pb-10 md:pt-20 md:pb-14">
       <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
         <div class="space-y-6">
           <p
-            class="inline-flex items-center rounded-full border border-[#f6b648]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#f6b648]"
+            class="inline-flex items-center rounded-full border border-[#d4951a]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#d4951a]"
           >
             Code for Human
           </p>
-          <h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 class="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
             Vincent Bourdon
-            <span class="block text-[#f6b648]">Développeur & Architecte</span>
+            <span class="block text-[#d4951a]">Développeur & Architecte</span>
           </h1>
-          <p class="max-w-2xl text-base text-slate-300 sm:text-lg">
+          <p class="max-w-2xl text-base text-gray-600 sm:text-lg">
             Code, architecture, outils, IA et bidouilles high-tech : retour d’expérience d’un dev qui aime comprendre,
             construire et partager.
           </p>
@@ -64,40 +64,40 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
             <Button
               href={getBlogPermalink()}
               variant="primary"
-              class="!rounded-xl !border-0 !bg-[#f6b648] !text-slate-950 hover:!bg-[#ffd277] dark:!bg-[#f6b648] dark:!text-slate-950"
+              class="!rounded-xl !border-0 !bg-[#d4951a] !text-white hover:!bg-[#b8811a] dark:!bg-[#d4951a] dark:!text-white"
               >Lire les articles</Button
             >
             <Button
               href={getPermalink('/tags')}
               variant="secondary"
-              class="!rounded-xl !border !border-white/30 !bg-white/5 !text-white hover:!border-[#f6b648] hover:!text-[#f6b648] dark:!border-white/30 dark:!bg-white/5 dark:hover:!border-[#f6b648] dark:hover:!text-[#f6b648]"
+              class="!rounded-xl !border !border-gray-300 !bg-white !text-gray-700 hover:!border-[#d4951a] hover:!text-[#d4951a] dark:!border-gray-300 dark:!bg-white dark:hover:!border-[#d4951a] dark:hover:!text-[#d4951a]"
               >Explorer les tags</Button
             >
           </div>
         </div>
         <div
-          class="relative rounded-2xl border border-white/10 bg-[#080d1b] p-6 shadow-[0_0_0_1px_rgba(246,182,72,0.1),0_24px_60px_rgba(0,0,0,0.45)]"
+          class="relative rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-[0_0_0_1px_rgba(212,149,26,0.1),0_24px_60px_rgba(0,0,0,0.08)]"
         >
           <div
-            class="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top,_rgba(246,182,72,0.22),_transparent_55%)]"
+            class="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top,_rgba(246,182,72,0.08),_transparent_55%)]"
           >
           </div>
           <div class="relative">
-            <p class="text-xs font-medium uppercase tracking-[0.24em] text-[#f6b648]">Identity</p>
-            <p class="mt-3 text-2xl font-semibold text-white">Build for humans. Ship like an engineer.</p>
-            <p class="mt-3 text-sm text-slate-300">
+            <p class="text-xs font-medium uppercase tracking-[0.24em] text-[#d4951a]">Identity</p>
+            <p class="mt-3 text-2xl font-semibold text-gray-900">Build for humans. Ship like an engineer.</p>
+            <p class="mt-3 text-sm text-gray-600">
               Sécurité, performance, DX et pédagogie pour transformer les idées en produits robustes.
             </p>
             <div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs">
               <a
-                class="rounded-lg border border-white/10 bg-white/5 px-3 py-3 text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+                class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-gray-700 transition hover:border-[#d4951a]/70 hover:text-[#d4951a]"
                 href={getBlogPermalink()}
               >
                 Articles
               </a>
 
               <a
-                class="rounded-lg border border-white/10 bg-white/5 px-3 py-3 text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+                class="rounded-lg border border-gray-200 bg-white px-3 py-3 text-gray-700 transition hover:border-[#d4951a]/70 hover:text-[#d4951a]"
                 href={getAsset('/rss.xml')}
               >
                 RSS
@@ -109,10 +109,10 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
 
       {
         featuredPost && (
-          <section class="mt-12 rounded-2xl border border-white/10 bg-[#070b16] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.4)] md:p-8">
-            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#f6b648]">Article mis en avant</p>
+          <section class="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-5 shadow-[0_8px_25px_rgba(0,0,0,0.08)] md:p-8">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#d4951a]">Article mis en avant</p>
             <article class="mt-4 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-              <div class="overflow-hidden rounded-xl border border-white/10 bg-black/20">
+              <div class="overflow-hidden rounded-xl border border-gray-200 bg-white/80">
                 {featuredImage && (
                   <a href={getPermalink(featuredPost.permalink, 'post')}>
                     <Image
@@ -131,19 +131,19 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
                 )}
               </div>
               <div>
-                <h2 class="text-2xl font-bold text-white sm:text-3xl">
-                  <a href={getPermalink(featuredPost.permalink, 'post')} class="transition hover:text-[#f6b648]">
+                <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+                  <a href={getPermalink(featuredPost.permalink, 'post')} class="transition hover:text-[#d4951a]">
                     {featuredPost.title}
                   </a>
                 </h2>
-                <p class="mt-3 text-sm text-slate-300">{featuredPost.excerpt}</p>
-                <p class="mt-4 text-xs text-slate-400">
+                <p class="mt-3 text-sm text-gray-600">{featuredPost.excerpt}</p>
+                <p class="mt-4 text-xs text-gray-500">
                   {getFormattedDate(featuredPost.publishDate)}
                   {featuredPost.category && (
                     <>
                       {' '}
                       ·{' '}
-                      <a href={getPermalink(featuredPost.category.slug, 'category')} class="hover:text-[#f6b648]">
+                      <a href={getPermalink(featuredPost.category.slug, 'category')} class="hover:text-[#d4951a]">
                         {featuredPost.category.title}
                       </a>
                     </>
@@ -153,7 +153,7 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
                   {featuredPost.tags?.slice(0, 4).map((tag) => (
                     <a
                       href={getPermalink(tag.slug, 'tag')}
-                      class="rounded-full border border-[#f6b648]/50 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#f6b648] transition hover:bg-[#f6b648] hover:text-black"
+                      class="rounded-full border border-[#d4951a]/50 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#d4951a] transition hover:bg-[#d4951a] hover:text-white"
                     >
                       #{tag.title}
                     </a>
@@ -167,21 +167,21 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
     </div>
   </section>
 
-  <section class="bg-[#04060d] pb-14 md:pb-16">
+  <section class="bg-gray-50 pb-14 md:pb-16">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="flex items-end justify-between gap-4 py-8 md:py-10">
         <div>
-          <h2 class="text-2xl font-bold text-white md:text-3xl">Derniers articles</h2>
-          <p class="mt-2 text-sm text-slate-300">Retours d’expérience, sécurité, architecture et IA appliquée.</p>
+          <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">Derniers articles</h2>
+          <p class="mt-2 text-sm text-gray-600">Retours d'expérience, sécurité, architecture et IA appliquée.</p>
         </div>
-        <a href={getBlogPermalink()} class="text-sm font-medium text-[#f6b648] hover:underline">
+        <a href={getBlogPermalink()} class="text-sm font-medium text-[#d4951a] hover:underline">
           Voir toutes les archives
         </a>
       </div>
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           cardsWithImages.map(({ post, image }) => (
-            <article class="overflow-hidden rounded-xl border border-white/10 bg-[#0a1020] transition hover:-translate-y-0.5 hover:border-[#f6b648]/70">
+            <article class="overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:-translate-y-0.5 hover:border-[#d4951a]/70 hover:shadow-md">
               {image && (
                 <a href={getPermalink(post.permalink, 'post')} class="block">
                   <Image
@@ -199,29 +199,29 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
                 </a>
               )}
               <div class="space-y-3 p-5">
-                <p class="text-xs text-slate-400">
+                <p class="text-xs text-gray-500">
                   {getFormattedDate(post.publishDate)}
                   {post.category && (
                     <>
                       {' '}
                       ·{' '}
-                      <a href={getPermalink(post.category.slug, 'category')} class="hover:text-[#f6b648]">
+                      <a href={getPermalink(post.category.slug, 'category')} class="hover:text-[#d4951a]">
                         {post.category.title}
                       </a>
                     </>
                   )}
                 </p>
-                <h3 class="text-xl font-semibold text-white">
-                  <a href={getPermalink(post.permalink, 'post')} class="transition hover:text-[#f6b648]">
+                <h3 class="text-xl font-semibold text-gray-900">
+                  <a href={getPermalink(post.permalink, 'post')} class="transition hover:text-[#d4951a]">
                     {post.title}
                   </a>
                 </h3>
-                <p class="text-sm text-slate-300">{post.excerpt}</p>
+                <p class="text-sm text-gray-600">{post.excerpt}</p>
                 <div class="flex flex-wrap gap-2 pt-1">
                   {post.tags?.slice(0, 3).map((tag) => (
                     <a
                       href={getPermalink(tag.slug, 'tag')}
-                      class="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-slate-200 transition hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+                      class="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-600 transition hover:border-[#d4951a]/70 hover:text-[#d4951a]"
                     >
                       #{tag.title}
                     </a>
@@ -234,14 +234,14 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <section class="rounded-xl border border-white/10 bg-[#0a1020] p-5">
-          <h3 class="text-lg font-semibold text-white">Tags populaires</h3>
+        <section class="rounded-xl border border-gray-200 bg-white p-5">
+          <h3 class="text-lg font-semibold text-gray-900">Tags populaires</h3>
           <div class="mt-4 flex flex-wrap gap-2">
             {
               topTags.map((tag) => (
                 <a
                   href={getPermalink(tag.slug, 'tag')}
-                  class="rounded-full border border-[#f6b648]/45 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#f6b648] transition hover:bg-[#f6b648] hover:text-black"
+                  class="rounded-full border border-[#d4951a]/45 bg-[#f6b648]/10 px-3 py-1 text-xs font-medium text-[#d4951a] transition hover:bg-[#d4951a] hover:text-white"
                 >
                   #{tag.title} <span class="text-[11px] opacity-80">({tag.count})</span>
                 </a>
@@ -249,14 +249,14 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
             }
           </div>
         </section>
-        <section class="rounded-xl border border-white/10 bg-[#0a1020] p-5">
-          <h3 class="text-lg font-semibold text-white">À propos</h3>
-          <p class="mt-3 text-sm text-slate-300">
+        <section class="rounded-xl border border-gray-200 bg-white p-5">
+          <h3 class="text-lg font-semibold text-gray-900">À propos</h3>
+          <p class="mt-3 text-sm text-gray-600">
             {siteData.name}, {siteData.role}. {siteData.bio}
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <a
-              class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+              class="rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:border-[#d4951a]/70 hover:text-[#d4951a]"
               href={siteData.github}
               target="_blank"
               rel="noopener noreferrer"
@@ -264,7 +264,7 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
               GitHub
             </a>
             <a
-              class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+              class="rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:border-[#d4951a]/70 hover:text-[#d4951a]"
               href={siteData.twitter}
               target="_blank"
               rel="noopener noreferrer"
@@ -272,13 +272,13 @@ const topTags = [...tagCounts.values()].sort((a, b) => b.count - a.count).slice(
               X
             </a>
             <a
-              class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+              class="rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:border-[#d4951a]/70 hover:text-[#d4951a]"
               href={`mailto:${siteData.email}`}
             >
               Contact
             </a>
             <a
-              class="rounded-md border border-white/20 px-3 py-1.5 text-xs text-slate-200 hover:border-[#f6b648]/70 hover:text-[#f6b648]"
+              class="rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:border-[#d4951a]/70 hover:text-[#d4951a]"
               href={getAsset('/rss.xml')}
             >
               RSS

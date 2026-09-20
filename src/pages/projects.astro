@@ -1,0 +1,95 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Projets',
+  description: 'Projets open source de Vincent Bourdon disponibles sur GitHub avec documentation en ligne.',
+};
+
+const projects = [
+  {
+    name: 'vscode-reveal',
+    description: 'Extension VS Code pour créer et afficher des présentations Reveal.js directement dans l\'éditeur.',
+    url: 'https://evilz.github.io/vscode-reveal/',
+    github: 'https://github.com/evilz/vscode-reveal',
+    tags: ['VS Code', 'Reveal.js', 'Présentations', 'JavaScript'],
+    stars: 472,
+  },
+  {
+    name: 'TermBlade',
+    description: 'Bibliothèque d\'interface utilisateur en ligne de commande (terminal UI) pour .NET 10, basée sur les cellules.',
+    url: 'https://evilz.github.io/TermBlade/',
+    github: 'https://github.com/evilz/TermBlade',
+    tags: ['C#', '.NET', 'CLI', 'Terminal'],
+    stars: 0,
+  },
+  {
+    name: 'fable-ant-design',
+    description: 'Liaisons Ant Design pour Fable Elmish — composants UI React utilisables en F#.',
+    url: 'https://evilz.github.io/fable-ant-design/',
+    github: 'https://github.com/evilz/fable-ant-design',
+    tags: ['F#', 'Fable', 'Ant Design', 'Elmish'],
+    stars: 24,
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <section class="relative overflow-hidden bg-white">
+    <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/10 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 pt-14 pb-16 md:pt-20">
+      <div class="mb-10">
+        <p class="inline-flex items-center rounded-full border border-[#d4951a]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#d4951a] mb-4">
+          Open Source
+        </p>
+        <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">Projets</h1>
+        <p class="mt-4 max-w-2xl text-base text-gray-600 sm:text-lg">
+          Projets open source avec documentation en ligne, disponibles sur GitHub.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((project) => (
+            <article class="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#d4951a]/70 hover:shadow-md">
+              <div class="flex items-start justify-between gap-3">
+                <h2 class="text-xl font-semibold text-gray-900">{project.name}</h2>
+                {project.stars > 0 && (
+                  <span class="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-500 whitespace-nowrap">
+                    ★ {project.stars}
+                  </span>
+                )}
+              </div>
+              <p class="mt-3 flex-1 text-sm text-gray-600">{project.description}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span class="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-600">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div class="mt-5 flex gap-3">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 rounded-lg bg-[#d4951a] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#b8811a]"
+                >
+                  Documentation
+                </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-[#d4951a]/70 hover:text-[#d4951a]"
+                >
+                  GitHub
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
