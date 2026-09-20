@@ -6,32 +6,49 @@ const metadata = {
   description: 'Projets open source de Vincent Bourdon disponibles sur GitHub avec documentation en ligne.',
 };
 
-const projects = [
+const projectDefs = [
   {
     name: 'vscode-reveal',
-    description: 'Extension VS Code pour créer et afficher des présentations Reveal.js directement dans l\'éditeur.',
+    description: "Extension VS Code pour créer et afficher des présentations Reveal.js directement dans l'éditeur.",
     url: 'https://evilz.github.io/vscode-reveal/',
     github: 'https://github.com/evilz/vscode-reveal',
+    repo: 'evilz/vscode-reveal',
     tags: ['VS Code', 'Reveal.js', 'Présentations', 'JavaScript'],
-    stars: 472,
   },
   {
     name: 'TermBlade',
-    description: 'Bibliothèque d\'interface utilisateur en ligne de commande (terminal UI) pour .NET 10, basée sur les cellules.',
+    description: "Bibliothèque d'interface utilisateur en ligne de commande (terminal UI) pour .NET 10, basée sur les cellules.",
     url: 'https://evilz.github.io/TermBlade/',
     github: 'https://github.com/evilz/TermBlade',
+    repo: 'evilz/TermBlade',
     tags: ['C#', '.NET', 'CLI', 'Terminal'],
-    stars: 0,
   },
   {
     name: 'fable-ant-design',
     description: 'Liaisons Ant Design pour Fable Elmish — composants UI React utilisables en F#.',
     url: 'https://evilz.github.io/fable-ant-design/',
     github: 'https://github.com/evilz/fable-ant-design',
+    repo: 'evilz/fable-ant-design',
     tags: ['F#', 'Fable', 'Ant Design', 'Elmish'],
-    stars: 24,
   },
 ];
+
+async function fetchStars(repo: string): Promise<number> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}`, {
+      headers: { Accept: 'application/vnd.github+json' },
+    });
+    if (!res.ok) return 0;
+    const data = (await res.json()) as { stargazers_count?: number };
+    return data.stargazers_count ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
+const projects = await Promise.all(
+  projectDefs.map(async (p) => ({ ...p, stars: await fetchStars(p.repo) }))
+);
 ---
 
 <Layout metadata={metadata}>
