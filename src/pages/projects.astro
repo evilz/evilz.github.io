@@ -17,7 +17,8 @@ const projectDefs = [
   },
   {
     name: 'TermBlade',
-    description: "Bibliothèque d'interface utilisateur en ligne de commande (terminal UI) pour .NET 10, basée sur les cellules.",
+    description:
+      "Bibliothèque d'interface utilisateur en ligne de commande (terminal UI) pour .NET 10, basée sur les cellules.",
     url: 'https://evilz.github.io/TermBlade/',
     github: 'https://github.com/evilz/TermBlade',
     repo: 'evilz/TermBlade',
@@ -46,17 +47,20 @@ async function fetchStars(repo: string): Promise<number> {
   }
 }
 
-const projects = await Promise.all(
-  projectDefs.map(async (p) => ({ ...p, stars: await fetchStars(p.repo) }))
-);
+const projects = await Promise.all(projectDefs.map(async (p) => ({ ...p, stars: await fetchStars(p.repo) })));
 ---
 
 <Layout metadata={metadata}>
   <section class="relative overflow-hidden bg-white">
-    <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/10 blur-3xl"></div>
+    <div
+      class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#f6b648]/10 blur-3xl"
+    >
+    </div>
     <div class="max-w-7xl mx-auto px-4 md:px-6 pt-14 pb-16 md:pt-20">
       <div class="mb-10">
-        <p class="inline-flex items-center rounded-full border border-[#d4951a]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#d4951a] mb-4">
+        <p
+          class="inline-flex items-center rounded-full border border-[#d4951a]/60 bg-[#f6b648]/10 px-4 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#d4951a] mb-4"
+        >
           Open Source
         </p>
         <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">Projets</h1>
