@@ -160,8 +160,7 @@ body {
 
   background:
     radial-gradient(circle at top center, rgba(15, 191, 62, 0.08), transparent 26rem),
-    radial-gradient(circle at 100% 8%, rgba(190, 125, 0, 0.1), transparent 20rem),
-    var(--ac-canvas-default);
+    radial-gradient(circle at 100% 8%, rgba(190, 125, 0, 0.1), transparent 20rem), var(--ac-canvas-default);
   color: var(--ac-text-default);
   font-family: 'Mona Sans', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   line-height: 1.6;
@@ -200,8 +199,7 @@ body {
 
   background:
     radial-gradient(circle at top center, rgba(35, 234, 87, 0.12), transparent 24rem),
-    radial-gradient(circle at 100% 8%, rgba(219, 157, 0, 0.18), transparent 18rem),
-    var(--ac-canvas-default);
+    radial-gradient(circle at 100% 8%, rgba(219, 157, 0, 0.18), transparent 18rem), var(--ac-canvas-default);
 }
 
 ::selection {
@@ -458,14 +456,11 @@ main section article:hover {
 footer {
   border-top-color: var(--ac-border-muted);
   background:
-    linear-gradient(180deg, rgba(242, 245, 243, 0.7) 0%, rgba(242, 245, 243, 0.96) 100%),
-    var(--ac-canvas-subtle);
+    linear-gradient(180deg, rgba(242, 245, 243, 0.7) 0%, rgba(242, 245, 243, 0.96) 100%), var(--ac-canvas-subtle);
 }
 
 .dark footer {
-  background:
-    linear-gradient(180deg, rgba(15, 21, 17, 0.72) 0%, rgba(15, 21, 17, 0.96) 100%),
-    var(--ac-canvas-subtle);
+  background: linear-gradient(180deg, rgba(15, 21, 17, 0.72) 0%, rgba(15, 21, 17, 0.96) 100%), var(--ac-canvas-subtle);
 }
 
 .prose,
